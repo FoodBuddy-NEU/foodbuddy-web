@@ -1,37 +1,155 @@
 [
-{
-"id": "pasta-palace",
-"name": "Pasta Palace",
-"priceRange": "$$",
-"rating": 4.5,
-"distance": 1.2,
-"foodTypes": ["Italian", "Pasta"],
-"tags": ["family-friendly", "romantic"],
-"deals": [
-{
-"id": "deal-1",
-"title": "20% off dinner Tue–Thu",
-"description": "Save on all entrees from 5–8pm.",
-"validFrom": "2025-09-01",
-"validTo": "2025-12-31"
-}
-],
-"menus": [
-{
-"id": "menu-dinner",
-"title": "Dinner",
-"items": [
-{ "id": "m1", "name": "Spaghetti Carbonara", "price": 16.5 },
-{ "id": "m2", "name": "Penne Arrabbiata", "price": 14.0 }
-]
-}
-],
-"reviews": [
-{
-"userName": "Chris",
-"rating": 5,
-"comment": "Great sauces and friendly staff!"
-}
-]
-}
+  {
+    "id": "pasta-palace",
+    "name": "Pasta Palace",
+    "priceRange": "$$",
+    "rating": 4.5,
+    "distance": 1.2,
+    "foodTypes": ["Italian", "Pasta"],
+    "tags": ["family-friendly", "romantic"],
+    "deals": [
+      {
+        "id": "deal-1",
+        "title": "20% off dinner Tue–Thu",
+        "description": "Save on all entrees from 5–8pm.",
+        "validFrom": "2025-09-01",
+        "validTo": "2025-12-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-dinner",
+        "title": "Dinner",
+        "items": [
+          { "id": "m1", "name": "Spaghetti Carbonara", "price": 16.5 },
+          { "id": "m2", "name": "Penne Arrabbiata", "price": 14.0 }
+        ]
+      }
+    ],
+    "reviews": [
+      { "userName": "Chris", "rating": 5, "comment": "Great sauces and friendly staff!" }
+    ]
+  },
+  {
+    "id": "sushi-sakura",
+    "name": "Sushi Sakura",
+    "priceRange": "$$$",
+    "rating": 4.8,
+    "distance": 0.9,
+    "foodTypes": ["Japanese", "Sushi"],
+    "tags": ["fine-dining", "romantic"],
+    "deals": [
+      {
+        "id": "deal-2",
+        "title": "10% off lunch specials",
+        "description": "Weekday only, 11am–3pm.",
+        "validFrom": "2025-08-01",
+        "validTo": "2025-12-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-main",
+        "title": "Main Menu",
+        "items": [
+          { "id": "m1", "name": "Dragon Roll", "price": 18.0 },
+          { "id": "m2", "name": "Sashimi Combo", "price": 22.5 }
+        ]
+      }
+    ],
+    "reviews": [
+      { "userName": "Mika", "rating": 5, "comment": "Authentic taste, beautiful plating!" }
+    ]
+  },
+  {
+    "id": "burger-barn",
+    "name": "Burger Barn",
+    "priceRange": "$",
+    "rating": 4.1,
+    "distance": 2.4,
+    "foodTypes": ["American", "Fast Food"],
+    "tags": ["casual", "family-friendly"],
+    "deals": [
+      {
+        "id": "deal-3",
+        "title": "Buy 1 Get 1 Free Burger Mondays",
+        "validFrom": "2025-09-01",
+        "validTo": "2025-11-30"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-burgers",
+        "title": "Burgers",
+        "items": [
+          { "id": "m1", "name": "Classic Cheeseburger", "price": 9.5 },
+          { "id": "m2", "name": "BBQ Bacon Burger", "price": 11.0 }
+        ]
+      }
+    ],
+    "reviews": [
+      { "userName": "Jake", "rating": 4, "comment": "Great value for the price." }
+    ]
+  },
+  {
+    "id": "taco-twist",
+    "name": "Taco Twist",
+    "priceRange": "$$",
+    "rating": 4.3,
+    "distance": 1.7,
+    "foodTypes": ["Mexican", "Street Food"],
+    "tags": ["casual", "spicy"],
+    "deals": [
+      {
+        "id": "deal-4",
+        "title": "Free chips with any combo",
+        "description": "All day every Friday.",
+        "validFrom": "2025-10-01",
+        "validTo": "2025-12-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-tacos",
+        "title": "Tacos",
+        "items": [
+          { "id": "m1", "name": "Carne Asada Taco", "price": 4.0 },
+          { "id": "m2", "name": "Fish Taco", "price": 4.5 }
+        ]
+      }
+    ],
+    "reviews": [
+      { "userName": "Sofia", "rating": 5, "comment": "The fish tacos are amazing!" }
+    ]
+  },
+  {
+    "id": "veggie-vibe",
+    "name": "Veggie Vibe",
+    "priceRange": "$$",
+    "rating": 4.6,
+    "distance": 3.1,
+    "foodTypes": ["Vegan", "Healthy"],
+    "tags": ["eco-friendly", "organic"],
+    "deals": [
+      {
+        "id": "deal-5",
+        "title": "15% off smoothies on Wednesdays",
+        "validFrom": "2025-09-15",
+        "validTo": "2025-12-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-lunch",
+        "title": "Lunch Menu",
+        "items": [
+          { "id": "m1", "name": "Quinoa Bowl", "price": 13.0 },
+          { "id": "m2", "name": "Avocado Toast", "price": 9.0 }
+        ]
+      }
+    ],
+    "reviews": [
+      { "userName": "Liam", "rating": 4, "comment": "Fresh ingredients, love the vibe." }
+    ]
+  }
 ]
