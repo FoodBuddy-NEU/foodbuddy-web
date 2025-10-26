@@ -20,24 +20,38 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
       <h1 className="text-2xl font-bold">{restaurant.name}</h1>
       <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{summary}</p>
 
+      {/* Deals */}
       <h2 className="mt-6 text-lg font-semibold">Deals</h2>
       <div className="mt-2 space-y-3">
         {restaurant.deals?.length ? (
           restaurant.deals.map((d) => {
-            const valid = (d.validFrom || d.validTo) && `${d.validFrom ? ` ${d.validFrom}` : ""}${d.validFrom && d.validTo ? " – " : d.validTo ? " until " : ""}${d.validTo ?? ""}`;
+            const deal = d as any; // Allow optional fields from JSON
+            const valid =
+              (deal.validFrom || deal.validTo) &&
+              `${deal.validFrom ? ` ${deal.validFrom}` : ""}${
+                deal.validFrom && deal.validTo ? " – " : deal.validTo ? " until " : ""
+              }${deal.validTo ?? ""}`;
+
             return (
-              <div key={d.id} className="rounded-xl border p-4 bg-white dark:bg-neutral-900">
-                <div className="font-medium">{d.title}</div>
-                {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
-                {valid ? <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div> : null}
+              <div key={deal.id} className="rounded-xl border p-4 bg-white dark:bg-neutral-900">
+                <div className="font-medium">{deal.title}</div>
+                {typeof deal.description === "string" && deal.description ? (
+                  <div className="mt-1 text-sm">{deal.description}</div>
+                ) : null}
+                {valid ? (
+                  <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div>
+                ) : null}
               </div>
             );
           })
         ) : (
-          <div className="text-sm text-neutral-600 dark:text-neutral-400">There is no deal avaliable at the moment</div>
+          <div className="text-sm text-neutral-600 dark:text-neutral-400">
+            There is no deal avaliable at the moment
+          </div>
         )}
       </div>
 
+      {/* Menus */}
       <h2 className="mt-8 text-lg font-semibold">Menu</h2>
       <div className="mt-2 space-y-6">
         {restaurant.menus?.map((m) => (
@@ -55,6 +69,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
         ))}
       </div>
 
+      {/* Reviews */}
       <h2 className="mt-8 text-lg font-semibold">Reviews</h2>
       <div className="mt-2 space-y-3">
         {restaurant.reviews?.length ? (

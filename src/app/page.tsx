@@ -18,8 +18,10 @@ function priceBucket(p?: string) {
 function extractBestDiscountPercent(r: Restaurant) {
   const texts: string[] = [];
   r.deals?.forEach((d) => {
-    if (d.title) texts.push(d.title);
-    if (d.description) texts.push(d.description);
+    // Some deals don't have `description`, so narrow dynamically
+    const deal = d as any;
+    if (deal.title) texts.push(String(deal.title));
+    if (typeof deal.description === "string") texts.push(deal.description);
   });
   const re = /(\d{1,2})(?=\s*%)/g;
   let max = 0;
