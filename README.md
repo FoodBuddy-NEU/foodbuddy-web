@@ -124,7 +124,18 @@ Following feedback during Sprint 1:
 
 ## 📸 Screenshots
 
-*(Add screenshots or demo GIFs here once deployed)*  
+### 🏠 Home Page
+![Home Page Screenshot](./images/1.jpg)
+![Home Page Screenshot](./images/2.jpg)
+![Home Page Screenshot](./images/3.jpg)
+![Home Page Screenshot](./images/4.jpg)
+![Home Page Screenshot](./images/5.jpg)
+
+### 🍽️ Restaurant Detail Page
+![Restaurant Detail Screenshot](./images/6.jpg)
+
+### 💬 Deal Page
+![Deal Page Screenshot](./images/7.jpg)
 
 ---
 ## 📸 Live Demo
