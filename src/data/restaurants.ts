@@ -3,9 +3,11 @@ import type { Restaurant } from "@/types/restaurant";
 export const restaurants: Restaurant[] = [
   {
     id: "r1",
-    name: "Solo Noodles",
-    priceRange: "$",
-    rating: 4.4,
+    name: "84 Viet",
+    address: "84 Beacon St, Boston, MA 02108",
+    phone: "(617) 555-0184",
+    priceRange: "$$",
+    rating: 3.9,
     foodTypes: ["Chinese"],
     tags: ["solo-friendly", "healthy"],
     deals: [
@@ -40,6 +42,8 @@ export const restaurants: Restaurant[] = [
   {
     id: "r2",
     name: "Red Garden",
+    address: "123 Newbury St, Boston, MA 02116",
+    phone: "(617) 555-0123",
     priceRange: "$$",
     rating: 4.4,
     foodTypes: ["Vegetarian"],
@@ -59,6 +63,8 @@ export const restaurants: Restaurant[] = [
   {
     id: "r3",
     name: "Green Garden",
+    address: "456 Commonwealth Ave, Boston, MA 02215",
+    phone: "(617) 555-0456",
     priceRange: "$$",
     rating: 4.2,
     foodTypes: ["Vegetarian"],
@@ -78,6 +84,8 @@ export const restaurants: Restaurant[] = [
   {
     id: "r4",
     name: "Sushi World",
+    address: "789 Boylston St, Boston, MA 02199",
+    phone: "(617) 555-0789",
     priceRange: "$$$",
     rating: 4.8,
     foodTypes: ["Japanese"],
@@ -97,6 +105,8 @@ export const restaurants: Restaurant[] = [
   {
     id: "r5",
     name: "Pasta Palace",
+    address: "321 Huntington Ave, Boston, MA 02115",
+    phone: "(617) 555-0321",
     priceRange: "$$",
     rating: 4.0,
     foodTypes: ["Italian"],
@@ -116,6 +126,8 @@ export const restaurants: Restaurant[] = [
   {
     id: "r6",
     name: "Taco Town",
+    address: "987 Mass Ave, Boston, MA 02118",
+    phone: "(617) 555-0987",
     priceRange: "$",
     rating: 4.5,
     foodTypes: ["Mexican"],
@@ -135,6 +147,8 @@ export const restaurants: Restaurant[] = [
   {
     id: "r7",
     name: "Cafe Breeze",
+    address: "654 Tremont St, Boston, MA 02118",
+    phone: "(617) 555-0654",
     priceRange: "$",
     rating: 4.1,
     foodTypes: ["Cafe"],

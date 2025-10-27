@@ -27,6 +27,8 @@ export type Review = {
 export type Restaurant = {
   id: string;
   name: string;
+  address: string;
+  phone: string;
   priceRange: "$" | "$$" | "$$$";
   rating: number;
   foodTypes: string[];
