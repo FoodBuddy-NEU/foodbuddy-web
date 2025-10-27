@@ -5,8 +5,14 @@ type Restaurant = typeof data[number];
 
 type Props = { restaurant: Restaurant };
 
+function formatDistance(d?: number) {
+  if (typeof d !== "number" || Number.isNaN(d)) return null;
+  return `${d.toFixed(1)} mi`;
+}
+
 export default function RestaurantCard({ restaurant }: Props) {
   const primaryDeal = restaurant.deals?.[0]?.title ?? "No discount";
+  const distance = formatDistance((restaurant as any).distance);
 
   return (
     <Link href={`/restaurants/${restaurant.id}`} className="block">
@@ -16,12 +22,13 @@ export default function RestaurantCard({ restaurant }: Props) {
           {restaurant.name}
         </div>
 
-        {/* Address (new) */}
-        {restaurant.address ? (
+        {/* Distance (new-first) + Address */}
+        {(distance || restaurant.address) && (
           <div className="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
-            {restaurant.address}
+            {distance ? <span className="mr-2">{distance}</span> : null}
+            {restaurant.address ? <span>{restaurant.address}</span> : null}
           </div>
-        ) : null}
+        )}
 
         {/* Meta line */}
         <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
