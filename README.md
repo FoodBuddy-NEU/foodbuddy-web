@@ -125,17 +125,17 @@ Following feedback during Sprint 1:
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![Home Page Screenshot](./images/1.jpg)
-![Home Page Screenshot](./images/2.jpg)
-![Home Page Screenshot](./images/3.jpg)
-![Home Page Screenshot](./images/4.jpg)
-![Home Page Screenshot](./images/5.jpg)
+![Home Page Screenshot](./Images/1.jpg)
+![Home Page Screenshot](./Images/2.jpg)
+![Home Page Screenshot](./Images/3.jpg)
+![Home Page Screenshot](./Images/4.jpg)
+![Home Page Screenshot](./Images/5.jpg)
 
 ### 🍽️ Restaurant Detail Page
-![Restaurant Detail Screenshot](./images/6.jpg)
+![Restaurant Detail Screenshot](./Images/6.jpg)
 
 ### 💬 Deal Page
-![Deal Page Screenshot](./images/7.jpg)
+![Deal Page Screenshot](./Images/7.jpg)
 
 ---
 ## 📸 Live Demo
