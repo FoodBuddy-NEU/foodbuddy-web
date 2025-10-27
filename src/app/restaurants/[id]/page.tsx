@@ -48,15 +48,17 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
               }${deal.validTo ?? ""}`;
 
             return (
-              <div key={deal.id} className="rounded-xl border p-4 bg-white dark:bg-neutral-900">
-                <div className="font-medium">{deal.title}</div>
-                {typeof deal.description === "string" && deal.description ? (
-                  <div className="mt-1 text-sm">{deal.description}</div>
-                ) : null}
-                {valid ? (
-                  <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div>
-                ) : null}
-              </div>
+              <Link key={deal.id} href={`/restaurants/${restaurant.id}/deals/${deal.id}`} className="block">
+                <div className="rounded-xl border p-4 bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition">
+                  <div className="font-medium">{deal.title}</div>
+                  {typeof deal.description === "string" && deal.description ? (
+                    <div className="mt-1 text-sm">{deal.description}</div>
+                  ) : null}
+                  {valid ? (
+                    <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div>
+                  ) : null}
+                </div>
+              </Link>
             );
           })
         ) : (
