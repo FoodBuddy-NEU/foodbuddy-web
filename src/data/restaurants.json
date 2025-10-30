@@ -398,93 +398,72 @@
   ]
 },
 {
-  "id": "namaste-madras-indian-cuisine",
-  "name": "Namaste Madras Indian Cuisine",
-  "address": "2323 Shattuck Ave, Berkeley, CA 94704",
-  "phone": "(510) 898-1291",
+  "id": "cals-fried-chicken-burgers",
+  "name": "Cal's Fried Chicken & Burgers",
+  "address": "2026 University Ave, Berkeley, CA 94704",
+  "phone": "(510) 381-2492",
   "priceRange": "$$",
-  "rating": 3.6,
-  "distance": 8.9,
-  "foodTypes": ["Indian"],
-  "tags": ["Vegetarian-Friendly", "solo-friendly"],
+  "rating": 4.6,
+  "distance": 8.6,
+  "foodTypes": ["American", "Fried Chicken", "Burgers", "Sandwiches"],
+  "tags": ["smash-burgers", "fried-chicken-sandwich", "house sauces", "student-friendly"],
   "deals": [
     {
       "id": "deal-1",
-      "title": "Paneer Masala or Chicken Tikka Masala for $13.95 (served with rice & naan bread)",
+      "title": "10% off all menu items",
       "validFrom": "2025-10-01",
       "validTo": "2026-01-31"
     }
   ],
   "menus": [
     {
-      "id": "menu-namaste",
+      "id": "menu-cals-main",
       "title": "Main Menu",
       "items": [
-        { "id": "m1", "name": "Onion / Potato / Hot Chili Pakora", "price": 7 },
-        { "id": "m2", "name": "Mixed Vegetable Pakora", "price": 8 },
-        { "id": "m3", "name": "Vegetable / Lamb Samosa", "price": 7 },
-        { "id": "m4", "name": "Chicken Pakora", "price": 7 },
-        { "id": "m5", "name": "Chilli Chicken", "price": 9 },
-        { "id": "m6", "name": "Fresh Garden Salad", "price": 7 },
-        { "id": "m7", "name": "Sambar (Lentil Soup)", "price": 5 },
-        { "id": "m8", "name": "Rasam (Tamarind Soup)", "price": 5 },
-        { "id": "m9", "name": "Plain Dosa", "price": 10 },
-        { "id": "m10", "name": "Cheese Dosa", "price": 12 },
-        { "id": "m11", "name": "Masala Dosa", "price": 12 },
-        { "id": "m12", "name": "Rava Onion or Rava Masala Dosa", "price": 13 },
-        { "id": "m13", "name": "Egg Masala Dosa", "price": 13 },
-        { "id": "m14", "name": "Mysore Masala Dosa", "price": 12 },
-        { "id": "m15", "name": "Onion or Moong Masala Dosa", "price": 12 },
-        { "id": "m16", "name": "Onion & Tomato Uttapam", "price": 12 },
-        { "id": "m17", "name": "Upma Plate", "price": 11 },
-        { "id": "m18", "name": "Namaste Special Combo", "price": 14 },
-        { "id": "m19", "name": "Andhra Special Combo", "price": 14 },
-        { "id": "m20", "name": "Poori or Roti or Paratha", "price": 4 },
-        { "id": "m21", "name": "Aloo Paratha with Raita", "price": 7 },
-        { "id": "m22", "name": "Plain Rice", "price": 3 },
-        { "id": "m23", "name": "Naan Bread", "price": 3 },
-        { "id": "m24", "name": "Garlic Naan or Onion Naan", "price": 4 },
-        { "id": "m25", "name": "Chicken Naan", "price": 5 },
-        { "id": "m26", "name": "Vegetable Basmati Rice", "price": 6 },
-        { "id": "m27", "name": "Raita", "price": 5 },
-        { "id": "m28", "name": "Daal Curry", "price": 13 },
-        { "id": "m29", "name": "Aloo Gobi", "price": 13 },
-        { "id": "m30", "name": "Okra Masala", "price": 13 },
-        { "id": "m31", "name": "Mixed Vegetable Karahi", "price": 13 },
-        { "id": "m32", "name": "Navaratan Korma", "price": 14 },
-        { "id": "m33", "name": "Paneer Masala or Vegetable Masala", "price": 14 },
-        { "id": "m34", "name": "Bengan Bhartha", "price": 14 },
-        { "id": "m35", "name": "Shahi Paneer or Malai Kofta", "price": 19 },
-        { "id": "m36", "name": "Aloo Saag or Saag Paneer", "price": 19 },
-        { "id": "m37", "name": "Mutter Paneer or Palak Mutter Paneer", "price": 19 },
-        { "id": "m38", "name": "Namaste Chicken Curry", "price": 18 },
-        { "id": "m39", "name": "Namaste Tikka Masala", "price": 18 },
-        { "id": "m40", "name": "Chef’s Special Koorna", "price": 18 },
-        { "id": "m41", "name": "Mild Butter Sauce", "price": 18 },
-        { "id": "m42", "name": "Boneless Chicken Curry", "price": 15 },
-        { "id": "m43", "name": "Chicken Tikka Breast", "price": 19 },
-        { "id": "m44", "name": "Tandoori Chicken (Half)", "price": 15 },
-        { "id": "m45", "name": "Tikka Kabab (Chicken Breast Pieces)", "price": 15 },
-        { "id": "m46", "name": "Tandoori Shrimp", "price": 16 },
-        { "id": "m47", "name": "Vegetable Biryani", "price": 13 },
-        { "id": "m48", "name": "Chicken Biryani", "price": 14 },
-        { "id": "m49", "name": "Shrimp or Lamb Biryani", "price": 15 }
+        { "id": "m1",  "name": "Spicy Chicken Sandwich",          "price": 16.99 },
+        { "id": "m2",  "name": "Chicken Slider",                   "price": 12.49 },
+        { "id": "m3",  "name": "Mac N’ Chicken",                   "price": 12.49 },
+        { "id": "m4",  "name": "Chicken Strips",                   "price": 18.99 },
+        { "id": "m5",  "name": "Fried Chicken Wrap",               "price": 15.99 },
+
+        { "id": "m6",  "name": "Single Smash",                     "price": 12.99 },
+        { "id": "m7",  "name": "Double Smash",                     "price": 15.49 },
+        { "id": "m8",  "name": "Beef Slider",                      "price": 10.99 },
+        { "id": "m9",  "name": "4x4 (Four Patties)",               "price": 19.99 },
+        { "id": "m10", "name": "Cal’s Burger (bacon & fried egg)", "price": 19.99 },
+
+        { "id": "m11", "name": "Wings (6 pc)",                     "price": 9.99 },
+        { "id": "m12", "name": "Wings (12 pc)",                    "price": 17.99 },
+        { "id": "m13", "name": "Seasoned Fries",                   "price": 6.49 },
+        { "id": "m14", "name": "Sweet Potato Fries",               "price": 7.49 },
+        { "id": "m15", "name": "Onion Rings",                      "price": 7.49 },
+        { "id": "m16", "name": "Mac N’ Cheese (8 oz)",             "price": 6.49 },
+        { "id": "m17", "name": "Sweet Corn Fritters",              "price": 9.99 },
+
+        { "id": "m18", "name": "Classic Chopped Cheese",           "price": 15.99 },
+        { "id": "m19", "name": "Loaded Fries (beef, onions, sauce)","price": 15.99 },
+        { "id": "m20", "name": "Shrimp Po’ Boy (served with fries)","price": 17.49 },
+
+        { "id": "m21", "name": "Shake — Oreo Cookie",              "price": 6.79 },
+        { "id": "m22", "name": "Shake — Chocolate",                 "price": 6.29 },
+        { "id": "m23", "name": "Shake — Strawberry",                "price": 6.29 },
+        { "id": "m24", "name": "Shake — Vanilla",                   "price": 6.29 },
+
+        { "id": "m25", "name": "Add Pepper Jack Cheese",           "price": 1.00 },
+        { "id": "m26", "name": "Add Extra Chicken Breast",          "price": 3.29 },
+        { "id": "m27", "name": "Sub Gluten-Free Bun",               "price": 1.00 },
+        { "id": "m28", "name": "Sub Onion Rings (side)",            "price": 1.00 },
+        { "id": "m29", "name": "Sub Sweet Potato Fries (side)",     "price": 1.00 },
+        { "id": "m30", "name": "Dipping Sauce (each)",              "price": 0.35, "notes": "Habanero, Buttermilk Ranch, Sweet Heat, House Sauce, Honey Mustard" }
       ]
     }
   ],
   "reviews": [
-    {
-      "userName": "Jamie B.",
-      "rating": 4,
-      "comment": "Came here during a rainy day — loved the open ceiling and quiet vibe. The lentil wafers with chutneys were great, and the chicken tikka masala and lamb saag were flavorful and filling. Naan was tasty and soft, service a bit slow but not terrible. Would return for the lunch buffet."
-    },
-    {
-      "userName": "Kenny E.",
-      "rating": 2,
-      "comment": "They keep bringing my chai tea with tea spilling all over the coaster. The tikka masala cream tasted old and gritty, and one chicken piece had a weird cleaner taste. For $16, I can do better elsewhere."
-    }
+    { "userName": "Katie L.", "rating": 5, "comment": "Great food and the fries are kickin’! Portions are plentiful, dine-in or takeout both great. Never disappointed—staff are awesome." },
+    { "userName": "Sherry Z.", "rating": 5, "comment": "My favorite classic fried chicken sandwich in the Richmond/Berkeley/Oakland area—well seasoned with plenty of flavor. Fries have gotten much more consistent; coleslaw leans peppery. Highly recommend trying at least once!" }
   ]
-},
+}
+,
 {
   "id": "masa-ramen-bistro",
   "name": "Masa Ramen Bistro",
