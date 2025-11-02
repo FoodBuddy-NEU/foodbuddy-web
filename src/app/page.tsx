@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
 import data from "@/data/restaurants.json";
 
@@ -103,6 +104,19 @@ export default function RestaurantsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
+      {/* Logo and heading */}
+      <div className="flex flex-col items-center mb-8">
+        <Image
+          src="/logo.png"
+          alt="FoodBuddy Logo"
+          width={120}
+          height={120}
+          priority
+          className="mb-4"
+        />
+        <p className="text-lg font-semibold text-center">Find restaurants near NEU-Oak</p>
+      </div>
+
       <h1 className="text-2xl font-bold mb-4">Find restaurants</h1>
 
       <div className="mb-4 flex gap-2">
