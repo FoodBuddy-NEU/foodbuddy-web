@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import data from "@/data/restaurants.json";
 import cloudinary from "@/lib/cloudinary";
-import { restaurantImages } from "@/data/restaurant-images";
 
 function formatDistance(d?: number) {
   if (typeof d !== "number" || Number.isNaN(d)) return null;

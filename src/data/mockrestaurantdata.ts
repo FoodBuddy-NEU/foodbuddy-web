@@ -1,14 +1,13 @@
-import type { Restaurant } from "@/types/restaurant";
+import type { Restaurant } from "@/types/restauranttype";
 
 export const restaurants: Restaurant[] = [
   {
     id: "r1",
-    name: "Solo Noodles",
-    address: "237 Massachusetts Ave, Boston, MA 02115",
-    phone: "(617) 555-0237",
-    distance: 0.3,
-    priceRange: "$",
-    rating: 4.4,
+    name: "84 Viet",
+    address: "84 Beacon St, Boston, MA 02108",
+    phone: "(617) 555-0184",
+    priceRange: "$$",
+    rating: 3.9,
     foodTypes: ["Chinese"],
     tags: ["solo-friendly", "healthy"],
     deals: [
@@ -45,7 +44,6 @@ export const restaurants: Restaurant[] = [
     name: "Red Garden",
     address: "123 Newbury St, Boston, MA 02116",
     phone: "(617) 555-0123",
-    distance: 0.8,
     priceRange: "$$",
     rating: 4.4,
     foodTypes: ["Vegetarian"],
@@ -67,7 +65,6 @@ export const restaurants: Restaurant[] = [
     name: "Green Garden",
     address: "456 Commonwealth Ave, Boston, MA 02215",
     phone: "(617) 555-0456",
-    distance: 1.2,
     priceRange: "$$",
     rating: 4.2,
     foodTypes: ["Vegetarian"],
@@ -89,7 +86,6 @@ export const restaurants: Restaurant[] = [
     name: "Sushi World",
     address: "789 Boylston St, Boston, MA 02199",
     phone: "(617) 555-0789",
-    distance: 0.6,
     priceRange: "$$$",
     rating: 4.8,
     foodTypes: ["Japanese"],
@@ -111,7 +107,6 @@ export const restaurants: Restaurant[] = [
     name: "Pasta Palace",
     address: "321 Huntington Ave, Boston, MA 02115",
     phone: "(617) 555-0321",
-    distance: 1.5,
     priceRange: "$$",
     rating: 4.0,
     foodTypes: ["Italian"],
@@ -133,7 +128,6 @@ export const restaurants: Restaurant[] = [
     name: "Taco Town",
     address: "987 Mass Ave, Boston, MA 02118",
     phone: "(617) 555-0987",
-    distance: 2.1,
     priceRange: "$",
     rating: 4.5,
     foodTypes: ["Mexican"],
@@ -155,7 +149,6 @@ export const restaurants: Restaurant[] = [
     name: "Cafe Breeze",
     address: "654 Tremont St, Boston, MA 02118",
     phone: "(617) 555-0654",
-    distance: 1.8,
     priceRange: "$",
     rating: 4.1,
     foodTypes: ["Cafe"],
