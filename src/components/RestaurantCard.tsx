@@ -12,6 +12,7 @@ function formatDistance(d?: number) {
 
 export default function RestaurantCard({ restaurant }: Props) {
   const primaryDeal = restaurant.deals?.[0]?.title ?? "No discount";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const distance = formatDistance((restaurant as any).distance);
 
   return (

@@ -4,13 +4,6 @@ export type Deal = {
   description?: string;
   validFrom?: string;
   validTo?: string;
-  eligibility?: string;
-  restrictions?: string;
-  timeOfUse?: string;
-  limits?: string;
-  refundPolicy?: string;
-  cashValue?: string;
-  disclaimer?: string;
 };
 
 export type MenuItem = {
@@ -36,11 +29,15 @@ export type Restaurant = {
   name: string;
   address: string;
   phone: string;
-  distance: number; // Distance in miles from the user's location
   priceRange: "$" | "$$" | "$$$";
   rating: number;
-  /** Optional images — either a full `url` or a Cloudinary `public_id`. */
-  images?: Array<{ public_id?: string; url?: string; alt?: string }>;
+  distance?: number;
+  /** Array of images. Either provide a full `url` or a Cloudinary `public_id`. */
+  images?: Array<{
+    public_id?: string;
+    url?: string;
+    alt?: string;
+  }>;
   foodTypes: string[];
   tags?: string[];
   deals?: Deal[];

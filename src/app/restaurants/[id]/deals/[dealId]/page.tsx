@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import data from "@/data/restaurants.json";
+import type { Deal } from "@/types/restaurant";
 
 type Restaurant = typeof data[number];
 
@@ -9,8 +10,11 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
   const restaurant: Restaurant | undefined = data.find((r) => r.id === id);
   if (!restaurant) return notFound();
 
-  const deal = restaurant.deals?.find((d) => d.id === dealId) as any | undefined;
+  const deal = restaurant.deals?.find((d) => d.id === dealId) as Deal | undefined;
   if (!deal) return notFound();
+
+  // Type assertion for optional properties used in the deal details section
+  const dealDetails = deal as Deal & Record<string, string | undefined>;
 
   // Build validity lines
   const validity: string[] = [];
@@ -46,20 +50,20 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
           {validity.length > 0 ? (
             validity.map((l) => <div key={l} className="text-sm text-neutral-600 dark:text-neutral-400">{l}</div>)
           ) : (
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Please specify clear expiration, e.g. "Valid through June 30, 2025". For e-coupons the system should automatically expire them after the date. Gift-card style coupons may have different legal rules.</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">Please specify clear expiration, e.g. &quot;Valid through June 30, 2025&quot;. For e-coupons the system should automatically expire them after the date. Gift-card style coupons may have different legal rules.</div>
           )}
         </section>
 
         {/* 2. Eligibility & Restrictions */}
         <section className="rounded-md border p-4 bg-white dark:bg-neutral-900 text-sm">
-          <div className="font-medium mb-2">2. Eligibility & Restrictions</div>
-          {(deal.eligibility || deal.restrictions) ? (
+          <div className="font-medium mb-2">2. Eligibility &amp; Restrictions</div>
+          {(dealDetails.eligibility || dealDetails.restrictions) ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">
-              {deal.eligibility ? <div>{deal.eligibility}</div> : null}
-              {deal.restrictions ? <div>{deal.restrictions}</div> : null}
+              {dealDetails.eligibility ? <div>{dealDetails.eligibility}</div> : null}
+              {dealDetails.restrictions ? <div>{dealDetails.restrictions}</div> : null}
             </div>
           ) : (
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Examples: "Dine-in only", "Not valid for delivery", "Excludes alcohol and combo meals", "Valid at participating locations only", "Not valid with any other offer or discount".</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">Examples: &quot;Dine-in only&quot;, &quot;Not valid for delivery&quot;, &quot;Excludes alcohol and combo meals&quot;, &quot;Valid at participating locations only&quot;, &quot;Not valid with any other offer or discount&quot;.</div>
           )}
         </section>
 
@@ -69,7 +73,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
           {deal.timeOfUse ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">{deal.timeOfUse}</div>
           ) : (
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Examples: "Valid Monday–Thursday only", "Not valid on holidays", "Available 2 PM–5 PM daily (Happy Hour special)".</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">Examples: &quot;Valid Monday–Thursday only&quot;, &quot;Not valid on holidays&quot;, &quot;Available 2 PM–5 PM daily (Happy Hour special)&quot;.</div>
           )}
         </section>
 
@@ -79,7 +83,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
           {deal.limits ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">{deal.limits}</div>
           ) : (
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Examples: "Limit one coupon per transaction", "Minimum purchase of $10 required", "One-time use only (per customer)".</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">Examples: &quot;Limit one coupon per transaction&quot;, &quot;Minimum purchase of $10 required&quot;, &quot;One-time use only (per customer)&quot;.</div>
           )}
         </section>
 
@@ -92,7 +96,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
               {deal.cashValue ? <div>{deal.cashValue}</div> : null}
             </div>
           ) : (
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Typical notes: "No cash value", "Void if sold or transferred", "Coupon will not be reissued if canceled".</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">Typical notes: &quot;No cash value&quot;, &quot;Void if sold or transferred&quot;, &quot;Coupon will not be reissued if canceled&quot;.</div>
           )}
         </section>
 

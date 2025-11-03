@@ -1,8 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
 import data from "@/data/restaurants.json";
+import type { Deal } from "@/types/restaurant";
 
 type Restaurant = typeof data[number];
 
@@ -17,11 +19,10 @@ function priceBucket(p?: string) {
 
 function extractBestDiscountPercent(r: Restaurant) {
   const texts: string[] = [];
-  r.deals?.forEach((d) => {
+  r.deals?.forEach((d: Deal) => {
     // Some deals don't have `description`, so narrow dynamically
-    const deal = d as any;
-    if (deal.title) texts.push(String(deal.title));
-    if (typeof deal.description === "string") texts.push(deal.description);
+    if (d.title) texts.push(String(d.title));
+    if (typeof d.description === "string") texts.push(d.description);
   });
   const re = /(\d{1,2})(?=\s*%)/g;
   let max = 0;
@@ -83,8 +84,8 @@ export default function RestaurantsPage() {
         case "distance":
         default:
           // when distance missing, keep original order using index as tiebreaker
-          const da = (a as any).distance ?? Number.POSITIVE_INFINITY;
-          const db = (b as any).distance ?? Number.POSITIVE_INFINITY;
+          const da = (a as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
+          const db = (b as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
           return (da - db) * dir;
       }
     });
@@ -103,6 +104,19 @@ export default function RestaurantsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
+      {/* Logo and heading */}
+      <div className="flex flex-col items-center mb-8">
+        <Image
+          src="/logo.png"
+          alt="FoodBuddy Logo"
+          width={120}
+          height={120}
+          priority
+          className="mb-4"
+        />
+        <p className="text-lg font-semibold text-center">Find restaurants near NEU-Oak</p>
+      </div>
+
       <h1 className="text-2xl font-bold mb-4">Find restaurants</h1>
 
       <div className="mb-4 flex gap-2">
