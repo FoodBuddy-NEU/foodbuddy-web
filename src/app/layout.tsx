@@ -13,6 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   title: "FoodBuddy - Find Restaurants Near NEU-Oak",
   description: "Discover restaurants near NEU-Oak with reviews, menus, and deals",
 };
