@@ -4,6 +4,13 @@ export type Deal = {
   description?: string;
   validFrom?: string;
   validTo?: string;
+  eligibility?: string;
+  restrictions?: string;
+  timeOfUse?: string;
+  limits?: string;
+  refundPolicy?: string;
+  cashValue?: string;
+  disclaimer?: string;
 };
 
 export type MenuItem = {
