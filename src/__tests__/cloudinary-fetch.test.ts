@@ -37,7 +37,6 @@ describe('Cloudinary Image Fetching', () => {
 
       (cloudinary.api.resources_by_asset_folder as jest.Mock).mockResolvedValue({
         resources: mockImages,
-        total_count: 2,
       });
 
       // Test function logic
@@ -99,7 +98,6 @@ describe('Cloudinary Image Fetching', () => {
     it('should handle empty results gracefully', async () => {
       (cloudinary.api.resources_by_asset_folder as jest.Mock).mockResolvedValue({
         resources: [],
-        total_count: 0,
       });
 
       const response = await cloudinary.api.resources_by_asset_folder(
@@ -108,7 +106,6 @@ describe('Cloudinary Image Fetching', () => {
       );
 
       expect(response.resources).toHaveLength(0);
-      expect(response.total_count).toBe(0);
     });
 
     it('should handle API errors gracefully', async () => {

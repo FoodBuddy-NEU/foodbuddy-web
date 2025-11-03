@@ -111,7 +111,6 @@ describe('Restaurant Detail Page - Image Integration', () => {
             secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799145/foods_i6twly.jpg',
           },
         ],
-        total_count: 5,
       };
 
       (cloudinary.api.resources_by_asset_folder as jest.Mock).mockResolvedValue(mockResponse);
@@ -125,7 +124,6 @@ describe('Restaurant Detail Page - Image Integration', () => {
       });
 
       expect(response.resources).toHaveLength(5);
-      expect(response.total_count).toBe(5);
       expect(cloudinary.api.resources_by_asset_folder).toHaveBeenCalledWith(
         `foodbuddy/restaurants/${restaurantId}`,
         expect.any(Object)
