@@ -23,13 +23,10 @@ function configureFromEnv() {
 	const envUrl = process.env.CLOUDINARY_URL;
 	if (envUrl) {
 		// Ensure protocol looks correct before parsing — avoid throwing the SDK's default error.
-		if (!envUrl.startsWith("cloudinary://")) {
-			// eslint-disable-next-line no-console
-			console.error("CLOUDINARY_URL must begin with 'cloudinary://' — please fix your .env.local");
-			return;
-		}
-
-		const match = envUrl.match(/cloudinary:\/\/([^:]+):([^@]+)@(.+)/);
+	if (!envUrl.startsWith("cloudinary://")) {
+		console.error("CLOUDINARY_URL must begin with 'cloudinary://' — please fix your .env.local");
+		return;
+	}		const match = envUrl.match(/cloudinary:\/\/([^:]+):([^@]+)@(.+)/);
 		if (match) {
 			const [, parsedKey, parsedSecret, parsedCloudName] = match;
 			cloudinary.config({ cloud_name: parsedCloudName, api_key: parsedKey, api_secret: parsedSecret, secure: true });
@@ -38,7 +35,6 @@ function configureFromEnv() {
 	}
 
 	// If we reached here, configuration is incomplete.
-	// eslint-disable-next-line no-console
 	console.debug("Cloudinary configuration not found in env. Set CLOUDINARY_API_KEY/CLOUDINARY_API_SECRET/CLOUDINARY_CLOUD_NAME or CLOUDINARY_URL.");
 }
 

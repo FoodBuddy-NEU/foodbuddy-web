@@ -78,7 +78,7 @@ describe('Restaurant Detail Page - Image Integration', () => {
         max_results: 100,
       });
 
-      const filteredImages = response.resources.filter((img: any) =>
+      const filteredImages = response.resources.filter((img: { public_id: string }) =>
         patterns.some((p) => img.public_id.startsWith(p))
       );
 
