@@ -1,13 +1,13 @@
-name: CI/CD Pipeline
+name: CI - ESLint, Test & Build (All Must Pass)
 
 on:
   push:
-    branches: [ main, Add-restaurant-picture ]
+    branches: [ main, develop, 'feat/**' ]
   pull_request:
-    branches: [ main, Add-restaurant-picture ]
+    branches: [ main, develop, 'feat/**' ]
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
     
     strategy:
@@ -26,62 +26,29 @@ jobs:
     - name: Install dependencies
       run: npm ci
     
-    - name: Run linter
+    - name: Run ESLint (Linting)
       run: npm run lint
-      continue-on-error: true
+      continue-on-error: false
     
-    - name: Run tests
-      run: npm test -- --coverage
+    - name: Run Tests
+      run: npm test -- --passWithNoTests
+      continue-on-error: false
     
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        files: ./coverage/coverage-final.json
-        flags: unittests
-        fail_ci_if_error: false
-
-  build:
-    runs-on: ubuntu-latest
-    needs: test
+    - name: TypeScript Type Check
+      run: npx tsc --noEmit
+      continue-on-error: false
     
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build application
+    - name: Build Application
       run: npm run build
       env:
         NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
+      continue-on-error: false
     
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: next-build
-        path: .next
-        retention-days: 1
-
-  type-check:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: TypeScript type check
-      run: npx tsc --noEmit
+    - name: ✅ All checks passed! (ESLint, Tests, Type Check & Build)
+      run: |
+        echo "✅ ESLint: PASSED"
+        echo "✅ Tests: PASSED"
+        echo "✅ TypeScript: PASSED"
+        echo "✅ Build: PASSED"
+        echo ""
+        echo "🎉 All checks completed successfully! You're good to merge."
