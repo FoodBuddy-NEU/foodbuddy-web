@@ -28,10 +28,10 @@ export default function RestaurantCard({ restaurant, className, distance, primar
             className="group block flex-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             {/* Media */}
-            {restaurant.image && (
+            {restaurant.images && restaurant.images.length > 0 && (
               <Image
-                src={restaurant.image}
-                alt={restaurant.name}
+                src={restaurant.images[0].url || restaurant.images[0].public_id || ""}
+                alt={restaurant.images[0].alt || restaurant.name}
                 width={1200}
                 height={800}
                 className="h-48 w-full object-cover"

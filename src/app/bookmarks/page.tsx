@@ -2,16 +2,14 @@
 import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
-import data from "@/data/restaurants.json";
-import type { Deal } from "@/types/restaurant";
+import { restaurants } from "@/data/restaurants";
+import type { Deal, Restaurant } from "@/types/restaurant";
 import Link from "next/link";
 import { useAuth } from "@/lib/AuthProvider";
 import { auth } from "@/lib/firebaseClient";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { subscribeBookmarks } from "@/lib/bookmarks";
-
-type Restaurant = typeof data[number];
 
 function normalize(str: string) {
   return str.toLowerCase().trim();
@@ -66,11 +64,11 @@ export default function BookmarkedRestaurantsPage() {
 
   // derive facets from data (unchanged)
   const allFoodTypes = useMemo(
-    () => Array.from(new Set(data.flatMap((r) => r.foodTypes ?? []))).sort(),
+    () => Array.from(new Set(restaurants.flatMap((r: Restaurant) => r.foodTypes ?? []))).sort(),
     []
   );
   const allTags = useMemo(
-    () => Array.from(new Set(data.flatMap((r) => r.tags ?? []))).sort(),
+    () => Array.from(new Set(restaurants.flatMap((r: Restaurant) => r.tags ?? []))).sort(),
     []
   );
 
@@ -79,15 +77,15 @@ export default function BookmarkedRestaurantsPage() {
     const name = normalize(search);
 
     // 1) filter by name + facets
-    let list = data.filter((r) => {
+    let list = restaurants.filter((r: Restaurant) => {
       const nameOk = name ? normalize(r.name).includes(name) : true;
 
       const foodOk =
         activeFoodTypes.length === 0 ||
-        (r.foodTypes ?? []).some((t) => activeFoodTypes.includes(t));
+        (r.foodTypes ?? []).some((t: string) => activeFoodTypes.includes(t));
 
       const tagOk =
-        activeTags.length === 0 || (r.tags ?? []).some((t) => activeTags.includes(t));
+        activeTags.length === 0 || (r.tags ?? []).some((t: string) => activeTags.includes(t));
 
       return nameOk && foodOk && tagOk;
     });
@@ -116,7 +114,7 @@ export default function BookmarkedRestaurantsPage() {
   // NEW: narrow to bookmarked only (one extra step)
   const bookmarkedOnly = useMemo(() => {
     if (!bookmarkedIds.size) return [] as Restaurant[];
-    return results.filter((r) => bookmarkedIds.has(String(r.id)));
+    return results.filter((r: Restaurant) => bookmarkedIds.has(String(r.id)));
   }, [results, bookmarkedIds]);
 
   function handleSortClick(key: typeof sortBy) {
@@ -198,7 +196,7 @@ export default function BookmarkedRestaurantsPage() {
             <div>
               <div className="font-medium mb-2">Food types</div>
               <div className="flex flex-wrap gap-2">
-                {allFoodTypes.map((t) => {
+                {allFoodTypes.map((t: string) => {
                   const on = activeFoodTypes.includes(t);
                   return (
                     <button
@@ -219,7 +217,7 @@ export default function BookmarkedRestaurantsPage() {
             <div>
               <div className="font-medium mb-2">Tags</div>
               <div className="flex flex-wrap gap-2">
-                {allTags.map((t) => {
+                {allTags.map((t: string) => {
                   const on = activeTags.includes(t);
                   return (
                     <button
