@@ -5,6 +5,10 @@ import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
 import data from "@/data/restaurants.json";
 import type { Deal } from "@/types/restaurant";
+import Link from "next/link";
+import { useAuth } from "@/lib/AuthProvider";
+import { auth } from "@/lib/firebaseClient";
+import { signOut } from "firebase/auth";
 
 type Restaurant = typeof data[number];
 
@@ -102,8 +106,37 @@ export default function RestaurantsPage() {
     }
   }
 
+  const { user, loading } = useAuth();
+
+  async function handleSignOut() {
+    try {
+      await signOut(auth);
+    } catch {
+      // noop: you can add a toast/error UI later if needed
+    }
+  }
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
+      {/* Auth status header */}
+      <div className="mb-4 flex items-center justify-between text-sm">
+        {loading ? (
+          <span>Checking auth…</span>
+        ) : user ? (
+          <div className="flex items-center gap-2">
+            <span>Signed in as {user.email ?? user.uid}</span>
+            <button onClick={handleSignOut} className="rounded-full border px-3 py-1">
+              Sign out
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <span>Not signed in</span>
+            <Link href="/login" className="underline">Log in</Link>
+            <Link href="/signup" className="underline">Sign up</Link>
+          </div>
+        )}
+      </div>
       {/* Logo and heading */}
       <div className="flex flex-col items-center mb-8">
         <Image
