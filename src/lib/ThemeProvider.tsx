@@ -56,14 +56,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(newTheme);
   };
 
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // Always provide the context value, mounted is just for hydration safety
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+      {mounted ? children : children}
     </ThemeContext.Provider>
   );
 }
