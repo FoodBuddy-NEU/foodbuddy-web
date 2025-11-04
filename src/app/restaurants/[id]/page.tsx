@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import data from "@/data/restaurants.json";
 import cloudinary from "@/lib/cloudinary";
+import BookmarkButton from "@/components/BookmarkButton";
 
 function formatDistance(d?: number) {
   if (typeof d !== "number" || Number.isNaN(d)) return null;
@@ -61,6 +62,9 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
     <div className="mx-auto max-w-2xl px-4 py-6">
       <div className="mb-4">
         <Link href="/" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">← Back</Link>
+      <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+    <BookmarkButton restaurantId={String(restaurant.id)} />
+  </div>
       </div>
 
       <h1 className="text-2xl font-bold">{restaurant.name}</h1>
