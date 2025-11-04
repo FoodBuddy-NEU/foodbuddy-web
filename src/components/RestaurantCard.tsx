@@ -18,7 +18,7 @@ export default function RestaurantCard({ restaurant, className, distance, primar
 
   return (
     <article className={className}>
-      <div className="overflow-hidden rounded-lg border bg-white dark:bg-neutral-900 hover:shadow-md transition-shadow">
+      <div className="overflow-hidden rounded-lg border hover:shadow-md transition-shadow">
         {/* Two-column layout: left = navigable area, right = action rail */}
         <div className="flex">
           {/* LEFT: full clickable area to details */}
@@ -41,20 +41,20 @@ export default function RestaurantCard({ restaurant, className, distance, primar
             {/* Body */}
             <div className="p-4">
               {/* Title */}
-              <div className="text-lg font-semibold text-black dark:text-white group-hover:underline underline-offset-2">
+              <div className="text-lg font-semibold group-hover:underline underline-offset-2">
                 {restaurant.name}
               </div>
 
               {/* Distance + Address */}
               {(distance || restaurant.address) && (
-                <div className="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
+                <div className="mt-1 text-sm dark:text-neutral-300">
                   {distance ? <span className="mr-2">{distance}</span> : null}
                   {restaurant.address ? <span>{restaurant.address}</span> : null}
                 </div>
               )}
 
               {/* Meta line */}
-              <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="mt-1 text-sm dark:text-neutral-400">
                 <span className="mr-2">{restaurant.priceRange ?? "-"}</span>
                 <span className="mr-2">•</span>
                 <span className="mr-2">Rating {(restaurant.rating ?? 0).toFixed(1)}★</span>
@@ -63,7 +63,7 @@ export default function RestaurantCard({ restaurant, className, distance, primar
 
               {/* Primary deal */}
               {primaryDeal && (
-                <div className="mt-2 text-sm text-neutral-700 dark:text-neutral-300">
+                <div className="mt-2 text-sm dark:text-neutral-300">
                   {primaryDeal}
                 </div>
               )}
@@ -74,7 +74,7 @@ export default function RestaurantCard({ restaurant, className, distance, primar
                   {restaurant.tags.map((t) => (
                     <span
                       key={t}
-                      className="text-xs rounded-full border px-3 py-1 text-neutral-700 dark:text-neutral-300"
+                      className="text-xs rounded-full border px-3 py-1 dark:text-neutral-300"
                     >
                       {t}
                     </span>

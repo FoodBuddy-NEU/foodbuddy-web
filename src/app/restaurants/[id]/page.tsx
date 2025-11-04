@@ -45,7 +45,6 @@ async function fetchCloudinaryResourcesForRestaurant(restaurantId: string) {
 
 export default async function RestaurantDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const restaurant = (data as any[]).find((r) => r.id === id);
   if (!restaurant) notFound();
 
@@ -121,7 +120,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
           restaurant.deals.map((d: any) => {
             const valid = (d.validFrom || d.validTo) && `${d.validFrom ? ` ${d.validFrom}` : ""}${d.validFrom && d.validTo ? " – " : d.validTo ? " until " : ""}${d.validTo ?? ""}`;
             return (
-              <div key={d.id} className="rounded-xl border p-4 bg-white dark:bg-neutral-900">
+              <div key={d.id} className="rounded-xl border p-4">
                 <div className="font-medium">{d.title}</div>
                 {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
                 {valid ? <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div> : null}
@@ -160,7 +159,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
         {restaurant.reviews?.length ? (
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           restaurant.reviews.map((rev: any, idx: number) => (
-            <div key={`${rev.userName}-${idx}`} className="rounded-xl border p-4 bg-white dark:bg-neutral-900">
+            <div key={`${rev.userName}-${idx}`} className="rounded-xl border p-4">
               <div className="font-medium">{rev.userName}</div>
               <div className="text-sm text-neutral-600 dark:text-neutral-400">{`⭐ ${rev.rating}`}</div>
               <div className="mt-2 text-sm">{rev.comment}</div>

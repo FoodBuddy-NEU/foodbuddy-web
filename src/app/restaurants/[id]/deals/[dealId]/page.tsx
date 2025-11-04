@@ -45,7 +45,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
 
       <div className="mt-6 space-y-4">
         {/* 1. Expiration */}
-        <section className="rounded-md border p-4 bg-white dark:bg-neutral-900 text-sm">
+        <section className="rounded-md border p-4 text-sm">
           <div className="font-medium mb-2">1. Expiration (Validity)</div>
           {validity.length > 0 ? (
             validity.map((l) => <div key={l} className="text-sm text-neutral-600 dark:text-neutral-400">{l}</div>)
@@ -55,7 +55,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         </section>
 
         {/* 2. Eligibility & Restrictions */}
-        <section className="rounded-md border p-4 bg-white dark:bg-neutral-900 text-sm">
+        <section className="rounded-md border p-4 text-sm">
           <div className="font-medium mb-2">2. Eligibility &amp; Restrictions</div>
           {(dealDetails.eligibility || dealDetails.restrictions) ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -68,7 +68,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         </section>
 
         {/* 3. Time of Use */}
-        <section className="rounded-md border p-4 bg-white dark:bg-neutral-900 text-sm">
+        <section className="rounded-md border p-4 text-sm">
           <div className="font-medium mb-2">3. Time of Use</div>
           {deal.timeOfUse ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">{deal.timeOfUse}</div>
@@ -78,7 +78,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         </section>
 
         {/* 4. Quantity & Usage Limits */}
-        <section className="rounded-md border p-4 bg-white dark:bg-neutral-900 text-sm">
+        <section className="rounded-md border p-4 text-sm">
           <div className="font-medium mb-2">4. Quantity & Usage Limits</div>
           {deal.limits ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">{deal.limits}</div>
@@ -88,7 +88,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         </section>
 
         {/* 5. Refund & Cash Value */}
-        <section className="rounded-md border p-4 bg-white dark:bg-neutral-900 text-sm">
+        <section className="rounded-md border p-4 text-sm">
           <div className="font-medium mb-2">5. Refund & Cash Value</div>
           {(deal.refundPolicy || deal.cashValue) ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -101,7 +101,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         </section>
 
         {/* 6. Legal & Brand Disclaimer */}
-        <section className="rounded-md border p-4 bg-white dark:bg-neutral-900 text-sm">
+        <section className="rounded-md border p-4 text-sm">
           <div className="font-medium mb-2">6. Legal & Brand Disclaimer</div>
           {deal.disclaimer ? (
             <div className="text-sm text-neutral-600 dark:text-neutral-400">{deal.disclaimer}</div>

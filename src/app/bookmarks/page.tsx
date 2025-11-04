@@ -2,7 +2,7 @@
 import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
-import { restaurants } from "@/data/restaurants";
+import data from "@/data/restaurants.json";
 import type { Deal, Restaurant } from "@/types/restaurant";
 import Link from "next/link";
 import { useAuth } from "@/lib/AuthProvider";
@@ -64,11 +64,11 @@ export default function BookmarkedRestaurantsPage() {
 
   // derive facets from data (unchanged)
   const allFoodTypes = useMemo(
-    () => Array.from(new Set(restaurants.flatMap((r: Restaurant) => r.foodTypes ?? []))).sort(),
+    () => Array.from(new Set((data as any[]).flatMap((r: Restaurant) => r.foodTypes ?? []))).sort(),
     []
   );
   const allTags = useMemo(
-    () => Array.from(new Set(restaurants.flatMap((r: Restaurant) => r.tags ?? []))).sort(),
+    () => Array.from(new Set((data as any[]).flatMap((r: Restaurant) => r.tags ?? []))).sort(),
     []
   );
 
@@ -77,7 +77,7 @@ export default function BookmarkedRestaurantsPage() {
     const name = normalize(search);
 
     // 1) filter by name + facets
-    let list = restaurants.filter((r: Restaurant) => {
+    let list = (data as any[]).filter((r: Restaurant) => {
       const nameOk = name ? normalize(r.name).includes(name) : true;
 
       const foodOk =
@@ -177,7 +177,7 @@ export default function BookmarkedRestaurantsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by name..."
-          className="w-full rounded-2xl border px-4 py-3 text-sm bg-white dark:bg-neutral-900"
+          className="w-full rounded-2xl border px-4 py-3 text-sm"
           aria-label="Search by name"
         />
         <button
