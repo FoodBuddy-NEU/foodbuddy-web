@@ -13,9 +13,9 @@ export default function ThemeToggle() {
       title={`Current theme: ${theme}`}
     >
       {theme === "light" ? (
-        <span>🌙 Dark</span>
-      ) : (
         <span>☀️ Light</span>
+      ) : (
+        <span>🌙 Dark</span>
       )}
     </button>
   );

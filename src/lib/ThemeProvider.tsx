@@ -27,39 +27,42 @@ const applyThemeToDOM = (newTheme: Theme) => {
   
   if (newTheme === "dark") {
     htmlElement.classList.add("dark");
+    htmlElement.style.colorScheme = "dark";
   } else {
     htmlElement.classList.remove("dark");
+    htmlElement.style.colorScheme = "light";
   }
   
   localStorage.setItem("theme", newTheme);
 };
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
-  const mountedRef = useRef(false);
 
+  // Initialize theme from localStorage on mount
   useEffect(() => {
-    applyThemeToDOM(theme);
-  }, [theme]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (!mountedRef.current) {
-      mountedRef.current = true;
-      setMounted(true);
-    }
+    const initialTheme = getInitialTheme();
+    setTheme(initialTheme);
+    applyThemeToDOM(initialTheme);
+    setMounted(true);
   }, []);
+
+  // Apply theme whenever it changes
+  useEffect(() => {
+    if (mounted) {
+      applyThemeToDOM(theme);
+    }
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
   };
 
-  // Always provide the context value, mounted is just for hydration safety
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {mounted ? children : children}
+      {children}
     </ThemeContext.Provider>
   );
 }
