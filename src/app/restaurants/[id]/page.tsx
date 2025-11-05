@@ -125,11 +125,13 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
           restaurant.deals.map((d: any) => {
             const valid = (d.validFrom || d.validTo) && `${d.validFrom ? ` ${d.validFrom}` : ""}${d.validFrom && d.validTo ? " – " : d.validTo ? " until " : ""}${d.validTo ?? ""}`;
             return (
-              <div key={d.id} className="rounded-xl border p-4">
-                <div className="font-medium">{d.title}</div>
-                {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
-                {valid ? <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div> : null}
-              </div>
+              <Link key={d.id} href={`/restaurants/${restaurant.id}/deals/${d.id}`}>
+                <div className="rounded-xl border p-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 cursor-pointer transition-colors">
+                  <div className="font-medium">{d.title}</div>
+                  {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
+                  {valid ? <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div> : null}
+                </div>
+              </Link>
             );
           })
         ) : (
