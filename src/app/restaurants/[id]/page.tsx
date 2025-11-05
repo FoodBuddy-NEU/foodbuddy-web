@@ -4,6 +4,7 @@ import Link from "next/link";
 import data from "@/data/restaurants.json";
 import cloudinary from "@/lib/cloudinary";
 import BookmarkButton from "@/components/BookmarkButton";
+import FeedbackButton from "@/components/FeedbackButton";
 
 function formatDistance(d?: number) {
   if (typeof d !== "number" || Number.isNaN(d)) return null;
@@ -104,11 +105,14 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
         ) : null
       )}
 
-      {/* Address + Phone + Distance */}
+      {/* Address + Phone + Distance + Feedback Button */}
       <div className="mt-4 text-sm text-neutral-700 dark:text-neutral-300 space-y-1">
         {distance ? <div>📍 {distance}</div> : null}
         {restaurant.address ? <div>{restaurant.address}</div> : null}
         {restaurant.phone ? <div>☎ {restaurant.phone}</div> : null}
+      </div>
+      <div className="mt-2 flex items-center">
+        <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="contact" />
       </div>
 
       <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{summary}</p>
@@ -134,7 +138,10 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
       </div>
 
       {/* Menus */}
-      <h2 className="mt-8 text-lg font-semibold">Menu</h2>
+      <div className="mt-8 flex items-center justify-between">
+        <h2 className="text-lg font-semibold">Menu</h2>
+        <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="menu" />
+      </div>
       <div className="mt-2 space-y-6">
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {restaurant.menus?.map((m: any) => (
