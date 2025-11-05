@@ -4,6 +4,9 @@ import { AuthProvider } from "@/lib/AuthProvider";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 import Header from "@/components/Header";
 
+// Skip prerendering for all pages since the app requires Firebase initialization
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "FoodBuddy",
   description: "Find restaurants, deals, and more",
