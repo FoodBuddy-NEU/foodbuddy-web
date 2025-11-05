@@ -14,10 +14,11 @@ interface FeedbackRequest {
 }
 
 // Initialize Firebase Admin
-let db: any;
+let db: ReturnType<typeof getFirestore> | null = null;
 
 try {
   if (getApps().length === 0) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let serviceAccountKey: any = null;
 
     // Try to get service account from environment variable first

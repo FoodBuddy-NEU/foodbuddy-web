@@ -38,7 +38,10 @@ const applyThemeToDOM = (newTheme: Theme) => {
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Initialize state from localStorage on first render
-  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "dark";
+    return getInitialTheme();
+  });
 
   // Apply theme to DOM when theme changes
   useEffect(() => {
