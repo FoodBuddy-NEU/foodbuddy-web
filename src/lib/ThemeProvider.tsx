@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useRef } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 
 type Theme = "light" | "dark";
 
@@ -37,28 +37,21 @@ const applyThemeToDOM = (newTheme: Theme) => {
 };
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+  // Initialize state from localStorage on first render
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
 
-  // Initialize theme from localStorage on mount
+  // Apply theme to DOM when theme changes
   useEffect(() => {
-    const initialTheme = getInitialTheme();
-    setTheme(initialTheme);
-    applyThemeToDOM(initialTheme);
-    setMounted(true);
+    applyThemeToDOM(theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      applyThemeToDOM(newTheme);
+      return newTheme;
+    });
   }, []);
-
-  // Apply theme whenever it changes
-  useEffect(() => {
-    if (mounted) {
-      applyThemeToDOM(theme);
-    }
-  }, [theme, mounted]);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

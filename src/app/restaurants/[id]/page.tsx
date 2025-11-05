@@ -45,7 +45,8 @@ async function fetchCloudinaryResourcesForRestaurant(restaurantId: string) {
 
 export default async function RestaurantDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const restaurant = (data as any[]).find((r) => r.id === id);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const restaurant = (data as any[]).find((r: any) => r.id === id);
   if (!restaurant) notFound();
 
   const summary = `${restaurant.foodTypes?.length ? restaurant.foodTypes.join(", ") : "N/A"} • ${restaurant.priceRange ?? "N/A"} • ⭐ ${restaurant.rating?.toFixed?.(1) ?? "-"}`;

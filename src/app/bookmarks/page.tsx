@@ -64,11 +64,11 @@ export default function BookmarkedRestaurantsPage() {
 
   // derive facets from data (unchanged)
   const allFoodTypes = useMemo(
-    () => Array.from(new Set((data as any[]).flatMap((r: Restaurant) => r.foodTypes ?? []))).sort(),
+    () => Array.from(new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.foodTypes ?? []))).sort(),
     []
   );
   const allTags = useMemo(
-    () => Array.from(new Set((data as any[]).flatMap((r: Restaurant) => r.tags ?? []))).sort(),
+    () => Array.from(new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.tags ?? []))).sort(),
     []
   );
 
@@ -77,7 +77,7 @@ export default function BookmarkedRestaurantsPage() {
     const name = normalize(search);
 
     // 1) filter by name + facets
-    let list = (data as any[]).filter((r: Restaurant) => {
+    let list = (data as Restaurant[]).filter((r: Restaurant) => {
       const nameOk = name ? normalize(r.name).includes(name) : true;
 
       const foodOk =
