@@ -1,4 +1,8 @@
 "use client";
+
+// Skip prerendering for this page during build since it requires Firebase auth
+export const dynamic = "force-dynamic";
+
 import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
