@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { initializeApp, getApps, cert } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
 interface FeedbackRequest {
   restaurantId: string;
@@ -10,15 +11,23 @@ interface FeedbackRequest {
   feedbackContent: string;
 }
 
-// Configure nodemailer transporter
-// For production, use environment variables for credentials
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER?.trim(),
-    pass: process.env.EMAIL_PASSWORD?.trim(),
-  },
-});
+// Initialize Firebase Admin
+let db: any;
+
+try {
+  if (getApps().length === 0) {
+    const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+    
+    initializeApp({
+      projectId,
+      // Firebase Admin SDK will use application default credentials
+      // Or you can provide a service account key path
+    });
+  }
+  db = getFirestore();
+} catch (error) {
+  console.error("Firebase initialization error:", error);
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -48,55 +57,48 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if email credentials are configured
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-      console.error("Email credentials not configured in environment variables");
+    // Check if Firestore is initialized
+    if (!db) {
+      console.error("Firestore not initialized");
       return NextResponse.json(
-        { error: "Email service not configured" },
+        { error: "Database service not available" },
         { status: 500 }
       );
     }
 
-    // Prepare email content
-    const subject = `FoodBuddy Feedback - ${feedbackType === "menu" ? "Menu" : "Contact Info"} for ${restaurantName}`;
+    // Store feedback in Firestore
+    const feedbackData = {
+      restaurantId,
+      restaurantName,
+      userEmail,
+      userName,
+      feedbackType,
+      feedbackContent,
+      createdAt: new Date().toISOString(),
+      timestamp: Math.floor(Date.now() / 1000),
+    };
 
-    const emailContent = `
-      <h2>New Feedback Received</h2>
-      <p><strong>Feedback Type:</strong> ${feedbackType === "menu" ? "Menu" : "Contact Info"}</p>
-      <p><strong>Restaurant:</strong> ${restaurantName} (ID: ${restaurantId})</p>
-      <p><strong>User Name:</strong> ${userName}</p>
-      <p><strong>User Email:</strong> ${userEmail}</p>
-      <hr />
-      <h3>Feedback Content:</h3>
-      <p>${feedbackContent.replace(/\n/g, "<br />")}</p>
-      <hr />
-      <p><em>Submitted from FoodBuddy Application</em></p>
-    `;
+    console.log("Storing feedback in Firestore...", feedbackData);
 
-    console.log("Attempting to send feedback email...");
-    console.log(`From: ${process.env.EMAIL_USER}`);
-    console.log(`To: chen.yu25@northeastern.edu`);
-    console.log(`Subject: ${subject}`);
+    const docRef = await db.collection("feedback").add(feedbackData);
 
-    // Send email
-    const result = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: "chen.yu25@northeastern.edu",
-      subject,
-      html: emailContent,
-      replyTo: userEmail,
-    });
-
-    console.log("Email sent successfully:", result);
+    console.log("Feedback stored successfully with ID:", docRef.id);
 
     return NextResponse.json(
-      { success: true, message: "Feedback submitted successfully" },
+      { 
+        success: true, 
+        message: "Feedback submitted successfully",
+        feedbackId: docRef.id
+      },
       { status: 200 }
     );
   } catch (error) {
     console.error("Feedback submission error:", error);
     return NextResponse.json(
-      { error: "Failed to submit feedback", details: error instanceof Error ? error.message : String(error) },
+      { 
+        error: "Failed to submit feedback", 
+        details: error instanceof Error ? error.message : String(error) 
+      },
       { status: 500 }
     );
   }
