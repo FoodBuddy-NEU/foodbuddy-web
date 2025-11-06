@@ -6,6 +6,7 @@ import cloudinary from "@/lib/cloudinary";
 import BookmarkButton from "@/components/BookmarkButton";
 import ShareButton from "@/components/ShareButton";
 import FeedbackButton from "@/components/FeedbackButton";
+import MenuCategorySelector from "@/components/MenuCategorySelector";
 import { calculateDistance, DEFAULT_USER_ADDRESS } from "@/lib/distance";
 
 function formatDistance(d?: number) {
@@ -132,7 +133,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
             const valid = (d.validFrom || d.validTo) && `${d.validFrom ? ` ${d.validFrom}` : ""}${d.validFrom && d.validTo ? " – " : d.validTo ? " until " : ""}${d.validTo ?? ""}`;
             return (
               <Link key={d.id} href={`/restaurants/${restaurant.id}/deals/${d.id}`}>
-                <div className="rounded-xl border p-4 hover:bg-neutral-50 dark:hover:bg-neutral-900 cursor-pointer transition-colors">
+                <div className="deal-card rounded-xl border p-4 cursor-pointer transition-colors">
                   <div className="font-medium">{d.title}</div>
                   {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
                   {valid ? <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div> : null}
@@ -150,23 +151,13 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
         <h2 className="text-lg font-semibold">Menu</h2>
         <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="menu" />
       </div>
-      <div className="mt-2 space-y-6">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {restaurant.menus?.map((m: any) => (
-          <div key={m.id}>
-            <div className="font-medium">{m.title}</div>
-            <div className="mt-2 space-y-2">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {m.items.map((item: any) => (
-                <div key={item.id} className="flex items-center justify-between text-sm">
-                  <span>{item.name}</span>
-                  <span>${item.price.toFixed(2)}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      {restaurant.menus && restaurant.menus.length > 0 ? (
+        <div className="mt-4">
+          <MenuCategorySelector menus={restaurant.menus} />
+        </div>
+      ) : (
+        <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">No menu available</div>
+      )}
 
       {/* Reviews */}
       <h2 className="mt-8 text-lg font-semibold">Reviews</h2>
