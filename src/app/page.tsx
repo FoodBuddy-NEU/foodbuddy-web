@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
 import data from "@/data/restaurants.json";
@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useAuth } from "@/lib/AuthProvider";
 import { auth } from "@/lib/firebaseClient";
 import { signOut } from "firebase/auth";
+
+const DEFAULT_USER_ADDRESS = "5000 MacArthur Blvd, Oakland, CA";
 
 function normalize(str: string) {
   return str.toLowerCase().trim();
@@ -45,6 +47,32 @@ export default function RestaurantsPage() {
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"distance" | "price" | "discount" | "name">("distance");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [distances, setDistances] = useState<Record<string, number | null>>({});
+  const [loadingDistances, setLoadingDistances] = useState(true);
+
+  // Fetch distances on component mount
+  useEffect(() => {
+    const fetchDistances = async () => {
+      try {
+        setLoadingDistances(true);
+        const response = await fetch(
+          `/api/distances?userAddress=${encodeURIComponent(DEFAULT_USER_ADDRESS)}`
+        );
+        if (response.ok) {
+          const distancesData = await response.json();
+          setDistances(distancesData);
+        } else {
+          console.error("Failed to fetch distances");
+        }
+      } catch (error) {
+        console.error("Error fetching distances:", error);
+      } finally {
+        setLoadingDistances(false);
+      }
+    };
+
+    fetchDistances();
+  }, []);
 
   // derive facets from data
   const allFoodTypes = useMemo(
@@ -85,15 +113,15 @@ export default function RestaurantsPage() {
           return normalize(a.name).localeCompare(normalize(b.name)) * dir;
         case "distance":
         default:
-          // when distance missing, keep original order using index as tiebreaker
-          const da = (a as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
-          const db = (b as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
+          // Use calculated distances from API
+          const da = distances[a.id] ?? (a as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
+          const db = distances[b.id] ?? (b as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
           return (da - db) * dir;
       }
     });
 
     return list;
-  }, [search, activeFoodTypes, activeTags, sortBy, sortDir]);
+  }, [search, activeFoodTypes, activeTags, sortBy, sortDir, distances]);
 
   function handleSortClick(key: typeof sortBy) {
     if (key === sortBy) {
@@ -237,12 +265,21 @@ export default function RestaurantsPage() {
         ))}
       </div>
 
-      <div className="mb-2 text-sm text-neutral-600">Showing {results.length} results</div>
+      <div className="mb-2 text-sm text-neutral-600">
+        {loadingDistances && "Loading distances..."} 
+        {!loadingDistances && `Showing ${results.length} results`}
+      </div>
 
       <div className="flex flex-col gap-3">
-        {results.map((r: Restaurant) => (
-          <RestaurantCard key={r.id} restaurant={r} />
-        ))}
+        {results.map((r: Restaurant) => {
+          const distance = distances[r.id];
+          const distanceStr = distance !== null && distance !== undefined 
+            ? `${distance.toFixed(1)} mi` 
+            : undefined;
+          return (
+            <RestaurantCard key={r.id} restaurant={r} distance={distanceStr} />
+          );
+        })}
       </div>
     </div>
   );
