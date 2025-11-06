@@ -4,6 +4,7 @@ import Link from "next/link";
 import data from "@/data/restaurants.json";
 import cloudinary from "@/lib/cloudinary";
 import BookmarkButton from "@/components/BookmarkButton";
+import ShareButton from "@/components/ShareButton";
 import FeedbackButton from "@/components/FeedbackButton";
 
 function formatDistance(d?: number) {
@@ -61,11 +62,12 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <div className="mb-4">
+      <div className="mb-4 flex gap-2">
         <Link href="/" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">← Back</Link>
-      <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
-    <BookmarkButton restaurantId={String(restaurant.id)} />
-  </div>
+        <ShareButton restaurantId={restaurant.id} restaurantName={restaurant.name} />
+        <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+          <BookmarkButton restaurantId={String(restaurant.id)} />
+        </div>
       </div>
 
       <h1 className="text-2xl font-bold">{restaurant.name}</h1>
