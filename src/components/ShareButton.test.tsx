@@ -55,7 +55,7 @@ describe('ShareButton Component', () => {
   it('should fallback to clipboard if Web Share API not available', async () => {
     // Temporarily remove share API
     const originalShare = navigator.share;
-    delete (navigator as any).share;
+    delete (navigator as unknown as { share?: unknown }).share;
 
     render(<ShareButton {...defaultProps} />);
     const button = screen.getByRole('button');
@@ -67,7 +67,7 @@ describe('ShareButton Component', () => {
     });
 
     // Restore
-    (navigator as any).share = originalShare;
+    (navigator as unknown as { share: unknown }).share = originalShare;
   });
 
   it('should show copy confirmation message', async () => {
