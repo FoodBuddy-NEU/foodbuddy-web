@@ -151,7 +151,7 @@ export function convertToMenus(
   categorized: Record<string, MenuItem[]>,
   baseId: string
 ): Menu[] {
-  return Object.entries(categorized).map(([category, items], index) => ({
+  return Object.entries(categorized).map(([category, items]) => ({
     id: `${baseId}-${category.toLowerCase().replace(/\s+/g, '-')}`,
     title: category,
     items,
