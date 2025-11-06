@@ -48,10 +48,12 @@ export default function RestaurantsPage() {
   const [sortBy, setSortBy] = useState<"distance" | "price" | "discount" | "name">("distance");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [distances, setDistances] = useState<Record<string, number | null>>({});
-  const [loadingDistances, setLoadingDistances] = useState(true);
+  const [loadingDistances, setLoadingDistances] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Fetch distances on component mount
+  // Only fetch distances after component mounts (client-side only)
   useEffect(() => {
+    setMounted(true);
     const fetchDistances = async () => {
       try {
         setLoadingDistances(true);
@@ -266,8 +268,9 @@ export default function RestaurantsPage() {
       </div>
 
       <div className="mb-2 text-sm text-neutral-600">
-        {loadingDistances && "Loading distances..."} 
-        {!loadingDistances && `Showing ${results.length} results`}
+        {mounted && loadingDistances && "Loading distances..."} 
+        {mounted && !loadingDistances && `Showing ${results.length} results`}
+        {!mounted && `Showing ${results.length} results`}
       </div>
 
       <div className="flex flex-col gap-3">

@@ -28,6 +28,9 @@ jobs:
     
     - name: Run Tests
       run: npm test -- --passWithNoTests
+      env:
+        NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
+        FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       continue-on-error: false
     
     - name: TypeScript Type Check

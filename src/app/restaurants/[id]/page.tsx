@@ -6,6 +6,7 @@ import cloudinary from "@/lib/cloudinary";
 import BookmarkButton from "@/components/BookmarkButton";
 import ShareButton from "@/components/ShareButton";
 import FeedbackButton from "@/components/FeedbackButton";
+import { calculateDistance, DEFAULT_USER_ADDRESS } from "@/lib/distance";
 
 function formatDistance(d?: number) {
   if (typeof d !== "number" || Number.isNaN(d)) return null;
@@ -52,7 +53,10 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
   if (!restaurant) notFound();
 
   const summary = `${restaurant.foodTypes?.length ? restaurant.foodTypes.join(", ") : "N/A"} • ${restaurant.priceRange ?? "N/A"} • ⭐ ${restaurant.rating?.toFixed?.(1) ?? "-"}`;
-  const distance = formatDistance(restaurant.distance);
+  
+  // Calculate distance dynamically based on restaurant address
+  const calculatedDistance = await calculateDistance(restaurant.address, DEFAULT_USER_ADDRESS);
+  const distance = formatDistance(calculatedDistance ?? undefined);
 
   // Attempt to fetch Cloudinary images from likely folders. This runs server-side
   // using your CLOUDINARY_URL or CLOUDINARY_API_KEY/SECRET from environment.
