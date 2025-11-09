@@ -12,12 +12,12 @@ jest.mock('@/lib/firebaseClient', () => ({
 
 jest.mock('@/lib/AuthProvider', () => ({
   useAuth: () => ({ user: null, loading: false }),
-  AuthProvider: ({ children }: any) => children,
+  AuthProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 jest.mock('@/lib/ThemeProvider', () => ({
   useTheme: () => ({ theme: 'light', setTheme: jest.fn() }),
-  ThemeProvider: ({ children }: any) => children,
+  ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 // Mock fetch
