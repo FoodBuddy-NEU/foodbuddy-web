@@ -7,11 +7,11 @@ import React from 'react';
 import '@testing-library/jest-dom';
 
 // Mock Next.js Image component
-// eslint-disable-next-line @next/next/no-img-element
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: Record<string, unknown>) => {
-    // eslint-disable-next-line jsx-a11y/alt-text
+    // Using img element in test for mocking purposes
+    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
     return <img {...props} />;
   },
 }));

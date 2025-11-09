@@ -1,5 +1,8 @@
 "use client";
 
+// Skip prerendering for this page during build since it requires Firebase auth
+export const dynamic = "force-dynamic";
+
 import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import RestaurantCard from "@/components/RestaurantCard";
@@ -9,8 +12,8 @@ import Link from "next/link";
 import { useAuth } from "@/lib/AuthProvider";
 import { auth } from "@/lib/firebaseClient";
 import { signOut } from "firebase/auth";
-
-const DEFAULT_USER_ADDRESS = "5000 MacArthur Blvd, Oakland, CA";
+import { useRouter } from "next/navigation";
+import { subscribeBookmarks } from "@/lib/bookmarks";
 
 function normalize(str: string) {
   return str.toLowerCase().trim();
@@ -24,7 +27,6 @@ function priceBucket(p?: string) {
 function extractBestDiscountPercent(r: Restaurant) {
   const texts: string[] = [];
   r.deals?.forEach((d: Deal) => {
-    // Some deals don't have `description`, so narrow dynamically
     if (d.title) texts.push(String(d.title));
     if (typeof d.description === "string") texts.push(d.description);
   });
@@ -40,43 +42,31 @@ function extractBestDiscountPercent(r: Restaurant) {
   return max; // 0 if none
 }
 
-export default function RestaurantsPage() {
+export default function BookmarkedRestaurantsPage() {
+  const router = useRouter();
+
+  // NEW: subscribe to user's bookmarks
+  const { user, loading } = useAuth();
+  const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) {
+      router.replace("/login");
+      return;
+    }
+    const unsub = subscribeBookmarks(user.uid, setBookmarkedIds);
+    return () => unsub();
+  }, [user, loading, router]);
+
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [activeFoodTypes, setActiveFoodTypes] = useState<string[]>([]);
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"distance" | "price" | "discount" | "name">("distance");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [distances, setDistances] = useState<Record<string, number | null>>({});
-  const [loadingDistances, setLoadingDistances] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  // Only fetch distances after component mounts (client-side only)
-  useEffect(() => {
-    setMounted(true);
-    const fetchDistances = async () => {
-      try {
-        setLoadingDistances(true);
-        const response = await fetch(
-          `/api/distances?userAddress=${encodeURIComponent(DEFAULT_USER_ADDRESS)}`
-        );
-        if (response.ok) {
-          const distancesData = await response.json();
-          setDistances(distancesData);
-        } else {
-          console.error("Failed to fetch distances");
-        }
-      } catch (error) {
-        console.error("Error fetching distances:", error);
-      } finally {
-        setLoadingDistances(false);
-      }
-    };
-
-    fetchDistances();
-  }, []);
-
-  // derive facets from data
+  // derive facets from data (unchanged)
   const allFoodTypes = useMemo(
     () => Array.from(new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.foodTypes ?? []))).sort(),
     []
@@ -86,6 +76,7 @@ export default function RestaurantsPage() {
     []
   );
 
+  // original results pipeline (unchanged)
   const results = useMemo(() => {
     const name = normalize(search);
 
@@ -115,15 +106,20 @@ export default function RestaurantsPage() {
           return normalize(a.name).localeCompare(normalize(b.name)) * dir;
         case "distance":
         default:
-          // Use calculated distances from API
-          const da = distances[a.id] ?? (a as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
-          const db = distances[b.id] ?? (b as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
+          const da = (a as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
+          const db = (b as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
           return (da - db) * dir;
       }
     });
 
     return list;
-  }, [search, activeFoodTypes, activeTags, sortBy, sortDir, distances]);
+  }, [search, activeFoodTypes, activeTags, sortBy, sortDir]);
+
+  // NEW: narrow to bookmarked only (one extra step)
+  const bookmarkedOnly = useMemo(() => {
+    if (!bookmarkedIds.size) return [] as Restaurant[];
+    return results.filter((r: Restaurant) => bookmarkedIds.has(String(r.id)));
+  }, [results, bookmarkedIds]);
 
   function handleSortClick(key: typeof sortBy) {
     if (key === sortBy) {
@@ -134,19 +130,17 @@ export default function RestaurantsPage() {
     }
   }
 
-  const { user, loading } = useAuth();
-
   async function handleSignOut() {
     try {
       await signOut(auth);
     } catch {
-      // noop: you can add a toast/error UI later if needed
+      // noop
     }
   }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      {/* Auth status header */}
+      {/* Auth status header (unchanged) */}
       <div className="mb-4 flex items-center justify-between text-sm">
         {loading ? (
           <span>Checking auth…</span>
@@ -165,7 +159,8 @@ export default function RestaurantsPage() {
           </div>
         )}
       </div>
-      {/* Logo and heading */}
+
+      {/* Logo and heading (unchanged) */}
       <div className="flex flex-col items-center mb-8">
         <Image
           src="/logo.png"
@@ -178,8 +173,9 @@ export default function RestaurantsPage() {
         <p className="text-lg font-semibold text-center">Find restaurants near NEU-Oak</p>
       </div>
 
-      <h1 className="text-2xl font-bold mb-4">Find restaurants</h1>
+      <h1 className="text-2xl font-bold mb-4">Bookmarks</h1>
 
+      {/* Search + Filters (unchanged) */}
       <div className="mb-4 flex gap-2">
         <input
           value={search}
@@ -267,22 +263,13 @@ export default function RestaurantsPage() {
         ))}
       </div>
 
-      <div className="mb-2 text-sm text-neutral-600">
-        {mounted && loadingDistances && "Loading distances..."} 
-        {mounted && !loadingDistances && `Showing ${results.length} results`}
-        {!mounted && `Showing ${results.length} results`}
-      </div>
+      {/* Use bookmarkedOnly for counts and rendering */}
+      <div className="mb-2 text-sm text-neutral-600">Showing {bookmarkedOnly.length} results</div>
 
       <div className="flex flex-col gap-3">
-        {results.map((r: Restaurant) => {
-          const distance = distances[r.id];
-          const distanceStr = distance !== null && distance !== undefined 
-            ? `${distance.toFixed(1)} mi` 
-            : undefined;
-          return (
-            <RestaurantCard key={r.id} restaurant={r} distance={distanceStr} />
-          );
-        })}
+        {bookmarkedOnly.map((r) => (
+          <RestaurantCard key={r.id} restaurant={r} />
+        ))}
       </div>
     </div>
   );

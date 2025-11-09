@@ -1,41 +1,32 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/lib/AuthProvider"; 
+import type { Metadata } from "next";
+import { AuthProvider } from "@/lib/AuthProvider";
+import { ThemeProvider } from "@/lib/ThemeProvider";
+import Header from "@/components/Header";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Skip prerendering for all pages since the app requires Firebase initialization
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
-  },
-  title: "FoodBuddy - Find Restaurants Near NEU-Oak",
-  description: "Discover restaurants near NEU-Oak with reviews, menus, and deals",
+  title: "FoodBuddy",
+  description: "Find restaurants, deals, and more",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>
+          <AuthProvider>
+            <Header />
+            {/* Page content */}
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

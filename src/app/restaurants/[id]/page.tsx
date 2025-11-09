@@ -3,6 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import data from "@/data/restaurants.json";
 import cloudinary from "@/lib/cloudinary";
+import BookmarkButton from "@/components/BookmarkButton";
+import ShareButton from "@/components/ShareButton";
+import FeedbackButton from "@/components/FeedbackButton";
+import MenuCategorySelector from "@/components/MenuCategorySelector";
+import { calculateDistance, DEFAULT_USER_ADDRESS } from "@/lib/distance";
 
 function formatDistance(d?: number) {
   if (typeof d !== "number" || Number.isNaN(d)) return null;
@@ -45,11 +50,14 @@ async function fetchCloudinaryResourcesForRestaurant(restaurantId: string) {
 export default async function RestaurantDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const restaurant = (data as any[]).find((r) => r.id === id);
+  const restaurant = (data as any[]).find((r: any) => r.id === id);
   if (!restaurant) notFound();
 
   const summary = `${restaurant.foodTypes?.length ? restaurant.foodTypes.join(", ") : "N/A"} • ${restaurant.priceRange ?? "N/A"} • ⭐ ${restaurant.rating?.toFixed?.(1) ?? "-"}`;
-  const distance = formatDistance(restaurant.distance);
+  
+  // Calculate distance dynamically based on restaurant address
+  const calculatedDistance = await calculateDistance(restaurant.address, DEFAULT_USER_ADDRESS);
+  const distance = formatDistance(calculatedDistance ?? undefined);
 
   // Attempt to fetch Cloudinary images from likely folders. This runs server-side
   // using your CLOUDINARY_URL or CLOUDINARY_API_KEY/SECRET from environment.
@@ -59,8 +67,12 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <div className="mb-4">
+      <div className="mb-4 flex gap-2">
         <Link href="/" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">← Back</Link>
+        <ShareButton restaurantId={restaurant.id} restaurantName={restaurant.name} />
+        <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+          <BookmarkButton restaurantId={String(restaurant.id)} />
+        </div>
       </div>
 
       <h1 className="text-2xl font-bold">{restaurant.name}</h1>
@@ -100,11 +112,14 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
         ) : null
       )}
 
-      {/* Address + Phone + Distance */}
+      {/* Address + Phone + Distance + Feedback Button */}
       <div className="mt-4 text-sm text-neutral-700 dark:text-neutral-300 space-y-1">
         {distance ? <div>📍 {distance}</div> : null}
         {restaurant.address ? <div>{restaurant.address}</div> : null}
         {restaurant.phone ? <div>☎ {restaurant.phone}</div> : null}
+      </div>
+      <div className="mt-2 flex items-center">
+        <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="contact" />
       </div>
 
       <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{summary}</p>
@@ -117,11 +132,13 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
           restaurant.deals.map((d: any) => {
             const valid = (d.validFrom || d.validTo) && `${d.validFrom ? ` ${d.validFrom}` : ""}${d.validFrom && d.validTo ? " – " : d.validTo ? " until " : ""}${d.validTo ?? ""}`;
             return (
-              <div key={d.id} className="rounded-xl border p-4 bg-white dark:bg-neutral-900">
-                <div className="font-medium">{d.title}</div>
-                {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
-                {valid ? <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div> : null}
-              </div>
+              <Link key={d.id} href={`/restaurants/${restaurant.id}/deals/${d.id}`}>
+                <div className="deal-card rounded-xl border p-4 cursor-pointer transition-colors">
+                  <div className="font-medium">{d.title}</div>
+                  {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
+                  {valid ? <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{valid}</div> : null}
+                </div>
+              </Link>
             );
           })
         ) : (
@@ -130,24 +147,17 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
       </div>
 
       {/* Menus */}
-      <h2 className="mt-8 text-lg font-semibold">Menu</h2>
-      <div className="mt-2 space-y-6">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {restaurant.menus?.map((m: any) => (
-          <div key={m.id}>
-            <div className="font-medium">{m.title}</div>
-            <div className="mt-2 space-y-2">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {m.items.map((item: any) => (
-                <div key={item.id} className="flex items-center justify-between text-sm">
-                  <span>{item.name}</span>
-                  <span>${item.price.toFixed(2)}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+      <div className="mt-8 flex items-center justify-between">
+        <h2 className="text-lg font-semibold">Menu</h2>
+        <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="menu" />
       </div>
+      {restaurant.menus && restaurant.menus.length > 0 ? (
+        <div className="mt-4">
+          <MenuCategorySelector menus={restaurant.menus} />
+        </div>
+      ) : (
+        <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">No menu available</div>
+      )}
 
       {/* Reviews */}
       <h2 className="mt-8 text-lg font-semibold">Reviews</h2>
@@ -156,7 +166,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
         {restaurant.reviews?.length ? (
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           restaurant.reviews.map((rev: any, idx: number) => (
-            <div key={`${rev.userName}-${idx}`} className="rounded-xl border p-4 bg-white dark:bg-neutral-900">
+            <div key={`${rev.userName}-${idx}`} className="rounded-xl border p-4">
               <div className="font-medium">{rev.userName}</div>
               <div className="text-sm text-neutral-600 dark:text-neutral-400">{`⭐ ${rev.rating}`}</div>
               <div className="mt-2 text-sm">{rev.comment}</div>

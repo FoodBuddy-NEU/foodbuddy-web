@@ -312,19 +312,63 @@
   ],
   "menus": [
     {
-      "id": "menu-southside",
-      "title": "Main Menu",
+      "id": "special",
+      "title": "Special",
       "items": [
-        { "id": "m1",  "name": "Fried Chicken Sandwich",         "price": 16.59 },
-        { "id": "m2",  "name": "Dusty Tofu Sandwich",             "price": 16.59 },
-        { "id": "m3",  "name": "Jumbo Thai Fried Chicken Wings (5)", "price": 14.49 },
-        { "id": "m4",  "name": "Chicken Wings (1 lb)",             "price": 14.49 },
-        { "id": "m5",  "name": "Chicken Wings (½ lb)",             "price": 10.00 },
-        { "id": "m6", "name": "Garlic Noodle",                               "price": 14.49 },
-        { "id": "m7", "name": "Sauteed Brussels Sprouts",                    "price": 13.49 },
-        { "id": "m8", "name": "Fried Organic Brussels Sprouts (7 oz)",        "price": 9.49 },
-        { "id": "m9", "name": "Persian Cucumber Romaine Salad",              "price": 9.49 },
-        { "id": "m10", "name": "Brioche Peanut Dip",                          "price": 7.99 }
+        { "id": "s1", "name": "Fried Ball", "price": 5.99 },
+        { "id": "s2", "name": "Wing with beer", "price": 12.99 }
+      ]
+    },
+    {
+      "id": "breakfast",
+      "title": "Breakfast",
+      "items": [
+        { "id": "b1", "name": "Lox Bagel", "price": 12.49 },
+        { "id": "b2", "name": "New York-Style BEC", "price": 12.49 },
+        { "id": "b3", "name": "California Egg Avocado Bagel", "price": 12.49 },
+        { "id": "b4", "name": "Bagel and cream cheese", "price": 3.99 },
+        { "id": "b5", "name": "Fried Chicken Waffle", "price": 13.49 },
+        { "id": "b6", "name": "Egg n Things", "price": 13.99 },
+        { "id": "b7", "name": "Brioche toasted", "price": 3.99 },
+        { "id": "b8", "name": "Hot coffee", "price": 3.49 },
+        { "id": "b9", "name": "Hot Thai tea", "price": 3.99 },
+        { "id": "b10", "name": "Hot Matcha Latte", "price": 3.99 },
+        { "id": "b11", "name": "Hot chocolate", "price": 3.99 },
+        { "id": "b12", "name": "Hot tea", "price": 2.99 }
+      ]
+    },
+    {
+      "id": "main",
+      "title": "Main",
+      "items": [
+        { "id": "m1", "name": "Jumbo Thai Fried Chicken Wings", "price": 13.99 },
+        { "id": "m2", "name": "Crispy Fried Chicken Thighs", "price": 16.99 },
+        { "id": "m3", "name": "Fried Chicken Sandwich", "price": 15.99 },
+        { "id": "m4", "name": "2 Fried Chicken SLIDER", "price": 16.99 },
+        { "id": "m5", "name": "Fried Organic Tofu Sandwich", "price": 15.99 },
+        { "id": "m6", "name": "Spicy Pork basil 16oz", "price": 15.99 },
+        { "id": "m7", "name": "Pan Sears Chicken", "price": 14.99 },
+        { "id": "m8", "name": "Dusty Tofu", "price": 15.99 },
+        { "id": "m9", "name": "2 Chicken Satay Taco", "price": 10.99 },
+        { "id": "m10", "name": "4 Chicken Satay Taco", "price": 18.99 }
+      ]
+    },
+    {
+      "id": "appetizer",
+      "title": "Appetizer / Side / Snack",
+      "items": [
+        { "id": "a1", "name": "Garlic Noodle", "price": 13.49 },
+        { "id": "a2", "name": "Pasta", "price": 13.99 },
+        { "id": "a3", "name": "Sauteed Brussel Sprouts", "price": 13.49 },
+        { "id": "a4", "name": "Fried Brussels sprout snack", "price": 8.49 },
+        { "id": "a5", "name": "Persian Cucumber Romaine Salad", "price": 8.49 },
+        { "id": "a6", "name": "Brioche Peanut Dip", "price": 7.99 },
+        { "id": "a7", "name": "Thai Chicken Satay", "price": 14.99 },
+        { "id": "a8", "name": "Mozzarella Sticks", "price": 6.49 },
+        { "id": "a9", "name": "Spicy Thai Nugget", "price": 10.99 },
+        { "id": "a10", "name": "Curly Fried", "price": 5.49 },
+        { "id": "a11", "name": "sunny side up fried egg", "price": 4.49 },
+        { "id": "a12", "name": "Mixed Trio Grain Rice", "price": 4.00 }
       ]
     }
   ],
