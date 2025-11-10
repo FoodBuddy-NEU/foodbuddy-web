@@ -2,9 +2,9 @@ name: CI - ESLint, Test & Build (All Must Pass)
 
 on:
   push:
-    branches: [main, develop, 'feat/**']
+    branches: [main, develop, Yu, dev-test, 'feat/**']
   pull_request:
-    branches: [main, develop, 'feat/**']
+    branches: [main, develop, Yu, dev-test, 'feat/**']
 
 jobs:
   ci:
