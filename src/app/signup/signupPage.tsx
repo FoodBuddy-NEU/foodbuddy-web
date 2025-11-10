@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { auth } from "@/lib/firebaseClient";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { auth } from '@/lib/firebaseClient';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 
 export default function SignupPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,9 +20,9 @@ export default function SignupPage() {
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push("/");
+      router.push('/');
     } catch (err: unknown) {
-      const message = err instanceof FirebaseError ? err.message : "Sign up failed";
+      const message = err instanceof FirebaseError ? err.message : 'Sign up failed';
       setError(message);
     } finally {
       setLoading(false);
@@ -47,12 +47,15 @@ export default function SignupPage() {
           className="w-full border rounded p-2"
         />
         <button disabled={loading} className="w-full border rounded p-2">
-          {loading ? "Loading..." : "Create account"}
+          {loading ? 'Loading...' : 'Create account'}
         </button>
       </form>
       {error && <div className="mt-3 text-sm text-red-600">{error}</div>}
       <div className="mt-3 text-sm">
-        Have an account? <Link href="/login" className="underline">Log in</Link>
+        Have an account?{' '}
+        <Link href="/login" className="underline">
+          Log in
+        </Link>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "@/lib/firebaseClient";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { auth } from '@/lib/firebaseClient';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
 type AuthContextValue = { user: User | null; loading: boolean };
 const AuthContext = createContext<AuthContextValue>({ user: null, loading: true });

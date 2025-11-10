@@ -111,4 +111,49 @@ describe('RestaurantCard Component', () => {
     const img = screen.getByAltText('Restaurant image');
     expect(img).toBeInTheDocument();
   });
+
+  it('should not render image if images array is empty', () => {
+    const restaurantNoImage = { ...mockRestaurant, images: [] };
+    render((<RestaurantCard restaurant={restaurantNoImage} />) as React.ReactElement);
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+  });
+
+  it('should not render image if images is undefined', () => {
+    const restaurantNoImage = { ...mockRestaurant };
+    delete restaurantNoImage.images;
+    render((<RestaurantCard restaurant={restaurantNoImage} />) as React.ReactElement);
+    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+  });
+
+  it('should handle missing tags gracefully', () => {
+    const restaurantNoTags = { ...mockRestaurant, tags: undefined };
+    render((<RestaurantCard restaurant={restaurantNoTags} />) as React.ReactElement);
+    expect(screen.queryByText('dine-in')).not.toBeInTheDocument();
+    expect(screen.queryByText('vegetarian-friendly')).not.toBeInTheDocument();
+  });
+
+  it('should handle missing foodTypes gracefully', () => {
+    const restaurantNoFoodTypes = { ...mockRestaurant, foodTypes: [] };
+    render((<RestaurantCard restaurant={restaurantNoFoodTypes} />) as React.ReactElement);
+    expect(screen.queryByText(/Italian, Pasta/)).not.toBeInTheDocument();
+  });
+
+  it('should handle missing rating gracefully', () => {
+    const restaurantNoRating: Restaurant & { id: string | number } = {
+      ...mockRestaurant,
+      rating: 0,
+    };
+    render((<RestaurantCard restaurant={restaurantNoRating} />) as React.ReactElement);
+    // Rating of 0 should still render but differently
+    expect(screen.queryByText(/4\.5/)).not.toBeInTheDocument();
+  });
+
+  it('should handle missing priceRange gracefully', () => {
+    const restaurantNoPrice: Restaurant & { id: string | number } = {
+      ...mockRestaurant,
+      priceRange: '$',
+    };
+    render((<RestaurantCard restaurant={restaurantNoPrice} />) as React.ReactElement);
+    expect(screen.queryByText('$$')).not.toBeInTheDocument();
+  });
 });

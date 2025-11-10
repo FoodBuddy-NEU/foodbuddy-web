@@ -29,7 +29,7 @@ export type Restaurant = {
   name: string;
   address: string;
   phone: string;
-  priceRange: "$" | "$$" | "$$$";
+  priceRange: '$' | '$$' | '$$$';
   rating: number;
   distance?: number;
   /** Array of images. Either provide a full `url` or a Cloudinary `public_id`. */

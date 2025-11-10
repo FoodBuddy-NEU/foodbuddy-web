@@ -6,11 +6,10 @@ import type { Menu, MenuItem } from '@/types/restaurant';
  */
 export function categorizeMenuItems(items: MenuItem[]): Record<string, MenuItem[]> {
   const categories: Record<string, MenuItem[]> = {};
-
+  if (!items) return categories;
   items.forEach((item) => {
     let category = 'Other';
-    const name = item.name.toLowerCase();
-
+    const name = item.name?.toLowerCase?.() || '';
     // Pizza (check first to avoid conflicts with other keywords)
     if (name.includes('pizza')) {
       category = 'Pizza';
@@ -147,10 +146,7 @@ export function categorizeMenuItems(items: MenuItem[]): Record<string, MenuItem[
 /**
  * Convert categorized items back to Menu array format
  */
-export function convertToMenus(
-  categorized: Record<string, MenuItem[]>,
-  baseId: string
-): Menu[] {
+export function convertToMenus(categorized: Record<string, MenuItem[]>, baseId: string): Menu[] {
   return Object.entries(categorized).map(([category, items]) => ({
     id: `${baseId}-${category.toLowerCase().replace(/\s+/g, '-')}`,
     title: category,

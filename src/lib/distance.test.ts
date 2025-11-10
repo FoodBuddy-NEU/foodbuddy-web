@@ -17,10 +17,7 @@ describe('Distance Calculation Library', () => {
       const originalKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
       delete process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-      const result = await calculateDistance(
-        '123 Main St, Boston, MA',
-        DEFAULT_USER_ADDRESS
-      );
+      const result = await calculateDistance('123 Main St, Boston, MA', DEFAULT_USER_ADDRESS);
 
       expect(result).toBeNull();
 
@@ -34,11 +31,45 @@ describe('Distance Calculation Library', () => {
       // This test verifies the function signature and basic logic
       // Actual distance calculation would require API mock
       const testAddress = '123 Test St, Boston, MA';
-      
+
       // Test should not throw error with valid parameters
       expect(async () => {
         await calculateDistance(testAddress, DEFAULT_USER_ADDRESS);
       }).not.toThrow();
+    });
+
+    it('returns null if restaurant address is missing', async () => {
+      const result = await calculateDistance('', DEFAULT_USER_ADDRESS);
+      expect(result).toBeNull();
+    });
+
+    it('returns null if user address is missing', async () => {
+      const result = await calculateDistance('123 Main St, Boston, MA', '');
+      expect(result).toBeNull();
+    });
+
+    it('returns null if both addresses are missing', async () => {
+      const result = await calculateDistance('', '');
+      expect(result).toBeNull();
+    });
+
+    it('returns null if geocode fails for restaurant', async () => {
+      jest.resetModules();
+      jest.mock('./distance', () => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const original = jest.requireActual('./distance');
+        return {
+          ...original,
+          geocodeAddress: jest.fn(async (address: string) => {
+            if (address === 'fail address') return null;
+            return { lat: 0, lng: 0 };
+          }),
+        };
+      });
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { calculateDistance, DEFAULT_USER_ADDRESS } = require('./distance');
+      const result = await calculateDistance('fail address', DEFAULT_USER_ADDRESS);
+      expect(result).toBeNull();
     });
   });
 });

@@ -63,14 +63,11 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
           color: #f5f5f5 !important;
         }
       `}</style>
-      
+
       {/* Custom Menu Category Dropdown */}
       {processedMenus.length > 1 && (
         <div className="flex items-center gap-3">
-          <label 
-            htmlFor="menu-category" 
-            className="text-sm font-medium text-black dark:text-white"
-          >
+          <label htmlFor="menu-category" className="text-sm font-medium text-black dark:text-white">
             Choose a category:
           </label>
           <div className="relative">
@@ -78,7 +75,7 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
               id="menu-category-dropdown-btn"
               onClick={() => setIsOpen(!isOpen)}
               className="px-3 py-2 rounded-lg text-sm cursor-pointer flex justify-between items-center"
-              style={{ 
+              style={{
                 minWidth: '200px',
                 border: isDark ? '2px solid #666' : '2px solid black',
                 backgroundColor: isDark ? '#1a1a1a' : 'white',
@@ -88,7 +85,7 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
               <span>{selectedMenuTitle}</span>
               <span>{isOpen ? '▲' : '▼'}</span>
             </button>
-            
+
             {/* Custom Dropdown Menu */}
             {isOpen && (
               <div
@@ -110,30 +107,46 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
                       setIsOpen(false);
                     }}
                     className="menu-dropdown-item"
-                    style={{
-                      backgroundColor: selectedMenuId === menu.id 
-                        ? (isDark ? '#2d2d2d' : '#e8e8e8')
-                        : (isDark ? '#1a1a1a' : 'white'),
-                      color: isDark ? '#f5f5f5' : 'black',
-                      width: '100%',
-                      padding: '8px 12px',
-                      textAlign: 'left',
-                      display: 'block',
-                      border: 'none',
-                      borderBottom: isDark ? '1px solid #333' : '1px solid #e0e0e0',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                    } as React.CSSProperties}
+                    style={
+                      {
+                        backgroundColor:
+                          selectedMenuId === menu.id
+                            ? isDark
+                              ? '#2d2d2d'
+                              : '#e8e8e8'
+                            : isDark
+                              ? '#1a1a1a'
+                              : 'white',
+                        color: isDark ? '#f5f5f5' : 'black',
+                        width: '100%',
+                        padding: '8px 12px',
+                        textAlign: 'left',
+                        display: 'block',
+                        border: 'none',
+                        borderBottom: isDark ? '1px solid #333' : '1px solid #e0e0e0',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                      } as React.CSSProperties
+                    }
                     onMouseEnter={(e) => {
                       const btn = e.target as HTMLButtonElement;
-                      btn.style.setProperty('background-color', isDark ? '#2d2d2d' : '#e8e8e8', 'important');
+                      btn.style.setProperty(
+                        'background-color',
+                        isDark ? '#2d2d2d' : '#e8e8e8',
+                        'important'
+                      );
                       btn.style.setProperty('color', isDark ? '#f5f5f5' : 'black', 'important');
                     }}
                     onMouseLeave={(e) => {
                       const btn = e.target as HTMLButtonElement;
-                      const bgColor = selectedMenuId === menu.id 
-                        ? (isDark ? '#2d2d2d' : '#e8e8e8')
-                        : (isDark ? '#1a1a1a' : 'white');
+                      const bgColor =
+                        selectedMenuId === menu.id
+                          ? isDark
+                            ? '#2d2d2d'
+                            : '#e8e8e8'
+                          : isDark
+                            ? '#1a1a1a'
+                            : 'white';
                       btn.style.setProperty('background-color', bgColor, 'important');
                       btn.style.setProperty('color', isDark ? '#f5f5f5' : 'black', 'important');
                     }}

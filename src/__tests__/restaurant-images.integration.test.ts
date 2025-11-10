@@ -20,7 +20,7 @@ describe('Restaurant Detail Page - Image Integration', () => {
   });
 
   describe('Complete Image Fetching Flow', () => {
-    it('should fetch and filter images for Bobby G\'s Pizzeria', async () => {
+    it("should fetch and filter images for Bobby G's Pizzeria", async () => {
       const mockResponse = {
         resources: [
           {
@@ -29,7 +29,8 @@ describe('Restaurant Detail Page - Image Integration', () => {
             format: 'jpg',
             version: 1761801462,
             resource_type: 'image',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/tables_anwlni.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/tables_anwlni.jpg',
           },
           {
             asset_id: 'e8de3b3740281d2a23c0e49ecd5a26e5',
@@ -37,7 +38,8 @@ describe('Restaurant Detail Page - Image Integration', () => {
             format: 'jpg',
             version: 1761801462,
             resource_type: 'image',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/menu2_cwqw5c.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/menu2_cwqw5c.jpg',
           },
           {
             asset_id: 'ca76925d0b82e3b96bf69d04f3136eee',
@@ -45,7 +47,8 @@ describe('Restaurant Detail Page - Image Integration', () => {
             format: 'jpg',
             version: 1761801461,
             resource_type: 'image',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801461/menu1_x3gtxj.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801461/menu1_x3gtxj.jpg',
           },
           {
             asset_id: 'cb435779fdaeb858e4e26d532e5e9c57',
@@ -53,7 +56,8 @@ describe('Restaurant Detail Page - Image Integration', () => {
             format: 'jpg',
             version: 1761801460,
             resource_type: 'image',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801460/happyhour_rfobbm.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801460/happyhour_rfobbm.jpg',
           },
           {
             asset_id: '20ae5e187b1133dbc2797c5feff9d39b',
@@ -61,7 +65,8 @@ describe('Restaurant Detail Page - Image Integration', () => {
             format: 'jpg',
             version: 1761801460,
             resource_type: 'image',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801460/foods_xhr9be.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801460/foods_xhr9be.jpg',
           },
         ],
         total_count: 5,
@@ -71,7 +76,17 @@ describe('Restaurant Detail Page - Image Integration', () => {
 
       const restaurantId = 'bobby-gs-pizzeria';
       const folder = `foodbuddy/restaurants/${restaurantId}`;
-      const patterns = ['tables_', 'foods_', 'menu1_', 'menu2_', 'menu3_', 'menu_', 'food1_', 'food_', 'happyhour_'];
+      const patterns = [
+        'tables_',
+        'foods_',
+        'menu1_',
+        'menu2_',
+        'menu3_',
+        'menu_',
+        'food1_',
+        'food_',
+        'happyhour_',
+      ];
 
       const response = await cloudinary.api.resources_by_asset_folder(folder, {
         resource_type: 'image',
@@ -92,23 +107,28 @@ describe('Restaurant Detail Page - Image Integration', () => {
         resources: [
           {
             public_id: 'menu3_coheml',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799342/menu3_coheml.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799342/menu3_coheml.jpg',
           },
           {
             public_id: 'menu2_s6fi8e',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799342/menu2_s6fi8e.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799342/menu2_s6fi8e.jpg',
           },
           {
             public_id: 'menu1_dvmmpk',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799341/menu1_dvmmpk.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799341/menu1_dvmmpk.jpg',
           },
           {
             public_id: 'tables_sehsce',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799153/tables_sehsce.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799153/tables_sehsce.jpg',
           },
           {
             public_id: 'foods_i6twly',
-            secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799145/foods_i6twly.jpg',
+            secure_url:
+              'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761799145/foods_i6twly.jpg',
           },
         ],
       };
@@ -150,8 +170,9 @@ describe('Restaurant Detail Page - Image Integration', () => {
 
   describe('Image Data Validation', () => {
     it('should validate secure URL format', () => {
-      const validUrl = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/tables_anwlni.jpg';
-      
+      const validUrl =
+        'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/tables_anwlni.jpg';
+
       expect(validUrl).toMatch(/^https:\/\/res\.cloudinary\.com\/.+\/image\/upload\/.+/);
     });
 
@@ -167,7 +188,17 @@ describe('Restaurant Detail Page - Image Integration', () => {
         'happyhour_rfobbm',
       ];
 
-      const patterns = ['tables_', 'foods_', 'menu1_', 'menu2_', 'menu3_', 'menu_', 'food1_', 'food_', 'happyhour_'];
+      const patterns = [
+        'tables_',
+        'foods_',
+        'menu1_',
+        'menu2_',
+        'menu3_',
+        'menu_',
+        'food1_',
+        'food_',
+        'happyhour_',
+      ];
 
       publicIds.forEach((id) => {
         const isValid = patterns.some((p) => id.startsWith(p));
@@ -177,7 +208,17 @@ describe('Restaurant Detail Page - Image Integration', () => {
 
     it('should reject images with invalid prefixes', () => {
       const invalidIds = ['random_image', 'banner_xyz', 'logo_abc'];
-      const patterns = ['tables_', 'foods_', 'menu1_', 'menu2_', 'menu3_', 'menu_', 'food1_', 'food_', 'happyhour_'];
+      const patterns = [
+        'tables_',
+        'foods_',
+        'menu1_',
+        'menu2_',
+        'menu3_',
+        'menu_',
+        'food1_',
+        'food_',
+        'happyhour_',
+      ];
 
       invalidIds.forEach((id) => {
         const isValid = patterns.some((p) => id.startsWith(p));
@@ -193,9 +234,9 @@ describe('Restaurant Detail Page - Image Integration', () => {
         new Error(errorMessage)
       );
 
-      await expect(
-        cloudinary.api.resources_by_asset_folder('some-folder', {})
-      ).rejects.toThrow(errorMessage);
+      await expect(cloudinary.api.resources_by_asset_folder('some-folder', {})).rejects.toThrow(
+        errorMessage
+      );
     });
 
     it('should handle Cloudinary authentication errors', async () => {
@@ -203,9 +244,9 @@ describe('Restaurant Detail Page - Image Integration', () => {
         new Error('Invalid API credentials')
       );
 
-      await expect(
-        cloudinary.api.resources_by_asset_folder('some-folder', {})
-      ).rejects.toThrow('Invalid API credentials');
+      await expect(cloudinary.api.resources_by_asset_folder('some-folder', {})).rejects.toThrow(
+        'Invalid API credentials'
+      );
     });
 
     it('should handle invalid folder paths', async () => {
