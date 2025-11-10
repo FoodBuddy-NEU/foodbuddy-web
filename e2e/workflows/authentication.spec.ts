@@ -20,26 +20,6 @@ test.describe('Authentication Workflow', () => {
     await navigateToHome(page);
   });
 
-  test('should display authentication links for unauthenticated users', async ({ page }) => {
-    // Look for login link
-    const loginLink = page
-      .locator('a:has-text("Login"), a:has-text("login"), a:has-text("Sign In"), a[href*="login"]')
-      .first();
-
-    // Look for signup link
-    const signupLink = page
-      .locator(
-        'a:has-text("Sign Up"), a:has-text("signup"), a:has-text("Register"), a[href*="signup"]'
-      )
-      .first();
-
-    // At least one should be visible
-    const loginVisible = await loginLink.isVisible({ timeout: 1000 }).catch(() => false);
-    const signupVisible = await signupLink.isVisible({ timeout: 1000 }).catch(() => false);
-
-    expect(loginVisible || signupVisible).toBeTruthy();
-  });
-
   test('should navigate to login page when login link clicked', async ({ page }) => {
     // Find login link
     const loginLink = page

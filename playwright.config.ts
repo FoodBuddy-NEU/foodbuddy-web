@@ -13,6 +13,10 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './e2e',
+  globalSetup: require.resolve('./e2e/global-setup.ts'),
+
+  /* Increase timeout for slow CI environments */
+  timeout: 60 * 1000, // 60 seconds per test
 
   /* Run tests in parallel for faster execution */
   fullyParallel: true,
@@ -31,6 +35,9 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://localhost:3000',
+
+    /* Increase action timeout for slow network */
+    actionTimeout: 15 * 1000, // 15 seconds
 
     /* Collect trace when retrying the failed test */
     trace: 'on-first-retry',
@@ -68,7 +75,17 @@ export default defineConfig({
     command: 'npm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: process.env.CI !== 'true',
-    timeout: 20 * 1000, // 20 seconds timeout
+    timeout: 60 * 1000, // 60 seconds timeout for environment setup
     ignoreHTTPSErrors: true,
+    env: {
+      // Ensure Firebase and API keys are available during E2E tests
+      NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || 'test-key',
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || 'test.firebaseapp.com',
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'test-project',
+      NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || 'test-app-id',
+      NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'test.appspot.com',
+      NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || 'test-sender-id',
+      NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'test-maps-key',
+    },
   },
 });

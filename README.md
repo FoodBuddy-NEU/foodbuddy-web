@@ -1,4 +1,4 @@
-# 🍽️ FoodBuddy MVP — v1.0.0
+# 🍽️ FoodBuddy MVP — v2.0.0
 
 ### A student-first restaurant discovery app built with Next.js + React
 
@@ -10,38 +10,53 @@ This MVP demonstrates the foundation of the app’s core experience: **search, e
 ## 🚀 MVP Overview
 
 ### Version
-
-**v1.0.0** — [GitHub Release → v1.0.0](#)
+**v2.0.0** — [GitHub Release → v2.0.0](#)
 
 ### Features Included
+The **FoodBuddy MVP** now goes beyond core restaurant discovery to deliver a polished, user-friendly experience with branding, interactivity, and accessibility improvements implemented during Sprint 2 (Oct 27 – Nov 9).
 
-The **FoodBuddy MVP** focuses on the essential discovery and browsing functionalities that validate the product’s core value proposition.
+- **🏠 Homepage Branding (#30)**  
+  Added the FoodBuddy logo and a short brand description to establish visual identity and provide clear context for new users. 
 
-- 🔍 **Search by Tags & Name**  
-  Users can search restaurants by tags such as **“solo-friendly”**, **“popular”**, **“food type”**, or by **restaurant name** (#1, #3, #18, #23).
+- **🔐 Login & Authentication (#28)**  
+  Integrated Firebase Authentication supporting both email/password login and Google account sign-in.
 
-- 🏠 **Restaurant Details Page**  
-  Displays restaurant information such as **price range**, **reviews**, and **available discounts** (#4).
+- **⭐ Bookmark Restaurants (#35)**
+  Introduced a bookmark feature allowing logged-in users to save their favorite restaurants for quick access later.
+  
+- **💬 Contact & Feedback Forms (#32, #33)**  
+  Built fully functional contact and feedback forms connected to **Firebase**. Users can now submit feedback on menus and overall dining experience directly through the platform.
 
-- 📋 **Full Menu Display**  
-  Organized menu structure with **categories, items, and prices** (#6).
+- **📍 Distance Display (#26)**  
+  Integrated **Google Maps API** (browser geolocation + Distance Matrix) to compute and display each restaurant’s distance from the user.
 
-- 💸 **Deal Information Display**  
-  Shows **fine print**, **validity**, and **items included** in deals (#19).
+- **🌙 Dark/Light Mode (#34)**  
+  Implemented a theme toggle that allows users to switch between light and dark mode.
 
 ---
 
 ## 📦 Backlog Items Included
 
-| ID  | Title                                                                 | Status    |
-| --- | --------------------------------------------------------------------- | --------- |
-| #1  | Implement restaurant search by tag “solo-friendly”                    | ✅ Closed |
-| #3  | Implement search by food type                                         | ✅ Closed |
-| #4  | Display restaurant details (price range, reviews, discounts)          | ✅ Closed |
-| #6  | Store and display full restaurant menu                                | ✅ Closed |
-| #18 | Implement restaurant search by tag “popular”                          | ✅ Closed |
-| #19 | Display full information about deals (fine prints and items included) | ✅ Closed |
-| #23 | Implement search by restaurant name                                   | ✅ Closed |
+| ID | Title | Status |
+|----|--------|--------|
+| #1 | Implement restaurant search by tag “solo-friendly” | ✅ Done |
+| #3 | Implement search by food type | ✅ Done |
+| #4 | Display restaurant details (price range, reviews, discounts) | ✅ Done |
+| #6 | Store and display full restaurant menu | ✅ Done |
+| #18 | Implement restaurant search by tag “popular” | ✅ Done |
+| #19 | Display full information about deals (fine prints and items included) | ✅ Done |
+| #23 | Implement search by restaurant name | ✅ Done |
+| #24 | Display restaurants pictures | ✅ Done |
+| #25 | Implement menu detail page | ✅ Done |
+| #26 | Implement distance calculation | ✅ Done |
+| #27 | Code of Sprint 1 refactoring | ✅ Done |
+| #28 | Implement user account creation and login functionality | ✅ Done |
+| #29 | Add credit for Yelp reviews | ✅ Done |
+| #30 | Add logo and short description in homepage | ✅ Done |
+| #31 | Set up code review process on Github | ✅ Done |
+| #32 | Add feedback of contact info | ✅ Done |
+| #33 | Add feedback of menu | ✅ Done |
+| #34 | Implement switch of light/dark mode | ✅ Done |
 
 ---
 
@@ -64,271 +79,47 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 ## 👥 Target Users
 
-- **Primary:** University students seeking affordable, trustworthy, and relevant dining options.
+- **Primary:** University students seeking affordable, trustworthy, and relevant dining options.  
 - **Secondary:** Small groups or solo diners looking for convenience, verified deals, and personalized recommendations.
-
----
-
-## 🤝 Product Owner Alignment
-
-This MVP directly supports the Product Owner’s vision to **validate FoodBuddy’s core value proposition** — enabling students to easily find affordable and relevant restaurants.
-
-Following feedback during Sprint 1:
-
-- The app was **rebuilt as a web application (Next.js + React)** for easier access and testing.
-- Mock data was replaced with **real-world restaurant information** for authenticity.
-- The MVP demonstrates usability, clarity, and potential scalability for future iterations such as group dining and notifications.
 
 ---
 
 ## 🧩 Tech Stack
 
-- **Frontend:** Next.js, React, Tailwind CSS
-- **Deployment:** Vercel
-- **Data:** Static JSON dataset (real restaurant and deal data)
-- **Version Control:** GitHub Issues & Projects (Agile workflow)
-
----
-
-## 🧪 Testing Framework
-
-The FoodBuddy project uses a **comprehensive dual-framework testing strategy** with **70% code coverage**:
-
-### Testing Frameworks
-
-- **Jest** – Unit and integration testing (92 tests, component testing with React Testing Library)
-- **Playwright** – End-to-end testing (292 test configurations across 4 browsers)
-
-### Running Tests
-
-```bash
-# Run all Jest tests
-npm test
-
-# Run with coverage report
-npm run test:coverage
-
-# Run E2E tests
-npm run test:e2e
-
-# Run all tests (Jest + Playwright)
-npm run test:all
-```
-
-### Test Coverage
-
-- **Phase 1 (Jest):** 45 tests → 28% coverage
-- **Phase 2 (Playwright):** 112 tests → 48% cumulative coverage
-- **Phase 3 (Playwright):** 292 tests → **70% cumulative coverage** ✅
-
-### Test Categories
-
-- ✅ Unit tests (core logic, utilities)
-- ✅ Integration tests (API, database)
-- ✅ Component tests (React components)
-- ✅ E2E workflows (user journeys)
-- ✅ Accessibility tests (WCAG compliance)
-- ✅ Performance tests (Core Web Vitals)
-- ✅ Error handling tests (recovery scenarios)
-
-**📖 See [TESTING_FRAMEWORK_GUIDE.md](./TESTING_FRAMEWORK_GUIDE.md) for complete testing documentation and [TESTING.md](./TESTING.md) for additional test details.**
-
----
-
-## 🎯 Code Quality & Linting
-
-### ESLint Configuration
-
-The project uses **ESLint** for code quality and bug detection with Next.js best practices:
-
-- **Config File:** `eslint.config.mjs`
-- **Extends:** `eslint-config-next/core-web-vitals` + `eslint-config-next/typescript`
-- **Rules:** Both style and bug detection rules configured
-- **Status:** ✅ **0 ESLint errors** (74 warnings are unused variables in E2E tests, expected in test code)
-
-### Prettier Configuration
-
-The project uses **Prettier** for consistent code formatting:
-
-- **Config File:** `.prettierrc.json`
-- **Settings:**
-  - Tab width: 2 spaces
-  - Single quotes
-  - Semicolons enabled
-  - Print width: 100 characters
-  - Trailing commas: ES5
-- **Ignore File:** `.prettierignore`
-
-### Code Quality Scripts
-
-```bash
-# Check code style (ESLint)
-npm run lint
-
-# Format code (Prettier)
-npm run format
-
-# Check formatting without changes
-npm run format:check
-```
-
-### Quality Metrics
-
-- ✅ **ESLint Status:** 0 errors, 74 warnings (all non-blocking)
-- ✅ **Prettier Status:** All code formatted consistently
-- ✅ **Test Coverage:** 80% (Jest + Playwright combined)
-- ✅ **CI Integration:** ESLint integrated in GitHub Actions
+- **Frontend:** Next.js, React, Tailwind CSS  
+- **Deployment:** Vercel  
+- **Data:** Static JSON dataset (real restaurant and deal data)  
+- **Version Control:** GitHub Issues & Projects (Agile workflow)  
+- **Testing Framework:** Jest & Playwright
 
 ---
 
 ## 🧾 Version History
 
-| Version | Date        | Description                                                                                  |
-| ------- | ----------- | -------------------------------------------------------------------------------------------- |
-| v1.0.0  | Oct 26 2025 | Initial MVP release — core restaurant search, detail, and deal display features implemented. |
+| Version | Date | Description |
+|----------|------|-------------|
+| v2.0.0 | Nov 9 2025 | User accounts & login, menu details, distance calculation, dark mode, homepage branding, Yelp credits, GitHub review process, Sprint 1 refactor. |
+| v1.0.0 | Oct 26 2025 | Initial MVP release — core restaurant search, detail, and deal display features implemented. |
 
 ---
 
 ## 🧑‍💻 Team
 
-- **Yangcheng Luo** – Backend & Data Model
-- **Yachen Wang** – Frontend & UI Development
-- **Yu Chen** – Integration & Testing
+- **Yangcheng Luo** – Backend & Data Model  
+- **Yachen Wang** – Frontend & UI Development  
+- **Yu Chen** – Integration & Testing  
 
 ---
-
-## 🧠 Future Improvements (Sprint 2 Plan)
-
-- Integrate live API or database connection for restaurant/deal data
-- Enable group dining and sharing features
-- Add user authentication and profile management
-- Conduct user testing with student participants
-
----
-
-### 📍 Repository Structure
-
-- /components → UI components (list, detail, deal)
-- /data → JSON data for restaurants and deals
-- /pages → Next.js pages (home, search, details)
-- /public → Static assets and icons
-- /styles → Global Tailwind configuration
-
----
-
-## 📸 Screenshots
-
-### 🏠 Home Page
-
-![Home Page Screenshot](./Images/1.jpg)
-![Home Page Screenshot](./Images/2.jpg)
-![Home Page Screenshot](./Images/3.jpg)
-![Home Page Screenshot](./Images/4.jpg)
-![Home Page Screenshot](./Images/5.jpg)
-
-### 🍽️ Restaurant Detail Page
-
-![Restaurant Detail Screenshot](./Images/6.jpg)
-
-### 💬 Deal Page
-
-![Deal Page Screenshot](./Images/7.jpg)
-
----
-
 ## 📸 Live Demo
-
 **🚀 Live Demo:** [https://foodbuddy-web-phi.vercel.app/](#)  
-**📦 GitHub Release:** [v1.0.0](#)
+**📦 GitHub Release:** [v2.0.0](#)  
 
 Please click on the above link to access the live demo.
 
 ---
 
-## 🔗 Additional Links
-
-**GitHub Project board Link**:
-https://github.com/orgs/FoodBuddy-NEU/projects/1/views/1
-
-**Sprint Planning Meeting Summary Link**:
-https://github.com/FoodBuddy-NEU/foodbuddy-web/wiki/Sprint-Planning-Meeting-Summary
-
-**Daily Standup Link**:
-https://github.com/FoodBuddy-NEU/foodbuddy-web/wiki/Daily-Standups
-
-**Sprint Retrospective Link**:
-https://github.com/FoodBuddy-NEU/foodbuddy-web/wiki/Sprint-Retrospective
-
-**Sprint Review Link**:
-https://github.com/FoodBuddy-NEU/foodbuddy-web/wiki/Sprint-Review
-
----
-
-## 🧪 Testing & Coverage
-
-### Testing Framework
-
-- **Unit/Integration:** Jest + React Testing Library
-- **E2E:** Cypress/Playwright
-
-### Run All Tests
-
-```bash
-npm run test
-```
-
-- Run all unit and integration tests
-- Output coverage report
-
-### Generate Coverage Report
-
-```bash
-npm run test -- --coverage
-```
-
-- Detailed coverage report in `coverage/` folder
-- Business logic and key components coverage supplemented, targeting 70%+
-
-### Run E2E Tests (Cypress)
-
-```bash
-npx cypress open
-```
-
-- 关键用户流程已覆盖：
-  - 首页浏览餐厅列表
-  - 跳转餐厅详情页
-  - 提交反馈表单
-- 测试文件见 `cypress/e2e/restaurant_flow.cy.js`
-
-### 测试类型说明
-
-- **Unit Tests:** 业务逻辑函数、关键组件（如 RestaurantCard、FeedbackForm、BookmarkButton）
-- **Integration Tests:** API 路由（如 /api/feedback, /api/distances）
-- **E2E Tests:** Cypress/Playwright 覆盖关键用户流程（如登录、菜单浏览、反馈提交）
-
-### 测试质量保障
-
-- 所有测试均覆盖边界、异常、空值、错误场景
-- 测试用例描述清晰，断言覆盖 acceptance criteria
-- 测试均为可靠、非 flaky
-
-### AI-Assisted Testing
-
-- 部分测试由 AI 生成，已人工审核和修改，确保有效
-- AI 生成测试已在代码注释和本说明中标注
-
-### 依赖与配置
-
-- 测试依赖已在 `package.json`
-- Jest 配置见 `jest.config.js` 或 `jest.config.mjs`
-- Cypress 配置见 `cypress/` 文件夹
-
-### 参考命令
-
-- `npm run test`：运行所有测试
-- `npm run test -- --coverage`：生成覆盖率报告
-- `npx cypress open`：运行 E2E 测试
+## 📃 Docs
+Please visit the wiki page and search for "#Sprint 2" for all the essential documents of our 2nd sprint.
 
 ---
 
