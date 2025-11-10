@@ -111,7 +111,7 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 ---
 ## 📸 Live Demo
-**🚀 Live Demo:** [https://foodbuddy-web-phi.vercel.app/](#)  
+**🚀 Live Demo:** [https://foodbuddy-web-neuoak.vercel.app//](#)  
 **📦 GitHub Release:** [v2.0.0](#)  
 
 Please click on the above link to access the live demo.
