@@ -98,7 +98,7 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 | Version | Date | Description |
 |----------|------|-------------|
-| v2.0.0 | Nov 9 2025 | User accounts & login, menu details, distance calculation, dark mode, homepage branding, Yelp credits, GitHub review process, Sprint 1 refactor. |
+| v2.0.0 | Nov 9 2025 | User accounts & login, menu details, distance calculation, light dark mode, homepage branding, Yelp credits, GitHub review process, Sprint 1 refactor. |
 | v1.0.0 | Oct 26 2025 | Initial MVP release — core restaurant search, detail, and deal display features implemented. |
 
 ---
