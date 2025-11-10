@@ -1,26 +1,124 @@
-@import "tailwindcss";
+/* Custom deal card hover fix for light mode */
+html:not(.dark) .deal-card:hover,
+html:not(.dark) .menu-item-card:hover {
+  background: #f3f3f3 !important;
+  color: #171717 !important;
+}
+
+html.dark .deal-card:hover,
+html.dark .menu-item-card:hover {
+  background: #232323 !important;
+  color: #fff !important;
+}
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --input-bg: #ffffff;
+  --input-text: #171717;
+  --card-bg: #ffffff;
+  --card-text: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Light theme */
+html {
+  --background: #ffffff;
+  --foreground: #171717;
+  --input-bg: #ffffff;
+  --input-text: #171717;
+  --card-bg: #ffffff;
+  --card-text: #171717;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark theme - when .dark class is added to html element */
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --input-bg: #1a1a1a;
+  --input-text: #ededed;
+  --card-bg: #1a1a1a;
+  --card-text: #ededed;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Input styling */
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+textarea {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+input::placeholder {
+  color: var(--input-text);
+  opacity: 0.6;
+}
+
+/* Card/article styling */
+article > div {
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Ensure all text in cards is card-text color in light mode */
+html:not(.dark) article,
+html:not(.dark) article * {
+  color: var(--card-text);
+}
+
+/* Ensure all text in detail pages is card-text color in light mode */
+html:not(.dark) main > *,
+html:not(.dark) section {
+  color: var(--card-text);
+}
+
+/* Override all dark mode specific color classes in light mode */
+html:not(.dark) .dark\:text-neutral-300,
+html:not(.dark) .dark\:text-neutral-400,
+html:not(.dark) .dark\:text-white,
+html:not(.dark) .text-neutral-600,
+html:not(.dark) .text-neutral-700,
+html:not(.dark) .text-black {
+  color: var(--card-text) !important;
+}
+
+/* Menu category selector button styles */
+.menu-dropdown-item {
+  background-color: white !important;
+  color: black !important;
+}
+
+.menu-dropdown-item:hover {
+  background-color: #e8e8e8 !important;
+  color: black !important;
+}
+
+html.dark .menu-dropdown-item {
+  background-color: #1a1a1a !important;
+  color: #f5f5f5 !important;
+}
+
+html.dark .menu-dropdown-item:hover {
+  background-color: #2d2d2d !important;
+  color: #f5f5f5 !important;
 }

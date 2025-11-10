@@ -8,7 +8,7 @@
     "rating": 3.9,
     "distance": 8.0,
     "foodTypes": ["Vietnamese", "Pho"],
-    "tags": ["family-friendly", "solo-friendly","Casual"],
+    "tags": ["family-friendly", "solo-friendly", "Casual"],
     "deals": [
       {
         "id": "deal-1",
@@ -32,15 +32,15 @@
           { "id": "m7", "name": "Vegetarian Pho", "price": 14.99 },
           { "id": "m8", "name": "Southern Dry Noodle (Hủ Tiếu Khô)", "price": 14.99 },
           { "id": "m9", "name": "Surf and Turf Bowl", "price": 16.99 },
-          { "id": "m10", "name": "Crispy Pork Bowl", "price": 17.50 },
-          { "id": "m11", "name": "Tom-Yum Crispy Pork Dry Noodle", "price": 17.50 },
-          { "id": "m12", "name": "Chicken Over Rice", "price": 14.00 },
-          { "id": "m13", "name": "Garlic Noodles", "price": 15.00 },
-          { "id": "m14", "name": "Fresh Mango Salad", "price": 15.00 },
-          { "id": "m15", "name": "Mango and Vanilla Ice Cream", "price": 8.00 },
-          { "id": "m16", "name": "Cheese Cake", "price": 6.00 },
-          { "id": "m17", "name": "Strawberry Cheese Cake", "price": 6.00 },
-          { "id": "m18", "name": "Chocolate Lava", "price": 8.00 },
+          { "id": "m10", "name": "Crispy Pork Bowl", "price": 17.5 },
+          { "id": "m11", "name": "Tom-Yum Crispy Pork Dry Noodle", "price": 17.5 },
+          { "id": "m12", "name": "Chicken Over Rice", "price": 14.0 },
+          { "id": "m13", "name": "Garlic Noodles", "price": 15.0 },
+          { "id": "m14", "name": "Fresh Mango Salad", "price": 15.0 },
+          { "id": "m15", "name": "Mango and Vanilla Ice Cream", "price": 8.0 },
+          { "id": "m16", "name": "Cheese Cake", "price": 6.0 },
+          { "id": "m17", "name": "Strawberry Cheese Cake", "price": 6.0 },
+          { "id": "m18", "name": "Chocolate Lava", "price": 8.0 },
           { "id": "m19", "name": "Vietnamese Egg Rolls - North Style (Nem)", "price": 10.78 },
           { "id": "m20", "name": "Vietnamese Egg Rolls - South Style (Chả giò)", "price": 9.78 },
           { "id": "m21", "name": "Fresh Spring Rolls", "price": 10.98 },
@@ -55,8 +55,16 @@
       }
     ],
     "reviews": [
-      { "userName": "Michelle K.", "rating": 5, "comment": "Service was wonderful! Ordered the classic pho with filet mignon and it was very delicious!" },
-        { "userName": "Yinqi Y.", "rating": 5, "comment": "The service is awesome! staff is welcoming and food is very tasty. I will definitely come back again!" }
+      {
+        "userName": "Michelle K.",
+        "rating": 5,
+        "comment": "Service was wonderful! Ordered the classic pho with filet mignon and it was very delicious!"
+      },
+      {
+        "userName": "Yinqi Y.",
+        "rating": 5,
+        "comment": "The service is awesome! staff is welcoming and food is very tasty. I will definitely come back again!"
+      }
     ]
   },
   {
@@ -83,43 +91,47 @@
         "id": "menu-main",
         "title": "Main Menu",
         "items": [
-        { "id": "m1", "name": "Arancini (Italian Fried Risotto)", "price": 14.50 },
-        { "id": "m2", "name": "Stuffed Breadstick", "price": 15.00 },
-        { "id": "m3", "name": "Chicken Wings", "price": 15.00 },
-        { "id": "m4", "name": "Sauteed Veggies", "price": 11.00 },
-        { "id": "m5", "name": "Flatbread with Zaatar", "price": 11.00 },
-        { "id": "m6", "name": "Garlic Bread", "price": 9.50 },
-        { "id": "m7", "name": "Truffle Fries", "price": 14.00 },
-        { "id": "m8", "name": "Caesar Salad", "price": 15.00 },
-        { "id": "m9", "name": "Bobby G’s Salad", "price": 15.00 },
-        { "id": "m10", "name": "House Salad", "price": 15.00 },
-        { "id": "m11", "name": "Caprese Salad", "price": 14.00 },
-        { "id": "m12", "name": "Combo Pizza 12″ (+ $10 for 18″)", "price": 29.00 },
-        { "id": "m13", "name": "Meat Lovers Pizza 12″ (+ $10 for 18″)", "price": 26.00 },
-        { "id": "m14", "name": "Triple Mushroom Pie 12″ (+ $10 for 18″)", "price": 24.00 },
-        { "id": "m15", "name": "Margherita Pizza 12″ (+ $10 for 18″)", "price": 21.00 },
-        { "id": "m16", "name": "Marinara Pizza 12″ (+ $10 for 18″)", "price": 13.75 },
-        { "id": "m17", "name": "Paradise Pizza 12″ (+ $10 for 18″)", "price": 26.00 },
-        { "id": "m18", "name": "BBQ Chicken & Bacon Pizza 12″ (+ $10 for 18″)", "price": 26.00 },
-        { "id": "m19", "name": "Veggie Pizza 12″ (+ $10 for 18″)", "price": 26.00 },
-        { "id": "m20", "name": "Arugula & Cheese Pizza 12″ (+ $10 for 18″)", "price": 21.00 },
-        { "id": "m21", "name": "Four Cheese Pizza 12″ (+ $10 for 18″)", "price": 24.00 },
-        { "id": "m22", "name": "Shroom Pizza 12″ (+ $10 for 18″)", "price": 26.00 },
-        { "id": "m23", "name": "Bianca Pizza 12″ (+ $10 for 18″)", "price": 19.00 },
-        { "id": "m24", "name": "Buffalo Chicken Pizza 12″ (+ $10 for 18″)", "price": 24.00 },
-        { "id": "m25", "name": "Pesto Pizza 12″ (+ $10 for 18″)", "price": 24.00 },
-        { "id": "m26", "name": "Pear Pizza 12″ (+ $10 for 18″)", "price": 26.00 },
-        { "id": "m27", "name": "Roasted Chile Pepper Pizza 12″ (+ $10 for 18″)", "price": 26.00 },
-        { "id": "m28", "name": "Bolognese Pasta", "price": 16.00 },
-        { "id": "m29", "name": "Penne and Marinara Pasta", "price": 14.00 },
-        { "id": "m30", "name": "Gnocchi in Creamy Pesto Sauce", "price": 16.00 },
-        { "id": "m31", "name": "Fettuccine Alfredo", "price": 14.00 },
-        { "id": "m32", "name": "Kid’s Pasta", "price": 11.00 }
+          { "id": "m1", "name": "Arancini (Italian Fried Risotto)", "price": 14.5 },
+          { "id": "m2", "name": "Stuffed Breadstick", "price": 15.0 },
+          { "id": "m3", "name": "Chicken Wings", "price": 15.0 },
+          { "id": "m4", "name": "Sauteed Veggies", "price": 11.0 },
+          { "id": "m5", "name": "Flatbread with Zaatar", "price": 11.0 },
+          { "id": "m6", "name": "Garlic Bread", "price": 9.5 },
+          { "id": "m7", "name": "Truffle Fries", "price": 14.0 },
+          { "id": "m8", "name": "Caesar Salad", "price": 15.0 },
+          { "id": "m9", "name": "Bobby G’s Salad", "price": 15.0 },
+          { "id": "m10", "name": "House Salad", "price": 15.0 },
+          { "id": "m11", "name": "Caprese Salad", "price": 14.0 },
+          { "id": "m12", "name": "Combo Pizza 12″ (+ $10 for 18″)", "price": 29.0 },
+          { "id": "m13", "name": "Meat Lovers Pizza 12″ (+ $10 for 18″)", "price": 26.0 },
+          { "id": "m14", "name": "Triple Mushroom Pie 12″ (+ $10 for 18″)", "price": 24.0 },
+          { "id": "m15", "name": "Margherita Pizza 12″ (+ $10 for 18″)", "price": 21.0 },
+          { "id": "m16", "name": "Marinara Pizza 12″ (+ $10 for 18″)", "price": 13.75 },
+          { "id": "m17", "name": "Paradise Pizza 12″ (+ $10 for 18″)", "price": 26.0 },
+          { "id": "m18", "name": "BBQ Chicken & Bacon Pizza 12″ (+ $10 for 18″)", "price": 26.0 },
+          { "id": "m19", "name": "Veggie Pizza 12″ (+ $10 for 18″)", "price": 26.0 },
+          { "id": "m20", "name": "Arugula & Cheese Pizza 12″ (+ $10 for 18″)", "price": 21.0 },
+          { "id": "m21", "name": "Four Cheese Pizza 12″ (+ $10 for 18″)", "price": 24.0 },
+          { "id": "m22", "name": "Shroom Pizza 12″ (+ $10 for 18″)", "price": 26.0 },
+          { "id": "m23", "name": "Bianca Pizza 12″ (+ $10 for 18″)", "price": 19.0 },
+          { "id": "m24", "name": "Buffalo Chicken Pizza 12″ (+ $10 for 18″)", "price": 24.0 },
+          { "id": "m25", "name": "Pesto Pizza 12″ (+ $10 for 18″)", "price": 24.0 },
+          { "id": "m26", "name": "Pear Pizza 12″ (+ $10 for 18″)", "price": 26.0 },
+          { "id": "m27", "name": "Roasted Chile Pepper Pizza 12″ (+ $10 for 18″)", "price": 26.0 },
+          { "id": "m28", "name": "Bolognese Pasta", "price": 16.0 },
+          { "id": "m29", "name": "Penne and Marinara Pasta", "price": 14.0 },
+          { "id": "m30", "name": "Gnocchi in Creamy Pesto Sauce", "price": 16.0 },
+          { "id": "m31", "name": "Fettuccine Alfredo", "price": 14.0 },
+          { "id": "m32", "name": "Kid’s Pasta", "price": 11.0 }
         ]
       }
     ],
     "reviews": [
-{ "userName": "Diane L.", "rating": 5, "comment": "I stopped here after work to meet a friend for dinner. We ordered pizza by the slice, I had mushroom and they had cheese, we shared an order of chicken wings and a Caesar salad. I really liked their Caesar salad, and will return to order that. We each ordered an IPA to drink, they have a nice beer selection on tap. The football KC vs. Chargers game was playing on the big TV screens. While we were there a dj was setting up and people started singing karaoke. This seems like a nice spot close to the UC Berkeley campus that would attract lots of students and people who want a place to watch the game!"}
+      {
+        "userName": "Diane L.",
+        "rating": 5,
+        "comment": "I stopped here after work to meet a friend for dinner. We ordered pizza by the slice, I had mushroom and they had cheese, we shared an order of chicken wings and a Caesar salad. I really liked their Caesar salad, and will return to order that. We each ordered an IPA to drink, they have a nice beer selection on tap. The football KC vs. Chargers game was playing on the big TV screens. While we were there a dj was setting up and people started singing karaoke. This seems like a nice spot close to the UC Berkeley campus that would attract lots of students and people who want a place to watch the game!"
+      }
     ]
   },
   {
@@ -145,27 +157,35 @@
         "id": "menu-bench",
         "title": "Main Menu",
         "items": [
-        { "id": "m1", "name": "House Drip Coffee (+ large $4)", "price": 3.00 },
-        { "id": "m2", "name": "Au Lait (+ large $5)", "price": 4.00 },
-        { "id": "m3", "name": "Espresso", "price": 3.50 },
-        { "id": "m4", "name": "Latte (+ large $5.5)", "price": 4.50 },
-        { "id": "m5", "name": "Cappuccino", "price": 4.50 },
-        { "id": "m6", "name": "Macchiato", "price": 4.00 },
-        { "id": "m7", "name": "Mocha", "price": 5.50 },
-        { "id": "m8", "name": "Hot Chocolate (+ large $4.75)", "price": 3.75 },
-        { "id": "m9", "name": "Iced Coffee", "price": 5.00 },
-        { "id": "m10", "name": "Persian Rose Tea (+ large $6)", "price": 4.00 },
-        { "id": "m11", "name": "Dream Tea (+ large $6)", "price": 4.00 },
-        { "id": "m12", "name": "Twiggy Tea (+ large $6)", "price": 4.00 },
-        { "id": "m13", "name": "Berber Tea (+ large $6)", "price": 4.00 },
-        { "id": "m14", "name": "Persian Black Tea (+ large $6)", "price": 4.00 },
-        { "id": "m15", "name": "Iced Tea", "price": 5.00 }
+          { "id": "m1", "name": "House Drip Coffee (+ large $4)", "price": 3.0 },
+          { "id": "m2", "name": "Au Lait (+ large $5)", "price": 4.0 },
+          { "id": "m3", "name": "Espresso", "price": 3.5 },
+          { "id": "m4", "name": "Latte (+ large $5.5)", "price": 4.5 },
+          { "id": "m5", "name": "Cappuccino", "price": 4.5 },
+          { "id": "m6", "name": "Macchiato", "price": 4.0 },
+          { "id": "m7", "name": "Mocha", "price": 5.5 },
+          { "id": "m8", "name": "Hot Chocolate (+ large $4.75)", "price": 3.75 },
+          { "id": "m9", "name": "Iced Coffee", "price": 5.0 },
+          { "id": "m10", "name": "Persian Rose Tea (+ large $6)", "price": 4.0 },
+          { "id": "m11", "name": "Dream Tea (+ large $6)", "price": 4.0 },
+          { "id": "m12", "name": "Twiggy Tea (+ large $6)", "price": 4.0 },
+          { "id": "m13", "name": "Berber Tea (+ large $6)", "price": 4.0 },
+          { "id": "m14", "name": "Persian Black Tea (+ large $6)", "price": 4.0 },
+          { "id": "m15", "name": "Iced Tea", "price": 5.0 }
         ]
       }
     ],
     "reviews": [
-      { "userName": "Mia B.", "rating": 5, "comment": "Had such a good experience at Bench! It is such a quaint shop with relaxing vibes to match its lovey menu. I got the date latte, and it was so tasty! The flavor was a nice balance of sweetness and nuttiness that made every sip taste so so good. Would for sure come back here." },
-      { "userName": "Angie G.", "rating": 5, "comment": "Super cute and great coffee!! Don't forget to try their pastries! Their customer was awesome i don't remember their name but they were so sweet and amazing!" }
+      {
+        "userName": "Mia B.",
+        "rating": 5,
+        "comment": "Had such a good experience at Bench! It is such a quaint shop with relaxing vibes to match its lovey menu. I got the date latte, and it was so tasty! The flavor was a nice balance of sweetness and nuttiness that made every sip taste so so good. Would for sure come back here."
+      },
+      {
+        "userName": "Angie G.",
+        "rating": 5,
+        "comment": "Super cute and great coffee!! Don't forget to try their pastries! Their customer was awesome i don't remember their name but they were so sweet and amazing!"
+      }
     ]
   },
   {
@@ -192,47 +212,55 @@
         "id": "menu-juice-appeal",
         "title": "Main Menu",
         "items": [
-        { "id": "m1", "name": "Forest Berry (+24oz $8.25)", "price": 5.25 },
-        { "id": "m2", "name": "Island Hop (+24oz $8.25)", "price": 5.25 },
-        { "id": "m3", "name": "Tropical Fantasy (+24oz $8.25)", "price": 5.25 },
-        { "id": "m4", "name": "Blue Clouds (+24oz $8.25)", "price": 5.25 },
-        { "id": "m5", "name": "Soymilk Splendor (+24oz $8.25)", "price": 5.25 },
+          { "id": "m1", "name": "Forest Berry (+24oz $8.25)", "price": 5.25 },
+          { "id": "m2", "name": "Island Hop (+24oz $8.25)", "price": 5.25 },
+          { "id": "m3", "name": "Tropical Fantasy (+24oz $8.25)", "price": 5.25 },
+          { "id": "m4", "name": "Blue Clouds (+24oz $8.25)", "price": 5.25 },
+          { "id": "m5", "name": "Soymilk Splendor (+24oz $8.25)", "price": 5.25 },
 
-        { "id": "m6", "name": "Energizer (+24oz $8.75)", "price": 5.75 },
-        { "id": "m7", "name": "Beach Bum (+24oz $8.75)", "price": 5.75 },
-        { "id": "m8", "name": "Blue Clouds Specialty (+24oz $8.75)", "price": 5.75 },
-        { "id": "m9", "name": "Private Island (+24oz $8.75)", "price": 5.75 },
-        { "id": "m10", "name": "Pitaya Passion (+24oz $8.75)", "price": 5.75 },
+          { "id": "m6", "name": "Energizer (+24oz $8.75)", "price": 5.75 },
+          { "id": "m7", "name": "Beach Bum (+24oz $8.75)", "price": 5.75 },
+          { "id": "m8", "name": "Blue Clouds Specialty (+24oz $8.75)", "price": 5.75 },
+          { "id": "m9", "name": "Private Island (+24oz $8.75)", "price": 5.75 },
+          { "id": "m10", "name": "Pitaya Passion (+24oz $8.75)", "price": 5.75 },
 
-        { "id": "m11", "name": "Strawberry Splash (+24oz $6.00)", "price": 5.00 },
-        { "id": "m12", "name": "Raspberry Rage (+24oz $6.00)", "price": 5.00 },
-        { "id": "m13", "name": "Mango Madness (+24oz $6.00)", "price": 5.00 },
-        { "id": "m14", "name": "Peach Kiss (+24oz $6.00)", "price": 5.00 },
-        { "id": "m15", "name": "Country Boysenberry (+24oz $6.00)", "price": 5.00 },
-        { "id": "m16", "name": "Private Island (Creamy) (+24oz $6.00)", "price": 5.00 },
-        { "id": "m17", "name": "Banana Nut (+24oz $6.00)", "price": 5.00 },
-        { "id": "m18", "name": "Citrus Bliss (+24oz $6.00)", "price": 5.00 },
-        { "id": "m19", "name": "Milk Shake (+24oz $6.00)", "price": 5.00 },
+          { "id": "m11", "name": "Strawberry Splash (+24oz $6.00)", "price": 5.0 },
+          { "id": "m12", "name": "Raspberry Rage (+24oz $6.00)", "price": 5.0 },
+          { "id": "m13", "name": "Mango Madness (+24oz $6.00)", "price": 5.0 },
+          { "id": "m14", "name": "Peach Kiss (+24oz $6.00)", "price": 5.0 },
+          { "id": "m15", "name": "Country Boysenberry (+24oz $6.00)", "price": 5.0 },
+          { "id": "m16", "name": "Private Island (Creamy) (+24oz $6.00)", "price": 5.0 },
+          { "id": "m17", "name": "Banana Nut (+24oz $6.00)", "price": 5.0 },
+          { "id": "m18", "name": "Citrus Bliss (+24oz $6.00)", "price": 5.0 },
+          { "id": "m19", "name": "Milk Shake (+24oz $6.00)", "price": 5.0 },
 
-        { "id": "m20", "name": "Green Buzz (+24oz $7.95)", "price": 6.95 },
-        { "id": "m21", "name": "Power House (+24oz $7.95)", "price": 6.95 },
-        { "id": "m22", "name": "Cold Buster (+24oz $7.95)", "price": 6.95 },
-        { "id": "m23", "name": "Beet King (+24oz $7.95)", "price": 6.95 },
-        { "id": "m24", "name": "The Hero (+24oz $7.95)", "price": 6.95 },
-        { "id": "m25", "name": "The Rush (+24oz $7.95)", "price": 6.95 },
-        { "id": "m26", "name": "Warrior (+24oz $7.95)", "price": 6.95 },
-        { "id": "m27", "name": "Detox Beet Box (+24oz $7.95)", "price": 6.95 },
+          { "id": "m20", "name": "Green Buzz (+24oz $7.95)", "price": 6.95 },
+          { "id": "m21", "name": "Power House (+24oz $7.95)", "price": 6.95 },
+          { "id": "m22", "name": "Cold Buster (+24oz $7.95)", "price": 6.95 },
+          { "id": "m23", "name": "Beet King (+24oz $7.95)", "price": 6.95 },
+          { "id": "m24", "name": "The Hero (+24oz $7.95)", "price": 6.95 },
+          { "id": "m25", "name": "The Rush (+24oz $7.95)", "price": 6.95 },
+          { "id": "m26", "name": "Warrior (+24oz $7.95)", "price": 6.95 },
+          { "id": "m27", "name": "Detox Beet Box (+24oz $7.95)", "price": 6.95 },
 
-        { "id": "m28", "name": "Peanut Butter Me Up (+24oz $6.00)", "price": 5.00 },
-        { "id": "m29", "name": "Coco Butter (+24oz $6.00)", "price": 5.00 },
-        { "id": "m30", "name": "Nutty Buddy (+24oz $6.75)", "price": 5.75 },
-        { "id": "m31", "name": "Purple Cow (+24oz $6.75)", "price": 5.75 }
+          { "id": "m28", "name": "Peanut Butter Me Up (+24oz $6.00)", "price": 5.0 },
+          { "id": "m29", "name": "Coco Butter (+24oz $6.00)", "price": 5.0 },
+          { "id": "m30", "name": "Nutty Buddy (+24oz $6.75)", "price": 5.75 },
+          { "id": "m31", "name": "Purple Cow (+24oz $6.75)", "price": 5.75 }
         ]
       }
     ],
     "reviews": [
-    { "userName": "Lovlysa M.", "rating": 5, "comment": "Best shake spot, service were amazing the girls were all so nice very knowledgeable with I needed for my juice this time I kind of went of the menu but they were so patient and my shake was delicious." },
-    { "userName": "Garrett K.", "rating": 5, "comment": "Kept it cold in the freezer when I walked to pick something else up! Was delicious, even did a custom addition without adding price. Similar to a place called Raw in Fremont. Really well done." }
+      {
+        "userName": "Lovlysa M.",
+        "rating": 5,
+        "comment": "Best shake spot, service were amazing the girls were all so nice very knowledgeable with I needed for my juice this time I kind of went of the menu but they were so patient and my shake was delicious."
+      },
+      {
+        "userName": "Garrett K.",
+        "rating": 5,
+        "comment": "Kept it cold in the freezer when I walked to pick something else up! Was delicious, even did a custom addition without adding price. Similar to a place called Raw in Fremont. Really well done."
+      }
     ]
   },
   {
@@ -258,311 +286,366 @@
         "id": "menu-cancun",
         "title": "Main Menu",
         "items": [
-        { "id": "m1",  "name": "Super Burrito",                                "price": 21.35 },
-        { "id": "m2",  "name": "Super Vegetarian Burrito",                     "price": 20.00 },
-        { "id": "m3",  "name": "Regular Burrito",                              "price": 17.90 },
-        { "id": "m4",  "name": "Regular Vegetarian Burrito",                   "price": 13.50 },
-        { "id": "m5",  "name": "Grilled Vegetable Burrito",                    "price": 21.45 },
-        { "id": "m6",  "name": "Nopales en Asada Burrito",                     "price": 20.00 },
-        { "id": "m7",  "name": "Low Carb Burrito",                             "price": 22.75 },
-        { "id": "m8",  "name": "Chicken Mole Burrito",                         "price": 20.00 },
-        { "id": "m9",  "name": "Seafood Burrito",                              "price": 22.75 },
-        { "id": "m10", "name": "Mar y Tierra Burrito",                          "price": 24.00 },
-        { "id": "m11", "name": "Crispy Taco (1)",                              "price": 7.99 },
-        { "id": "m12", "name": "Soft Taco",                                    "price": 7.99 },
-        { "id": "m13", "name": "Street Tacos (4)",                              "price": 18.99 },
-        { "id": "m14", "name": "Quesadilla Super",                             "price": 18.99 },
-        { "id": "m15", "name": "Nachos",                                       "price": 22.50 },
-        { "id": "m16", "name": "Cancún Salad",                                 "price": 15.99 },
-        { "id": "m17", "name": "Guacamole and Chips",                           "price": 9.99 },
-        { "id": "m18", "name": "Chips and Salsa",                               "price": 8.99 },
-        { "id": "m19", "name": "Buñuelos (Dessert)",                            "price": 4.99 },
-        { "id": "m20", "name": "Dessert of the Day",                            "price": 9.99 }
+          { "id": "m1", "name": "Super Burrito", "price": 21.35 },
+          { "id": "m2", "name": "Super Vegetarian Burrito", "price": 20.0 },
+          { "id": "m3", "name": "Regular Burrito", "price": 17.9 },
+          { "id": "m4", "name": "Regular Vegetarian Burrito", "price": 13.5 },
+          { "id": "m5", "name": "Grilled Vegetable Burrito", "price": 21.45 },
+          { "id": "m6", "name": "Nopales en Asada Burrito", "price": 20.0 },
+          { "id": "m7", "name": "Low Carb Burrito", "price": 22.75 },
+          { "id": "m8", "name": "Chicken Mole Burrito", "price": 20.0 },
+          { "id": "m9", "name": "Seafood Burrito", "price": 22.75 },
+          { "id": "m10", "name": "Mar y Tierra Burrito", "price": 24.0 },
+          { "id": "m11", "name": "Crispy Taco (1)", "price": 7.99 },
+          { "id": "m12", "name": "Soft Taco", "price": 7.99 },
+          { "id": "m13", "name": "Street Tacos (4)", "price": 18.99 },
+          { "id": "m14", "name": "Quesadilla Super", "price": 18.99 },
+          { "id": "m15", "name": "Nachos", "price": 22.5 },
+          { "id": "m16", "name": "Cancún Salad", "price": 15.99 },
+          { "id": "m17", "name": "Guacamole and Chips", "price": 9.99 },
+          { "id": "m18", "name": "Chips and Salsa", "price": 8.99 },
+          { "id": "m19", "name": "Buñuelos (Dessert)", "price": 4.99 },
+          { "id": "m20", "name": "Dessert of the Day", "price": 9.99 }
         ]
       }
     ],
     "reviews": [
-    { "userName": "Liam",   "rating": 4, "comment": "Fresh ingredients, love the vibe." },
-    { "userName": "Ava",    "rating": 5, "comment": "Great salsa bar and quick service — will come back!" }
+      { "userName": "Liam", "rating": 4, "comment": "Fresh ingredients, love the vibe." },
+      {
+        "userName": "Ava",
+        "rating": 5,
+        "comment": "Great salsa bar and quick service — will come back!"
+      }
     ]
   },
   {
-  "id": "southside-station",
-  "name": "Southside Station",
-  "address": "2504 Shattuck Ave Berkeley, CA 94704",
-  "phone": "(510) 989-9835",
-  "priceRange": "$$",
-  "rating": 4.5,
-  "distance": 8.5,
-  "foodTypes": ["American", "Fried Chicken", "Sandwiches"],
-  "tags": ["award-winning wings", "house-made brioche", "student-friendly", "counter-service"],
-  "deals": [
-    {
-      "id": "deal-1",
-      "title": "Wings/Thigh combo = FREE UPGRADE to Thai Iced Tea or Lychee Iced Tea (~13% off)",
-      "validFrom": "2025-10-01",
-      "validTo": "2026-01-31"
-    },
-    {
-      "id": "deal-2",
-      "title": "Family Party Tray (3-4 people) = $65 (~15% off)",
-      "validFrom": "2025-10-01",
-      "validTo": "2026-01-31"
-    }
-  ],
-  "menus": [
-    {
-      "id": "menu-southside",
-      "title": "Main Menu",
-      "items": [
-        { "id": "m1",  "name": "Fried Chicken Sandwich",         "price": 16.59 },
-        { "id": "m2",  "name": "Dusty Tofu Sandwich",             "price": 16.59 },
-        { "id": "m3",  "name": "Jumbo Thai Fried Chicken Wings (5)", "price": 14.49 },
-        { "id": "m4",  "name": "Chicken Wings (1 lb)",             "price": 14.49 },
-        { "id": "m5",  "name": "Chicken Wings (½ lb)",             "price": 10.00 },
-        { "id": "m6", "name": "Garlic Noodle",                               "price": 14.49 },
-        { "id": "m7", "name": "Sauteed Brussels Sprouts",                    "price": 13.49 },
-        { "id": "m8", "name": "Fried Organic Brussels Sprouts (7 oz)",        "price": 9.49 },
-        { "id": "m9", "name": "Persian Cucumber Romaine Salad",              "price": 9.49 },
-        { "id": "m10", "name": "Brioche Peanut Dip",                          "price": 7.99 }
-      ]
-    }
-  ],
-  "reviews": [
-    { "userName": "Britt A", "rating": 5, "comment": "Honestly the best fried chicken in the Bay Area." },
-    { "userName": "Kate R",  "rating": 5, "comment": "Best fried chicken sandwich I have ever eaten." }
-  ]
-},
-{
-  "id": "burgerim-berkeley",
-  "name": "BurgerIM",
-  "address": "1974 University Ave, Berkeley, CA 94704",
-  "phone": "(510) 989-9835",
-  "priceRange": "$$",
-  "rating": 2.5,
-  "distance": 8.9,
-  "foodTypes": ["American", "Burgers", "Halal"],
-  "tags": ["customizable burgers", "halal", "student-friendly", "takeout"],
-  "deals": [
-    {
-      "id": "deal-1",
-      "title": "10% off all menu items",
-      "validFrom": "2025-10-01",
-      "validTo": "2026-01-31"
-    }
-  ],
-  "menus": [
-    {
-      "id": "menu-burgerim",
-      "title": "Main Menu",
-      "items": [
-        { "id": "m1", "name": "Angus Beef Burger (Halal)", "price": 9.99 },
-        { "id": "m2", "name": "The Cowboy Burger", "price": 10.49 },
-        { "id": "m3", "name": "Spanish Beef Burger (Halal)", "price": 9.99 },
-        { "id": "m4", "name": "Grilled Chicken Burger (Halal)", "price": 9.99 },
-        { "id": "m5", "name": "Crispy Chicken Burger (Halal)", "price": 9.99 },
-        { "id": "m6", "name": "Ground Chicken Burger", "price": 9.99 },
-        { "id": "m7", "name": "Falafel Burger (Vegetarian)", "price": 9.49 },
-        { "id": "m8", "name": "Ground Turkey Burger", "price": 9.99 },
-        { "id": "m9", "name": "Duo (2 Mini Burgers)", "price": 10.99 },
-        { "id": "m10", "name": "Trio (3 Mini Burgers)", "price": 12.99 },
-        { "id": "m11", "name": "Burgerim Fries", "price": 3.99 },
-        { "id": "m12", "name": "Onion Rings", "price": 3.99 },
-        { "id": "m13", "name": "Sweet Potato Fries", "price": 4.79 },
-        { "id": "m14", "name": "Half & Half Fries", "price": 4.79 },
-        { "id": "m15", "name": "Chicken Wings (6 pcs)", "price": 8.99 },
-        { "id": "m16", "name": "Chicken Wings (12 pcs)", "price": 16.99 },
-        { "id": "m17", "name": "Ice Cream Scoop", "price": 4.25 },
-        { "id": "m18", "name": "Milkshake (Various Flavors)", "price": 5.99 },
-        { "id": "m19", "name": "Kids Cheeseburger Meal", "price": 9.99 },
-        { "id": "m20", "name": "Kids Chicken Burger Meal", "price": 9.99 },
-        { "id": "m21", "name": "Caesar Salad (Side/Large)", "price": 4.99 },
-        { "id": "m22", "name": "House Salad (Side/Large)", "price": 4.99 },
-        { "id": "m23", "name": "Family Box (8 Mini Burgers, 6 Wings, Fries, Onion Rings)", "price": 54.99 },
-        { "id": "m24", "name": "Party Box (16 Mini Burgers, Choose up to 4 Patties)", "price": 69.99 },
-        { "id": "m25", "name": "Add Fries & Drink Combo", "price": 4.89 }
-      ]
-    }
-  ],
-  "reviews": [
-    {
-      "userName": "Hika Z.",
-      "rating": 3,
-      "comment": "Great falafel burger, good drink selection, friendly staff and nice ambiance. However, they take a long time to make your food and I really hate that Fox News is always on. Makes me question the personal politics of wait staff and such. Just put on some nature channel or turn it off, yk?"
-    },
-    {
-      "userName": "Mary M.",
-      "rating": 1,
-      "comment": "Onion rings tasted like nothing—absolutely 0 flavor. The soda was flat and disgusting, the burger was small and oily, and even the ranch was bland. Felt like I ate a bunch of grease; not satisfying. Disappointed!"
-    }
-  ]
-},
-{
-  "id": "namaste-madras-indian-cuisine",
-  "name": "Namaste Madras Indian Cuisine",
-  "address": "2323 Shattuck Ave, Berkeley, CA 94704",
-  "phone": "(510) 898-1291",
-  "priceRange": "$$",
-  "rating": 3.6,
-  "distance": 8.9,
-  "foodTypes": ["Indian"],
-  "tags": ["Vegetarian-Friendly", "solo-friendly"],
-  "deals": [
-    {
-      "id": "deal-1",
-      "title": "Paneer Masala or Chicken Tikka Masala for $13.95 (served with rice & naan bread)",
-      "validFrom": "2025-10-01",
-      "validTo": "2026-01-31"
-    }
-  ],
-  "menus": [
-    {
-      "id": "menu-namaste",
-      "title": "Main Menu",
-      "items": [
-        { "id": "m1", "name": "Onion / Potato / Hot Chili Pakora", "price": 7 },
-        { "id": "m2", "name": "Mixed Vegetable Pakora", "price": 8 },
-        { "id": "m3", "name": "Vegetable / Lamb Samosa", "price": 7 },
-        { "id": "m4", "name": "Chicken Pakora", "price": 7 },
-        { "id": "m5", "name": "Chilli Chicken", "price": 9 },
-        { "id": "m6", "name": "Fresh Garden Salad", "price": 7 },
-        { "id": "m7", "name": "Sambar (Lentil Soup)", "price": 5 },
-        { "id": "m8", "name": "Rasam (Tamarind Soup)", "price": 5 },
-        { "id": "m9", "name": "Plain Dosa", "price": 10 },
-        { "id": "m10", "name": "Cheese Dosa", "price": 12 },
-        { "id": "m11", "name": "Masala Dosa", "price": 12 },
-        { "id": "m12", "name": "Rava Onion or Rava Masala Dosa", "price": 13 },
-        { "id": "m13", "name": "Egg Masala Dosa", "price": 13 },
-        { "id": "m14", "name": "Mysore Masala Dosa", "price": 12 },
-        { "id": "m15", "name": "Onion or Moong Masala Dosa", "price": 12 },
-        { "id": "m16", "name": "Onion & Tomato Uttapam", "price": 12 },
-        { "id": "m17", "name": "Upma Plate", "price": 11 },
-        { "id": "m18", "name": "Namaste Special Combo", "price": 14 },
-        { "id": "m19", "name": "Andhra Special Combo", "price": 14 },
-        { "id": "m20", "name": "Poori or Roti or Paratha", "price": 4 },
-        { "id": "m21", "name": "Aloo Paratha with Raita", "price": 7 },
-        { "id": "m22", "name": "Plain Rice", "price": 3 },
-        { "id": "m23", "name": "Naan Bread", "price": 3 },
-        { "id": "m24", "name": "Garlic Naan or Onion Naan", "price": 4 },
-        { "id": "m25", "name": "Chicken Naan", "price": 5 },
-        { "id": "m26", "name": "Vegetable Basmati Rice", "price": 6 },
-        { "id": "m27", "name": "Raita", "price": 5 },
-        { "id": "m28", "name": "Daal Curry", "price": 13 },
-        { "id": "m29", "name": "Aloo Gobi", "price": 13 },
-        { "id": "m30", "name": "Okra Masala", "price": 13 },
-        { "id": "m31", "name": "Mixed Vegetable Karahi", "price": 13 },
-        { "id": "m32", "name": "Navaratan Korma", "price": 14 },
-        { "id": "m33", "name": "Paneer Masala or Vegetable Masala", "price": 14 },
-        { "id": "m34", "name": "Bengan Bhartha", "price": 14 },
-        { "id": "m35", "name": "Shahi Paneer or Malai Kofta", "price": 19 },
-        { "id": "m36", "name": "Aloo Saag or Saag Paneer", "price": 19 },
-        { "id": "m37", "name": "Mutter Paneer or Palak Mutter Paneer", "price": 19 },
-        { "id": "m38", "name": "Namaste Chicken Curry", "price": 18 },
-        { "id": "m39", "name": "Namaste Tikka Masala", "price": 18 },
-        { "id": "m40", "name": "Chef’s Special Koorna", "price": 18 },
-        { "id": "m41", "name": "Mild Butter Sauce", "price": 18 },
-        { "id": "m42", "name": "Boneless Chicken Curry", "price": 15 },
-        { "id": "m43", "name": "Chicken Tikka Breast", "price": 19 },
-        { "id": "m44", "name": "Tandoori Chicken (Half)", "price": 15 },
-        { "id": "m45", "name": "Tikka Kabab (Chicken Breast Pieces)", "price": 15 },
-        { "id": "m46", "name": "Tandoori Shrimp", "price": 16 },
-        { "id": "m47", "name": "Vegetable Biryani", "price": 13 },
-        { "id": "m48", "name": "Chicken Biryani", "price": 14 },
-        { "id": "m49", "name": "Shrimp or Lamb Biryani", "price": 15 }
-      ]
-    }
-  ],
-  "reviews": [
-    {
-      "userName": "Jamie B.",
-      "rating": 4,
-      "comment": "Came here during a rainy day — loved the open ceiling and quiet vibe. The lentil wafers with chutneys were great, and the chicken tikka masala and lamb saag were flavorful and filling. Naan was tasty and soft, service a bit slow but not terrible. Would return for the lunch buffet."
-    },
-    {
-      "userName": "Kenny E.",
-      "rating": 2,
-      "comment": "They keep bringing my chai tea with tea spilling all over the coaster. The tikka masala cream tasted old and gritty, and one chicken piece had a weird cleaner taste. For $16, I can do better elsewhere."
-    }
-  ]
-},
-{
-  "id": "masa-ramen-bistro",
-  "name": "Masa Ramen Bistro",
-  "address": "1923 University Ave, Berkeley, CA 94704",
-  "phone": "(510) 898-1949",
-  "priceRange": "$$",
-  "rating": 4.5,
-  "distance": 9.1,
-  "foodTypes": ["Japanese", "Ramen", "Hawaiian"],
-  "tags": ["tonkotsu ramen", "Spam musubi", "Hawaiian-style fried chicken"],
-  "deals": [
-    {
-      "id": "deal-1",
-      "title": "10% off",
-      "validFrom": "2025-10-01",
-      "validTo": "2026-01-31"
-    }
-  ],
-  "menus": [
-    {
-      "id": "menu-masa-rice",
-      "title": "Rice Dishes",
-      "items": [
-        { "id": "m1", "name": "No Ka 'Oi - Oxtail Soup or Ramen", "price": 26.99 },
-        { "id": "m2", "name": "Chicken Curry or Katsu (Mini)", "price": 8.99 },
-        { "id": "m3", "name": "Chicken Curry or Katsu (Regular)", "price": 16.99 },
-        { "id": "m4", "name": "Spam Musubi", "price": 3.99 },
-        { "id": "m5", "name": "No Worry Beef Curry Platter", "price": 17.99 },
-        { "id": "m6", "name": "Lolo Loco Moco (Mini)", "price": 9.49 },
-        { "id": "m7", "name": "Lolo Loco Moco (Regular)", "price": 17.99 }
-      ]
-    },
-    {
-      "id": "menu-masa-appetizers",
-      "title": "Appetizers",
-      "items": [
-        { "id": "m8",  "name": "Kara-age Chicken (Da Kine)", "price": 8.49 },
-        { "id": "m9",  "name": "Manini Fries", "price": 4.99 },
-        { "id": "m10", "name": "Ikageso (Fried Squid Legs)", "price": 9.99 },
-        { "id": "m11", "name": "Boiled Mini Dumplings", "price": 7.99 },
-        { "id": "m12", "name": "Age-Gyoza (3 pc)", "price": 2.49 },
-        { "id": "m13", "name": "Age-Gyoza (6 pc)", "price": 4.99 },
-        { "id": "m14", "name": "House Made Kim Chee", "price": 5.99 },
-        { "id": "m15", "name": "Mochiko Chicken (808)", "price": 8.49 },
-        { "id": "m16", "name": "Tako (Fried Baby Octopus)", "price": 9.99 },
-        { "id": "m17", "name": "Edamame (Salted or Shoyu Garlic)", "price": 6.49 },
-        { "id": "m18", "name": "Takoyaki Balls (3 pc)", "price": 3.99 },
-        { "id": "m19", "name": "Takoyaki Balls (6 pc)", "price": 7.99 },
-        { "id": "m20", "name": "Seaweed Salad", "price": 4.99 }
-      ]
-    },
-    {
-      "id": "menu-masa-ramen",
-      "title": "Ramen",
-      "items": [
-        { "id": "m21", "name": "BROKE DA MOUTH - Masa Special", "price": 17.99 },
-        { "id": "m22", "name": "KUNI - Black Garlic", "price": 14.99 },
-        { "id": "m23", "name": "MISO MISO - Tonkotsu", "price": 16.99 },
-        { "id": "m24", "name": "TOKYO SHOYU - Soy Sauce/Fish", "price": 13.99 },
-        { "id": "m25", "name": "TIMMY TAN TAN - Vegan", "price": 17.99 },
-        { "id": "m26", "name": "DIAMOND HEAD - Original", "price": 13.99 },
-        { "id": "m27", "name": "KILAUEA - Spicy", "price": 15.99 },
-        { "id": "m28", "name": "SHRIMP WONTON SHIO - Fish/Chicken", "price": 16.99 },
-        { "id": "m29", "name": "MISO HUNGRY - Vegetarian", "price": 15.99 }
-      ]
-    }
-  ],
-  "reviews": [
-    {
-      "userName": "Lauren C.",
-      "rating": 5,
-      "comment": "Kilauea ramen hit the spot—great spicy umami; noodles and egg cooked perfectly. Sister enjoyed Diamond Head ramen. Will return to try the oxtail saimin."
-    },
-    {
-      "userName": "Jovilei G.",
-      "rating": 4,
-      "comment": "Broke Da Mouth ramen was amazing; flavors came together beautifully. Mochiko chicken was super crispy and tasty. Friendly staff; easy street parking."
-    }
-  ]
-}
+    "id": "southside-station",
+    "name": "Southside Station",
+    "address": "2504 Shattuck Ave Berkeley, CA 94704",
+    "phone": "(510) 989-9835",
+    "priceRange": "$$",
+    "rating": 4.5,
+    "distance": 8.5,
+    "foodTypes": ["American", "Fried Chicken", "Sandwiches"],
+    "tags": ["award-winning wings", "house-made brioche", "student-friendly", "counter-service"],
+    "deals": [
+      {
+        "id": "deal-1",
+        "title": "Wings/Thigh combo = FREE UPGRADE to Thai Iced Tea or Lychee Iced Tea (~13% off)",
+        "validFrom": "2025-10-01",
+        "validTo": "2026-01-31"
+      },
+      {
+        "id": "deal-2",
+        "title": "Family Party Tray (3-4 people) = $65 (~15% off)",
+        "validFrom": "2025-10-01",
+        "validTo": "2026-01-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "special",
+        "title": "Special",
+        "items": [
+          { "id": "s1", "name": "Fried Ball", "price": 5.99 },
+          { "id": "s2", "name": "Wing with beer", "price": 12.99 }
+        ]
+      },
+      {
+        "id": "breakfast",
+        "title": "Breakfast",
+        "items": [
+          { "id": "b1", "name": "Lox Bagel", "price": 12.49 },
+          { "id": "b2", "name": "New York-Style BEC", "price": 12.49 },
+          { "id": "b3", "name": "California Egg Avocado Bagel", "price": 12.49 },
+          { "id": "b4", "name": "Bagel and cream cheese", "price": 3.99 },
+          { "id": "b5", "name": "Fried Chicken Waffle", "price": 13.49 },
+          { "id": "b6", "name": "Egg n Things", "price": 13.99 },
+          { "id": "b7", "name": "Brioche toasted", "price": 3.99 },
+          { "id": "b8", "name": "Hot coffee", "price": 3.49 },
+          { "id": "b9", "name": "Hot Thai tea", "price": 3.99 },
+          { "id": "b10", "name": "Hot Matcha Latte", "price": 3.99 },
+          { "id": "b11", "name": "Hot chocolate", "price": 3.99 },
+          { "id": "b12", "name": "Hot tea", "price": 2.99 }
+        ]
+      },
+      {
+        "id": "main",
+        "title": "Main",
+        "items": [
+          { "id": "m1", "name": "Jumbo Thai Fried Chicken Wings", "price": 13.99 },
+          { "id": "m2", "name": "Crispy Fried Chicken Thighs", "price": 16.99 },
+          { "id": "m3", "name": "Fried Chicken Sandwich", "price": 15.99 },
+          { "id": "m4", "name": "2 Fried Chicken SLIDER", "price": 16.99 },
+          { "id": "m5", "name": "Fried Organic Tofu Sandwich", "price": 15.99 },
+          { "id": "m6", "name": "Spicy Pork basil 16oz", "price": 15.99 },
+          { "id": "m7", "name": "Pan Sears Chicken", "price": 14.99 },
+          { "id": "m8", "name": "Dusty Tofu", "price": 15.99 },
+          { "id": "m9", "name": "2 Chicken Satay Taco", "price": 10.99 },
+          { "id": "m10", "name": "4 Chicken Satay Taco", "price": 18.99 }
+        ]
+      },
+      {
+        "id": "appetizer",
+        "title": "Appetizer / Side / Snack",
+        "items": [
+          { "id": "a1", "name": "Garlic Noodle", "price": 13.49 },
+          { "id": "a2", "name": "Pasta", "price": 13.99 },
+          { "id": "a3", "name": "Sauteed Brussel Sprouts", "price": 13.49 },
+          { "id": "a4", "name": "Fried Brussels sprout snack", "price": 8.49 },
+          { "id": "a5", "name": "Persian Cucumber Romaine Salad", "price": 8.49 },
+          { "id": "a6", "name": "Brioche Peanut Dip", "price": 7.99 },
+          { "id": "a7", "name": "Thai Chicken Satay", "price": 14.99 },
+          { "id": "a8", "name": "Mozzarella Sticks", "price": 6.49 },
+          { "id": "a9", "name": "Spicy Thai Nugget", "price": 10.99 },
+          { "id": "a10", "name": "Curly Fried", "price": 5.49 },
+          { "id": "a11", "name": "sunny side up fried egg", "price": 4.49 },
+          { "id": "a12", "name": "Mixed Trio Grain Rice", "price": 4.0 }
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "userName": "Britt A",
+        "rating": 5,
+        "comment": "Honestly the best fried chicken in the Bay Area."
+      },
+      {
+        "userName": "Kate R",
+        "rating": 5,
+        "comment": "Best fried chicken sandwich I have ever eaten."
+      }
+    ]
+  },
+  {
+    "id": "burgerim-berkeley",
+    "name": "BurgerIM",
+    "address": "1974 University Ave, Berkeley, CA 94704",
+    "phone": "(510) 989-9835",
+    "priceRange": "$$",
+    "rating": 2.5,
+    "distance": 8.9,
+    "foodTypes": ["American", "Burgers", "Halal"],
+    "tags": ["customizable burgers", "halal", "student-friendly", "takeout"],
+    "deals": [
+      {
+        "id": "deal-1",
+        "title": "10% off all menu items",
+        "validFrom": "2025-10-01",
+        "validTo": "2026-01-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-burgerim",
+        "title": "Main Menu",
+        "items": [
+          { "id": "m1", "name": "Angus Beef Burger (Halal)", "price": 9.99 },
+          { "id": "m2", "name": "The Cowboy Burger", "price": 10.49 },
+          { "id": "m3", "name": "Spanish Beef Burger (Halal)", "price": 9.99 },
+          { "id": "m4", "name": "Grilled Chicken Burger (Halal)", "price": 9.99 },
+          { "id": "m5", "name": "Crispy Chicken Burger (Halal)", "price": 9.99 },
+          { "id": "m6", "name": "Ground Chicken Burger", "price": 9.99 },
+          { "id": "m7", "name": "Falafel Burger (Vegetarian)", "price": 9.49 },
+          { "id": "m8", "name": "Ground Turkey Burger", "price": 9.99 },
+          { "id": "m9", "name": "Duo (2 Mini Burgers)", "price": 10.99 },
+          { "id": "m10", "name": "Trio (3 Mini Burgers)", "price": 12.99 },
+          { "id": "m11", "name": "Burgerim Fries", "price": 3.99 },
+          { "id": "m12", "name": "Onion Rings", "price": 3.99 },
+          { "id": "m13", "name": "Sweet Potato Fries", "price": 4.79 },
+          { "id": "m14", "name": "Half & Half Fries", "price": 4.79 },
+          { "id": "m15", "name": "Chicken Wings (6 pcs)", "price": 8.99 },
+          { "id": "m16", "name": "Chicken Wings (12 pcs)", "price": 16.99 },
+          { "id": "m17", "name": "Ice Cream Scoop", "price": 4.25 },
+          { "id": "m18", "name": "Milkshake (Various Flavors)", "price": 5.99 },
+          { "id": "m19", "name": "Kids Cheeseburger Meal", "price": 9.99 },
+          { "id": "m20", "name": "Kids Chicken Burger Meal", "price": 9.99 },
+          { "id": "m21", "name": "Caesar Salad (Side/Large)", "price": 4.99 },
+          { "id": "m22", "name": "House Salad (Side/Large)", "price": 4.99 },
+          {
+            "id": "m23",
+            "name": "Family Box (8 Mini Burgers, 6 Wings, Fries, Onion Rings)",
+            "price": 54.99
+          },
+          {
+            "id": "m24",
+            "name": "Party Box (16 Mini Burgers, Choose up to 4 Patties)",
+            "price": 69.99
+          },
+          { "id": "m25", "name": "Add Fries & Drink Combo", "price": 4.89 }
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "userName": "Hika Z.",
+        "rating": 3,
+        "comment": "Great falafel burger, good drink selection, friendly staff and nice ambiance. However, they take a long time to make your food and I really hate that Fox News is always on. Makes me question the personal politics of wait staff and such. Just put on some nature channel or turn it off, yk?"
+      },
+      {
+        "userName": "Mary M.",
+        "rating": 1,
+        "comment": "Onion rings tasted like nothing—absolutely 0 flavor. The soda was flat and disgusting, the burger was small and oily, and even the ranch was bland. Felt like I ate a bunch of grease; not satisfying. Disappointed!"
+      }
+    ]
+  },
+  {
+    "id": "cals-fried-chicken-burgers",
+    "name": "Cal's Fried Chicken & Burgers",
+    "address": "2026 University Ave, Berkeley, CA 94704",
+    "phone": "(510) 381-2492",
+    "priceRange": "$$",
+    "rating": 4.6,
+    "distance": 8.6,
+    "foodTypes": ["American", "Fried Chicken", "Burgers", "Sandwiches"],
+    "tags": ["smash-burgers", "fried-chicken-sandwich", "house sauces", "student-friendly"],
+    "deals": [
+      {
+        "id": "deal-1",
+        "title": "10% off all menu items",
+        "validFrom": "2025-10-01",
+        "validTo": "2026-01-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-cals-main",
+        "title": "Main Menu",
+        "items": [
+          { "id": "m1", "name": "Spicy Chicken Sandwich", "price": 16.99 },
+          { "id": "m2", "name": "Chicken Slider", "price": 12.49 },
+          { "id": "m3", "name": "Mac N’ Chicken", "price": 12.49 },
+          { "id": "m4", "name": "Chicken Strips", "price": 18.99 },
+          { "id": "m5", "name": "Fried Chicken Wrap", "price": 15.99 },
+
+          { "id": "m6", "name": "Single Smash", "price": 12.99 },
+          { "id": "m7", "name": "Double Smash", "price": 15.49 },
+          { "id": "m8", "name": "Beef Slider", "price": 10.99 },
+          { "id": "m9", "name": "4x4 (Four Patties)", "price": 19.99 },
+          { "id": "m10", "name": "Cal’s Burger (bacon & fried egg)", "price": 19.99 },
+
+          { "id": "m11", "name": "Wings (6 pc)", "price": 9.99 },
+          { "id": "m12", "name": "Wings (12 pc)", "price": 17.99 },
+          { "id": "m13", "name": "Seasoned Fries", "price": 6.49 },
+          { "id": "m14", "name": "Sweet Potato Fries", "price": 7.49 },
+          { "id": "m15", "name": "Onion Rings", "price": 7.49 },
+          { "id": "m16", "name": "Mac N’ Cheese (8 oz)", "price": 6.49 },
+          { "id": "m17", "name": "Sweet Corn Fritters", "price": 9.99 },
+
+          { "id": "m18", "name": "Classic Chopped Cheese", "price": 15.99 },
+          { "id": "m19", "name": "Loaded Fries (beef, onions, sauce)", "price": 15.99 },
+          { "id": "m20", "name": "Shrimp Po’ Boy (served with fries)", "price": 17.49 },
+
+          { "id": "m21", "name": "Shake — Oreo Cookie", "price": 6.79 },
+          { "id": "m22", "name": "Shake — Chocolate", "price": 6.29 },
+          { "id": "m23", "name": "Shake — Strawberry", "price": 6.29 },
+          { "id": "m24", "name": "Shake — Vanilla", "price": 6.29 },
+
+          { "id": "m25", "name": "Add Pepper Jack Cheese", "price": 1.0 },
+          { "id": "m26", "name": "Add Extra Chicken Breast", "price": 3.29 },
+          { "id": "m27", "name": "Sub Gluten-Free Bun", "price": 1.0 },
+          { "id": "m28", "name": "Sub Onion Rings (side)", "price": 1.0 },
+          { "id": "m29", "name": "Sub Sweet Potato Fries (side)", "price": 1.0 },
+          {
+            "id": "m30",
+            "name": "Dipping Sauce (each)",
+            "price": 0.35,
+            "notes": "Habanero, Buttermilk Ranch, Sweet Heat, House Sauce, Honey Mustard"
+          }
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "userName": "Katie L.",
+        "rating": 5,
+        "comment": "Great food and the fries are kickin’! Portions are plentiful, dine-in or takeout both great. Never disappointed—staff are awesome."
+      },
+      {
+        "userName": "Sherry Z.",
+        "rating": 5,
+        "comment": "My favorite classic fried chicken sandwich in the Richmond/Berkeley/Oakland area—well seasoned with plenty of flavor. Fries have gotten much more consistent; coleslaw leans peppery. Highly recommend trying at least once!"
+      }
+    ]
+  },
+  {
+    "id": "masa-ramen-bistro",
+    "name": "Masa Ramen Bistro",
+    "address": "1923 University Ave, Berkeley, CA 94704",
+    "phone": "(510) 898-1949",
+    "priceRange": "$$",
+    "rating": 4.5,
+    "distance": 9.1,
+    "foodTypes": ["Japanese", "Ramen", "Hawaiian"],
+    "tags": ["tonkotsu ramen", "Spam musubi", "Hawaiian-style fried chicken"],
+    "deals": [
+      {
+        "id": "deal-1",
+        "title": "10% off",
+        "validFrom": "2025-10-01",
+        "validTo": "2026-01-31"
+      }
+    ],
+    "menus": [
+      {
+        "id": "menu-masa-rice",
+        "title": "Rice Dishes",
+        "items": [
+          { "id": "m1", "name": "No Ka 'Oi - Oxtail Soup or Ramen", "price": 26.99 },
+          { "id": "m2", "name": "Chicken Curry or Katsu (Mini)", "price": 8.99 },
+          { "id": "m3", "name": "Chicken Curry or Katsu (Regular)", "price": 16.99 },
+          { "id": "m4", "name": "Spam Musubi", "price": 3.99 },
+          { "id": "m5", "name": "No Worry Beef Curry Platter", "price": 17.99 },
+          { "id": "m6", "name": "Lolo Loco Moco (Mini)", "price": 9.49 },
+          { "id": "m7", "name": "Lolo Loco Moco (Regular)", "price": 17.99 }
+        ]
+      },
+      {
+        "id": "menu-masa-appetizers",
+        "title": "Appetizers",
+        "items": [
+          { "id": "m8", "name": "Kara-age Chicken (Da Kine)", "price": 8.49 },
+          { "id": "m9", "name": "Manini Fries", "price": 4.99 },
+          { "id": "m10", "name": "Ikageso (Fried Squid Legs)", "price": 9.99 },
+          { "id": "m11", "name": "Boiled Mini Dumplings", "price": 7.99 },
+          { "id": "m12", "name": "Age-Gyoza (3 pc)", "price": 2.49 },
+          { "id": "m13", "name": "Age-Gyoza (6 pc)", "price": 4.99 },
+          { "id": "m14", "name": "House Made Kim Chee", "price": 5.99 },
+          { "id": "m15", "name": "Mochiko Chicken (808)", "price": 8.49 },
+          { "id": "m16", "name": "Tako (Fried Baby Octopus)", "price": 9.99 },
+          { "id": "m17", "name": "Edamame (Salted or Shoyu Garlic)", "price": 6.49 },
+          { "id": "m18", "name": "Takoyaki Balls (3 pc)", "price": 3.99 },
+          { "id": "m19", "name": "Takoyaki Balls (6 pc)", "price": 7.99 },
+          { "id": "m20", "name": "Seaweed Salad", "price": 4.99 }
+        ]
+      },
+      {
+        "id": "menu-masa-ramen",
+        "title": "Ramen",
+        "items": [
+          { "id": "m21", "name": "BROKE DA MOUTH - Masa Special", "price": 17.99 },
+          { "id": "m22", "name": "KUNI - Black Garlic", "price": 14.99 },
+          { "id": "m23", "name": "MISO MISO - Tonkotsu", "price": 16.99 },
+          { "id": "m24", "name": "TOKYO SHOYU - Soy Sauce/Fish", "price": 13.99 },
+          { "id": "m25", "name": "TIMMY TAN TAN - Vegan", "price": 17.99 },
+          { "id": "m26", "name": "DIAMOND HEAD - Original", "price": 13.99 },
+          { "id": "m27", "name": "KILAUEA - Spicy", "price": 15.99 },
+          { "id": "m28", "name": "SHRIMP WONTON SHIO - Fish/Chicken", "price": 16.99 },
+          { "id": "m29", "name": "MISO HUNGRY - Vegetarian", "price": 15.99 }
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "userName": "Lauren C.",
+        "rating": 5,
+        "comment": "Kilauea ramen hit the spot—great spicy umami; noodles and egg cooked perfectly. Sister enjoyed Diamond Head ramen. Will return to try the oxtail saimin."
+      },
+      {
+        "userName": "Jovilei G.",
+        "rating": 4,
+        "comment": "Broke Da Mouth ramen was amazing; flavors came together beautifully. Mochiko chicken was super crispy and tasty. Friendly staff; easy street parking."
+      }
+    ]
+  }
 ]
