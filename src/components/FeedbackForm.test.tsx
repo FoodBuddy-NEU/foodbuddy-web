@@ -34,23 +34,13 @@ describe('FeedbackForm Component', () => {
   });
 
   it('should render feedback form', () => {
-    render(
-      <FeedbackForm 
-        restaurant={mockRestaurant}
-        defaultFeedbackType="menu"
-      />
-    );
-    
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
+
     expect(screen.getByRole('heading', { name: /Share Your Feedback/i })).toBeInTheDocument();
   });
 
   it('should have all required form fields', () => {
-    render(
-      <FeedbackForm 
-        restaurant={mockRestaurant}
-        defaultFeedbackType="menu"
-      />
-    );
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
 
     expect(screen.getByLabelText(/Your Name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Your Email/i)).toBeInTheDocument();
@@ -64,12 +54,7 @@ describe('FeedbackForm Component', () => {
       json: async () => ({ success: true }),
     } as Response);
 
-    render(
-      <FeedbackForm 
-        restaurant={mockRestaurant}
-        defaultFeedbackType="menu"
-      />
-    );
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
 
     const nameInput = screen.getByLabelText(/Your Name/i);
     const emailInput = screen.getByLabelText(/Your Email/i);
@@ -94,12 +79,7 @@ describe('FeedbackForm Component', () => {
       json: async () => ({ success: true, feedbackId: '123' }),
     } as Response);
 
-    render(
-      <FeedbackForm 
-        restaurant={mockRestaurant}
-        defaultFeedbackType="menu"
-      />
-    );
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
 
     const nameInput = screen.getByLabelText(/Your Name/i);
     const emailInput = screen.getByLabelText(/Your Email/i);
@@ -115,14 +95,64 @@ describe('FeedbackForm Component', () => {
   });
 
   it('should display feedback type options', () => {
-    render(
-      <FeedbackForm 
-        restaurant={mockRestaurant}
-        defaultFeedbackType="menu"
-      />
-    );
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
 
     expect(screen.getByDisplayValue('menu')).toBeChecked();
     expect(screen.getByDisplayValue('contact-info')).not.toBeChecked();
+  });
+
+  it('should show error for empty feedback content', async () => {
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
+    const nameInput = screen.getByLabelText(/Your Name/i);
+    const emailInput = screen.getByLabelText(/Your Email/i);
+    const submitButton = screen.getByRole('button', { name: /Submit Feedback/i });
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    fireEvent.click(submitButton);
+    await waitFor(() => {
+      expect(screen.getByText(/Please enter feedback content/i)).toBeInTheDocument();
+    });
+  });
+
+  it('should show error for empty email', async () => {
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
+    const nameInput = screen.getByLabelText(/Your Name/i);
+    const feedbackInput = screen.getByLabelText(/Feedback Content/i);
+    const submitButton = screen.getByRole('button', { name: /Submit Feedback/i });
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(feedbackInput, { target: { value: 'Great menu!' } });
+    fireEvent.click(submitButton);
+    await waitFor(() => {
+      expect(screen.getByText(/Please enter your email/i)).toBeInTheDocument();
+    });
+  });
+
+  it('should show error for empty name', async () => {
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
+    const emailInput = screen.getByLabelText(/Your Email/i);
+    const feedbackInput = screen.getByLabelText(/Feedback Content/i);
+    const submitButton = screen.getByRole('button', { name: /Submit Feedback/i });
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    fireEvent.change(feedbackInput, { target: { value: 'Great menu!' } });
+    fireEvent.click(submitButton);
+    await waitFor(() => {
+      expect(screen.getByText(/Please enter your name/i)).toBeInTheDocument();
+    });
+  });
+
+  it('should show error on API failure', async () => {
+    global.fetch = jest.fn().mockResolvedValue({ ok: false, status: 500, json: async () => ({}) });
+    render(<FeedbackForm restaurant={mockRestaurant} defaultFeedbackType="menu" />);
+    const nameInput = screen.getByLabelText(/Your Name/i);
+    const emailInput = screen.getByLabelText(/Your Email/i);
+    const feedbackInput = screen.getByLabelText(/Feedback Content/i);
+    const submitButton = screen.getByRole('button', { name: /Submit Feedback/i });
+    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
+    fireEvent.change(feedbackInput, { target: { value: 'Great menu!' } });
+    fireEvent.click(submitButton);
+    await waitFor(() => {
+      expect(screen.getByText(/Failed to submit feedback/i)).toBeInTheDocument();
+    });
   });
 });

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { auth } from "@/lib/firebaseClient";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { auth } from '@/lib/firebaseClient';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,9 +20,9 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/");
+      router.push('/');
     } catch (err: unknown) {
-      const message = err instanceof FirebaseError ? err.message : "Login failed";
+      const message = err instanceof FirebaseError ? err.message : 'Login failed';
       setError(message);
     } finally {
       setLoading(false);
@@ -35,9 +35,9 @@ export default function LoginPage() {
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
-      router.push("/");
+      router.push('/');
     } catch (err: unknown) {
-      const message = err instanceof FirebaseError ? err.message : "Login failed";
+      const message = err instanceof FirebaseError ? err.message : 'Login failed';
       setError(message);
     } finally {
       setLoading(false);
@@ -62,7 +62,7 @@ export default function LoginPage() {
           className="w-full border rounded p-2"
         />
         <button disabled={loading} className="w-full border rounded p-2">
-          {loading ? "Loading..." : "Log in"}
+          {loading ? 'Loading...' : 'Log in'}
         </button>
       </form>
       <button onClick={onGoogleLogin} className="mt-3 w-full border rounded p-2">
@@ -70,7 +70,10 @@ export default function LoginPage() {
       </button>
       {error && <div className="mt-3 text-sm text-red-600">{error}</div>}
       <div className="mt-3 text-sm">
-        No account? <Link href="/signup" className="underline">Sign up</Link>
+        No account?{' '}
+        <Link href="/signup" className="underline">
+          Sign up
+        </Link>
       </div>
     </div>
   );

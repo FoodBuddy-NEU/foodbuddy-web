@@ -10,7 +10,7 @@ html.dark .menu-item-card:hover {
   background: #232323 !important;
   color: #fff !important;
 }
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -48,18 +48,22 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Input styling */
-input[type="text"],
-input[type="search"],
-input[type="email"],
-input[type="password"],
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
 textarea {
   background-color: var(--input-bg);
   color: var(--input-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 input::placeholder {
@@ -71,7 +75,9 @@ input::placeholder {
 article > div {
   background-color: var(--card-bg);
   color: var(--card-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Ensure all text in cards is card-text color in light mode */

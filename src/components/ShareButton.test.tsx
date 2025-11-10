@@ -42,7 +42,7 @@ describe('ShareButton Component', () => {
   it('should construct correct share URL', async () => {
     render(<ShareButton {...defaultProps} />);
     const button = screen.getByRole('button');
-    
+
     fireEvent.click(button);
 
     // If Web Share API is available, it should be called
@@ -59,7 +59,7 @@ describe('ShareButton Component', () => {
 
     render(<ShareButton {...defaultProps} />);
     const button = screen.getByRole('button');
-    
+
     fireEvent.click(button);
 
     await waitFor(() => {
@@ -73,7 +73,7 @@ describe('ShareButton Component', () => {
   it('should show copy confirmation message', async () => {
     render(<ShareButton {...defaultProps} />);
     const button = screen.getByRole('button');
-    
+
     fireEvent.click(button);
 
     // The button should be clickable and not throw an error

@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import BookmarkButton from "@/components/BookmarkButton";
-import type { Restaurant } from "@/types/restaurant";
-
+import Image from 'next/image';
+import Link from 'next/link';
+import BookmarkButton from '@/components/BookmarkButton';
+import type { Restaurant } from '@/types/restaurant';
 
 interface Props {
   restaurant: Restaurant & { id: string | number };
@@ -30,7 +29,7 @@ export default function RestaurantCard({ restaurant, className, distance, primar
             {/* Media */}
             {restaurant.images && restaurant.images.length > 0 && (
               <Image
-                src={restaurant.images[0].url || restaurant.images[0].public_id || ""}
+                src={restaurant.images[0].url || restaurant.images[0].public_id || ''}
                 alt={restaurant.images[0].alt || restaurant.name}
                 width={1200}
                 height={800}
@@ -55,17 +54,17 @@ export default function RestaurantCard({ restaurant, className, distance, primar
 
               {/* Meta line */}
               <div className="mt-1 text-sm dark:text-neutral-400">
-                <span className="mr-2">{restaurant.priceRange ?? "-"}</span>
+                <span className="mr-2">{restaurant.priceRange ?? '-'}</span>
                 <span className="mr-2">•</span>
-                <span className="mr-2">Rating {(restaurant.rating ?? 0).toFixed(1)}★</span>
-                <span>• {(restaurant.foodTypes ?? []).join(", ")}</span>
+                {typeof restaurant.rating === 'number' && restaurant.rating != null && (
+                  <span className="mr-2">Rating {restaurant.rating.toFixed(1)}★</span>
+                )}
+                <span>• {(restaurant.foodTypes ?? []).join(', ')}</span>
               </div>
 
               {/* Primary deal */}
               {primaryDeal && (
-                <div className="mt-2 text-sm dark:text-neutral-300">
-                  {primaryDeal}
-                </div>
+                <div className="mt-2 text-sm dark:text-neutral-300">{primaryDeal}</div>
               )}
 
               {/* Tags */}

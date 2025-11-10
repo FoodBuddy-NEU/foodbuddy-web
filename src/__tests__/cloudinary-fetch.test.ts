@@ -124,7 +124,8 @@ describe('Cloudinary Image Fetching', () => {
     it('should construct correct secure URLs for images', () => {
       const mockImage = {
         public_id: 'tables_anwlni',
-        secure_url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/tables_anwlni.jpg',
+        secure_url:
+          'https://res.cloudinary.com/dcbktxiuw/image/upload/v1761801462/tables_anwlni.jpg',
         format: 'jpg',
       };
 

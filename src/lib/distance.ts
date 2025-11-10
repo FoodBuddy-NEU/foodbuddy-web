@@ -3,7 +3,7 @@
  * Calculates distance between two addresses using Google Maps API
  */
 
-const DEFAULT_USER_ADDRESS = "5000 MacArthur Blvd, Oakland, CA";
+const DEFAULT_USER_ADDRESS = '5000 MacArthur Blvd, Oakland, CA';
 
 // Cache for geocoding results to reduce API calls
 const geocodeCache: Map<string, { lat: number; lng: number }> = new Map();
@@ -11,9 +11,7 @@ const geocodeCache: Map<string, { lat: number; lng: number }> = new Map();
 /**
  * Geocode an address to get latitude and longitude
  */
-async function geocodeAddress(
-  address: string
-): Promise<{ lat: number; lng: number } | null> {
+async function geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
   // Check cache first
   if (geocodeCache.has(address)) {
     return geocodeCache.get(address) || null;
@@ -22,7 +20,7 @@ async function geocodeAddress(
   try {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
     if (!apiKey) {
-      console.warn("NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is not set");
+      console.warn('NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is not set');
       return null;
     }
 
@@ -37,17 +35,17 @@ async function geocodeAddress(
     if (data.results && data.results.length > 0) {
       const location = data.results[0].geometry.location;
       const coords = { lat: location.lat, lng: location.lng };
-      
+
       // Cache the result
       geocodeCache.set(address, coords);
-      
+
       return coords;
     }
 
     console.warn(`Could not geocode address: ${address}`);
     return null;
   } catch (error) {
-    console.error("Geocoding error:", error);
+    console.error('Geocoding error:', error);
     return null;
   }
 }
@@ -56,12 +54,7 @@ async function geocodeAddress(
  * Calculate distance between two coordinates using the Haversine formula
  * (Used as fallback when Google Maps Distance Matrix API is not available)
  */
-function haversineDistance(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number
-): number {
+function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 3959; // Earth's radius in miles
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLng = ((lng2 - lng1) * Math.PI) / 180;
@@ -90,7 +83,7 @@ export async function calculateDistance(
     ]);
 
     if (!userCoords || !restaurantCoords) {
-      console.warn("Could not geocode one or both addresses");
+      console.warn('Could not geocode one or both addresses');
       return null;
     }
 
@@ -104,7 +97,7 @@ export async function calculateDistance(
 
     return Math.round(distance * 10) / 10; // Round to 1 decimal place
   } catch (error) {
-    console.error("Distance calculation error:", error);
+    console.error('Distance calculation error:', error);
     return null;
   }
 }

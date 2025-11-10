@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useTheme } from "@/lib/ThemeProvider";
-import { useEffect, useState } from "react";
+import { useTheme } from '@/lib/ThemeProvider';
+import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -29,14 +29,10 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       className="rounded-full border px-3 py-2 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-900"
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
       title={`Current theme: ${theme}`}
     >
-      {theme === "light" ? (
-        <span>☀️ Light</span>
-      ) : (
-        <span>🌙 Dark</span>
-      )}
+      {theme === 'light' ? <span>☀️ Light</span> : <span>🌙 Dark</span>}
     </button>
   );
 }

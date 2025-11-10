@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import { addBookmark, removeBookmark, subscribeBookmarks } from "@/lib/bookmarks";
-import { useAuth } from "@/lib/AuthProvider"; // your existing auth context
+import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { addBookmark, removeBookmark, subscribeBookmarks } from '@/lib/bookmarks';
+import { useAuth } from '@/lib/AuthProvider'; // your existing auth context
 
 interface Props {
   restaurantId: string;
@@ -15,7 +15,10 @@ export default function BookmarkButton({ restaurantId, className }: Props) {
   const { user, loading } = useAuth();
 
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
-  const isBookmarked = useMemo(() => bookmarkedIds.has(restaurantId), [bookmarkedIds, restaurantId]);
+  const isBookmarked = useMemo(
+    () => bookmarkedIds.has(restaurantId),
+    [bookmarkedIds, restaurantId]
+  );
 
   useEffect(() => {
     if (!user) return;
@@ -26,7 +29,7 @@ export default function BookmarkButton({ restaurantId, className }: Props) {
   const onToggle = async () => {
     if (loading) return; // avoid flicker while auth state is resolving
     if (!user) {
-      router.push("/login");
+      router.push('/login');
       return;
     }
 
@@ -46,23 +49,19 @@ export default function BookmarkButton({ restaurantId, className }: Props) {
       // revert on error
       setBookmarkedIds((prev) => {
         const next = new Set(prev);
-        if (isBookmarked) next.add(restaurantId); else next.delete(restaurantId);
+        if (isBookmarked) next.add(restaurantId);
+        else next.delete(restaurantId);
         return next;
       });
-      console.error("Bookmark toggle failed", e);
+      console.error('Bookmark toggle failed', e);
       // Optionally show a toast if you already have one
     }
   };
 
   return (
-    <button
-      type="button"
-      onClick={onToggle}
-      aria-pressed={isBookmarked}
-      className={className}
-    >
-      <span className="mr-1">{isBookmarked ? "★" : "☆"}</span>
-      {isBookmarked ? "Saved" : "Bookmark"}
+    <button type="button" onClick={onToggle} aria-pressed={isBookmarked} className={className}>
+      <span className="mr-1">{isBookmarked ? '★' : '☆'}</span>
+      {isBookmarked ? 'Saved' : 'Bookmark'}
     </button>
   );
 }

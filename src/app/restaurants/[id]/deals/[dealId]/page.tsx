@@ -1,11 +1,15 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import data from "@/data/restaurants.json";
-import type { Deal } from "@/types/restaurant";
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import data from '@/data/restaurants.json';
+import type { Deal } from '@/types/restaurant';
 
-type Restaurant = typeof data[number];
+type Restaurant = (typeof data)[number];
 
-export default async function DealDetailPage({ params }: { params: Promise<{ id: string; dealId: string }> }) {
+export default async function DealDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string; dealId: string }>;
+}) {
   const { id, dealId } = await params;
   const restaurant: Restaurant | undefined = data.find((r) => r.id === id);
   if (!restaurant) return notFound();
@@ -24,15 +28,24 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       <div className="mb-4">
-        <Link href={`/restaurants/${restaurant.id}`} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">← Back</Link>
+        <Link
+          href={`/restaurants/${restaurant.id}`}
+          className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+        >
+          ← Back
+        </Link>
       </div>
 
       <h1 className="text-2xl font-bold">{deal.title}</h1>
 
-      {typeof deal.description === "string" && deal.description ? (
-        <div className="mt-4 text-sm text-neutral-700 dark:text-neutral-300">{deal.description}</div>
+      {typeof deal.description === 'string' && deal.description ? (
+        <div className="mt-4 text-sm text-neutral-700 dark:text-neutral-300">
+          {deal.description}
+        </div>
       ) : (
-        <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">No additional description provided.</div>
+        <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+          No additional description provided.
+        </div>
       )}
 
       {validity.length > 0 && (
@@ -48,7 +61,11 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         {validity.length > 0 && (
           <section className="rounded-md border p-4 text-sm">
             <div className="font-medium mb-2">1. Expiration (Validity)</div>
-            {validity.map((l) => <div key={l} className="text-sm text-neutral-600 dark:text-neutral-400">{l}</div>)}
+            {validity.map((l) => (
+              <div key={l} className="text-sm text-neutral-600 dark:text-neutral-400">
+                {l}
+              </div>
+            ))}
           </section>
         )}
 

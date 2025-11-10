@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
 // Skip prerendering for this page during build since it requires Firebase auth
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
-import { useMemo, useState, useEffect } from "react";
-import Image from "next/image";
-import RestaurantCard from "@/components/RestaurantCard";
-import data from "@/data/restaurants.json";
-import type { Deal, Restaurant } from "@/types/restaurant";
-import Link from "next/link";
-import { useAuth } from "@/lib/AuthProvider";
-import { auth } from "@/lib/firebaseClient";
-import { signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
-import { subscribeBookmarks } from "@/lib/bookmarks";
+import { useMemo, useState, useEffect } from 'react';
+import Image from 'next/image';
+import RestaurantCard from '@/components/RestaurantCard';
+import data from '@/data/restaurants.json';
+import type { Deal, Restaurant } from '@/types/restaurant';
+import Link from 'next/link';
+import { useAuth } from '@/lib/AuthProvider';
+import { auth } from '@/lib/firebaseClient';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { subscribeBookmarks } from '@/lib/bookmarks';
 
 function normalize(str: string) {
   return str.toLowerCase().trim();
@@ -28,7 +28,7 @@ function extractBestDiscountPercent(r: Restaurant) {
   const texts: string[] = [];
   r.deals?.forEach((d: Deal) => {
     if (d.title) texts.push(String(d.title));
-    if (typeof d.description === "string") texts.push(d.description);
+    if (typeof d.description === 'string') texts.push(d.description);
   });
   const re = /(\d{1,2})(?=\s*%)/g;
   let max = 0;
@@ -52,27 +52,31 @@ export default function BookmarkedRestaurantsPage() {
   useEffect(() => {
     if (loading) return;
     if (!user) {
-      router.replace("/login");
+      router.replace('/login');
       return;
     }
     const unsub = subscribeBookmarks(user.uid, setBookmarkedIds);
     return () => unsub();
   }, [user, loading, router]);
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [activeFoodTypes, setActiveFoodTypes] = useState<string[]>([]);
   const [activeTags, setActiveTags] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState<"distance" | "price" | "discount" | "name">("distance");
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [sortBy, setSortBy] = useState<'distance' | 'price' | 'discount' | 'name'>('distance');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
 
   // derive facets from data (unchanged)
   const allFoodTypes = useMemo(
-    () => Array.from(new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.foodTypes ?? []))).sort(),
+    () =>
+      Array.from(
+        new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.foodTypes ?? []))
+      ).sort(),
     []
   );
   const allTags = useMemo(
-    () => Array.from(new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.tags ?? []))).sort(),
+    () =>
+      Array.from(new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.tags ?? []))).sort(),
     []
   );
 
@@ -96,15 +100,15 @@ export default function BookmarkedRestaurantsPage() {
 
     // 2) sort
     list = [...list].sort((a, b) => {
-      const dir = sortDir === "asc" ? 1 : -1;
+      const dir = sortDir === 'asc' ? 1 : -1;
       switch (sortBy) {
-        case "price":
+        case 'price':
           return (priceBucket(a.priceRange) - priceBucket(b.priceRange)) * dir;
-        case "discount":
+        case 'discount':
           return (extractBestDiscountPercent(a) - extractBestDiscountPercent(b)) * dir;
-        case "name":
+        case 'name':
           return normalize(a.name).localeCompare(normalize(b.name)) * dir;
-        case "distance":
+        case 'distance':
         default:
           const da = (a as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
           const db = (b as Restaurant & { distance: number }).distance ?? Number.POSITIVE_INFINITY;
@@ -123,10 +127,10 @@ export default function BookmarkedRestaurantsPage() {
 
   function handleSortClick(key: typeof sortBy) {
     if (key === sortBy) {
-      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
     } else {
       setSortBy(key);
-      setSortDir("asc");
+      setSortDir('asc');
     }
   }
 
@@ -154,8 +158,12 @@ export default function BookmarkedRestaurantsPage() {
         ) : (
           <div className="flex items-center gap-3">
             <span>Not signed in</span>
-            <Link href="/login" className="underline">Log in</Link>
-            <Link href="/signup" className="underline">Sign up</Link>
+            <Link href="/login" className="underline">
+              Log in
+            </Link>
+            <Link href="/signup" className="underline">
+              Sign up
+            </Link>
           </div>
         )}
       </div>
@@ -190,7 +198,7 @@ export default function BookmarkedRestaurantsPage() {
           aria-expanded={showFilters}
           aria-controls="filters"
         >
-          {showFilters ? "Hide filters" : "Show filters"}
+          {showFilters ? 'Hide filters' : 'Show filters'}
         </button>
       </div>
 
@@ -210,7 +218,7 @@ export default function BookmarkedRestaurantsPage() {
                           on ? prev.filter((x) => x !== t) : [...prev, t]
                         )
                       }
-                      className={`rounded-full border px-3 py-1 ${on ? "bg-black text-white dark:bg-white dark:text-black" : ""}`}
+                      className={`rounded-full border px-3 py-1 ${on ? 'bg-black text-white dark:bg-white dark:text-black' : ''}`}
                     >
                       {t}
                     </button>
@@ -227,11 +235,9 @@ export default function BookmarkedRestaurantsPage() {
                     <button
                       key={t}
                       onClick={() =>
-                        setActiveTags((prev) =>
-                          on ? prev.filter((x) => x !== t) : [...prev, t]
-                        )
+                        setActiveTags((prev) => (on ? prev.filter((x) => x !== t) : [...prev, t]))
                       }
-                      className={`rounded-full border px-3 py-1 ${on ? "bg-black text-white dark:bg-white dark:text-black" : ""}`}
+                      className={`rounded-full border px-3 py-1 ${on ? 'bg-black text-white dark:bg-white dark:text-black' : ''}`}
                     >
                       {t}
                     </button>
@@ -246,16 +252,28 @@ export default function BookmarkedRestaurantsPage() {
       <div className="mt-6 mb-2 text-sm font-medium text-neutral-600">Sort</div>
       <div className="mb-4 flex flex-wrap gap-2">
         {[
-          { key: "distance", label: `Distance ${sortBy === "distance" ? (sortDir === "asc" ? "↑" : "↓") : ""}` },
-          { key: "price", label: `Price ${sortBy === "price" ? (sortDir === "asc" ? "↑" : "↓") : ""}` },
-          { key: "discount", label: `Discount ${sortBy === "discount" ? (sortDir === "asc" ? "↑" : "↓") : ""}` },
-          { key: "name", label: `Name ${sortBy === "name" ? (sortDir === "asc" ? "↑" : "↓") : ""}` },
+          {
+            key: 'distance',
+            label: `Distance ${sortBy === 'distance' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+          },
+          {
+            key: 'price',
+            label: `Price ${sortBy === 'price' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+          },
+          {
+            key: 'discount',
+            label: `Discount ${sortBy === 'discount' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+          },
+          {
+            key: 'name',
+            label: `Name ${sortBy === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+          },
         ].map((opt) => (
           <button
             key={opt.key}
             onClick={() => handleSortClick(opt.key as typeof sortBy)}
             className={`rounded-full px-4 py-2 text-sm border ${
-              sortBy === opt.key ? "bg-black text-white dark:bg-white dark:text-black" : ""
+              sortBy === opt.key ? 'bg-black text-white dark:bg-white dark:text-black' : ''
             }`}
           >
             {opt.label}

@@ -24,7 +24,7 @@ describe('Homepage Rendering', () => {
       const logoElement = document.createElement('img');
       logoElement.src = '/logo.png';
       logoElement.alt = 'FoodBuddy Logo';
-      
+
       expect(logoElement.src).toContain('logo.png');
       expect(logoElement.alt).toBe('FoodBuddy Logo');
     });
@@ -32,14 +32,14 @@ describe('Homepage Rendering', () => {
     it('should display the branding text', () => {
       const textElement = document.createElement('p');
       textElement.textContent = 'Find restaurants near NEU-Oak';
-      
+
       expect(textElement.textContent).toBe('Find restaurants near NEU-Oak');
     });
 
     it('should center logo and text properly', () => {
       const container = document.createElement('div');
       container.className = 'flex flex-col items-center justify-center';
-      
+
       expect(container.className).toContain('items-center');
       expect(container.className).toContain('justify-center');
     });
@@ -51,7 +51,7 @@ describe('Homepage Rendering', () => {
       const searchInput = document.createElement('input');
       searchInput.type = 'text';
       searchInput.placeholder = 'Search restaurants...';
-      
+
       expect(searchInput.type).toBe('text');
       expect(searchInput.placeholder).toContain('restaurants');
     });
@@ -59,10 +59,10 @@ describe('Homepage Rendering', () => {
     it('should have filter and sort controls', () => {
       const filterButton = document.createElement('button');
       filterButton.textContent = 'Filter';
-      
+
       const sortButton = document.createElement('button');
       sortButton.textContent = 'Sort';
-      
+
       expect(filterButton.textContent).toBe('Filter');
       expect(sortButton.textContent).toBe('Sort');
     });
@@ -75,15 +75,18 @@ describe('Homepage Rendering', () => {
     });
 
     it('should have correct page description', () => {
-      const expectedDescription = 'Discover restaurants near NEU-Oak with reviews, menus, and deals';
-      expect(expectedDescription).toBe('Discover restaurants near NEU-Oak with reviews, menus, and deals');
+      const expectedDescription =
+        'Discover restaurants near NEU-Oak with reviews, menus, and deals';
+      expect(expectedDescription).toBe(
+        'Discover restaurants near NEU-Oak with reviews, menus, and deals'
+      );
     });
   });
 
   describe('Responsive Design', () => {
     it('should use responsive Tailwind classes', () => {
       const gridClass = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4';
-      
+
       expect(gridClass).toContain('grid-cols-1');
       expect(gridClass).toContain('sm:grid-cols-2');
       expect(gridClass).toContain('md:grid-cols-3');
@@ -91,7 +94,7 @@ describe('Homepage Rendering', () => {
 
     it('should have proper spacing', () => {
       const spacingClass = 'p-4 md:p-6 lg:p-8';
-      
+
       expect(spacingClass).toContain('p-');
       expect(spacingClass).toContain('md:');
       expect(spacingClass).toContain('lg:');

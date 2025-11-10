@@ -37,7 +37,7 @@ export type Restaurant = {
   address: string;
   phone: string;
   distance: number; // Distance in miles from the user's location
-  priceRange: "$" | "$$" | "$$$";
+  priceRange: '$' | '$$' | '$$$';
   rating: number;
   /** Optional images — either a full `url` or a Cloudinary `public_id`. */
   images?: Array<{ public_id?: string; url?: string; alt?: string }>;
