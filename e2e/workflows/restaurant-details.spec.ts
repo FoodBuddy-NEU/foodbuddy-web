@@ -180,7 +180,7 @@ test.describe('Restaurant Details Workflow', () => {
     expect(true).toBeTruthy();
   });
 
-  test.skip('should have working back button or navigation', async ({ page }) => {
+  test('should have working back button or navigation', async ({ page }) => {
     const restaurantId = TEST_RESTAURANTS.pizza.id;
     await navigateToRestaurant(page, restaurantId);
 
@@ -349,7 +349,7 @@ test.describe('Restaurant Details Workflow', () => {
       expect(url).toBeDefined();
     });
 
-    test.skip('should handle slow loading gracefully', async ({ page }) => {
+    test('should handle slow loading gracefully', async ({ page }) => {
       const restaurantId = TEST_RESTAURANTS.pizza.id;
 
       // Start navigation but don't wait for full load
