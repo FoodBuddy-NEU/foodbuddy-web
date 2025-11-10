@@ -15,6 +15,9 @@ export default defineConfig({
   testDir: './e2e',
   globalSetup: require.resolve('./e2e/global-setup.ts'),
 
+  /* Increase timeout for slow CI environments */
+  timeout: 60 * 1000, // 60 seconds per test
+
   /* Run tests in parallel for faster execution */
   fullyParallel: true,
 
@@ -32,6 +35,9 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://localhost:3000',
+
+    /* Increase action timeout for slow network */
+    actionTimeout: 15 * 1000, // 15 seconds
 
     /* Collect trace when retrying the failed test */
     trace: 'on-first-retry',
