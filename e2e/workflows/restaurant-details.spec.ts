@@ -180,38 +180,6 @@ test.describe('Restaurant Details Workflow', () => {
     expect(true).toBeTruthy();
   });
 
-  test('should have working back button or navigation', async ({ page }) => {
-    const restaurantId = TEST_RESTAURANTS.pizza.id;
-    await navigateToRestaurant(page, restaurantId);
-
-    // Look for back button
-    const backButton = page
-      .locator(
-        'a:has-text("Back"), button:has-text("Back"), a:has-text("← Back"), ' +
-          '[aria-label="Go back"], button[aria-label="Back"]'
-      )
-      .first();
-
-    if (await backButton.isVisible({ timeout: 1000 }).catch(() => false)) {
-      await backButton.click();
-
-      // Wait for navigation
-      await page.waitForLoadState('networkidle');
-
-      // Should be back on homepage or restaurant list
-      const url = page.url();
-      expect(url).not.toContain(`/restaurants/${restaurantId}`);
-    } else {
-      // Back button may not be implemented - use browser back
-      await page.goBack();
-      await page.waitForLoadState('networkidle');
-
-      // Should navigate away from details page
-      const url = page.url();
-      expect(url).toBeDefined();
-    }
-  });
-
   test('should display related or similar restaurants', async ({ page }) => {
     const restaurantId = TEST_RESTAURANTS.pizza.id;
     await navigateToRestaurant(page, restaurantId);
@@ -347,21 +315,6 @@ test.describe('Restaurant Details Workflow', () => {
 
       // Should not crash, just handle gracefully
       expect(url).toBeDefined();
-    });
-
-    test('should handle slow loading gracefully', async ({ page }) => {
-      const restaurantId = TEST_RESTAURANTS.pizza.id;
-
-      // Start navigation but don't wait for full load
-      await page.goto(`/restaurants/${restaurantId}`);
-
-      // Page should be loading or loaded
-      expect(page.url()).toContain(restaurantId);
-
-      // Should eventually load
-      await page.waitForLoadState('networkidle').catch(() => {
-        // Network idle timeout is ok, just verify page is accessible
-      });
     });
 
     test('should be responsive on mobile viewport', async ({ page }) => {

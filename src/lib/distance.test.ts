@@ -1,6 +1,16 @@
 import { calculateDistance, DEFAULT_USER_ADDRESS } from './distance';
 
 describe('Distance Calculation Library', () => {
+  beforeAll(() => {
+    // Suppress console output during tests for missing API key scenarios
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('DEFAULT_USER_ADDRESS', () => {
     it('should export the default user address', () => {
       expect(DEFAULT_USER_ADDRESS).toBe('5000 MacArthur Blvd, Oakland, CA');
