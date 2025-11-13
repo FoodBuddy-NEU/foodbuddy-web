@@ -111,9 +111,10 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 ---
 ## 📸 Live Demo
-**🚀 Live Demo:** [https://foodbuddy-web-neuoak.vercel.app/](#)
-**🚀 Demo Video:** [https://youtu.be/PQMQOy0DSn0/](#)
-**📦 GitHub Release:** [v2.0.0](#)  
+
+**🚀 Live Demo:** https://foodbuddy-web-neuoak.vercel.app/  
+**🚀 Demo Video:** https://youtu.be/PQMQOy0DSn0  
+**📦 GitHub Release:** https://github.com/FoodBuddy-NEU/FoodBuddy/releases/tag/v2.0.0
 
 Please click on the above link to access the live demo.
 
