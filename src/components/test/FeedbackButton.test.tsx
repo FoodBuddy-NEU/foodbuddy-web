@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import FeedbackButton from './FeedbackButton';
+import FeedbackButton from '../FeedbackButton';
 
 jest.mock('@/lib/ThemeProvider', () => ({
   useTheme: () => ({ theme: 'light', setTheme: jest.fn() }),
 }));
 
-jest.mock('./FeedbackForm', () => ({
+jest.mock('../FeedbackForm', () => ({
   __esModule: true,
   default: () => <div data-testid="feedback-form">Form</div>,
 }));

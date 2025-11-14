@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import MenuCategorySelector from './MenuCategorySelector';
+import MenuCategorySelector from '../MenuCategorySelector';
 
 describe('MenuCategorySelector auto-categorization', () => {
   it("auto-categorizes when there's a single 'Main Menu'", () => {

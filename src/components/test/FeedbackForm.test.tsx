@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import FeedbackForm from './FeedbackForm';
+import FeedbackForm from '../FeedbackForm';
 
 // Mock all Firebase/Auth related modules
 jest.mock('@/lib/firebaseClient', () => ({

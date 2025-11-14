@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import MenuCategorySelector from './MenuCategorySelector';
+import MenuCategorySelector from '../MenuCategorySelector';
 
 const menus = [
   { id: '1', title: 'Main Menu', items: [] },

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Header from './Header';
+import Header from '../Header';
 
 jest.mock('@/components/ThemeToggle', () => ({
   __esModule: true,

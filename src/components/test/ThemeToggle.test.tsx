@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from '../ThemeToggle';
 
 const mockToggleTheme = jest.fn();
 let themeValue: 'light' | 'dark' = 'light';

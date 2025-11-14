@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import ShareButton from './ShareButton';
+import ShareButton from '../ShareButton';
 
 // Mock the Web Share API
 const mockShare = jest.fn();
