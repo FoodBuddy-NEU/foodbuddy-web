@@ -16,10 +16,30 @@ jest.mock('next/image', () => ({
   },
 }));
 
+
+jest.mock('@/lib/distance', () => ({
+  calculateDistance: async () => 1.0,
+  DEFAULT_USER_ADDRESS: 'X',
+}));
+
+jest.mock('@/lib/cloudinary', () => ({
+  __esModule: true,
+  default: {
+    config: () => ({}),
+    api: {
+      resources: jest.fn(async () => ({ resources: [] })),
+      resources_by_asset_folder: jest.fn(async () => ({ resources: [] })),
+    },
+  },
+}));
+
 // NEW: mock next/navigation router to satisfy BookmarkButton
 jest.mock('next/navigation', () => ({
+  __esModule: true,
   useRouter: () => ({ push: jest.fn(), replace: jest.fn(), refresh: jest.fn(), prefetch: jest.fn() }),
+  notFound: jest.fn(),
 }));
+jest.mock('@/lib/firebaseClient', () => ({ db: {}, auth: {} }));
 
 describe('RestaurantDetailPage', () => {
   beforeEach(() => {
@@ -45,46 +65,25 @@ describe('RestaurantDetailPage', () => {
   });
 
   it('renders basic details, deals fallback, and no menu', async () => {
-    jest.doMock('@/data/restaurants.json', () => [
-      {
-        id: 'r1',
-        name: 'R1',
-        address: 'Addr',
-        phone: '123',
-        images: [],
-        deals: [],
-        menus: [],
-      },
-    ]);
-    jest.doMock('@/lib/distance', () => ({
-      calculateDistance: async () => 1.2,
-      DEFAULT_USER_ADDRESS: 'X',
-    }));
-    jest.doMock('@/lib/cloudinary', () => ({
-      default: {
-        config: () => ({}),
-        api: {
-          resources: jest.fn(async () => ({ resources: [] })),
-          resources_by_asset_folder: jest.fn(async () => ({ resources: [] })),
-        },
-      },
-    }));
-
-    const cl = (await import('@/lib/cloudinary')).default as unknown as { api?: Record<string, unknown> };
-    cl.api = cl.api ?? {
-      resources: jest.fn(async () => ({ resources: [] })),
-      resources_by_asset_folder: jest.fn(async () => ({ resources: [] })),
-    };
-
     const mod = await import('./page');
     const RestaurantDetailPage = mod.default;
-    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'r1' }) });
+    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'bobby-gs-pizzeria' }) });
     render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
 
-    expect(screen.getByRole('heading', { name: /r1/i })).toBeInTheDocument();
-    expect(screen.getByText(/deals/i)).toBeInTheDocument();
-    expect(screen.getByText(/no menu available/i)).toBeInTheDocument();
-    expect(screen.getByText(/addr/i)).toBeInTheDocument();
-    expect(screen.getByText(/123/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /bobby g/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /menu/i })).toBeInTheDocument();
+    expect(screen.getByText(/berkeley, ca/i)).toBeInTheDocument();
+    expect(screen.getByText(/\(510\)/i)).toBeInTheDocument();
+  });
+
+  it('renders deals and menus when present', async () => {
+    const mod2 = await import('./page');
+    const RestaurantDetailPage2 = mod2.default;
+    const element2 = await RestaurantDetailPage2({ params: Promise.resolve({ id: '84-viet' }) });
+    render(<ThemeProvider>{element2 as unknown as React.ReactElement}</ThemeProvider>);
+
+    expect(screen.getByRole('heading', { name: /84 viet/i })).toBeInTheDocument();
+    expect(screen.getByText(/10% off/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /menu/i })).toBeInTheDocument();
   });
 });

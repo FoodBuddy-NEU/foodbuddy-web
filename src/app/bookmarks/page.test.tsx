@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 const routerMock = { push: jest.fn(), replace: jest.fn() };
 import BookmarksPage from './page';
 
@@ -66,5 +66,16 @@ describe('BookmarksPage', () => {
     expect(screen.getByText(/signed in as/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /sign out/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /bookmarks/i })).toBeInTheDocument();
+  });
+
+  it('toggles filters and search input', () => {
+    mockUseAuth = () => ({ user: { email: 'a@b.com', uid: 'u1' }, loading: false });
+    render(<BookmarksPage />);
+    const toggle = screen.getByRole('button', { name: /show filters/i });
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    const search = screen.getByLabelText(/search by name/i);
+    fireEvent.change(search, { target: { value: 'bobby' } });
+    expect(search).toHaveValue('bobby');
   });
 });
