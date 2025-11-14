@@ -81,5 +81,66 @@ describe('Distance Calculation Library', () => {
       const result = await calculateDistance('fail address', DEFAULT_USER_ADDRESS);
       expect(result).toBeNull();
     });
+
+    it('calculates Haversine distance and rounds to one decimal', async () => {
+      const originalKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+      process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = 'test-key';
+      const originalFetch = global.fetch as unknown;
+
+      const fakeResponse = (lat: number, lng: number) => ({
+        json: async () => ({
+          status: 'OK',
+          results: [{ geometry: { location: { lat, lng } } }],
+        }),
+      });
+
+      global.fetch = (jest.fn(async (url: string) => {
+        const s = String(url);
+        if (s.includes('address=A')) return fakeResponse(0, 0) as unknown as Response;
+        if (s.includes('address=B')) return fakeResponse(0, 1) as unknown as Response;
+        return { json: async () => ({ status: 'ZERO_RESULTS', results: [] }) } as unknown as Response;
+      }) as unknown) as typeof fetch;
+
+      const d = await calculateDistance('B', 'A');
+      expect(typeof d).toBe('number');
+      expect(d).toBeCloseTo(69.1, 1);
+
+      // restore
+      if (originalKey) process.env.NEXT_PUBLIC
+    });
+
+    it('maps distances for multiple restaurants', async () => {
+      jest.resetModules();
+      jest.doMock('./distance', () => {
+        const actual = jest.requireActual('./distance');
+        return {
+          ...actual,
+          geocodeAddress: async (address: string) => {
+            if (address === 'addr1') return { lat: 0, lng: 0 };
+            if (address === 'addr2') return { lat: 0, lng: 1 };
+            return null;
+          },
+        };
+      });
+      const { calculateDistancesForRestaurants, calculateDistance, DEFAULT_USER_ADDRESS } =
+        (await import('./distance')) as unknown as {
+          calculateDistancesForRestaurants: (
+            r: Array<{ id: string; address: string }>,
+            u?: string
+          ) => Promise<Map<string, number | null>>;
+          calculateDistance: (ra: string, ua?: string) => Promise<number | null>;
+          DEFAULT_USER_ADDRESS: string;
+        };
+
+      const restaurants = [
+        { id: 'r1', address: 'addr1' },
+        { id: 'r2', address: 'addr2' },
+        { id: 'r3', address: 'missing' },
+      ];
+      const map = await calculateDistancesForRestaurants(restaurants, DEFAULT_USER_ADDRESS);
+      expect(map.get('r1')).toEqual(await calculateDistance('addr1', DEFAULT_USER_ADDRESS));
+      expect(map.get('r2')).toEqual(await calculateDistance('addr2', DEFAULT_USER_ADDRESS));
+      expect(map.get('r3')).toBeNull();
+    });
   });
 });
