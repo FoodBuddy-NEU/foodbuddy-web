@@ -7,6 +7,9 @@ const DEFAULT_USER_ADDRESS = '5000 MacArthur Blvd, Oakland, CA';
 
 // Cache for geocoding results to reduce API calls
 const geocodeCache: Map<string, { lat: number; lng: number }> = new Map();
+let warnedMissingApiKey = false;
+const warnedAddresses = new Set<string>();
+let warnedPairFailure = false;
 
 /**
  * Geocode an address to get latitude and longitude
@@ -20,7 +23,10 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lng: numb
   try {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
     if (!apiKey) {
-      console.warn('NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is not set');
+      if (!warnedMissingApiKey) {
+        console.warn('NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is not set; geocoding disabled.');
+        warnedMissingApiKey = true;
+      }
       return null;
     }
 
@@ -29,20 +35,21 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lng: numb
         address
       )}&key=${apiKey}`
     );
-
     const data = await response.json();
 
-    if (data.results && data.results.length > 0) {
+    if (data?.status === 'OK' && Array.isArray(data.results) && data.results.length > 0) {
       const location = data.results[0].geometry.location;
       const coords = { lat: location.lat, lng: location.lng };
-
-      // Cache the result
       geocodeCache.set(address, coords);
-
       return coords;
     }
 
-    console.warn(`Could not geocode address: ${address}`);
+    if (!warnedAddresses.has(address)) {
+      const status = data?.status || 'UNKNOWN';
+      const msg = data?.error_message ? ` (${data.error_message})` : '';
+      console.warn(`Could not geocode address: ${address} — status: ${status}${msg}`);
+      warnedAddresses.add(address);
+    }
     return null;
   } catch (error) {
     console.error('Geocoding error:', error);
@@ -83,7 +90,10 @@ export async function calculateDistance(
     ]);
 
     if (!userCoords || !restaurantCoords) {
-      console.warn('Could not geocode one or both addresses');
+      if (!warnedPairFailure) {
+        console.warn('Could not geocode one or both addresses');
+        warnedPairFailure = true;
+      }
       return null;
     }
 

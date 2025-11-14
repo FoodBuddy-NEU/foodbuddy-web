@@ -1,11 +1,19 @@
 import { chromium, FullConfig } from '@playwright/test';
+import fs from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
 
-/**
- * Global setup for Playwright tests
- * This runs once before all tests to verify environment setup
- */
 async function globalSetup(config: FullConfig) {
   console.log('\n🔍 Verifying environment configuration...\n');
+
+  const envLocalPath = path.resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(envLocalPath)) {
+    const parsed = dotenv.parse(fs.readFileSync(envLocalPath));
+    for (const [key, value] of Object.entries(parsed)) {
+      if (!process.env[key]) process.env[key] = value;
+    }
+    console.log('✅ Loaded .env.local for Playwright environment\n');
+  }
 
   // Check Firebase configuration
   const firebaseVars = [

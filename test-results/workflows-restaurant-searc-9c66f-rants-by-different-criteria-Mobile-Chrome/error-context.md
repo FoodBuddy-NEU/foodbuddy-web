@@ -1,0 +1,202 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "FoodBuddy" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - navigation [ref=e5]:
+        - link "Home" [ref=e6] [cursor=pointer]:
+          - /url: /
+        - link "Bookmarks" [ref=e7] [cursor=pointer]:
+          - /url: /bookmarks
+        - button "Switch to dark theme" [ref=e8]: ☀️ Light
+  - generic [ref=e9]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: Not signed in
+      - link "Log in" [ref=e13] [cursor=pointer]:
+        - /url: /login
+      - link "Sign up" [ref=e14] [cursor=pointer]:
+        - /url: /signup
+    - generic [ref=e15]:
+      - img "FoodBuddy Logo" [ref=e16]
+      - paragraph [ref=e17]: Find restaurants near NEU-Oak
+    - heading "Find restaurants" [level=1] [ref=e18]
+    - generic [ref=e19]:
+      - textbox "Search by name" [ref=e20]:
+        - /placeholder: Search by name...
+      - button "Show filters" [ref=e21]
+    - generic [ref=e22]: Sort
+    - generic [ref=e23]:
+      - button "Distance ↑" [ref=e24]
+      - button "Price" [ref=e25]
+      - button "Discount" [ref=e26]
+      - button "Name" [ref=e27]
+    - generic [ref=e28]: Showing 9 results
+    - generic [ref=e29]:
+      - article [ref=e30]:
+        - generic [ref=e32]:
+          - link "View details for Southside Station" [ref=e33] [cursor=pointer]:
+            - /url: /restaurants/southside-station
+            - generic [ref=e34]:
+              - generic [ref=e35]: Southside Station
+              - generic [ref=e36]: 7.5 mi2504 Shattuck Ave Berkeley, CA 94704
+              - generic [ref=e37]:
+                - text: $$•
+                - generic [ref=e38]: Rating 4.5★
+                - generic [ref=e39]: • American, Fried Chicken, Sandwiches
+              - generic [ref=e40]:
+                - generic [ref=e41]: award-winning wings
+                - generic [ref=e42]: house-made brioche
+                - generic [ref=e43]: student-friendly
+                - generic [ref=e44]: counter-service
+          - button "☆ Bookmark" [ref=e46]:
+            - generic [ref=e47]: ☆
+            - text: Bookmark
+      - article [ref=e48]:
+        - generic [ref=e50]:
+          - link "View details for Cancun Sabor Mexicano" [ref=e51] [cursor=pointer]:
+            - /url: /restaurants/cancun-sabor-mexicano
+            - generic [ref=e52]:
+              - generic [ref=e53]: Cancun Sabor Mexicano
+              - generic [ref=e54]: 7.7 mi2134 Allston Way Berkeley, CA 94704
+              - generic [ref=e55]:
+                - text: $$•
+                - generic [ref=e56]: Rating 3.6★
+                - generic [ref=e57]: • Mexican, Fast-Casual, Burrito
+              - generic [ref=e59]: vegan-friendly
+          - button "☆ Bookmark" [ref=e61]:
+            - generic [ref=e62]: ☆
+            - text: Bookmark
+      - article [ref=e63]:
+        - generic [ref=e65]:
+          - link "View details for Juice Appeal" [ref=e66] [cursor=pointer]:
+            - /url: /restaurants/juice-appeal
+            - generic [ref=e67]:
+              - generic [ref=e68]: Juice Appeal
+              - generic [ref=e69]: 7.8 mi2144 Kala Bagai Way, Berkeley, CA 94704
+              - generic [ref=e70]:
+                - text: $$•
+                - generic [ref=e71]: Rating 3.6★
+                - generic [ref=e72]: • Juice Bar, Smoothies
+              - generic [ref=e73]:
+                - generic [ref=e74]: vegan-friendly
+                - generic [ref=e75]: Healthy
+          - button "☆ Bookmark" [ref=e77]:
+            - generic [ref=e78]: ☆
+            - text: Bookmark
+      - article [ref=e79]:
+        - generic [ref=e81]:
+          - link "View details for 84 Viet" [ref=e82] [cursor=pointer]:
+            - /url: /restaurants/84-viet
+            - generic [ref=e83]:
+              - generic [ref=e84]: 84 Viet
+              - generic [ref=e85]: 8.0 mi2050 Berkeley Way Berkeley, CA 94704
+              - generic [ref=e86]:
+                - text: $$•
+                - generic [ref=e87]: Rating 3.9★
+                - generic [ref=e88]: • Vietnamese, Pho
+              - generic [ref=e89]:
+                - generic [ref=e90]: family-friendly
+                - generic [ref=e91]: solo-friendly
+                - generic [ref=e92]: Casual
+          - button "☆ Bookmark" [ref=e94]:
+            - generic [ref=e95]: ☆
+            - text: Bookmark
+      - article [ref=e96]:
+        - generic [ref=e98]:
+          - link "View details for Bobby G’s Pizzeria" [ref=e99] [cursor=pointer]:
+            - /url: /restaurants/bobby-gs-pizzeria
+            - generic [ref=e100]:
+              - generic [ref=e101]: Bobby G’s Pizzeria
+              - generic [ref=e102]: 8.0 mi2072 University Ave, Berkeley, CA 94704
+              - generic [ref=e103]:
+                - text: $$•
+                - generic [ref=e104]: Rating 3.8★
+                - generic [ref=e105]: • Beer Bar, Pizza
+              - generic [ref=e106]:
+                - generic [ref=e107]: group-friendly
+                - generic [ref=e108]: live music
+          - button "☆ Bookmark" [ref=e110]:
+            - generic [ref=e111]: ☆
+            - text: Bookmark
+      - article [ref=e112]:
+        - generic [ref=e114]:
+          - link "View details for BurgerIM" [ref=e115] [cursor=pointer]:
+            - /url: /restaurants/burgerim-berkeley
+            - generic [ref=e116]:
+              - generic [ref=e117]: BurgerIM
+              - generic [ref=e118]: 8.0 mi1974 University Ave, Berkeley, CA 94704
+              - generic [ref=e119]:
+                - text: $$•
+                - generic [ref=e120]: Rating 2.5★
+                - generic [ref=e121]: • American, Burgers, Halal
+              - generic [ref=e122]:
+                - generic [ref=e123]: customizable burgers
+                - generic [ref=e124]: halal
+                - generic [ref=e125]: student-friendly
+                - generic [ref=e126]: takeout
+          - button "☆ Bookmark" [ref=e128]:
+            - generic [ref=e129]: ☆
+            - text: Bookmark
+      - article [ref=e130]:
+        - generic [ref=e132]:
+          - link "View details for Cal's Fried Chicken & Burgers" [ref=e133] [cursor=pointer]:
+            - /url: /restaurants/cals-fried-chicken-burgers
+            - generic [ref=e134]:
+              - generic [ref=e135]: Cal's Fried Chicken & Burgers
+              - generic [ref=e136]: 8.0 mi2026 University Ave, Berkeley, CA 94704
+              - generic [ref=e137]:
+                - text: $$•
+                - generic [ref=e138]: Rating 4.6★
+                - generic [ref=e139]: • American, Fried Chicken, Burgers, Sandwiches
+              - generic [ref=e140]:
+                - generic [ref=e141]: smash-burgers
+                - generic [ref=e142]: fried-chicken-sandwich
+                - generic [ref=e143]: house sauces
+                - generic [ref=e144]: student-friendly
+          - button "☆ Bookmark" [ref=e146]:
+            - generic [ref=e147]: ☆
+            - text: Bookmark
+      - article [ref=e148]:
+        - generic [ref=e150]:
+          - link "View details for Bench Café • Pâtisserie" [ref=e151] [cursor=pointer]:
+            - /url: /restaurants/bench-cafe-patisserie
+            - generic [ref=e152]:
+              - generic [ref=e153]: Bench Café • Pâtisserie
+              - generic [ref=e154]: 8.1 mi1947 Martin Luther King Jr Way, Berkeley, CA 94704
+              - generic [ref=e155]:
+                - text: $•
+                - generic [ref=e156]: Rating 4.9★
+                - generic [ref=e157]: • Cafe, Bakery, Dessert
+              - generic [ref=e158]:
+                - generic [ref=e159]: solo-friendly
+                - generic [ref=e160]: romantic
+          - button "☆ Bookmark" [ref=e162]:
+            - generic [ref=e163]: ☆
+            - text: Bookmark
+      - article [ref=e164]:
+        - generic [ref=e166]:
+          - link "View details for Masa Ramen Bistro" [ref=e167] [cursor=pointer]:
+            - /url: /restaurants/masa-ramen-bistro
+            - generic [ref=e168]:
+              - generic [ref=e169]: Masa Ramen Bistro
+              - generic [ref=e170]: 8.1 mi1923 University Ave, Berkeley, CA 94704
+              - generic [ref=e171]:
+                - text: $$•
+                - generic [ref=e172]: Rating 4.5★
+                - generic [ref=e173]: • Japanese, Ramen, Hawaiian
+              - generic [ref=e174]:
+                - generic [ref=e175]: tonkotsu ramen
+                - generic [ref=e176]: Spam musubi
+                - generic [ref=e177]: Hawaiian-style fried chicken
+          - button "☆ Bookmark" [ref=e179]:
+            - generic [ref=e180]: ☆
+            - text: Bookmark
+  - button "Open Next.js Dev Tools" [ref=e186] [cursor=pointer]:
+    - img [ref=e187]
+  - alert [ref=e190]
+  - iframe [ref=e191]:
+    
+```
