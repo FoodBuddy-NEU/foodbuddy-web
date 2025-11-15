@@ -1,4 +1,4 @@
-import { calculateDistance, DEFAULT_USER_ADDRESS } from './distance';
+import { calculateDistance, DEFAULT_USER_ADDRESS } from '../distance';
 
 describe('Distance Calculation Library', () => {
   beforeAll(() => {
@@ -65,9 +65,9 @@ describe('Distance Calculation Library', () => {
 
     it('returns null if geocode fails for restaurant', async () => {
       jest.resetModules();
-      jest.mock('./distance', () => {
+      jest.mock('../distance', () => {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const original = jest.requireActual('./distance');
+        const original = jest.requireActual('../distance');
         return {
           ...original,
           geocodeAddress: jest.fn(async (address: string) => {
@@ -77,7 +77,7 @@ describe('Distance Calculation Library', () => {
         };
       });
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { calculateDistance, DEFAULT_USER_ADDRESS } = require('./distance');
+      const { calculateDistance, DEFAULT_USER_ADDRESS } = require('../distance');
       const result = await calculateDistance('fail address', DEFAULT_USER_ADDRESS);
       expect(result).toBeNull();
     });
@@ -111,8 +111,8 @@ describe('Distance Calculation Library', () => {
 
     it('maps distances for multiple restaurants', async () => {
       jest.resetModules();
-      jest.doMock('./distance', () => {
-        const actual = jest.requireActual('./distance');
+      jest.doMock('../distance', () => {
+        const actual = jest.requireActual('../distance');
         return {
           ...actual,
           geocodeAddress: async (address: string) => {
@@ -123,7 +123,7 @@ describe('Distance Calculation Library', () => {
         };
       });
       const { calculateDistancesForRestaurants, calculateDistance, DEFAULT_USER_ADDRESS } =
-        (await import('./distance')) as unknown as {
+        (await import('../distance')) as unknown as {
           calculateDistancesForRestaurants: (
             r: Array<{ id: string; address: string }>,
             u?: string

@@ -32,7 +32,7 @@ jest.mock('firebase/firestore', () => {
 // Import the mocked functions so we can assert on them
 import * as firestore from 'firebase/firestore';
 
-import { addBookmark, removeBookmark, subscribeBookmarks, bookmarkDocRef } from './bookmarks';
+import { addBookmark, removeBookmark, subscribeBookmarks, bookmarkDocRef } from '../bookmarks';
 
 describe('bookmarks lib', () => {
   beforeEach(() => {

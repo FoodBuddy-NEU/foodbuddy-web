@@ -32,7 +32,7 @@ describe('firebaseClient', () => {
     process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET = 'bucket';
     process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID = 'sender';
 
-    const mod = await import('./firebaseClient');
+    const mod = await import('../firebaseClient');
     expect(initializeApp).toHaveBeenCalledWith({
       apiKey: 'k',
       authDomain: 'auth.domain',
@@ -60,7 +60,7 @@ describe('firebaseClient', () => {
     jest.mock('firebase/auth', () => ({ getAuth }));
     jest.mock('firebase/firestore', () => ({ getFirestore }));
 
-    const mod = await import('./firebaseClient');
+    const mod = await import('../firebaseClient');
     expect(initializeApp).not.toHaveBeenCalled();
     expect(mod.app).toBe(existingApp);
     expect(getAuth).toHaveBeenCalledWith(existingApp);

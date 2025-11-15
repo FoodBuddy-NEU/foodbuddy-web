@@ -1,7 +1,7 @@
 /* AuthProvider.test.tsx */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AuthProvider, useAuth } from './AuthProvider';
+import { AuthProvider, useAuth } from '../AuthProvider';
 
 jest.mock('@/lib/firebaseClient', () => ({ auth: {} }));
 

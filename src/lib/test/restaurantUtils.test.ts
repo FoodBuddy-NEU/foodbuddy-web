@@ -1,4 +1,4 @@
-import { formatDistance, getRestaurantSummary, getDealValidString } from './restaurantUtils';
+import { formatDistance, getRestaurantSummary, getDealValidString } from '../restaurantUtils';
 
 describe('formatDistance', () => {
   it('formats valid number', () => {

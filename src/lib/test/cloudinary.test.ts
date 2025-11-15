@@ -33,7 +33,7 @@ describe('cloudinary configuration', () => {
     process.env.CLOUDINARY_API_SECRET = 'secret456';
     process.env.CLOUDINARY_CLOUD_NAME = 'mycloud';
 
-    const cloudinary = (await import('./cloudinary')).default;
+    const cloudinary = (await import('../cloudinary')).default;
     const cfg = (cloudinary as unknown as { config: () => Record<string, unknown> }).config();
 
     expect(cfg).toMatchObject({
@@ -56,7 +56,7 @@ describe('cloudinary configuration', () => {
 
     process.env.CLOUDINARY_URL = 'cloudinary://aKey:bSecret@my-cloud';
 
-    const cloudinary = (await import('./cloudinary')).default;
+    const cloudinary = (await import('../cloudinary')).default;
     const cfg = (cloudinary as unknown as { config: () => Record<string, unknown> }).config();
 
     expect(cfg).toMatchObject({
@@ -79,7 +79,7 @@ describe('cloudinary configuration', () => {
 
     process.env.CLOUDINARY_URL = 'http://bad-protocol';
 
-    const cloudinary = (await import('./cloudinary')).default;
+    const cloudinary = (await import('../cloudinary')).default;
     const cfg = (cloudinary as unknown as { config: () => Record<string, unknown> }).config();
 
     expect(consoleErrorSpy).toHaveBeenCalled();
@@ -102,7 +102,7 @@ describe('cloudinary configuration', () => {
     delete process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
     delete process.env.CLOUDINARY_URL;
 
-    const cloudinary = (await import('./cloudinary')).default;
+    const cloudinary = (await import('../cloudinary')).default;
     const cfg = (cloudinary as unknown as { config: () => Record<string, unknown> }).config();
 
     expect(consoleDebugSpy).toHaveBeenCalled();

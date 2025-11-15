@@ -1,7 +1,7 @@
 /* ThemeProvider.test.tsx */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { ThemeProvider, useTheme } from './ThemeProvider';
+import { ThemeProvider, useTheme } from '../ThemeProvider';
 
 function Consumer() {
   const { theme, toggleTheme } = useTheme();
