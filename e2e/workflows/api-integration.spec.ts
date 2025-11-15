@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { TEST_RESTAURANTS, API_TEST_DATA, TIMEOUTS } from '../fixtures/test-data';
+import { TEST_RESTAURANTS, API_TEST_DATA } from '../fixtures/test-data';
 
 /**
  * API Integration Tests

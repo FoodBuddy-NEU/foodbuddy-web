@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import ShareButton from './ShareButton';
+import ShareButton from '../ShareButton';
 
 // Mock the Web Share API
 const mockShare = jest.fn();
@@ -80,5 +80,27 @@ describe('ShareButton Component', () => {
     await waitFor(() => {
       expect(button).toBeInTheDocument();
     });
+  });
+  it('does not fallback when share rejects with AbortError', async () => {
+    mockShare.mockRejectedValueOnce(Object.assign(new Error('cancelled'), { name: 'AbortError' }));
+    render(<ShareButton {...defaultProps} />);
+    fireEvent.click(screen.getByRole('button'));
+    await waitFor(() => expect(mockShare).toHaveBeenCalled());
+    expect(mockClipboard).not.toHaveBeenCalled();
+  });
+
+  it('logs clipboard failure after share non-AbortError', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    mockShare.mockRejectedValueOnce(new Error('fail'));
+    mockClipboard.mockRejectedValueOnce(new Error('clipboard fail'));
+    render(<ShareButton {...defaultProps} />);
+    fireEvent.click(screen.getByRole('button'));
+    await waitFor(() =>
+      expect(errorSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Failed to copy to clipboard:'),
+        expect.any(Error)
+      )
+    );
+    errorSpy.mockRestore();
   });
 });

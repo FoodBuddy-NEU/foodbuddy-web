@@ -8,7 +8,8 @@ export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    Promise.resolve().then(() => setMounted(true));
+    const id = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(id);
   }, []);
 
   // Prevent hydration mismatch by not rendering dynamic content until mounted

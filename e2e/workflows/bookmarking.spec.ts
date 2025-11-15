@@ -2,11 +2,7 @@ import { test, expect } from '@playwright/test';
 import {
   navigateToHome,
   navigateToBookmarks,
-  clickRestaurant,
-  verifyElementVisible,
-  waitForLoadingComplete,
 } from '../utils/helpers';
-import { TEST_RESTAURANTS } from '../fixtures/test-data';
 
 /**
  * Bookmarking Workflow Tests

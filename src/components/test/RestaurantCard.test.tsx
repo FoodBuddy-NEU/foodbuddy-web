@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import RestaurantCard from './RestaurantCard';
+import RestaurantCard from '../RestaurantCard';
 import type { Restaurant } from '@/types/restaurant';
 
 // Mock Next.js Image component
@@ -22,7 +22,7 @@ jest.mock('next/link', () => {
 });
 
 // Mock BookmarkButton component
-jest.mock('./BookmarkButton', () => {
+jest.mock('../BookmarkButton', () => {
   return function MockBookmarkButton() {
     return <div data-testid="bookmark-button">Bookmark</div>;
   };

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { navigateToHome, navigateToRestaurant } from '../utils/helpers';
+import { navigateToHome } from '../utils/helpers';
 
 /**
  * Accessibility Tests

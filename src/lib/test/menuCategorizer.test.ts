@@ -1,4 +1,4 @@
-import { categorizeMenuItems } from './menuCategorizer';
+import { categorizeMenuItems } from '../menuCategorizer';
 
 describe('categorizeMenu', () => {
   it('categorizes menu items by name', () => {

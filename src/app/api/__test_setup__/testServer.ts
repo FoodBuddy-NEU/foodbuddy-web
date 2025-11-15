@@ -3,8 +3,6 @@
  * Provides a full mocked environment for testing API handlers
  */
 
-import type { NextApiRequest, NextApiResponse } from 'next';
-
 // Mock NextRequest and NextResponse for API route testing
 export class MockNextRequest {
   method: string;
@@ -82,13 +80,13 @@ export function setupGlobalMocks(): void {
   // Mock global.Request and Response for Next.js
   if (typeof global.Request === 'undefined') {
     (global as Record<string, unknown>).Request = class {
-      constructor(..._args: unknown[]) {}
+      constructor() {}
     };
   }
 
   if (typeof global.Response === 'undefined') {
     (global as Record<string, unknown>).Response = class {
-      constructor(..._args: unknown[]) {}
+      constructor() {}
       static json(data: Record<string, unknown>, init?: Record<string, unknown>): MockNextResponse {
         return new MockNextResponse(
           data,

@@ -1,6 +1,6 @@
 import { act } from 'react';
 import { render, screen } from '@testing-library/react';
-import BookmarkButton from './BookmarkButton';
+import BookmarkButton from '../BookmarkButton';
 
 const addBookmark = jest.fn();
 const removeBookmark = jest.fn();

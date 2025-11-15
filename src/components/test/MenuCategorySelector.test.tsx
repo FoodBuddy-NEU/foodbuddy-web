@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import MenuCategorySelector from './MenuCategorySelector';
+import MenuCategorySelector from '../MenuCategorySelector';
 
 const menus = [
   { id: '1', title: 'Main Menu', items: [] },
@@ -7,6 +7,23 @@ const menus = [
 ];
 
 describe('MenuCategorySelector', () => {
+  const OriginalMutationObserver = window.MutationObserver;
+  beforeEach(() => {
+    // Wrap MutationObserver callbacks in act to avoid warnings from external DOM class changes
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).MutationObserver = class extends OriginalMutationObserver {
+      constructor(callback: MutationCallback) {
+        super((mutations, observer) => {
+          act(() => callback(mutations, observer));
+        });
+      }
+    } as unknown as typeof MutationObserver;
+  });
+  afterEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).MutationObserver = OriginalMutationObserver;
+  });
+
   it('renders menu titles and dropdown', () => {
     render(<MenuCategorySelector menus={menus} />);
     const mainMenuElements = screen.getAllByText('Main Menu');
