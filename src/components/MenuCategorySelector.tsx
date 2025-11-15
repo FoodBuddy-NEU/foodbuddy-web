@@ -21,6 +21,11 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
+  /**
+   * Monitor theme changes on html element.
+   * WHY: Dropdown colors must sync with theme mode (light/dark).
+   * MutationObserver watches for 'dark' class additions/removals on <html> root.
+   */
   React.useEffect(() => {
     const isDarkMode = document.documentElement.classList.contains('dark');
     setIsDark(isDarkMode);

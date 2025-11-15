@@ -66,7 +66,7 @@ describe('Distance Calculation Library', () => {
     it('returns null if geocode fails for restaurant', async () => {
       jest.resetModules();
       jest.mock('../distance', () => {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
+         
         const original = jest.requireActual('../distance');
         return {
           ...original,
@@ -85,7 +85,6 @@ describe('Distance Calculation Library', () => {
     it('calculates Haversine distance and rounds to one decimal', async () => {
       const originalKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
       process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = 'test-key';
-      const originalFetch = global.fetch as unknown;
 
       const fakeResponse = (lat: number, lng: number) => ({
         json: async () => ({
@@ -106,7 +105,7 @@ describe('Distance Calculation Library', () => {
       expect(d).toBeCloseTo(69.1, 1);
 
       // restore
-      if (originalKey) process.env.NEXT_PUBLIC
+      if (originalKey) process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = originalKey;
     });
 
     it('maps distances for multiple restaurants', async () => {

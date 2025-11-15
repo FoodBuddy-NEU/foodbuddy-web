@@ -16,11 +16,21 @@ function normalize(str: string) {
   return str.toLowerCase().trim();
 }
 
+/**
+ * Convert price range to sortable number.
+ * WHY: Restaurant price ranges are "$" (budget), "$$" (mid), "$$$" (expensive).
+ * Return string length so numeric sort works: 1 < 2 < 3
+ */
 function priceBucket(p?: string) {
   if (!p) return Number.POSITIVE_INFINITY;
   return p.length; // "$" -> 1, "$$$" -> 3
 }
 
+/**
+ * Extract highest discount percentage from restaurant deals.
+ * WHY: Deal text varies (titles, descriptions) and discount % appears inconsistently.
+ * Scan all deal text with regex to find largest discount for sorting/display.
+ */
 function extractBestDiscountPercent(r: Restaurant) {
   const texts: string[] = [];
   r.deals?.forEach((d: Deal) => {
@@ -28,6 +38,7 @@ function extractBestDiscountPercent(r: Restaurant) {
     if (d.title) texts.push(String(d.title));
     if (typeof d.description === 'string') texts.push(d.description);
   });
+  // Regex matches 1-2 digit number followed by % (e.g., "25%", "5%")
   const re = /(\d{1,2})(?=\s*%)/g;
   let max = 0;
   for (const t of texts) {

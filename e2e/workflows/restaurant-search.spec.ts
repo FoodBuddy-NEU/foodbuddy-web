@@ -4,9 +4,7 @@ import {
   searchRestaurant,
   clearSearch,
   getVisibleRestaurants,
-  clickRestaurant,
   waitForRestaurantsLoad,
-  verifyElementVisible,
   hasErrorMessage,
 } from '../utils/helpers';
 import { TEST_RESTAURANTS, SEARCH_TERMS } from '../fixtures/test-data';

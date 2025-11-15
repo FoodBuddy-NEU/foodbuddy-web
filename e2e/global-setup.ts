@@ -1,9 +1,9 @@
-import { chromium, FullConfig } from '@playwright/test';
+import { chromium } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 
-async function globalSetup(config: FullConfig) {
+async function globalSetup() {
   console.log('\n🔍 Verifying environment configuration...\n');
 
   const envLocalPath = path.resolve(process.cwd(), '.env.local');
@@ -43,7 +43,7 @@ async function globalSetup(config: FullConfig) {
     console.log('🌐 Waiting for dev server to be ready...\n');
     await page.goto('http://localhost:3000', { waitUntil: 'domcontentloaded', timeout: 30000 });
     console.log('✅ Dev server is ready\n');
-  } catch (error) {
+  } catch {
     console.log(
       '⚠️  Dev server not yet available (will be started automatically)\n'
     );

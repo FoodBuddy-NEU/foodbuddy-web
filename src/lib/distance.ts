@@ -12,7 +12,9 @@ const warnedAddresses = new Set<string>();
 let warnedPairFailure = false;
 
 /**
- * Geocode an address to get latitude and longitude
+ * Geocode an address to get latitude and longitude.
+ * WHY: Need coordinates to calculate distances using Haversine formula.
+ * Cache results to reduce redundant API calls for same addresses.
  */
 async function geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
   // Check cache first

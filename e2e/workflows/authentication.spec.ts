@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { navigateToHome, verifyElementVisible, hasErrorMessage } from '../utils/helpers';
-import { TEST_USER, ERROR_MESSAGES, SUCCESS_MESSAGES } from '../fixtures/test-data';
+import { navigateToHome, hasErrorMessage } from '../utils/helpers';
+import { TEST_USER } from '../fixtures/test-data';
 
 /**
  * Authentication Workflow Tests

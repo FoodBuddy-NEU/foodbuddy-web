@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { navigateToHome, waitForLoadingComplete } from '../utils/helpers';
+import { navigateToHome } from '../utils/helpers';
 
 /**
  * Performance Tests

@@ -110,7 +110,7 @@ test.describe('FoodBuddy E2E Tests', () => {
 
       // Try to find sort buttons
       const sortButtons = page.locator('button').filter({ hasText: /Price|Distance|Rating/ });
-      const count = await sortButtons.count().catch(() => 0);
+      await sortButtons.count().catch(() => 0);
 
       // Just verify page loaded (don't fail if buttons don't exist)
       expect(page.url()).toContain('/');
@@ -141,7 +141,7 @@ test.describe('FoodBuddy E2E Tests', () => {
   });
 
   test.describe('API Routes Integration', () => {
-    test('should fetch distances via API', async ({ page, context }) => {
+    test('should fetch distances via API', async ({ context }) => {
       // Make HTTP request to API
       const response = await context.request
         .post('/api/distances', {
@@ -158,7 +158,7 @@ test.describe('FoodBuddy E2E Tests', () => {
       }
     });
 
-    test('should handle distance API errors gracefully', async ({ page, context }) => {
+    test('should handle distance API errors gracefully', async ({ context }) => {
       const response = await context.request
         .post('/api/distances', {
           data: {
@@ -174,7 +174,7 @@ test.describe('FoodBuddy E2E Tests', () => {
       }
     });
 
-    test('should submit feedback via API', async ({ page, context }) => {
+    test('should submit feedback via API', async ({ context }) => {
       const response = await context.request
         .post('/api/feedback', {
           data: {

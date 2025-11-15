@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports, @next/next/no-assign-module-variable */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 
