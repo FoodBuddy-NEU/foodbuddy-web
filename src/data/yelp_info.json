@@ -1,0 +1,92 @@
+[
+  {
+    "name": "84 Viet",
+    "yelp": {
+      "yelp_id": "0QnCpbVZaIKwYvHz9p9p-Q",
+      "yelp_name": "84 Viet",
+      "yelp_rating": 3.9,
+      "yelp_review_count": 160,
+      "yelp_url": "https://www.yelp.com/biz/84-viet-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "Bobby G’s Pizzeria",
+    "yelp": {
+      "yelp_id": "KoZtPdlNO2jMJ7Zc7I9JVg",
+      "yelp_name": "Jupiter",
+      "yelp_rating": 3.9,
+      "yelp_review_count": 3715,
+      "yelp_url": "https://www.yelp.com/biz/jupiter-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "Bench Café • Pâtisserie",
+    "yelp": {
+      "yelp_id": "2XQm-uFcTS7oc8MFP-8olA",
+      "yelp_name": "B Patisserie",
+      "yelp_rating": 4.6,
+      "yelp_review_count": 3712,
+      "yelp_url": "https://www.yelp.com/biz/b-patisserie-san-francisco-2?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "Juice Appeal",
+    "yelp": {
+      "yelp_id": "RFx0K1oX_t3DbzuPs5Keeg",
+      "yelp_name": "Juice Appeal",
+      "yelp_rating": 3.7,
+      "yelp_review_count": 259,
+      "yelp_url": "https://www.yelp.com/biz/juice-appeal-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "Cancun Sabor Mexicano",
+    "yelp": {
+      "yelp_id": "xpzGXyxXO8U0AbBc9ssZfw",
+      "yelp_name": "Cancun Sabor Mexicano",
+      "yelp_rating": 3.6,
+      "yelp_review_count": 1121,
+      "yelp_url": "https://www.yelp.com/biz/cancun-sabor-mexicano-berkeley-2?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "Southside Station",
+    "yelp": {
+      "yelp_id": "5gKET2UXnkMdbB1SX1UR1Q",
+      "yelp_name": "Southside Station",
+      "yelp_rating": 4.6,
+      "yelp_review_count": 335,
+      "yelp_url": "https://www.yelp.com/biz/southside-station-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "BurgerIM",
+    "yelp": {
+      "yelp_id": "JsOlsfp-enc__yXoIIdemA",
+      "yelp_name": "BurgerIM",
+      "yelp_rating": 2.5,
+      "yelp_review_count": 13,
+      "yelp_url": "https://www.yelp.com/biz/burgerim-berkeley-5?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "Cal's Fried Chicken & Burgers",
+    "yelp": {
+      "yelp_id": "2UhBtySP_2YzuDajsTQaSQ",
+      "yelp_name": "Cal's Fried Chicken & Burgers",
+      "yelp_rating": 4.2,
+      "yelp_review_count": 141,
+      "yelp_url": "https://www.yelp.com/biz/cals-fried-chicken-and-burgers-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  },
+  {
+    "name": "Masa Ramen Bistro",
+    "yelp": {
+      "yelp_id": "t_flm6D8DvgrXpnrlv8_Fw",
+      "yelp_name": "Masa Ramen Bistro",
+      "yelp_rating": 4.5,
+      "yelp_review_count": 312,
+      "yelp_url": "https://www.yelp.com/biz/masa-ramen-bistro-berkeley-3?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+    }
+  }
+]
