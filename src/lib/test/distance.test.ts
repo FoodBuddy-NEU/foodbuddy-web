@@ -76,7 +76,6 @@ describe('Distance Calculation Library', () => {
           }),
         };
       });
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { calculateDistance, DEFAULT_USER_ADDRESS } = require('../distance');
       const result = await calculateDistance('fail address', DEFAULT_USER_ADDRESS);
       expect(result).toBeNull();

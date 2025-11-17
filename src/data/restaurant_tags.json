@@ -1,0 +1,38 @@
+[
+  {
+    "name": "84 Viet",
+    "tags": "{'solo_friendly': True, 'healthy': False, 'low_cost': False, 'category': 'Vietnamese'}"
+  },
+  {
+    "name": "Bobby G’s Pizzeria",
+    "tags": "{'solo_friendly': False, 'healthy': False, 'low_cost': False, 'category': 'Pizza'}"
+  },
+  {
+    "name": "Bench Café • Pâtisserie",
+    "tags": "{'solo_friendly': True, 'healthy': False, 'low_cost': True, 'category': 'Cafe, Bakery, Dessert'}"
+  },
+  {
+    "name": "Juice Appeal",
+    "tags": "{'solo_friendly': True, 'healthy': True, 'low_cost': False, 'category': 'Juice Bar'}"
+  },
+  {
+    "name": "Cancun Sabor Mexicano",
+    "tags": "{'solo_friendly': False, 'healthy': False, 'low_cost': False, 'category': 'Mexican'}"
+  },
+  {
+    "name": "Southside Station",
+    "tags": "{'solo_friendly': True, 'healthy': False, 'low_cost': False, 'category': 'American'}"
+  },
+  {
+    "name": "BurgerIM",
+    "tags": "{'solo_friendly': True, 'healthy': False, 'low_cost': False, 'category': 'American'}"
+  },
+  {
+    "name": "Cal's Fried Chicken & Burgers",
+    "tags": "{'solo_friendly': True, 'healthy': False, 'low_cost': False, 'category': 'American'}"
+  },
+  {
+    "name": "Masa Ramen Bistro",
+    "tags": "{'solo_friendly': True, 'healthy': False, 'low_cost': False, 'category': 'Japanese'}"
+  }
+]
