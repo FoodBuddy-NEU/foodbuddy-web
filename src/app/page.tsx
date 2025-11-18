@@ -4,52 +4,14 @@ import { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import RestaurantCard from '@/components/RestaurantCard';
 import data from '@/data/restaurants.json';
-import type { Deal, Restaurant } from '@/types/restaurant';
+import type { Restaurant } from '@/types/restaurant';
 import Link from 'next/link';
 import { useAuth } from '@/lib/AuthProvider';
 import { auth } from '@/lib/firebaseClient';
 import { signOut } from 'firebase/auth';
+import { DEFAULT_USER_ADDRESS } from '@/lib/distance';
+import { normalize, priceBucket, extractBestDiscountPercent } from '@/lib/restaurantUtils';
 
-const DEFAULT_USER_ADDRESS = '5000 MacArthur Blvd, Oakland, CA';
-
-function normalize(str: string) {
-  return str.toLowerCase().trim();
-}
-
-/**
- * Convert price range to sortable number.
- * WHY: Restaurant price ranges are "$" (budget), "$$" (mid), "$$$" (expensive).
- * Return string length so numeric sort works: 1 < 2 < 3
- */
-function priceBucket(p?: string) {
-  if (!p) return Number.POSITIVE_INFINITY;
-  return p.length; // "$" -> 1, "$$$" -> 3
-}
-
-/**
- * Extract highest discount percentage from restaurant deals.
- * WHY: Deal text varies (titles, descriptions) and discount % appears inconsistently.
- * Scan all deal text with regex to find largest discount for sorting/display.
- */
-function extractBestDiscountPercent(r: Restaurant) {
-  const texts: string[] = [];
-  r.deals?.forEach((d: Deal) => {
-    // Some deals don't have `description`, so narrow dynamically
-    if (d.title) texts.push(String(d.title));
-    if (typeof d.description === 'string') texts.push(d.description);
-  });
-  // Regex matches 1-2 digit number followed by % (e.g., "25%", "5%")
-  const re = /(\d{1,2})(?=\s*%)/g;
-  let max = 0;
-  for (const t of texts) {
-    let m: RegExpExecArray | null;
-    const g = new RegExp(re);
-    while ((m = g.exec(t))) {
-      max = Math.max(max, Number(m[1]));
-    }
-  }
-  return max; // 0 if none
-}
 
 export default function RestaurantsPage() {
   const [search, setSearch] = useState('');
