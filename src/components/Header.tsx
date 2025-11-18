@@ -16,6 +16,7 @@ export default function Header() {
         <nav className="flex items-center gap-4">
           <Link href="/">Home</Link>
           <Link href="/bookmarks">Bookmarks</Link>
+          <Link href="/groups">Group Chat</Link>
 
           {/* Theme toggle button */}
           <ThemeToggle />
