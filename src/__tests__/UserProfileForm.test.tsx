@@ -158,7 +158,9 @@ describe('UserProfileForm', () => {
       );
     });
 
-    expect(screen.getByText('Profile updated successfully!')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Profile updated successfully!')).toBeInTheDocument();
+    });
   });
 
   it('handles save error', async () => {
