@@ -3,6 +3,7 @@ import ProfilePage from '@/app/profile/page';
 import { useAuth } from '@/lib/AuthProvider';
 import { getUserProfile } from '@/lib/userProfile';
 import { useRouter } from 'next/navigation';
+import type { User } from 'firebase/auth';
 
 // Mock dependencies
 jest.mock('@/lib/AuthProvider');
@@ -26,7 +27,21 @@ describe('ProfilePage', () => {
     uid: 'test-user-123',
     email: 'test@example.com',
     displayName: 'Test User',
-  };
+    emailVerified: true,
+    isAnonymous: false,
+    metadata: {},
+    providerData: [],
+    refreshToken: '',
+    tenantId: null,
+    delete: jest.fn(),
+    getIdToken: jest.fn(),
+    getIdTokenResult: jest.fn(),
+    reload: jest.fn(),
+    toJSON: jest.fn(),
+    phoneNumber: null,
+    photoURL: null,
+    providerId: 'firebase',
+  } as User;
 
   beforeEach(() => {
     jest.clearAllMocks();
