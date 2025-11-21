@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { verificationCodes } from '@/lib/verificationStore';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // WHY: Generate a 6-digit verification code
 function generateCode(): string {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -12,6 +10,9 @@ function generateCode(): string {
 // WHY: Send verification code via email using Resend
 async function sendEmailWithCode(email: string, code: string): Promise<boolean> {
   try {
+    // Initialize Resend at runtime to ensure env vars are loaded
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
     // Use verified domain email or fallback to resend.dev in development
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'FoodBuddy <onboarding@resend.dev>';
     
