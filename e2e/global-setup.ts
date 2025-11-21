@@ -1,4 +1,4 @@
-import { chromium } from '@playwright/test';
+import { chromium, type Page } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -37,7 +37,7 @@ async function globalSetup() {
   // Verify dev server will start
   const browser = await chromium.launch();
   const context = await browser.newContext();
-  const page = context.pages()[0] || (await context.newPage());
+  const page: Page = context.pages()[0] || (await context.newPage());
 
   try {
     console.log('🌐 Waiting for dev server to be ready...\n');
