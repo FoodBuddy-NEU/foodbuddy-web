@@ -17,6 +17,7 @@ export default function Header() {
           <Link href="/">Home</Link>
           <Link href="/bookmarks">Bookmarks</Link>
           <Link href="/groups">Group Chat</Link>
+          <Link href="/profile">Profile</Link>
 
           {/* Theme toggle button */}
           <ThemeToggle />
