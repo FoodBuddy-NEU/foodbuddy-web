@@ -82,13 +82,28 @@ export async function updateUserProfile(
   userId: string,
   updates: UserProfileUpdate
 ): Promise<void> {
+  const userDocRef = doc(db, USERS_COLLECTION, userId);
   try {
-    const userDocRef = doc(db, USERS_COLLECTION, userId);
     await updateDoc(userDocRef, {
       ...updates,
       updatedAt: serverTimestamp(),
     });
   } catch (error) {
+    try {
+      const snap = await getDoc(userDocRef);
+      if (!snap.exists()) {
+        await setDoc(
+          userDocRef,
+          {
+            ...updates,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          },
+          { merge: true }
+        );
+        return;
+      }
+    } catch {}
     console.error('Error updating user profile:', error);
     throw error;
   }
