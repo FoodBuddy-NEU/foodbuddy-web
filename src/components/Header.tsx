@@ -13,14 +13,16 @@ export default function Header() {
         </Link>
 
         {/* Navigation */}
-        <nav className="flex items-center gap-4">
-          <Link href="/">Home</Link>
-          <Link href="/bookmarks">Bookmarks</Link>
-          <Link href="/groups">Group Chat</Link>
-          <Link href="/profile">Profile</Link>
+        <nav className="flex items-center gap-2 sm:gap-4">
+          <Link href="/" className="hidden sm:inline">Home</Link>
+          <Link href="/bookmarks" className="text-sm sm:text-base">Bookmarks</Link>
+          <Link href="/groups" className="hidden md:inline">Group Chat</Link>
+          <Link href="/profile" className="text-sm sm:text-base">Profile</Link>
 
-          {/* Theme toggle button */}
-          <ThemeToggle />
+          {/* Theme toggle button - ensure it's always clickable */}
+          <div className="relative z-10">
+            <ThemeToggle />
+          </div>
         </nav>
       </div>
     </header>

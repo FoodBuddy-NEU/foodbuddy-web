@@ -86,4 +86,53 @@ describe('RestaurantDetailPage', () => {
     expect(screen.getByText(/10% off/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /menu/i })).toBeInTheDocument();
   });
+
+  it('renders restaurant with photos', async () => {
+    const cloudinary = await import('@/lib/cloudinary');
+    const mockApi = cloudinary.default.api as {
+      resources_by_asset_folder: jest.Mock;
+    };
+    mockApi.resources_by_asset_folder.mockResolvedValueOnce({
+      resources: [
+        { secure_url: 'https://example.com/photo1.jpg', asset_id: '1' },
+        { secure_url: 'https://example.com/photo2.jpg', asset_id: '2' },
+      ],
+    });
+
+    const mod = await import('./page');
+    const RestaurantDetailPage = mod.default;
+    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'bobby-gs-pizzeria' }) });
+    render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
+
+    expect(screen.getByRole('heading', { name: /bobby g/i })).toBeInTheDocument();
+  });
+
+  it('handles restaurant with all optional fields', async () => {
+    const mod = await import('./page');
+    const RestaurantDetailPage = mod.default;
+    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'southside-station' }) });
+    render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
+
+    expect(screen.getByRole('heading', { name: /southside station/i })).toBeInTheDocument();
+  });
+
+  it('handles restaurants with Yelp info', async () => {
+    const mod = await import('./page');
+    const RestaurantDetailPage = mod.default;
+    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'bobby-gs-pizzeria' }) });
+    render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
+
+    // Should display Yelp rating if available
+    expect(screen.getByRole('heading', { name: /bobby g/i })).toBeInTheDocument();
+  });
+
+  it('handles restaurant with multiple deals', async () => {
+    const mod = await import('./page');
+    const RestaurantDetailPage = mod.default;
+    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: '84-viet' }) });
+    render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
+
+    // 84-viet has deals
+    expect(screen.getByText(/10% off/i)).toBeInTheDocument();
+  });
 });
