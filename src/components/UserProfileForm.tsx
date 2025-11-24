@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { UserProfile, COMMON_CRAVINGS, COMMON_CUISINES, COMMON_DIETARY_RESTRICTIONS, COMMON_ALLERGIES } from '@/types/userProfile';
 import { updateUserProfile } from '@/lib/userProfile';
 import { getAuth } from 'firebase/auth';
+import Image from 'next/image';
 
 interface UserProfileFormProps {
   profile: UserProfile;
@@ -290,10 +291,12 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
           <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Profile Picture</label>
           <div className="flex items-center gap-4">
             {avatarUrl && (
-              <img 
-                src={avatarUrl} 
-                alt="Avatar preview" 
-                className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+              <Image
+                src={avatarUrl}
+                alt="Avatar preview"
+                width={80}
+                height={80}
+                className="rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
               />
             )}
             <div className="flex-1">
