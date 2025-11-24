@@ -40,7 +40,9 @@ describe('API /api/cloudinary-test GET', () => {
     expect(Array.isArray(body.resources)).toBe(true);
   });
 
-  afterEach(() => { errorSpy.mockRestore(); });
+  afterEach(() => {
+    errorSpy.mockRestore();
+  });
 
   it('returns failure on cloudinary API error', async () => {
     jest.doMock('@/lib/cloudinary', () => {

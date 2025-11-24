@@ -7,23 +7,20 @@ export async function POST(request: NextRequest) {
     const { userId, newEmail, verificationCode } = await request.json();
 
     if (!userId || !newEmail || !verificationCode) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     // Check if verification code exists and is valid
     const stored = verificationCodes.get(newEmail);
-    
+
     console.log('📧 Email verification attempt:', {
       newEmail,
       providedCode: verificationCode,
       storedCode: stored?.code,
       hasStored: !!stored,
-      allCodes: Array.from(verificationCodes.keys())
+      allCodes: Array.from(verificationCodes.keys()),
     });
-    
+
     if (!stored) {
       return NextResponse.json(
         { error: 'No verification code found. Please request a new one.' },
@@ -47,12 +44,9 @@ export async function POST(request: NextRequest) {
         stored: stored.code,
         provided: String(verificationCode).trim(),
         storedType: typeof stored.code,
-        providedType: typeof verificationCode
+        providedType: typeof verificationCode,
       });
-      return NextResponse.json(
-        { error: 'Invalid verification code' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid verification code' }, { status: 400 });
     }
 
     // Code is valid, update user email in Firebase Auth
@@ -77,9 +71,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error verifying and updating email:', error);
-    return NextResponse.json(
-      { error: 'Failed to update email' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update email' }, { status: 500 });
   }
 }

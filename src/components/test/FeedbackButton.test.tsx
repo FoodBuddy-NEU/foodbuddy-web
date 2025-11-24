@@ -23,12 +23,16 @@ describe('FeedbackButton', () => {
 
     const hide = screen.getByRole('button', { name: /hide/i });
     fireEvent.click(hide);
-    expect(screen.getByRole('button', { name: /not working\? please tell us!/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /not working\? please tell us!/i })
+    ).toBeInTheDocument();
   });
 
   it('shows correct label for menu type', () => {
     render(<FeedbackButton restaurant={restaurant} type="menu" />);
-    expect(screen.getByRole('button', { name: /incorrect\? please tell us!/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /incorrect\? please tell us!/i })
+    ).toBeInTheDocument();
   });
 
   it('applies light theme styles when form visible', () => {

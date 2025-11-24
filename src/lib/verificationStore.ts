@@ -3,11 +3,9 @@
 
 // WHY: Use global to persist across hot reloads in development
 declare global {
-   
   var verificationCodes: Map<string, { code: string; timestamp: number }> | undefined;
 }
 
-export const verificationCodes = 
-  global.verificationCodes || 
+export const verificationCodes =
+  global.verificationCodes ||
   (global.verificationCodes = new Map<string, { code: string; timestamp: number }>());
-

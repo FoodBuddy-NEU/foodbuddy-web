@@ -4,7 +4,9 @@ import { ThemeProvider } from '@/lib/ThemeProvider';
 jest.mock('next/link', () => ({
   __esModule: true,
   default: ({ href, children, ...props }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...props}>{children}</a>
+    <a href={href} {...props}>
+      {children}
+    </a>
   ),
 }));
 
@@ -15,7 +17,6 @@ jest.mock('next/image', () => ({
     return (<img {...props} />) as unknown as React.ReactElement;
   },
 }));
-
 
 jest.mock('@/lib/distance', () => ({
   calculateDistance: async () => 1.0,
@@ -36,7 +37,12 @@ jest.mock('@/lib/cloudinary', () => ({
 // NEW: mock next/navigation router to satisfy BookmarkButton
 jest.mock('next/navigation', () => ({
   __esModule: true,
-  useRouter: () => ({ push: jest.fn(), replace: jest.fn(), refresh: jest.fn(), prefetch: jest.fn() }),
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    refresh: jest.fn(),
+    prefetch: jest.fn(),
+  }),
   notFound: jest.fn(),
 }));
 jest.mock('@/lib/firebaseClient', () => ({ db: {}, auth: {} }));
@@ -67,7 +73,9 @@ describe('RestaurantDetailPage', () => {
   it('renders basic details, deals fallback, and no menu', async () => {
     const mod = await import('./page');
     const RestaurantDetailPage = mod.default;
-    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'bobby-gs-pizzeria' }) });
+    const element = await RestaurantDetailPage({
+      params: Promise.resolve({ id: 'bobby-gs-pizzeria' }),
+    });
     render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
 
     expect(screen.getByRole('heading', { name: /bobby g/i })).toBeInTheDocument();
@@ -101,7 +109,9 @@ describe('RestaurantDetailPage', () => {
 
     const mod = await import('./page');
     const RestaurantDetailPage = mod.default;
-    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'bobby-gs-pizzeria' }) });
+    const element = await RestaurantDetailPage({
+      params: Promise.resolve({ id: 'bobby-gs-pizzeria' }),
+    });
     render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
 
     expect(screen.getByRole('heading', { name: /bobby g/i })).toBeInTheDocument();
@@ -110,7 +120,9 @@ describe('RestaurantDetailPage', () => {
   it('handles restaurant with all optional fields', async () => {
     const mod = await import('./page');
     const RestaurantDetailPage = mod.default;
-    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'southside-station' }) });
+    const element = await RestaurantDetailPage({
+      params: Promise.resolve({ id: 'southside-station' }),
+    });
     render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
 
     expect(screen.getByRole('heading', { name: /southside station/i })).toBeInTheDocument();
@@ -119,7 +131,9 @@ describe('RestaurantDetailPage', () => {
   it('handles restaurants with Yelp info', async () => {
     const mod = await import('./page');
     const RestaurantDetailPage = mod.default;
-    const element = await RestaurantDetailPage({ params: Promise.resolve({ id: 'bobby-gs-pizzeria' }) });
+    const element = await RestaurantDetailPage({
+      params: Promise.resolve({ id: 'bobby-gs-pizzeria' }),
+    });
     render(<ThemeProvider>{element as unknown as React.ReactElement}</ThemeProvider>);
 
     // Should display Yelp rating if available

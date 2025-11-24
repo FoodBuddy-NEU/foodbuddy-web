@@ -9,7 +9,9 @@ const menus = [
 describe('MenuCategorySelector hover styles', () => {
   it('applies hover styles in light mode and resets on leave', () => {
     // Ensure light mode
-    act(() => { document.documentElement.classList.remove('dark'); });
+    act(() => {
+      document.documentElement.classList.remove('dark');
+    });
     render(<MenuCategorySelector menus={menus} />);
 
     const btn = screen.getByRole('button', { name: /main/i });
@@ -27,7 +29,9 @@ describe('MenuCategorySelector hover styles', () => {
   });
 
   it('applies hover styles in dark mode and resets on leave', () => {
-    act(() => { document.documentElement.classList.add('dark'); });
+    act(() => {
+      document.documentElement.classList.add('dark');
+    });
     render(<MenuCategorySelector menus={menus} />);
 
     const btn = screen.getByRole('button', { name: /main/i });
@@ -42,6 +46,8 @@ describe('MenuCategorySelector hover styles', () => {
     fireEvent.mouseLeave(drinksItem);
     expect((drinksItem as HTMLButtonElement).style.backgroundColor).toBe('rgb(30, 30, 30)');
     // Cleanup
-    act(() => { document.documentElement.classList.remove('dark'); });
+    act(() => {
+      document.documentElement.classList.remove('dark');
+    });
   });
 });

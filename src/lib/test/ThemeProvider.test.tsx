@@ -82,7 +82,7 @@ describe('ThemeProvider', () => {
         dispatchEvent: jest.fn(),
       })),
     });
-    
+
     render(
       <ThemeProvider>
         <Consumer />
@@ -95,12 +95,12 @@ describe('ThemeProvider', () => {
 
   it('throws error when useTheme is used outside provider', () => {
     const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
+
     function InvalidConsumer() {
       useTheme();
       return null;
     }
-    
+
     expect(() => render(<InvalidConsumer />)).toThrow('useTheme must be used within ThemeProvider');
     consoleError.mockRestore();
   });
@@ -111,12 +111,12 @@ describe('ThemeProvider', () => {
         <Consumer />
       </ThemeProvider>
     );
-    
+
     // Should start with dark
     expect(screen.getByTestId('theme').textContent).toBe('dark');
     expect(document.documentElement.classList.contains('dark')).toBe(true);
     expect(document.documentElement.style.colorScheme).toBe('dark');
-    
+
     // Toggle to light
     fireEvent.click(screen.getByText('Toggle'));
     expect(screen.getByTestId('theme').textContent).toBe('light');

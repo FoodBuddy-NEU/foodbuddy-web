@@ -2,7 +2,10 @@
 import type { NextRequest } from 'next/server';
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: (body: unknown, init?: { status?: number }) => ({ status: init?.status ?? 200, json: async () => body }),
+    json: (body: unknown, init?: { status?: number }) => ({
+      status: init?.status ?? 200,
+      json: async () => body,
+    }),
   },
 }));
 
@@ -11,11 +14,15 @@ describe('POST /api/auth/send-verification', () => {
 
   beforeEach(() => {
     jest.resetModules();
-    jest.doMock('resend', () => ({
-      Resend: jest.fn().mockImplementation(() => ({
-        emails: { send: jest.fn().mockResolvedValue({ id: 'email-id' }) },
-      })),
-    }), { virtual: true });
+    jest.doMock(
+      'resend',
+      () => ({
+        Resend: jest.fn().mockImplementation(() => ({
+          emails: { send: jest.fn().mockResolvedValue({ id: 'email-id' }) },
+        })),
+      }),
+      { virtual: true }
+    );
     process.env = { ...originalEnv, NODE_ENV: 'development' };
   });
 
@@ -44,11 +51,15 @@ describe('POST /api/auth/send-verification', () => {
   });
 
   test('handles email send failure', async () => {
-    jest.doMock('resend', () => ({
-      Resend: jest.fn().mockImplementation(() => ({
-        emails: { send: jest.fn().mockRejectedValue(new Error('send failed')) },
-      })),
-    }), { virtual: true });
+    jest.doMock(
+      'resend',
+      () => ({
+        Resend: jest.fn().mockImplementation(() => ({
+          emails: { send: jest.fn().mockRejectedValue(new Error('send failed')) },
+        })),
+      }),
+      { virtual: true }
+    );
     const { POST } = await import('./route');
     const req = { json: async () => ({ email: 'user@example.com' }) } as unknown as NextRequest;
     const res = await POST(req as unknown as NextRequest);

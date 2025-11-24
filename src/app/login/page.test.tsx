@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import Page from './page';
 
-jest.mock('next/navigation', () => ({ useRouter: () => ({ push: jest.fn(), replace: jest.fn() }) }));
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push: jest.fn(), replace: jest.fn() }),
+}));
 jest.mock('@/lib/firebaseClient', () => ({ auth: {} }));
 jest.mock('firebase/auth', () => ({
   signInWithEmailAndPassword: jest.fn(),

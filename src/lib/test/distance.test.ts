@@ -66,7 +66,6 @@ describe('Distance Calculation Library', () => {
     it('returns null if geocode fails for restaurant', async () => {
       jest.resetModules();
       jest.mock('../distance', () => {
-         
         const original = jest.requireActual('../distance');
         return {
           ...original,
@@ -93,12 +92,14 @@ describe('Distance Calculation Library', () => {
         }),
       });
 
-      global.fetch = (jest.fn(async (url: string) => {
+      global.fetch = jest.fn(async (url: string) => {
         const s = String(url);
         if (s.includes('address=A')) return fakeResponse(0, 0) as unknown as Response;
         if (s.includes('address=B')) return fakeResponse(0, 1) as unknown as Response;
-        return { json: async () => ({ status: 'ZERO_RESULTS', results: [] }) } as unknown as Response;
-      }) as unknown) as typeof fetch;
+        return {
+          json: async () => ({ status: 'ZERO_RESULTS', results: [] }),
+        } as unknown as Response;
+      }) as unknown as typeof fetch;
 
       const d = await calculateDistance('B', 'A');
       expect(typeof d).toBe('number');

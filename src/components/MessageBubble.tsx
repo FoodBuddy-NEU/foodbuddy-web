@@ -20,7 +20,13 @@ export function MessageBubble({ message, isMe, profile }: Props) {
   return (
     <div className={wrapper}>
       <div className="flex items-start gap-2">
-        <Image src={avatar} alt={name} width={28} height={28} className="rounded-full object-cover" />
+        <Image
+          src={avatar}
+          alt={name}
+          width={28}
+          height={28}
+          className="rounded-full object-cover"
+        />
         <div>
           <div className="text-xs text-muted-foreground mb-1">{name}</div>
           <div className={bubble}>

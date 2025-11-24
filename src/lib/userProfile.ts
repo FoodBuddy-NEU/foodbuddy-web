@@ -86,10 +86,7 @@ export async function createUserProfile(
  * Update user profile
  * WHY: Allow users to modify their preferences and personal information
  */
-export async function updateUserProfile(
-  userId: string,
-  updates: UserProfileUpdate
-): Promise<void> {
+export async function updateUserProfile(userId: string, updates: UserProfileUpdate): Promise<void> {
   const userDocRef = doc(db, USERS_COLLECTION, userId);
   try {
     await updateDoc(userDocRef, {
@@ -176,7 +173,10 @@ export async function removeFromUserArray(
   }
 }
 
-export async function searchUsersByUsername(term: string, max: number = 10): Promise<Array<{ userId: string; username: string; avatarUrl?: string }>> {
+export async function searchUsersByUsername(
+  term: string,
+  max: number = 10
+): Promise<Array<{ userId: string; username: string; avatarUrl?: string }>> {
   const t = term.trim().toLowerCase();
   if (!t) return [];
   const colRef = collection(db, USERS_COLLECTION);

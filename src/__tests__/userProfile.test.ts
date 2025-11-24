@@ -5,12 +5,7 @@ import {
   addToUserArray,
   removeFromUserArray,
 } from '@/lib/userProfile';
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
 // Mock Firestore
 jest.mock('@/lib/firebaseClient', () => ({
@@ -164,10 +159,7 @@ describe('User Profile Functions', () => {
 
       await updateUserProfile(mockUserId, updates);
 
-      expect(updateDoc).toHaveBeenCalledWith(
-        { id: mockUserId },
-        expect.objectContaining(updates)
-      );
+      expect(updateDoc).toHaveBeenCalledWith({ id: mockUserId }, expect.objectContaining(updates));
     });
   });
 

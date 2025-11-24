@@ -37,10 +37,7 @@ export function ChatInput({ groupId, currentUserId }: ChatInputProps) {
             }
           }}
         />
-        <button
-          onClick={handleSend}
-          className="px-4 py-2 rounded-full border text-sm"
-        >
+        <button onClick={handleSend} className="px-4 py-2 rounded-full border text-sm">
           Send
         </button>
       </div>

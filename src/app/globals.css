@@ -47,12 +47,12 @@ html {
 
 /* Dark theme - Modern dark mode inspired by GitHub, Discord, and Material Design 3 */
 html.dark {
-  --background: #2a2a2a;      /* Main background - dark gray instead of pure black */
-  --foreground: #e5e5e5;      /* Primary text - slightly softer than pure white */
-  --input-bg: #3a3a3a;        /* Input fields - elevated surface */
-  --input-text: #e5e5e5;      /* Input text */
-  --card-bg: #3a3a3a;         /* Card background - elevated surface */
-  --card-text: #e5e5e5;       /* Card text */
+  --background: #2a2a2a; /* Main background - dark gray instead of pure black */
+  --foreground: #e5e5e5; /* Primary text - slightly softer than pure white */
+  --input-bg: #3a3a3a; /* Input fields - elevated surface */
+  --input-text: #e5e5e5; /* Input text */
+  --card-bg: #3a3a3a; /* Card background - elevated surface */
+  --card-text: #e5e5e5; /* Card text */
   color-scheme: dark;
 }
 

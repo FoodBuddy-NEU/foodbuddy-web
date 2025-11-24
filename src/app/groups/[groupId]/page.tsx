@@ -18,12 +18,16 @@ export default function GroupChatPage() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [profiles, setProfiles] = useState<Record<string, { username?: string; avatarUrl?: string }>>({});
+  const [profiles, setProfiles] = useState<
+    Record<string, { username?: string; avatarUrl?: string }>
+  >({});
   const [groupName, setGroupName] = useState<string | null>(null);
   const [memberIds, setMemberIds] = useState<string[]>([]);
   const [showManage, setShowManage] = useState(false);
   const [search, setSearch] = useState('');
-  const [results, setResults] = useState<Array<{ userId: string; username: string; avatarUrl?: string }>>([]);
+  const [results, setResults] = useState<
+    Array<{ userId: string; username: string; avatarUrl?: string }>
+  >([]);
 
   useEffect(() => {
     if (loading) return;
@@ -42,12 +46,18 @@ export default function GroupChatPage() {
           ...prev,
           [user.uid]: p
             ? { username: p.username, avatarUrl: p.avatarUrl }
-            : { username: user.displayName ?? user.email?.split('@')[0] ?? 'Me', avatarUrl: user.photoURL ?? undefined },
+            : {
+                username: user.displayName ?? user.email?.split('@')[0] ?? 'Me',
+                avatarUrl: user.photoURL ?? undefined,
+              },
         }));
       } catch {
         setProfiles((prev) => ({
           ...prev,
-          [user.uid]: { username: user.displayName ?? user.email?.split('@')[0] ?? 'Me', avatarUrl: user.photoURL ?? undefined },
+          [user.uid]: {
+            username: user.displayName ?? user.email?.split('@')[0] ?? 'Me',
+            avatarUrl: user.photoURL ?? undefined,
+          },
         }));
       }
     })();
@@ -109,9 +119,14 @@ export default function GroupChatPage() {
   return (
     <div className="mx-auto max-w-2xl h-[calc(100vh-80px)] flex flex-col border rounded-lg">
       <header className="px-4 py-3 border-b flex items-center gap-3">
-        <Link href="/groups" className="text-sm text-muted-foreground hover:underline">← Back</Link>
+        <Link href="/groups" className="text-sm text-muted-foreground hover:underline">
+          ← Back
+        </Link>
         <div className="font-semibold">Group chat – {groupName ?? groupId}</div>
-        <button className="ml-auto text-xs border rounded px-2 py-1" onClick={() => setShowManage((v) => !v)}>
+        <button
+          className="ml-auto text-xs border rounded px-2 py-1"
+          onClick={() => setShowManage((v) => !v)}
+        >
           {showManage ? 'Close' : 'Manage members'}
         </button>
       </header>
@@ -131,7 +146,13 @@ export default function GroupChatPage() {
               {results.map((u) => (
                 <li key={u.userId} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Image src={u.avatarUrl || '/icon.png'} alt={u.username} width={24} height={24} className="rounded-full object-cover" />
+                    <Image
+                      src={u.avatarUrl || '/icon.png'}
+                      alt={u.username}
+                      width={24}
+                      height={24}
+                      className="rounded-full object-cover"
+                    />
                     <span>{u.username}</span>
                   </div>
                   <button
@@ -160,7 +181,9 @@ export default function GroupChatPage() {
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-muted/40">
         {messages.length === 0 ? (
-          <div className="mt-8 text-center text-sm text-muted-foreground">No messages yet. Say hi 👋</div>
+          <div className="mt-8 text-center text-sm text-muted-foreground">
+            No messages yet. Say hi 👋
+          </div>
         ) : (
           messages.map((m) => (
             <MessageBubble

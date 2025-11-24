@@ -15,7 +15,9 @@ jest.mock('firebase/firestore', () => {
   }));
   return { collection, orderBy, query, where, getDocs };
 });
-jest.mock('@/lib/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'u1' }, loading: false }) }));
+jest.mock('@/lib/AuthProvider', () => ({
+  useAuth: () => ({ user: { uid: 'u1' }, loading: false }),
+}));
 
 test('renders groups and back link', async () => {
   render(<GroupListPage />);

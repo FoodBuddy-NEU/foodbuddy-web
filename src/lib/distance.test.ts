@@ -66,7 +66,6 @@ describe('Distance Calculation Library', () => {
     it('returns null if geocode fails for restaurant', async () => {
       jest.resetModules();
       jest.mock('./distance', () => {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const original = jest.requireActual('./distance');
         return {
           ...original,
@@ -76,8 +75,7 @@ describe('Distance Calculation Library', () => {
           }),
         };
       });
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { calculateDistance, DEFAULT_USER_ADDRESS } = require('./distance');
+      const { calculateDistance, DEFAULT_USER_ADDRESS } = await import('./distance');
       const result = await calculateDistance('fail address', DEFAULT_USER_ADDRESS);
       expect(result).toBeNull();
     });

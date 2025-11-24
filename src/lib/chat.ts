@@ -1,5 +1,16 @@
 // /Users/yachenwang/Desktop/Foodbuddy-Web/foodbuddy-web/src/lib/chat.ts
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import type { ChatMessage } from '@/types/chatType';
 
@@ -9,7 +20,11 @@ type SendTextMessageParams = {
   text: string;
 };
 
-export async function sendTextMessage({ groupId, senderId, text }: SendTextMessageParams): Promise<void> {
+export async function sendTextMessage({
+  groupId,
+  senderId,
+  text,
+}: SendTextMessageParams): Promise<void> {
   const trimmed = text.trim();
   if (!trimmed) return;
   const messagesRef = collection(db, 'groups', groupId, 'messages');
@@ -22,7 +37,10 @@ export async function sendTextMessage({ groupId, senderId, text }: SendTextMessa
   });
 }
 
-export function subscribeGroupMessages(groupId: string, callback: (messages: ChatMessage[]) => void): () => void {
+export function subscribeGroupMessages(
+  groupId: string,
+  callback: (messages: ChatMessage[]) => void
+): () => void {
   const messagesRef = collection(db, 'groups', groupId, 'messages');
   const q = query(messagesRef, orderBy('createdAt', 'asc'));
   const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -63,6 +81,10 @@ export function subscribeGroupMeta(
 ): () => void {
   const ref = doc(db, 'groups', groupId);
   return onSnapshot(ref, (snap) => {
-    cb(snap.exists() ? (snap.data() as { name?: string; ownerId?: string; memberIds?: string[] }) : {});
+    cb(
+      snap.exists()
+        ? (snap.data() as { name?: string; ownerId?: string; memberIds?: string[] })
+        : {}
+    );
   });
 }

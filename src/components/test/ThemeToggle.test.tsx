@@ -25,7 +25,9 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle />);
 
     // Wait for microtask-based mount
-    await act(async () => { await Promise.resolve(); });
+    await act(async () => {
+      await Promise.resolve();
+    });
     await waitFor(() => {
       const button = screen.getByRole('button');
       expect(button).not.toBeDisabled();
@@ -41,7 +43,9 @@ describe('ThemeToggle', () => {
     themeValue = 'dark';
     render(<ThemeToggle />);
 
-    await act(async () => { await Promise.resolve(); });
+    await act(async () => {
+      await Promise.resolve();
+    });
     await waitFor(() => {
       const button = screen.getByRole('button');
       expect(button).toHaveAttribute('aria-label', 'Switch to light theme');

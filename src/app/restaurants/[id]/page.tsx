@@ -168,9 +168,7 @@ export default async function RestaurantDetailPage({
                   <div className="font-medium">{d.title}</div>
                   {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
                   {valid ? (
-                    <div className="mt-1 text-sm text-gray-600 dark:text-white">
-                      {valid}
-                    </div>
+                    <div className="mt-1 text-sm text-gray-600 dark:text-white">{valid}</div>
                   ) : null}
                 </div>
               </Link>
@@ -198,9 +196,7 @@ export default async function RestaurantDetailPage({
 
       {/* Reviews */}
       <h2 className="mt-8 text-lg font-semibold">Reviews</h2>
-      <p className="mt-1 text-xs text-gray-500 dark:text-white">
-        Reviews provided by Yelp
-      </p>
+      <p className="mt-1 text-xs text-gray-500 dark:text-white">Reviews provided by Yelp</p>
       <div className="mt-2 space-y-3">
         {restaurant.reviews?.length ? (
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

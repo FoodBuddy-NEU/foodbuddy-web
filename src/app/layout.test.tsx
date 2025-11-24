@@ -2,11 +2,15 @@ import { render, screen } from '@testing-library/react';
 import RootLayout from './layout';
 
 jest.mock('@/lib/ThemeProvider', () => ({
-  ThemeProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="theme">{children}</div>,
+  ThemeProvider: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="theme">{children}</div>
+  ),
 }));
 
 jest.mock('@/lib/AuthProvider', () => ({
-  AuthProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="auth">{children}</div>,
+  AuthProvider: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="auth">{children}</div>
+  ),
 }));
 
 jest.mock('@/components/Header', () => ({

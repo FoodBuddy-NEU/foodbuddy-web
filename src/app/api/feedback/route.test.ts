@@ -19,7 +19,9 @@ jest.mock('firebase-admin/firestore', () => ({
 }));
 
 describe('API /api/feedback', () => {
-  let warnSpy: jest.SpyInstance; let logSpy: jest.SpyInstance; let errorSpy: jest.SpyInstance;
+  let warnSpy: jest.SpyInstance;
+  let logSpy: jest.SpyInstance;
+  let errorSpy: jest.SpyInstance;
   beforeEach(() => {
     jest.resetModules();
     addMock.mockClear();
@@ -44,14 +46,19 @@ describe('API /api/feedback', () => {
 
   it('returns 400 for missing required fields', async () => {
     const mod = await import('./route');
-    const req = new MockNextRequest('POST', 'http://localhost/api/feedback', {}, {
-      restaurantId: '',
-      restaurantName: '',
-      userEmail: '',
-      userName: '',
-      feedbackType: '',
-      feedbackContent: '',
-    });
+    const req = new MockNextRequest(
+      'POST',
+      'http://localhost/api/feedback',
+      {},
+      {
+        restaurantId: '',
+        restaurantName: '',
+        userEmail: '',
+        userName: '',
+        feedbackType: '',
+        feedbackContent: '',
+      }
+    );
     const res = await mod.POST(req as unknown as import('next/server').NextRequest);
     expect(res.status).toBe(400);
     const body = await res.json();
@@ -60,14 +67,19 @@ describe('API /api/feedback', () => {
 
   it('stores feedback and returns success', async () => {
     const mod = await import('./route');
-    const req = new MockNextRequest('POST', 'http://localhost/api/feedback', {}, {
-      restaurantId: 'r1',
-      restaurantName: 'Test',
-      userEmail: 'a@b.com',
-      userName: 'Alice',
-      feedbackType: 'menu',
-      feedbackContent: 'New items',
-    });
+    const req = new MockNextRequest(
+      'POST',
+      'http://localhost/api/feedback',
+      {},
+      {
+        restaurantId: 'r1',
+        restaurantName: 'Test',
+        userEmail: 'a@b.com',
+        userName: 'Alice',
+        feedbackType: 'menu',
+        feedbackContent: 'New items',
+      }
+    );
     const res = await mod.POST(req as unknown as import('next/server').NextRequest);
     expect(res.status).toBe(200);
     const body = await res.json();
@@ -75,7 +87,11 @@ describe('API /api/feedback', () => {
     expect(addMock).toHaveBeenCalled();
   });
 
-  afterEach(() => { warnSpy.mockRestore(); logSpy.mockRestore(); errorSpy.mockRestore(); });
+  afterEach(() => {
+    warnSpy.mockRestore();
+    logSpy.mockRestore();
+    errorSpy.mockRestore();
+  });
 
   it('returns 500 when Firestore is not initialized', async () => {
     jest.resetModules();
@@ -89,14 +105,19 @@ describe('API /api/feedback', () => {
     }));
 
     const mod = await import('./route');
-    const req = new MockNextRequest('POST', 'http://localhost/api/feedback', {}, {
-      restaurantId: 'r1',
-      restaurantName: 'X',
-      userEmail: 'x@y.com',
-      userName: 'Bob',
-      feedbackType: 'menu',
-      feedbackContent: 'content',
-    });
+    const req = new MockNextRequest(
+      'POST',
+      'http://localhost/api/feedback',
+      {},
+      {
+        restaurantId: 'r1',
+        restaurantName: 'X',
+        userEmail: 'x@y.com',
+        userName: 'Bob',
+        feedbackType: 'menu',
+        feedbackContent: 'content',
+      }
+    );
 
     const res = await mod.POST(req as unknown as import('next/server').NextRequest);
     expect(res.status).toBe(500);

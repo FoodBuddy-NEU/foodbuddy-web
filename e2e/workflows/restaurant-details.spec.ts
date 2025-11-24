@@ -1,8 +1,5 @@
 import { test, expect } from '@playwright/test';
-import {
-  navigateToHome,
-  navigateToRestaurant,
-} from '../utils/helpers';
+import { navigateToHome, navigateToRestaurant } from '../utils/helpers';
 import { TEST_RESTAURANTS } from '../fixtures/test-data';
 
 /**

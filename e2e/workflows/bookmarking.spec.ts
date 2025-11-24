@@ -1,8 +1,5 @@
 import { test, expect } from '@playwright/test';
-import {
-  navigateToHome,
-  navigateToBookmarks,
-} from '../utils/helpers';
+import { navigateToHome, navigateToBookmarks } from '../utils/helpers';
 
 /**
  * Bookmarking Workflow Tests

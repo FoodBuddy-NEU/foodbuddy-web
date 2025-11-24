@@ -1,6 +1,13 @@
 import { sendTextMessage, subscribeGroupMessages } from '@/lib/chat';
 import { db } from '@/lib/firebaseClient';
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from 'firebase/firestore';
 
 jest.mock('@/lib/firebaseClient', () => ({ db: {} }));
 
@@ -10,21 +17,53 @@ jest.mock('firebase/firestore', () => {
   const serverTimestamp = jest.fn(() => 'SERVER_TS');
   const orderBy = jest.fn(() => ({ field: 'createdAt', dir: 'asc' }));
   const query = jest.fn(() => ({ __q: true }));
-  const onSnapshot = jest.fn((q: unknown, cb: (snapshot: { docs: Array<{ id: string; data: () => unknown }> }) => void) => {
-    cb({
-      docs: [
-        { id: 'm1', data: () => ({ groupId: 'g1', senderId: 'u1', type: 'text', text: 'Hello', createdAt: null }) },
-        { id: 'm2', data: () => ({ groupId: 'g1', senderId: 'u2', type: 'text', text: 'Hi', createdAt: null }) },
-      ],
-    });
-    return () => {};
-  });
+  const onSnapshot = jest.fn(
+    (q: unknown, cb: (snapshot: { docs: Array<{ id: string; data: () => unknown }> }) => void) => {
+      cb({
+        docs: [
+          {
+            id: 'm1',
+            data: () => ({
+              groupId: 'g1',
+              senderId: 'u1',
+              type: 'text',
+              text: 'Hello',
+              createdAt: null,
+            }),
+          },
+          {
+            id: 'm2',
+            data: () => ({
+              groupId: 'g1',
+              senderId: 'u2',
+              type: 'text',
+              text: 'Hi',
+              createdAt: null,
+            }),
+          },
+        ],
+      });
+      return () => {};
+    }
+  );
   const doc = jest.fn();
   const setDoc = jest.fn();
   const updateDoc = jest.fn();
   const arrayUnion = jest.fn();
   const arrayRemove = jest.fn();
-  return { addDoc, collection, serverTimestamp, orderBy, query, onSnapshot, doc, setDoc, updateDoc, arrayUnion, arrayRemove };
+  return {
+    addDoc,
+    collection,
+    serverTimestamp,
+    orderBy,
+    query,
+    onSnapshot,
+    doc,
+    setDoc,
+    updateDoc,
+    arrayUnion,
+    arrayRemove,
+  };
 });
 
 beforeEach(() => {
@@ -66,7 +105,19 @@ describe('subscribeGroupMessages', () => {
     expect(cb).toHaveBeenCalledTimes(1);
     const messages = (cb as unknown as jest.Mock).mock.calls[0][0];
     expect(messages).toHaveLength(2);
-    expect(messages[0]).toMatchObject({ id: 'm1', text: 'Hello', senderId: 'u1', groupId: 'g1', type: 'text' });
-    expect(messages[1]).toMatchObject({ id: 'm2', text: 'Hi', senderId: 'u2', groupId: 'g1', type: 'text' });
+    expect(messages[0]).toMatchObject({
+      id: 'm1',
+      text: 'Hello',
+      senderId: 'u1',
+      groupId: 'g1',
+      type: 'text',
+    });
+    expect(messages[1]).toMatchObject({
+      id: 'm2',
+      text: 'Hi',
+      senderId: 'u2',
+      groupId: 'g1',
+      type: 'text',
+    });
   });
 });

@@ -44,9 +44,7 @@ async function globalSetup() {
     await page.goto('http://localhost:3000', { waitUntil: 'domcontentloaded', timeout: 30000 });
     console.log('✅ Dev server is ready\n');
   } catch {
-    console.log(
-      '⚠️  Dev server not yet available (will be started automatically)\n'
-    );
+    console.log('⚠️  Dev server not yet available (will be started automatically)\n');
   } finally {
     await browser.close();
   }

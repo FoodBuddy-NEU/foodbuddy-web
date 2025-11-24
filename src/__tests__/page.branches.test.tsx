@@ -1,9 +1,13 @@
 import { render, screen } from '@testing-library/react';
-jest.mock('next/navigation', () => ({ useRouter: () => ({ push: jest.fn(), replace: jest.fn() }) }));
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push: jest.fn(), replace: jest.fn() }),
+}));
 jest.mock('next/link', () => ({
   __esModule: true,
   default: ({ href, children, ...props }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...props}>{children}</a>
+    <a href={href} {...props}>
+      {children}
+    </a>
   ),
 }));
 jest.mock('next/image', () => ({
@@ -13,7 +17,10 @@ jest.mock('next/image', () => ({
     return (<img {...props} />) as unknown as React.ReactElement;
   },
 }));
-jest.mock('@/components/BookmarkButton', () => ({ __esModule: true, default: () => <div data-testid="bookmark-button" /> }));
+jest.mock('@/components/BookmarkButton', () => ({
+  __esModule: true,
+  default: () => <div data-testid="bookmark-button" />,
+}));
 
 jest.mock('@/lib/firebaseClient', () => ({ auth: {} }));
 let mockUseAuth: () => { user: unknown; loading: boolean };
@@ -36,7 +43,9 @@ test('RestaurantsPage distances ok=false', async () => {
 });
 
 test('RestaurantsPage distances rejection', async () => {
-  (global.fetch as jest.Mock).mockImplementationOnce(async () => { throw new Error('net'); });
+  (global.fetch as jest.Mock).mockImplementationOnce(async () => {
+    throw new Error('net');
+  });
   const Page = (await import('@/app/page')).default;
   render(<Page />);
   expect(await screen.findByText(/Showing \d+ results/i)).toBeInTheDocument();

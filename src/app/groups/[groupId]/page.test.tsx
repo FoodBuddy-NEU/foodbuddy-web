@@ -7,7 +7,9 @@ jest.mock('next/navigation', () => ({
   useParams: () => ({ groupId: 'g1' }),
   useRouter: () => ({ replace: jest.fn() }),
 }));
-jest.mock('@/lib/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'u1' }, loading: false }) }));
+jest.mock('@/lib/AuthProvider', () => ({
+  useAuth: () => ({ user: { uid: 'u1' }, loading: false }),
+}));
 jest.mock('@/lib/chat', () => {
   const subscribeGroupMessages = (groupId: string, cb: (msgs: ChatMessage[]) => void) => {
     cb([
@@ -16,18 +18,25 @@ jest.mock('@/lib/chat', () => {
     ]);
     return () => {};
   };
-  const subscribeGroupMeta = (_groupId: string, cb: (d: { name?: string; ownerId?: string; memberIds?: string[] }) => void) => {
+  const subscribeGroupMeta = (
+    _groupId: string,
+    cb: (d: { name?: string; ownerId?: string; memberIds?: string[] }) => void
+  ) => {
     cb({ name: 'g1', ownerId: 'u1', memberIds: ['u1'] });
     return () => {};
   };
   const addGroupMember = jest.fn();
   return { subscribeGroupMessages, subscribeGroupMeta, addGroupMember };
 });
-jest.mock('../../../components/MessageBubble', () => ({ MessageBubble: ({ message }: { message: ChatMessage }) => <div>{message.text}</div> }));
+jest.mock('../../../components/MessageBubble', () => ({
+  MessageBubble: ({ message }: { message: ChatMessage }) => <div>{message.text}</div>,
+}));
 jest.mock('@/app/groups/chatInput', () => ({ ChatInput: () => <div data-testid="chat-input" /> }));
 jest.mock('@/lib/userProfile', () => ({
   getUserProfile: jest.fn(async () => null),
-  searchUsersByUsername: jest.fn(async () => [{ userId: 'u2', username: 'User2', avatarUrl: '/img2' }]),
+  searchUsersByUsername: jest.fn(async () => [
+    { userId: 'u2', username: 'User2', avatarUrl: '/img2' },
+  ]),
 }));
 
 test('renders header, back link, messages, and input', () => {

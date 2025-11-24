@@ -37,7 +37,7 @@ describe('UserProfileForm', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (fetch as jest.Mock).mockClear();
-    
+
     // Mock Firebase Auth
     const mockAuth = {
       currentUser: {
@@ -54,7 +54,10 @@ describe('UserProfileForm', () => {
     // Email is now masked, so we check for the masked version
     expect(screen.getByDisplayValue('tes***@example.com')).toBeInTheDocument();
     // Avatar URL is displayed in img src, not in an input field
-    expect(screen.getByAltText('Avatar preview')).toHaveAttribute('src', 'https://example.com/avatar.jpg');
+    expect(screen.getByAltText('Avatar preview')).toHaveAttribute(
+      'src',
+      'https://example.com/avatar.jpg'
+    );
   });
 
   it('displays selected cravings', () => {
@@ -89,14 +92,14 @@ describe('UserProfileForm', () => {
     render(<UserProfileForm profile={mockProfile} />);
 
     const pizzaButton = screen.getByRole('button', { name: 'Pizza' });
-    
+
     // Initially not selected
     expect(pizzaButton).not.toHaveClass('bg-blue-500');
-    
+
     // Click to select
     fireEvent.click(pizzaButton);
     expect(pizzaButton).toHaveClass('bg-blue-500');
-    
+
     // Click to deselect
     fireEvent.click(pizzaButton);
     expect(pizzaButton).not.toHaveClass('bg-blue-500');

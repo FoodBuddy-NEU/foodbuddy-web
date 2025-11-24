@@ -1,14 +1,19 @@
 // path: src/app/api/profile/route.test.ts
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: (body: unknown, init?: { status?: number }) => ({ status: init?.status ?? 200, json: async () => body }),
+    json: (body: unknown, init?: { status?: number }) => ({
+      status: init?.status ?? 200,
+      json: async () => body,
+    }),
   },
 }));
 
 import type { NextRequest } from 'next/server';
 
 jest.mock('@/lib/userProfile', () => ({
-  getUserProfile: jest.fn(async (uid: string) => (uid === 'u1' ? { userId: 'u1', username: 'User', email: 'u1@example.com' } : null)),
+  getUserProfile: jest.fn(async (uid: string) =>
+    uid === 'u1' ? { userId: 'u1', username: 'User', email: 'u1@example.com' } : null
+  ),
   updateUserProfile: jest.fn(async () => {}),
 }));
 
