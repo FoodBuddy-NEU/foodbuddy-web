@@ -55,6 +55,9 @@ describe('firebaseAdmin init', () => {
       },
     }));
 
+    delete process.env.FIREBASE_SERVICE_ACCOUNT;
+    delete process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
     const mod = await import('../firebaseAdmin');
     expect(initializeApp).toHaveBeenCalledWith({ credential: 'DEFAULT' });
     expect(mod.auth).toBeDefined();
