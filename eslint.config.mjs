@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     'next-env.d.ts',
     // Project-specific generated artifacts:
     'coverage/**',
+    // Skip E2E tests from lint
+    'e2e/**',
   ]),
 ]);
 
