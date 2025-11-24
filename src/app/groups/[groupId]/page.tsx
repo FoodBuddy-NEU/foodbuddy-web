@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import type { ChatMessage } from '@/types/chatType';
 import { subscribeGroupMessages, subscribeGroupMeta, addGroupMember } from '@/lib/chat';
@@ -130,7 +131,7 @@ export default function GroupChatPage() {
               {results.map((u) => (
                 <li key={u.userId} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <img src={u.avatarUrl || '/icon.png'} alt={u.username} width={24} height={24} className="rounded-full object-cover" />
+                    <Image src={u.avatarUrl || '/icon.png'} alt={u.username} width={24} height={24} className="rounded-full object-cover" />
                     <span>{u.username}</span>
                   </div>
                   <button

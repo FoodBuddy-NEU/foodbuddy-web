@@ -1,5 +1,5 @@
 // /Users/yachenwang/Desktop/Foodbuddy-Web/foodbuddy-web/src/lib/chat.ts
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import type { ChatMessage } from '@/types/chatType';
 
