@@ -4,6 +4,8 @@ import React, { useState, useMemo } from 'react';
 import type { Menu } from '@/types/restaurant';
 import { processRestaurantMenus } from '@/lib/menuCategorizer';
 
+// Force recompile - all text should be white in dark mode
+
 interface MenuCategorySelectorProps {
   menus: Menu[];
 }
@@ -42,7 +44,7 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
   const selectedMenuTitle = selectedMenu?.title || '';
 
   if (!selectedMenu) {
-    return <div className="text-sm text-neutral-600 dark:text-neutral-400">No menu available</div>;
+    return <div className="text-sm text-gray-600 dark:text-gray-200">No menu available</div>;
   }
 
   return (
@@ -59,13 +61,13 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
         }
         
         html.dark #menu-category-dropdown-menu .menu-item {
-          background-color: #1a1a1a !important;
-          color: #f5f5f5 !important;
+          background-color: #1e1e1e !important;
+          color: #ffffff !important;
         }
         
         html.dark #menu-category-dropdown-menu .menu-item:hover {
           background-color: #2d2d2d !important;
-          color: #f5f5f5 !important;
+          color: #ffffff !important;
         }
       `}</style>
 
@@ -83,8 +85,8 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
               style={{
                 minWidth: '200px',
                 border: isDark ? '2px solid #666' : '2px solid black',
-                backgroundColor: isDark ? '#1a1a1a' : 'white',
-                color: isDark ? '#f5f5f5' : 'black',
+                backgroundColor: isDark ? '#1e1e1e' : 'white',
+                color: isDark ? '#ffffff' : 'black',
               }}
             >
               <span>{selectedMenuTitle}</span>
@@ -97,7 +99,7 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
                 id="menu-category-dropdown-menu"
                 className="absolute top-full left-0 right-0 z-50"
                 style={{
-                  backgroundColor: isDark ? '#1a1a1a' : 'white',
+                  backgroundColor: isDark ? '#1e1e1e' : 'white',
                   borderLeft: isDark ? '2px solid #666' : '2px solid black',
                   borderRight: isDark ? '2px solid #666' : '2px solid black',
                   borderBottom: isDark ? '2px solid #666' : '2px solid black',
@@ -120,9 +122,9 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
                               ? '#2d2d2d'
                               : '#e8e8e8'
                             : isDark
-                              ? '#1a1a1a'
+                              ? '#1e1e1e'
                               : 'white',
-                        color: isDark ? '#f5f5f5' : 'black',
+                        color: isDark ? '#ffffff' : 'black',
                         width: '100%',
                         padding: '8px 12px',
                         textAlign: 'left',
@@ -140,7 +142,7 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
                         isDark ? '#2d2d2d' : '#e8e8e8',
                         'important'
                       );
-                      btn.style.setProperty('color', isDark ? '#f5f5f5' : 'black', 'important');
+                      btn.style.setProperty('color', isDark ? '#ffffff' : 'black', 'important');
                     }}
                     onMouseLeave={(e) => {
                       const btn = e.target as HTMLButtonElement;
@@ -150,10 +152,10 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
                             ? '#2d2d2d'
                             : '#e8e8e8'
                           : isDark
-                            ? '#1a1a1a'
+                            ? '#1e1e1e'
                             : 'white';
                       btn.style.setProperty('background-color', bgColor, 'important');
-                      btn.style.setProperty('color', isDark ? '#f5f5f5' : 'black', 'important');
+                      btn.style.setProperty('color', isDark ? '#ffffff' : 'black', 'important');
                     }}
                   >
                     {menu.title}
@@ -175,7 +177,7 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
               className="menu-item-card flex items-center justify-between rounded-lg border border-neutral-200 p-3 dark:border-neutral-800 cursor-pointer transition-colors"
             >
               <span className="text-sm font-medium">{item.name}</span>
-              <span className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+              <span className="text-sm font-semibold text-gray-700 dark:text-white">
                 ${item.price.toFixed(2)}
               </span>
             </div>

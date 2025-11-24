@@ -40,7 +40,7 @@ describe('MenuCategorySelector hover styles', () => {
     expect((drinksItem as HTMLButtonElement).style.backgroundColor).toBe('rgb(45, 45, 45)');
 
     fireEvent.mouseLeave(drinksItem);
-    expect((drinksItem as HTMLButtonElement).style.backgroundColor).toBe('rgb(26, 26, 26)');
+    expect((drinksItem as HTMLButtonElement).style.backgroundColor).toBe('rgb(30, 30, 30)');
     // Cleanup
     act(() => { document.documentElement.classList.remove('dark'); });
   });
