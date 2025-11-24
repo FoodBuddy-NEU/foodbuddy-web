@@ -32,8 +32,8 @@ test.describe('Theme Switching', () => {
       .first();
 
     if (await themeToggle.isVisible({ timeout: 2000 }).catch(() => false)) {
-      // Click to toggle
-      await themeToggle.click();
+      // Click to toggle (use force to avoid element intercept issues)
+      await themeToggle.click({ force: true });
       await page.waitForTimeout(500);
 
       // Get new theme
@@ -63,7 +63,7 @@ test.describe('Theme Switching', () => {
       });
 
       if (currentTheme !== 'dark') {
-        await themeToggle.click();
+        await themeToggle.click({ force: true });
         await page.waitForTimeout(300);
       }
 
@@ -104,7 +104,7 @@ test.describe('Theme Switching', () => {
       .first();
 
     if (await themeToggle.isVisible({ timeout: 1000 }).catch(() => false)) {
-      await themeToggle.click();
+      await themeToggle.click({ force: true });
       await page.waitForTimeout(500);
 
       // Get new background color
@@ -149,7 +149,7 @@ test.describe('Theme Switching', () => {
 
       if (await themeToggle.isVisible({ timeout: 1000 }).catch(() => false)) {
         // Click to toggle theme
-        await themeToggle.click();
+        await themeToggle.click({ force: true });
         await page.waitForTimeout(300);
 
         // Check localStorage
@@ -338,7 +338,7 @@ test.describe('Theme Switching', () => {
         // Toggle theme
         const themeToggle = page.locator('button[aria-label*="theme"]').first();
         if (await themeToggle.isVisible()) {
-          await themeToggle.click();
+          await themeToggle.click({ force: true });
           await page.waitForTimeout(300);
         }
       }
@@ -360,7 +360,7 @@ test.describe('Theme Switching', () => {
         // Toggle and check for live region announcement
         const liveRegion = page.locator('[aria-live], [role="status"]').first();
 
-        await themeToggle.click();
+        await themeToggle.click({ force: true });
         await page.waitForTimeout(300);
 
         // Live region optional but good

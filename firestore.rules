@@ -1,0 +1,58 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================
+    // 👤 USER PROFILES COLLECTION
+    // ===============================
+    // Users can read and write their own profile only.
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ===============================
+    // 🔖 BOOKMARKS COLLECTION
+    // ===============================
+    // Only allow the signed-in user to read/write their own bookmarks.
+    match /users/{uid}/bookmarks/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // ===============================
+    // 💬 FEEDBACK COLLECTION
+    // ===============================
+    // Anyone can create a feedback entry (public form).
+    // Only authenticated users can read feedback entries.
+    match /feedback/{docId} {
+      allow create: if true;
+      allow read: if request.auth != null;
+    }
+
+    // ===============================
+    // 👥 GROUP CHAT COLLECTION (MVP)
+    // ===============================
+    // MVP version: any authenticated user can read/write group info
+    // and can read/write messages within the group.
+    // This will be tightened later once group membership is implemented.
+    match /groups/{groupId} {
+      // Allow authenticated users to read group metadata (e.g. name).
+      allow read: if request.auth != null;
+
+      // MVP: allow authenticated users to write group documents.
+      // Later we may restrict this to group owners/admins only.
+      allow write: if request.auth != null;
+
+      // Subcollection: messages within a group.
+      match /messages/{messageId} {
+        // MVP: any authenticated user can read/write messages.
+        // Later this can be changed to: only group members can read/write.
+        allow read, write: if request.auth != null;
+      }
+    }
+
+    // All other collections not matched above remain blocked by default.
+  }
+}

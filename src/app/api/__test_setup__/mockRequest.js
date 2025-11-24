@@ -1,8 +1,8 @@
 global.Request = class {
-  constructor(...args) {}
+  constructor() {}
 };
 global.Response = class {
-  constructor(...args) {}
+  constructor() {}
   static json(data, init) {
     return { data, init };
   }

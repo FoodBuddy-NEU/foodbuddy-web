@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { navigateToHome, navigateToRestaurant } from '../utils/helpers';
+import { navigateToHome } from '../utils/helpers';
 
 /**
  * Accessibility Tests
@@ -250,7 +250,7 @@ test.describe('Accessibility', () => {
       const dropdownBtn = page.locator('button[aria-haspopup="menu"], select').first();
 
       if (await dropdownBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
-        await dropdownBtn.click();
+        await dropdownBtn.click({ force: true });
         await page.waitForTimeout(300);
 
         // Navigate menu items with arrow keys

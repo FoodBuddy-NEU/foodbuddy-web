@@ -29,7 +29,7 @@ export async function waitForRestaurantsLoad(page: Page, timeout = 8000) {
         await page.waitForSelector(selector, { timeout: 1500 });
         found = true;
         break;
-      } catch (e) {
+      } catch {
         // Continue to next selector
         continue;
       }
@@ -60,7 +60,7 @@ export async function navigateToHome(page: Page) {
     await page.waitForLoadState('networkidle', { timeout: 5000 }).catch(() => {
       // Timeout is OK, we have content
     });
-  } catch (e) {
+  } catch {
     // Continue even if networkidle fails
   }
 }
