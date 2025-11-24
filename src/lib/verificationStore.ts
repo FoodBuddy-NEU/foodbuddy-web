@@ -3,7 +3,7 @@
 
 // WHY: Use global to persist across hot reloads in development
 declare global {
-  // eslint-disable-next-line no-var
+   
   var verificationCodes: Map<string, { code: string; timestamp: number }> | undefined;
 }
 

@@ -9,11 +9,9 @@ jest.mock('firebase/firestore', () => {
       id: restaurantId,
     })
   );
-  const setDoc = jest.fn(async (_ref: unknown, _data: Record<string, unknown>) => {});
-  const deleteDoc = jest.fn(async (_ref: unknown) => {});
-  const collection = jest.fn(
-    (_db: unknown, _c1: string, _uid: string, _c2: string) => ({ id: 'col' })
-  );
+  const setDoc = jest.fn(async () => {});
+  const deleteDoc = jest.fn(async () => {});
+  const collection = jest.fn(() => ({ id: 'col' }));
   const onSnapshot = jest.fn(
     (_colRef: unknown, cb: (snap: { forEach: (fn: (d: { id: string }) => void) => void }) => void) => {
       const snap = {
