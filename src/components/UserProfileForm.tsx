@@ -296,6 +296,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
                 alt="Avatar preview"
                 width={80}
                 height={80}
+                unoptimized
                 className="rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
               />
             )}
