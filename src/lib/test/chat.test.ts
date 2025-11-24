@@ -19,7 +19,12 @@ jest.mock('firebase/firestore', () => {
     });
     return () => {};
   });
-  return { addDoc, collection, serverTimestamp, orderBy, query, onSnapshot };
+  const doc = jest.fn();
+  const setDoc = jest.fn();
+  const updateDoc = jest.fn();
+  const arrayUnion = jest.fn();
+  const arrayRemove = jest.fn();
+  return { addDoc, collection, serverTimestamp, orderBy, query, onSnapshot, doc, setDoc, updateDoc, arrayUnion, arrayRemove };
 });
 
 beforeEach(() => {

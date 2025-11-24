@@ -5,9 +5,10 @@ export const dynamic = 'force-dynamic';
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import { useAuth } from '@/lib/AuthProvider';
+import { createGroup } from '@/lib/chat';
 
 type Group = {
   id: string;
@@ -22,11 +23,11 @@ export default function GroupListPage() {
   useEffect(() => {
     if (!user) return;
 
-    async function loadGroups() {
+    async function loadGroups(uid: string) {
       setLoading(true);
       try {
         const groupsRef = collection(db, 'groups');
-        const q = query(groupsRef, orderBy('name', 'asc'));
+        const q = query(groupsRef, where('memberIds', 'array-contains', uid));
         const snap = await getDocs(q);
 
         const data: Group[] = snap.docs.map((doc) => {
@@ -43,7 +44,9 @@ export default function GroupListPage() {
       }
     }
 
-    loadGroups();
+    if (user) {
+      loadGroups(user.uid);
+    }
   }, [user]);
 
   if (!user) {
@@ -54,7 +57,25 @@ export default function GroupListPage() {
     <div className="max-w-2xl mx-auto p-4 space-y-4">
       <header className="flex items-center justify-between">
         <Link href="/" className="text-sm text-muted-foreground hover:underline">← Back</Link>
-        <h1 className="text-xl font-semibold">Your Groups</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-xl font-semibold">Your Groups</h1>
+          <button
+            className="text-xs border rounded px-2 py-1 hover:bg-muted"
+            onClick={async () => {
+              const name = prompt('Group name');
+              if (!name || !user) return;
+              try {
+                const id = await createGroup(name, user.uid);
+                location.href = `/groups/${id}`;
+              } catch (e) {
+                console.error('Create group failed', e);
+                alert('Could not create group');
+              }
+            }}
+          >
+            + Create
+          </button>
+        </div>
       </header>
 
       {loading ? (

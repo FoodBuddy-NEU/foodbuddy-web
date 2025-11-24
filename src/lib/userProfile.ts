@@ -6,6 +6,13 @@ import {
   setDoc,
   updateDoc,
   serverTimestamp,
+  collection,
+  query,
+  orderBy,
+  startAt,
+  endAt,
+  getDocs,
+  limit,
 } from 'firebase/firestore';
 import { UserProfile, UserProfileUpdate } from '@/types/userProfile';
 
@@ -58,6 +65,7 @@ export async function createUserProfile(
     const userDocRef = doc(db, USERS_COLLECTION, userId);
     await setDoc(userDocRef, {
       username,
+      usernameLower: username.toLowerCase(),
       email,
       avatarUrl: avatarUrl || null,
       createdAt: serverTimestamp(),
@@ -86,6 +94,7 @@ export async function updateUserProfile(
   try {
     await updateDoc(userDocRef, {
       ...updates,
+      ...(updates.username ? { usernameLower: updates.username.toLowerCase() } : {}),
       updatedAt: serverTimestamp(),
     });
   } catch (error) {
@@ -165,4 +174,16 @@ export async function removeFromUserArray(
     console.error(`Error removing from ${field}:`, error);
     throw error;
   }
+}
+
+export async function searchUsersByUsername(term: string, max: number = 10): Promise<Array<{ userId: string; username: string; avatarUrl?: string }>> {
+  const t = term.trim().toLowerCase();
+  if (!t) return [];
+  const colRef = collection(db, USERS_COLLECTION);
+  const q = query(colRef, orderBy('usernameLower'), startAt(t), endAt(t + '\uf8ff'), limit(max));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => {
+    const data = d.data() as { username?: string; avatarUrl?: string };
+    return { userId: d.id, username: data.username ?? d.id, avatarUrl: data.avatarUrl };
+  });
 }

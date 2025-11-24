@@ -6,13 +6,14 @@ jest.mock('firebase/firestore', () => {
   const collection = jest.fn(() => ({}));
   const orderBy = jest.fn(() => ({ field: 'name', dir: 'asc' }));
   const query = jest.fn(() => ({}));
+  const where = jest.fn(() => ({ field: 'memberIds', op: 'array-contains', value: 'u1' }));
   const getDocs = jest.fn(async () => ({
     docs: [
       { id: 'g1', data: () => ({ name: 'Alpha' }) },
       { id: 'g2', data: () => ({ name: 'Beta' }) },
     ],
   }));
-  return { collection, orderBy, query, getDocs };
+  return { collection, orderBy, query, where, getDocs };
 });
 jest.mock('@/lib/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'u1' }, loading: false }) }));
 
