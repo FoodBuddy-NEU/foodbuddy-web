@@ -89,7 +89,7 @@ describe('RestaurantDetailPage', () => {
 
   it('renders restaurant with photos', async () => {
     const cloudinary = await import('@/lib/cloudinary');
-    const mockApi = cloudinary.default.api as {
+    const mockApi = cloudinary.default.api as unknown as {
       resources_by_asset_folder: jest.Mock;
     };
     mockApi.resources_by_asset_folder.mockResolvedValueOnce({
