@@ -56,3 +56,13 @@ export async function removeGroupMember(groupId: string, uid: string): Promise<v
   const groupRef = doc(db, 'groups', groupId);
   await updateDoc(groupRef, { memberIds: arrayRemove(uid), updatedAt: serverTimestamp() });
 }
+
+export function subscribeGroupMeta(
+  groupId: string,
+  cb: (data: { name?: string; ownerId?: string; memberIds?: string[] }) => void
+): () => void {
+  const ref = doc(db, 'groups', groupId);
+  return onSnapshot(ref, (snap) => {
+    cb(snap.exists() ? (snap.data() as { name?: string; ownerId?: string; memberIds?: string[] }) : {});
+  });
+}
