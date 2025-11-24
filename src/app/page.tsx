@@ -201,7 +201,11 @@ export default function RestaurantsPage() {
                           on ? prev.filter((x) => x !== t) : [...prev, t]
                         )
                       }
-                      className={`rounded-full border px-3 py-1 ${on ? 'bg-black text-white dark:bg-white dark:text-black' : ''}`}
+                      className={`rounded-full border px-3 py-1 transition-colors ${
+                        on 
+                          ? 'bg-black text-white border-black dark:bg-gray-700 dark:text-black dark:border-gray-600' 
+                          : 'bg-white text-black border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-black dark:border-gray-600 dark:hover:bg-gray-700'
+                      }`}
                     >
                       {t}
                     </button>
@@ -220,7 +224,11 @@ export default function RestaurantsPage() {
                       onClick={() =>
                         setActiveTags((prev) => (on ? prev.filter((x) => x !== t) : [...prev, t]))
                       }
-                      className={`rounded-full border px-3 py-1 ${on ? 'bg-black text-white dark:bg-white dark:text-black' : ''}`}
+                      className={`rounded-full border px-3 py-1 transition-colors ${
+                        on 
+                          ? 'bg-black text-white border-black dark:bg-gray-700 dark:text-black dark:border-gray-600' 
+                          : 'bg-white text-black border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-black dark:border-gray-600 dark:hover:bg-gray-700'
+                      }`}
                     >
                       {t}
                     </button>

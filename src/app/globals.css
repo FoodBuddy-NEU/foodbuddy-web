@@ -1,3 +1,16 @@
+@import 'tailwindcss';
+
+/* Force dark:text-white to override inherited colors */
+html.dark .dark\:text-white {
+  color: #ffffff !important;
+}
+
+/* Force selected tag/button text to be visible in dark mode */
+html.dark button.bg-gray-700 {
+  background-color: #374151 !important;
+  color: #000000 !important;
+}
+
 /* Custom deal card hover fix for light mode */
 html:not(.dark) .deal-card:hover,
 html:not(.dark) .menu-item-card:hover {
@@ -7,10 +20,9 @@ html:not(.dark) .menu-item-card:hover {
 
 html.dark .deal-card:hover,
 html.dark .menu-item-card:hover {
-  background: #232323 !important;
-  color: #fff !important;
+  background: #2d2d2d !important;
+  color: #e5e5e5 !important;
 }
-@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -33,14 +45,14 @@ html {
   color-scheme: light;
 }
 
-/* Dark theme - when .dark class is added to html element */
+/* Dark theme - Modern dark mode inspired by GitHub, Discord, and Material Design 3 */
 html.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --input-bg: #1a1a1a;
-  --input-text: #ededed;
-  --card-bg: #1a1a1a;
-  --card-text: #ededed;
+  --background: #2a2a2a;      /* Main background - dark gray instead of pure black */
+  --foreground: #e5e5e5;      /* Primary text - slightly softer than pure white */
+  --input-bg: #3a3a3a;        /* Input fields - elevated surface */
+  --input-text: #e5e5e5;      /* Input text */
+  --card-bg: #3a3a3a;         /* Card background - elevated surface */
+  --card-text: #e5e5e5;       /* Card text */
   color-scheme: dark;
 }
 
@@ -51,6 +63,11 @@ body {
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+}
+
+/* Force dark mode background color */
+html.dark body {
+  background-color: #2a2a2a !important;
 }
 
 /* Input styling */
@@ -80,27 +97,7 @@ article > div {
     color 0.3s ease;
 }
 
-/* Ensure all text in cards is card-text color in light mode */
-html:not(.dark) article,
-html:not(.dark) article * {
-  color: var(--card-text);
-}
-
-/* Ensure all text in detail pages is card-text color in light mode */
-html:not(.dark) main > *,
-html:not(.dark) section {
-  color: var(--card-text);
-}
-
-/* Override all dark mode specific color classes in light mode */
-html:not(.dark) .dark\:text-neutral-300,
-html:not(.dark) .dark\:text-neutral-400,
-html:not(.dark) .dark\:text-white,
-html:not(.dark) .text-neutral-600,
-html:not(.dark) .text-neutral-700,
-html:not(.dark) .text-black {
-  color: var(--card-text) !important;
-}
+/* Removed problematic global text color overrides that were conflicting with Tailwind's dark: classes */
 
 /* Menu category selector button styles */
 .menu-dropdown-item {
@@ -114,11 +111,11 @@ html:not(.dark) .text-black {
 }
 
 html.dark .menu-dropdown-item {
-  background-color: #1a1a1a !important;
-  color: #f5f5f5 !important;
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
 }
 
 html.dark .menu-dropdown-item:hover {
   background-color: #2d2d2d !important;
-  color: #f5f5f5 !important;
+  color: #ffffff !important;
 }
