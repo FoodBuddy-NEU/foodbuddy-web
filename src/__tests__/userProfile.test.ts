@@ -24,6 +24,13 @@ jest.mock('firebase/firestore', () => ({
   updateDoc: jest.fn(),
   serverTimestamp: jest.fn(() => ({ _seconds: Date.now() / 1000 })),
   collection: jest.fn(),
+  query: jest.fn(),
+  orderBy: jest.fn(),
+  startAt: jest.fn(),
+  endAt: jest.fn(),
+  getDocs: jest.fn(async () => ({ docs: [], size: 0 })),
+  limit: jest.fn(),
+  where: jest.fn(),
 }));
 
 describe('User Profile Functions', () => {

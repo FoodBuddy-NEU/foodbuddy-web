@@ -2,7 +2,10 @@ import { render, screen } from '@testing-library/react';
 import type { ChatMessage } from '@/types/chatType';
 import GroupChatPage from '@/app/groups/[groupId]/page';
 
-jest.mock('next/navigation', () => ({ useParams: () => ({ groupId: 'g1' }) }));
+jest.mock('next/navigation', () => ({
+  useParams: () => ({ groupId: 'g1' }),
+  useRouter: () => ({ replace: jest.fn() }),
+}));
 jest.mock('@/lib/AuthProvider', () => ({ useAuth: () => ({ user: { uid: 'u1' }, loading: false }) }));
 jest.mock('@/lib/chat', () => {
   const subscribeGroupMessages = (groupId: string, cb: (msgs: ChatMessage[]) => void) => {
@@ -12,9 +15,14 @@ jest.mock('@/lib/chat', () => {
     ]);
     return () => {};
   };
-  return { subscribeGroupMessages };
+  const subscribeGroupMeta = (_groupId: string, cb: (d: { name?: string; ownerId?: string; memberIds?: string[] }) => void) => {
+    cb({ name: 'g1', ownerId: 'u1', memberIds: ['u1'] });
+    return () => {};
+  };
+  const addGroupMember = jest.fn();
+  return { subscribeGroupMessages, subscribeGroupMeta, addGroupMember };
 });
-jest.mock('@/components/MessageBubble', () => ({ MessageBubble: ({ message }: { message: ChatMessage }) => <div>{message.text}</div> }));
+jest.mock('../../../components/MessageBubble', () => ({ MessageBubble: ({ message }: { message: ChatMessage }) => <div>{message.text}</div> }));
 jest.mock('@/app/groups/chatInput', () => ({ ChatInput: () => <div data-testid="chat-input" /> }));
 
 test('renders header, back link, messages, and input', () => {
