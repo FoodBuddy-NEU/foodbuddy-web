@@ -11,13 +11,16 @@
 ## 📋 冲突文件列表
 
 ### 工作流程配置
+
 - `.github/workflows/ci.yml` - GitHub Actions 配置
 
 ### 配置文件
+
 - `jest.setup.js` - Jest 配置
 - `package-lock.json` - 依赖锁文件
 
 ### 核心应用文件
+
 - `src/app/layout.tsx` - 根布局
 - `src/app/page.tsx` - 首页
 - `src/app/globals.css` - 全局样式
@@ -25,6 +28,7 @@
 - `src/lib/firebaseClient.ts` - Firebase 客户端
 
 ### 路由文件
+
 - `src/app/api/distances/route.ts` - 距离 API
 - `src/app/api/feedback/route.ts` - 反馈 API
 - `src/app/bookmarks/page.tsx` - 书签页面
@@ -32,6 +36,7 @@
 - `src/app/restaurants/[id]/deals/[dealId]/page.tsx` - 优惠详情页
 
 ### 组件文件
+
 - `src/components/BookmarkButton.tsx`
 - `src/components/BookmarkButton.test.tsx`
 - `src/components/FeedbackButton.tsx`
@@ -46,6 +51,7 @@
 - `src/components/ThemeToggle.tsx`
 
 ### 库文件
+
 - `src/lib/ThemeProvider.tsx`
 - `src/lib/bookmarks.ts`
 - `src/lib/distance.ts`
@@ -57,6 +63,7 @@
 ## 🛠️ 解决冲突的策略
 
 ### 方案 1: 使用 Ours (Yu branch 的版本)
+
 如果 Yu 的版本更好，全部采用 Yu branch 的文件：
 
 ```bash
@@ -67,6 +74,7 @@ git commit -m "resolve: merge dev-test into Yu, keeping Yu versions"
 ```
 
 ### 方案 2: 使用 Theirs (dev-test branch 的版本)
+
 如果 dev-test 的版本更好，全部采用 dev-test branch 的文件：
 
 ```bash
@@ -97,11 +105,13 @@ git commit -m "resolve: merge conflicts, keeping Yu versions with selective dev-
 ## 🔍 查看冲突详情
 
 ### 查看所有冲突的文件
+
 ```bash
 git diff --name-only --diff-filter=U
 ```
 
 ### 查看具体冲突内容
+
 ```bash
 # 查看某个文件的冲突
 git diff src/lib/firebaseClient.ts
@@ -111,9 +121,10 @@ git diff
 ```
 
 ### 使用图形化工具查看冲突
+
 ```bash
 # VS Code
-code --open-diff 
+code --open-diff
 
 # 或者使用 git mergetool
 git mergetool
@@ -124,6 +135,7 @@ git mergetool
 ## 🚀 推荐步骤
 
 ### 步骤 1: 确定策略
+
 ```bash
 # 切回 Yu branch
 git checkout Yu
@@ -133,11 +145,13 @@ git merge origin/dev-test --no-commit --no-ff
 ```
 
 ### 步骤 2: 查看冲突统计
+
 ```bash
 git diff --name-only --diff-filter=U | wc -l
 ```
 
 ### 步骤 3: 快速解决 (推荐采用 Yu 版本，因为有更新的测试和 Prettier)
+
 ```bash
 # 采用 Yu branch 的所有版本
 git checkout --ours .
@@ -145,6 +159,7 @@ git add .
 ```
 
 ### 步骤 4: 验证关键文件
+
 ```bash
 # 检查是否有明显错误
 npm run lint
@@ -154,11 +169,13 @@ npm run build
 ```
 
 ### 步骤 5: 提交合并
+
 ```bash
 git commit -m "resolve: merge dev-test into Yu, keeping Yu test and quality improvements"
 ```
 
 ### 步骤 6: Push 到远程
+
 ```bash
 git push origin Yu
 ```
@@ -187,6 +204,7 @@ git push origin Yu
 **建议采用方案 1：使用 Ours (Yu 版本)**
 
 **理由：**
+
 - Yu 分支有最新的 Prettier 格式化
 - Yu 分支有完整的测试覆盖（80%）
 - Yu 分支有 0 ESLint 错误
@@ -198,11 +216,13 @@ git push origin Yu
 ## ⚠️ 注意事项
 
 1. **在执行前备份：**
+
    ```bash
    git branch backup-yu-before-merge
    ```
 
 2. **合并后务必测试：**
+
    ```bash
    npm install
    npm run lint
@@ -258,6 +278,7 @@ git log --oneline --graph --all
 ## 📞 需要帮助？
 
 如果卡住了，可以：
+
 1. 运行 `git status` 查看当前状态
 2. 运行 `git merge --abort` 中止合并重来
 3. 使用 VS Code 的 Git 冲突解决器

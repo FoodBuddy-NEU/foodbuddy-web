@@ -1,11 +1,19 @@
-import { chromium, FullConfig } from '@playwright/test';
+import { chromium, type Page } from '@playwright/test';
+import fs from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
 
-/**
- * Global setup for Playwright tests
- * This runs once before all tests to verify environment setup
- */
-async function globalSetup(config: FullConfig) {
+async function globalSetup() {
   console.log('\n🔍 Verifying environment configuration...\n');
+
+  const envLocalPath = path.resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(envLocalPath)) {
+    const parsed = dotenv.parse(fs.readFileSync(envLocalPath));
+    for (const [key, value] of Object.entries(parsed)) {
+      if (!process.env[key]) process.env[key] = value;
+    }
+    console.log('✅ Loaded .env.local for Playwright environment\n');
+  }
 
   // Check Firebase configuration
   const firebaseVars = [
@@ -29,16 +37,14 @@ async function globalSetup(config: FullConfig) {
   // Verify dev server will start
   const browser = await chromium.launch();
   const context = await browser.newContext();
-  const page = context.pages()[0] || (await context.newPage());
+  const page: Page = context.pages()[0] || (await context.newPage());
 
   try {
     console.log('🌐 Waiting for dev server to be ready...\n');
     await page.goto('http://localhost:3000', { waitUntil: 'domcontentloaded', timeout: 30000 });
     console.log('✅ Dev server is ready\n');
-  } catch (error) {
-    console.log(
-      '⚠️  Dev server not yet available (will be started automatically)\n'
-    );
+  } catch {
+    console.log('⚠️  Dev server not yet available (will be started automatically)\n');
   } finally {
     await browser.close();
   }

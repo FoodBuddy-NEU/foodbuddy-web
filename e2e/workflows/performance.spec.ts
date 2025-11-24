@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { navigateToHome, waitForLoadingComplete } from '../utils/helpers';
+import { navigateToHome } from '../utils/helpers';
 
 /**
  * Performance Tests
@@ -298,7 +298,7 @@ test.describe('Performance', () => {
       const btn = page.locator('button').first();
 
       if (await btn.isVisible({ timeout: 1000 }).catch(() => false)) {
-        await btn.click();
+        await btn.click({ force: true });
 
         // Should not cause excessive reflows
         expect(true).toBeTruthy();

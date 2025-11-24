@@ -10,6 +10,8 @@ import MenuCategorySelector from '@/components/MenuCategorySelector';
 import { calculateDistance, DEFAULT_USER_ADDRESS } from '@/lib/distance';
 import { formatDistance, getRestaurantSummary, getDealValidString } from '@/lib/restaurantUtils';
 
+// Dark mode: All text should be white
+
 async function fetchCloudinaryResourcesForRestaurant(restaurantId: string) {
   // Search for images in the restaurant's folder matching the allowed public_id patterns
   const folder = `foodbuddy/restaurants/${restaurantId}`;
@@ -142,7 +144,7 @@ export default async function RestaurantDetailPage({
       ) : null}
 
       {/* Address + Phone + Distance + Feedback Button */}
-      <div className="mt-4 text-sm text-neutral-700 dark:text-neutral-300 space-y-1">
+      <div className="mt-4 text-sm text-gray-700 dark:text-white space-y-1">
         {distance ? <div>📍 {distance}</div> : null}
         {restaurant.address ? <div>{restaurant.address}</div> : null}
         {restaurant.phone ? <div>☎ {restaurant.phone}</div> : null}
@@ -151,7 +153,7 @@ export default async function RestaurantDetailPage({
         <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="contact" />
       </div>
 
-      <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{summary}</p>
+      <p className="mt-2 text-sm text-gray-700 dark:text-white">{summary}</p>
 
       {/* Deals */}
       <h2 className="mt-6 text-lg font-semibold">Deals</h2>
@@ -166,16 +168,14 @@ export default async function RestaurantDetailPage({
                   <div className="font-medium">{d.title}</div>
                   {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
                   {valid ? (
-                    <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                      {valid}
-                    </div>
+                    <div className="mt-1 text-sm text-gray-600 dark:text-white">{valid}</div>
                   ) : null}
                 </div>
               </Link>
             );
           })
         ) : (
-          <div className="text-sm text-neutral-600 dark:text-neutral-400">
+          <div className="text-sm text-gray-600 dark:text-white">
             There is no deal avaliable at the moment
           </div>
         )}
@@ -191,26 +191,24 @@ export default async function RestaurantDetailPage({
           <MenuCategorySelector menus={restaurant.menus} />
         </div>
       ) : (
-        <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">No menu available</div>
+        <div className="mt-4 text-sm text-gray-600 dark:text-white">No menu available</div>
       )}
 
       {/* Reviews */}
       <h2 className="mt-8 text-lg font-semibold">Reviews</h2>
-      <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-        Reviews provided by Yelp
-      </p>
+      <p className="mt-1 text-xs text-gray-500 dark:text-white">Reviews provided by Yelp</p>
       <div className="mt-2 space-y-3">
         {restaurant.reviews?.length ? (
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           restaurant.reviews.map((rev: any, idx: number) => (
             <div key={`${rev.userName}-${idx}`} className="rounded-xl border p-4">
               <div className="font-medium">{rev.userName}</div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-400">{`⭐ ${rev.rating}`}</div>
+              <div className="text-sm text-gray-600 dark:text-white">{`⭐ ${rev.rating}`}</div>
               <div className="mt-2 text-sm">{rev.comment}</div>
             </div>
           ))
         ) : (
-          <div className="text-sm text-neutral-600 dark:text-neutral-400">No reviews</div>
+          <div className="text-sm text-gray-600 dark:text-white">No reviews</div>
         )}
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { navigateToHome, navigateToRestaurant, searchRestaurant } from '../utils/helpers';
-import { TEST_RESTAURANTS, ERROR_MESSAGES } from '../fixtures/test-data';
 
 /**
  * Error Handling Tests

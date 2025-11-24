@@ -4,41 +4,13 @@ import { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import RestaurantCard from '@/components/RestaurantCard';
 import data from '@/data/restaurants.json';
-import type { Deal, Restaurant } from '@/types/restaurant';
+import type { Restaurant } from '@/types/restaurant';
 import Link from 'next/link';
 import { useAuth } from '@/lib/AuthProvider';
 import { auth } from '@/lib/firebaseClient';
 import { signOut } from 'firebase/auth';
-
-const DEFAULT_USER_ADDRESS = '5000 MacArthur Blvd, Oakland, CA';
-
-function normalize(str: string) {
-  return str.toLowerCase().trim();
-}
-
-function priceBucket(p?: string) {
-  if (!p) return Number.POSITIVE_INFINITY;
-  return p.length; // "$" -> 1, "$$$" -> 3
-}
-
-function extractBestDiscountPercent(r: Restaurant) {
-  const texts: string[] = [];
-  r.deals?.forEach((d: Deal) => {
-    // Some deals don't have `description`, so narrow dynamically
-    if (d.title) texts.push(String(d.title));
-    if (typeof d.description === 'string') texts.push(d.description);
-  });
-  const re = /(\d{1,2})(?=\s*%)/g;
-  let max = 0;
-  for (const t of texts) {
-    let m: RegExpExecArray | null;
-    const g = new RegExp(re);
-    while ((m = g.exec(t))) {
-      max = Math.max(max, Number(m[1]));
-    }
-  }
-  return max; // 0 if none
-}
+import { DEFAULT_USER_ADDRESS } from '@/lib/distance';
+import { normalize, priceBucket, extractBestDiscountPercent } from '@/lib/restaurantUtils';
 
 export default function RestaurantsPage() {
   const [search, setSearch] = useState('');
@@ -228,7 +200,11 @@ export default function RestaurantsPage() {
                           on ? prev.filter((x) => x !== t) : [...prev, t]
                         )
                       }
-                      className={`rounded-full border px-3 py-1 ${on ? 'bg-black text-white dark:bg-white dark:text-black' : ''}`}
+                      className={`rounded-full border px-3 py-1 transition-colors ${
+                        on
+                          ? 'bg-black text-white border-black dark:bg-gray-700 dark:text-black dark:border-gray-600'
+                          : 'bg-white text-black border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-black dark:border-gray-600 dark:hover:bg-gray-700'
+                      }`}
                     >
                       {t}
                     </button>
@@ -247,7 +223,11 @@ export default function RestaurantsPage() {
                       onClick={() =>
                         setActiveTags((prev) => (on ? prev.filter((x) => x !== t) : [...prev, t]))
                       }
-                      className={`rounded-full border px-3 py-1 ${on ? 'bg-black text-white dark:bg-white dark:text-black' : ''}`}
+                      className={`rounded-full border px-3 py-1 transition-colors ${
+                        on
+                          ? 'bg-black text-white border-black dark:bg-gray-700 dark:text-black dark:border-gray-600'
+                          : 'bg-white text-black border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-black dark:border-gray-600 dark:hover:bg-gray-700'
+                      }`}
                     >
                       {t}
                     </button>

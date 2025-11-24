@@ -91,7 +91,7 @@ async function main() {
     console.log('\n✅ Jest tests completed\n');
 
     // Step 2: Run Playwright tests (which auto-starts dev server)
-    await runPlaywrightTests();
+    const pwPassed = await runPlaywrightTests();
     console.log('\n✅ Playwright tests completed\n');
 
     // Step 3: Display coverage report
@@ -102,7 +102,7 @@ async function main() {
     console.log('📊 TEST SUMMARY');
     console.log('═══════════════════════════════════════════════════════════');
     console.log(`Jest Tests:       ${jestPassed ? '✅ PASSED' : '❌ FAILED'}`);
-    console.log(`Playwright Tests: ✅ COMPLETED`);
+    console.log(`Playwright Tests: ${pwPassed ? '✅ PASSED' : '❌ FAILED'}`);
     console.log('═══════════════════════════════════════════════════════════\n');
     console.log('💡 Tips:');
     console.log('   • Use: npm run test           (Jest + E2E + Coverage Report)');

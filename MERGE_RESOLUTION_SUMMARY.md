@@ -4,23 +4,26 @@
 
 **状态:** ✅ 完成  
 **日期:** November 9, 2025  
-**涉及分支:** Yu ← dev-test  
+**涉及分支:** Yu ← dev-test
 
 ---
 
 ## 📊 解决过程
 
 ### 1️⃣ 冲突分析
+
 - **冲突文件数:** 31 个文件
 - **冲突类型:**
   - Content conflicts: 文件内容有差异
   - add/add conflicts: 两个分支都添加了相同名称的文件
 
 ### 2️⃣ 解决策略
+
 **采用:** `git checkout --ours .`  
 **含义:** 保留 Yu branch 的所有版本
 
 **理由:**
+
 - Yu 包含最新的 Prettier 代码格式化 (100% 合规)
 - Yu 包含完整的测试框架 (80% 覆盖率)
 - Yu 包含 0 ESLint errors
@@ -51,11 +54,13 @@ git push origin Yu
 ## 📈 冲突文件详情
 
 ### 工作流和配置 (3)
+
 - `.github/workflows/ci.yml` ✅ 解决
 - `jest.setup.js` ✅ 解决
 - `package-lock.json` ✅ 解决
 
 ### 应用核心文件 (5)
+
 - `src/app/layout.tsx` ✅ 解决
 - `src/app/page.tsx` ✅ 解决
 - `src/app/globals.css` ✅ 解决
@@ -63,15 +68,18 @@ git push origin Yu
 - `src/lib/firebaseClient.ts` ✅ 解决
 
 ### API 路由 (2)
+
 - `src/app/api/distances/route.ts` ✅ 解决
 - `src/app/api/feedback/route.ts` ✅ 解决
 
 ### 页面组件 (4)
+
 - `src/app/bookmarks/page.tsx` ✅ 解决
 - `src/app/restaurants/[id]/page.tsx` ✅ 解决
 - `src/app/restaurants/[id]/deals/[dealId]/page.tsx` ✅ 解决
 
 ### UI 组件 (12)
+
 - `src/components/BookmarkButton.tsx` ✅ 解决
 - `src/components/BookmarkButton.test.tsx` ✅ 解决
 - `src/components/FeedbackButton.tsx` ✅ 解决
@@ -86,6 +94,7 @@ git push origin Yu
 - `src/components/ThemeToggle.tsx` ✅ 解决
 
 ### 库文件 (5)
+
 - `src/lib/ThemeProvider.tsx` ✅ 解决
 - `src/lib/bookmarks.ts` ✅ 解决
 - `src/lib/distance.ts` ✅ 解决
@@ -107,6 +116,7 @@ f752b5c (origin/dev-test) Feat/feedback of menu and contact info (#4)
 ## ✨ 合并后验证
 
 ### 本地验证建议
+
 ```bash
 # 1. 安装依赖（可能需要更新）
 npm install
@@ -122,6 +132,7 @@ npm run build
 ```
 
 ### 关键指标
+
 - ✅ **ESLint:** 0 errors, 74 warnings (non-blocking)
 - ✅ **Prettier:** 100% 格式化合规
 - ✅ **Jest:** 29% 覆盖率 (40 tests)
@@ -133,17 +144,20 @@ npm run build
 ## 🚀 下一步
 
 ### 在 PR 中
+
 1. PR 现在应该显示"可合并"状态 ✅
 2. 可以进行 Code Review
 3. 可以合并到 dev-test 或其他目标分支
 
 ### 本地同步
+
 ```bash
 # 同步本地分支
 git pull origin Yu
 ```
 
 ### 可选: 清理
+
 ```bash
 # 删除备份分支（如果有的话）
 git branch -d backup-yu-before-merge
@@ -156,6 +170,7 @@ git branch -d backup-yu-before-merge
 ### 为什么有这么多冲突？
 
 **根本原因:**
+
 1. **格式化差异** - Yu 用 Prettier 重新格式化了所有文件
 2. **测试添加** - Yu 添加了新的测试文件
 3. **代码改进** - Yu 修复了所有 ESLint 错误
@@ -192,7 +207,7 @@ git branch -d backup-yu-before-merge
 ✅ **所有 31 个文件的冲突都已解决**  
 ✅ **保留了 Yu branch 的所有改进**  
 ✅ **测试和代码质量标准保持完整**  
-✅ **PR 现在可以合并**  
+✅ **PR 现在可以合并**
 
 ---
 

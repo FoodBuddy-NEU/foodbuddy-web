@@ -9,6 +9,11 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('@/lib/firebaseClient', () => ({ auth: {} }));
 
+// Mock createUserProfile
+jest.mock('@/lib/userProfile', () => ({
+  createUserProfile: jest.fn().mockResolvedValue(undefined),
+}));
+
 // Define FirebaseError inside the mock factory and export it
 jest.mock('firebase/app', () => {
   class FirebaseError extends Error {
@@ -31,16 +36,19 @@ jest.mock('firebase/auth', () => {
 // Import mocked exports to control behavior
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserProfile } from '@/lib/userProfile';
 
 // Create typed local mock handle
 const mockSignup = createUserWithEmailAndPassword as unknown as jest.Mock;
+const mockCreateUserProfile = createUserProfile as jest.MockedFunction<typeof createUserProfile>;
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
-test('signs up with email/password and redirects to home', async () => {
+test('signs up with email/password and redirects to profile', async () => {
   mockSignup.mockResolvedValue({ user: { uid: 'newuid' } });
+  mockCreateUserProfile.mockResolvedValue(undefined);
 
   render(<SignupPage />);
 
@@ -54,7 +62,11 @@ test('signs up with email/password and redirects to home', async () => {
     'new@example.com',
     'newsecret'
   );
-  await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/'));
+
+  await waitFor(() => {
+    expect(mockCreateUserProfile).toHaveBeenCalledWith('newuid', 'new@example.com', 'new');
+    expect(mockPush).toHaveBeenCalledWith('/profile');
+  });
 });
 
 test('shows error message on signup failure', async () => {

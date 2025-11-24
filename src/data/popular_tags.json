@@ -1,0 +1,65 @@
+[
+  {
+    "name": "84 Viet",
+    "popular": false,
+    "yelp_review_count": 160,
+    "yelp_rating": 3.9,
+    "yelp_url": "https://www.yelp.com/biz/84-viet-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "Bobby G’s Pizzeria",
+    "popular": false,
+    "yelp_review_count": 3715,
+    "yelp_rating": 3.9,
+    "yelp_url": "https://www.yelp.com/biz/jupiter-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "Bench Café • Pâtisserie",
+    "popular": true,
+    "yelp_review_count": 3712,
+    "yelp_rating": 4.6,
+    "yelp_url": "https://www.yelp.com/biz/b-patisserie-san-francisco-2?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "Juice Appeal",
+    "popular": false,
+    "yelp_review_count": 259,
+    "yelp_rating": 3.7,
+    "yelp_url": "https://www.yelp.com/biz/juice-appeal-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "Cancun Sabor Mexicano",
+    "popular": false,
+    "yelp_review_count": 1121,
+    "yelp_rating": 3.6,
+    "yelp_url": "https://www.yelp.com/biz/cancun-sabor-mexicano-berkeley-2?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "Southside Station",
+    "popular": true,
+    "yelp_review_count": 335,
+    "yelp_rating": 4.6,
+    "yelp_url": "https://www.yelp.com/biz/southside-station-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "BurgerIM",
+    "popular": false,
+    "yelp_review_count": 13,
+    "yelp_rating": 2.5,
+    "yelp_url": "https://www.yelp.com/biz/burgerim-berkeley-5?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "Cal's Fried Chicken & Burgers",
+    "popular": true,
+    "yelp_review_count": 141,
+    "yelp_rating": 4.2,
+    "yelp_url": "https://www.yelp.com/biz/cals-fried-chicken-and-burgers-berkeley?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  },
+  {
+    "name": "Masa Ramen Bistro",
+    "popular": true,
+    "yelp_review_count": 312,
+    "yelp_rating": 4.5,
+    "yelp_url": "https://www.yelp.com/biz/masa-ramen-bistro-berkeley-3?adjust_creative=TpaSrS141JsibidVlCkJow&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TpaSrS141JsibidVlCkJow"
+  }
+]

@@ -1,12 +1,6 @@
 import { test, expect } from '@playwright/test';
-import {
-  navigateToHome,
-  navigateToRestaurant,
-  getCleanUrl,
-  verifyElementVisible,
-  waitForLoadingComplete,
-} from '../utils/helpers';
-import { TEST_RESTAURANTS, TEST_MENUS } from '../fixtures/test-data';
+import { navigateToHome, navigateToRestaurant } from '../utils/helpers';
+import { TEST_RESTAURANTS } from '../fixtures/test-data';
 
 /**
  * Restaurant Details Page Workflow Tests
