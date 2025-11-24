@@ -1,5 +1,5 @@
 // /Users/yachenwang/Desktop/Foodbuddy-Web/foodbuddy-web/src/lib/chat.ts
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import type { ChatMessage } from '@/types/chatType';
 
@@ -33,4 +33,26 @@ export function subscribeGroupMessages(groupId: string, callback: (messages: Cha
     callback(messages);
   });
   return unsubscribe;
+}
+
+export async function createGroup(name: string, ownerId: string): Promise<string> {
+  const groupsRef = collection(db, 'groups');
+  const docRef = await addDoc(groupsRef, {
+    name: name.trim() || 'Untitled',
+    ownerId,
+    memberIds: [ownerId],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  return docRef.id;
+}
+
+export async function addGroupMember(groupId: string, uid: string): Promise<void> {
+  const groupRef = doc(db, 'groups', groupId);
+  await updateDoc(groupRef, { memberIds: arrayUnion(uid), updatedAt: serverTimestamp() });
+}
+
+export async function removeGroupMember(groupId: string, uid: string): Promise<void> {
+  const groupRef = doc(db, 'groups', groupId);
+  await updateDoc(groupRef, { memberIds: arrayRemove(uid), updatedAt: serverTimestamp() });
 }
