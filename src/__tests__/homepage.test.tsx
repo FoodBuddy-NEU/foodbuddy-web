@@ -22,10 +22,11 @@ describe('Homepage Rendering', () => {
       // This would be tested when importing the actual page component
       // For now, we're testing the expected structure
       const logoElement = document.createElement('img');
-      logoElement.src = '/logo.png';
+      logoElement.src = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764837933/logo_nobg_a1xei4.png';
       logoElement.alt = 'FoodBuddy Logo';
 
-      expect(logoElement.src).toContain('logo.png');
+      expect(logoElement.src).toContain('cloudinary');
+      expect(logoElement.src).toContain('logo');
       expect(logoElement.alt).toBe('FoodBuddy Logo');
     });
 

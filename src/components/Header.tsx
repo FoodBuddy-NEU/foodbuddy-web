@@ -1,47 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
 
-const LOGO_LIGHT = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764837933/logo_nobg_a1xei4.png';
-const LOGO_DARK = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1762069631/logo_okdudg.png';
-
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    // Check initial theme
-    setIsDark(document.documentElement.classList.contains('dark'));
-
-    // Listen for theme changes
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const logoUrl = isDark ? LOGO_DARK : LOGO_LIGHT;
 
   return (
     <header className="border-b">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         {/* Left: logo/site name */}
-        <Link href="/" className="flex items-center gap-2">
-          <img
-            src={logoUrl}
-            alt="FoodBuddy Logo"
-            className="h-10 w-auto"
-            loading="lazy"
-          />
-          <span className="font-semibold hidden sm:inline">FoodBuddy</span>
+        <Link href="/" className="flex items-center gap-2 font-semibold">
+          <span>FoodBuddy</span>
         </Link>
 
         {/* Desktop Navigation - hidden on mobile */}

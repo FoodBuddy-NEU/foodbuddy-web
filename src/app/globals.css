@@ -119,3 +119,12 @@ html.dark .menu-dropdown-item:hover {
   background-color: #2d2d2d !important;
   color: #ffffff !important;
 }
+
+/* Force logo sizing - override any Tailwind constraints */
+img[alt="FoodBuddy Logo"] {
+  width: 180px !important;
+  height: 180px !important;
+  max-width: none !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}

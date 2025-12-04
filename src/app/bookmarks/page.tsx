@@ -4,7 +4,6 @@
 export const dynamic = 'force-dynamic';
 
 import { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
 import RestaurantCard from '@/components/RestaurantCard';
 import data from '@/data/restaurants.json';
 import type { Deal, Restaurant } from '@/types/restaurant';
@@ -14,6 +13,8 @@ import { auth } from '@/lib/firebaseClient';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { subscribeBookmarks } from '@/lib/bookmarks';
+
+const LOGO_URL = 'https://res.cloudinary.com/dcbktxiuw/image/upload/c_scale,w_480,h_480/v1764837933/logo_nobg_a1xei4.png';
 
 function normalize(str: string) {
   return str.toLowerCase().trim();
@@ -168,17 +169,14 @@ export default function BookmarkedRestaurantsPage() {
         )}
       </div>
 
-      {/* Logo and heading (unchanged) */}
-      <div className="flex flex-col items-center mb-8">
-        <Image
-          src="/logo.png"
+      {/* Logo and heading */}
+      <div style={{ marginBottom: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <img
+          src={LOGO_URL}
           alt="FoodBuddy Logo"
-          width={120}
-          height={120}
-          priority
-          className="mb-4"
+          style={{ width: '180px !important', height: '180px !important', display: 'block', maxWidth: 'none', flexShrink: 0 } as any}
         />
-        <p className="text-lg font-semibold text-center">Find restaurants near NEU-Oak</p>
+        <p className="text-lg font-semibold text-center mt-4">Find restaurants near NEU-Oak</p>
       </div>
 
       <h1 className="text-2xl font-bold mb-4">Bookmarks</h1>

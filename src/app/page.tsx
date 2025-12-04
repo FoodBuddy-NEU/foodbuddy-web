@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
 import RestaurantCard from '@/components/RestaurantCard';
 import data from '@/data/restaurants.json';
 import type { Restaurant } from '@/types/restaurant';
@@ -11,6 +10,9 @@ import { auth } from '@/lib/firebaseClient';
 import { signOut } from 'firebase/auth';
 import { DEFAULT_USER_ADDRESS } from '@/lib/distance';
 import { normalize, priceBucket, extractBestDiscountPercent } from '@/lib/restaurantUtils';
+
+const LOGO_LIGHT = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764837933/logo_nobg_a1xei4.png';
+const LOGO_DARK = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1762069631/logo_okdudg.png';
 
 
 export default function RestaurantsPage() {
@@ -23,6 +25,13 @@ export default function RestaurantsPage() {
   const [distances, setDistances] = useState<Record<string, number | null>>({});
   const [loadingDistances, setLoadingDistances] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return (
+      localStorage.getItem('theme') === 'dark' ||
+      document.documentElement.classList.contains('dark')
+    );
+  });
 
   // Only fetch distances after component mounts (client-side only)
   useEffect(() => {
@@ -47,6 +56,21 @@ export default function RestaurantsPage() {
     };
 
     fetchDistances();
+  }, []);
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'));
+
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   // derive facets from data
@@ -154,12 +178,11 @@ export default function RestaurantsPage() {
       </div>
       {/* Logo and heading */}
       <div className="flex flex-col items-center mb-8">
-        <Image
-          src="/logo.png"
+        <img
+          src={isDark ? LOGO_DARK : LOGO_LIGHT}
           alt="FoodBuddy Logo"
           width={120}
           height={120}
-          priority
           className="mb-4"
         />
         <p className="text-lg font-semibold text-center">Find restaurants near NEU-Oak</p>

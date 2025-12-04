@@ -7,11 +7,8 @@ jest.mock('@/components/ThemeToggle', () => ({
 }));
 
 describe('Header', () => {
-  it('renders logo, site name, nav links, and theme toggle', async () => {
+  it('renders site name, nav links, and theme toggle', async () => {
     render(<Header />);
-    
-    // Check for logo image
-    expect(screen.getByAltText('FoodBuddy Logo')).toBeInTheDocument();
     
     // Check for site name
     expect(screen.getByText('FoodBuddy')).toBeInTheDocument();
