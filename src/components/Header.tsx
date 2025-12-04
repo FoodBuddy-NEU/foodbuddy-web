@@ -1,18 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ThemeToggle from '@/components/ThemeToggle';
+
+const LOGO_LIGHT = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764837933/logo_nobg_a1xei4.png';
+const LOGO_DARK = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1762069631/logo_okdudg.png';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check initial theme
+    setIsDark(document.documentElement.classList.contains('dark'));
+
+    // Listen for theme changes
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const logoUrl = isDark ? LOGO_DARK : LOGO_LIGHT;
 
   return (
     <header className="border-b">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-        {/* Left: your logo/site name */}
-        <Link href="/" className="font-semibold">
-          FoodBuddy
+        {/* Left: logo/site name */}
+        <Link href="/" className="flex items-center gap-2">
+          <img
+            src={logoUrl}
+            alt="FoodBuddy Logo"
+            width={40}
+            height={40}
+            className="h-10 w-auto"
+          />
+          <span className="font-semibold hidden sm:inline">FoodBuddy</span>
         </Link>
 
         {/* Desktop Navigation - hidden on mobile */}
@@ -33,7 +64,7 @@ export default function Header() {
           </div>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            className="p-2 hover:bg-gray-100 rounded"
             aria-label="Menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -65,32 +96,32 @@ export default function Header() {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-t bg-white dark:bg-gray-900">
+        <div className="sm:hidden border-t bg-white">
           <nav className="flex flex-col">
             <Link
               href="/"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 border-b"
+              className="px-4 py-3 hover:bg-gray-100 border-b"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/bookmarks"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 border-b"
+              className="px-4 py-3 hover:bg-gray-100 border-b"
               onClick={() => setMobileMenuOpen(false)}
             >
               Bookmarks
             </Link>
             <Link
               href="/groups"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 border-b"
+              className="px-4 py-3 hover:bg-gray-100 border-b"
               onClick={() => setMobileMenuOpen(false)}
             >
               Group Chat
             </Link>
             <Link
               href="/profile"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="px-4 py-3 hover:bg-gray-100"
               onClick={() => setMobileMenuOpen(false)}
             >
               Profile
@@ -101,3 +132,4 @@ export default function Header() {
     </header>
   );
 }
+
