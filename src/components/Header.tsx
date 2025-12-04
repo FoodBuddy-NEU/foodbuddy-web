@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import ThemeToggle from '@/components/ThemeToggle';
 
 const LOGO_LIGHT = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764837933/logo_nobg_a1xei4.png';
@@ -39,9 +38,8 @@ export default function Header() {
           <img
             src={logoUrl}
             alt="FoodBuddy Logo"
-            width={40}
-            height={40}
             className="h-10 w-auto"
+            loading="lazy"
           />
           <span className="font-semibold hidden sm:inline">FoodBuddy</span>
         </Link>
