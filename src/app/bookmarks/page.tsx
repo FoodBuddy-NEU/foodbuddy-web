@@ -14,8 +14,6 @@ import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { subscribeBookmarks } from '@/lib/bookmarks';
 
-const LOGO_URL = 'https://res.cloudinary.com/dcbktxiuw/image/upload/c_scale,w_480,h_480/v1764837933/logo_nobg_a1xei4.png';
-
 function normalize(str: string) {
   return str.toLowerCase().trim();
 }
@@ -171,11 +169,7 @@ export default function BookmarkedRestaurantsPage() {
 
       {/* Logo and heading */}
       <div style={{ marginBottom: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <img
-          src={LOGO_URL}
-          alt="FoodBuddy Logo"
-          style={{ width: '180px !important', height: '180px !important', display: 'block', maxWidth: 'none', flexShrink: 0 } as any}
-        />
+        <div className="site-logo" role="img" aria-label="FoodBuddy Logo" />
         <p className="text-lg font-semibold text-center mt-4">Find restaurants near NEU-Oak</p>
       </div>
 
@@ -192,7 +186,7 @@ export default function BookmarkedRestaurantsPage() {
         />
         <button
           onClick={() => setShowFilters((v) => !v)}
-          className="rounded-2xl border px-4 py-2 text-sm"
+          className="rounded-2xl border px-4 py-2 text-sm bg-gray-200 dark:bg-gray-700"
           aria-expanded={showFilters}
           aria-controls="filters"
         >
@@ -247,40 +241,42 @@ export default function BookmarkedRestaurantsPage() {
         </div>
       )}
 
-      <div className="mt-6 mb-2 text-sm font-medium text-neutral-600">Sort</div>
+      <div className="mt-6 mb-2 text-sm font-medium text-neutral-600 dark:text-white">Sort</div>
       <div className="mb-4 flex flex-wrap gap-2">
         {[
           {
             key: 'distance',
-            label: `Distance ${sortBy === 'distance' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Distance',
           },
           {
             key: 'price',
-            label: `Price ${sortBy === 'price' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Price',
           },
           {
             key: 'discount',
-            label: `Discount ${sortBy === 'discount' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Discount',
           },
           {
             key: 'name',
-            label: `Name ${sortBy === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Name',
           },
         ].map((opt) => (
           <button
             key={opt.key}
             onClick={() => handleSortClick(opt.key as typeof sortBy)}
-            className={`rounded-full px-4 py-2 text-sm border ${
-              sortBy === opt.key ? 'bg-black text-white dark:bg-white dark:text-black' : ''
+            className={`sort-btn rounded-full px-4 py-2 text-sm border ${
+              sortBy === opt.key 
+                ? 'bg-gray-400 text-white' 
+                : 'bg-white text-black'
             }`}
           >
-            {opt.label}
+            {opt.label} {sortBy === opt.key ? (sortDir === 'asc' ? '↑' : '↓') : ''}
           </button>
         ))}
       </div>
 
       {/* Use bookmarkedOnly for counts and rendering */}
-      <div className="mb-2 text-sm text-neutral-600">Showing {bookmarkedOnly.length} results</div>
+      <div className="mb-2 text-sm text-neutral-600 dark:text-white">Showing {bookmarkedOnly.length} results</div>
 
       <div className="flex flex-col gap-3">
         {bookmarkedOnly.map((r) => (

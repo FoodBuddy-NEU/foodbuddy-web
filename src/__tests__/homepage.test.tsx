@@ -19,15 +19,14 @@ jest.mock('next/image', () => ({
 describe('Homepage Rendering', () => {
   describe('Logo and Branding', () => {
     it('should display the FoodBuddy logo', () => {
-      // This would be tested when importing the actual page component
-      // For now, we're testing the expected structure
-      const logoElement = document.createElement('img');
-      logoElement.src = 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764837933/logo_nobg_a1xei4.png';
-      logoElement.alt = 'FoodBuddy Logo';
+      const logoElement = document.createElement('div');
+      logoElement.className = 'site-logo';
+      logoElement.setAttribute('role', 'img');
+      logoElement.setAttribute('aria-label', 'FoodBuddy Logo');
 
-      expect(logoElement.src).toContain('cloudinary');
-      expect(logoElement.src).toContain('logo');
-      expect(logoElement.alt).toBe('FoodBuddy Logo');
+      expect(logoElement.className).toContain('site-logo');
+      expect(logoElement.getAttribute('role')).toBe('img');
+      expect(logoElement.getAttribute('aria-label')).toBe('FoodBuddy Logo');
     });
 
     it('should display the branding text', () => {

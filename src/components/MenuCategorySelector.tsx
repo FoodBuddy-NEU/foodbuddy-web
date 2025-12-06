@@ -170,7 +170,7 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
       {/* Menu Items */}
       <div>
         <h3 className="font-semibold text-lg mb-3">{selectedMenu.title}</h3>
-        <div className="space-y-2">
+        <div className="space-y-3">
           {selectedMenu.items.map((item) => (
             <div
               key={item.id}

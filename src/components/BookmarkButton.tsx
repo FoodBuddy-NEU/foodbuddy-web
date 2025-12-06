@@ -59,7 +59,7 @@ export default function BookmarkButton({ restaurantId, className }: Props) {
   };
 
   return (
-    <button type="button" onClick={onToggle} aria-pressed={isBookmarked} className={className}>
+    <button type="button" onClick={onToggle} aria-pressed={isBookmarked} className={`bookmark-btn ${className || ''}`}>
       <span className="mr-1">{isBookmarked ? '★' : '☆'}</span>
       {isBookmarked ? 'Saved' : 'Bookmark'}
     </button>

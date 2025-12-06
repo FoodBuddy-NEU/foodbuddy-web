@@ -1,10 +1,13 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function removeFileSync(filePath) {
   try {
     fs.unlinkSync(filePath);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     // ignore
   }

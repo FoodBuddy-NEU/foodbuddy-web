@@ -1,29 +1,236 @@
 @import 'tailwindcss';
 
-/* Force dark:text-white to override inherited colors */
-html.dark .dark\:text-white {
+/* ========================================
+   Bookmark Button - transparent background
+   ======================================== */
+.bookmark-btn {
+  background-color: transparent !important;
+}
+
+/* ========================================
+   Sort Buttons - consistent style across all browser modes
+   ======================================== */
+.sort-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #d1d5db !important;
+}
+
+.sort-btn.bg-gray-400 {
+  background-color: #9ca3af !important;
   color: #ffffff !important;
 }
 
-/* Force selected tag/button text to be visible in dark mode */
-html.dark button.bg-gray-700 {
-  background-color: #374151 !important;
-  color: #000000 !important;
-}
-
-/* Custom deal card hover fix for light mode */
-html:not(.dark) .deal-card:hover,
-html:not(.dark) .menu-item-card:hover {
-  background: #f3f3f3 !important;
+/* ========================================
+   Theme Toggle Button - consistent style across all modes
+   Light mode: White background, black border
+   Dark mode: Match navbar background
+   ======================================== */
+.theme-toggle-btn {
+  background-color: #ffffff !important;
   color: #171717 !important;
+  border-color: #171717 !important;
 }
 
-html.dark .deal-card:hover,
-html.dark .menu-item-card:hover {
-  background: #2d2d2d !important;
+.theme-toggle-btn:hover {
+  background-color: #f5f5f5 !important;
+}
+
+/* Dark mode: match navbar background */
+html.dark .theme-toggle-btn {
+  background-color: #2a2a2a !important;
   color: #e5e5e5 !important;
+  border-color: #555555 !important;
 }
 
+html.dark .theme-toggle-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* ========================================
+   CRITICAL: Block browser prefers-color-scheme entirely
+   Only our html.dark class controls the theme
+   ======================================== */
+
+/* FORCE light theme when browser is in dark mode */
+@media (prefers-color-scheme: dark) {
+  html:not(.dark),
+  html:not(.dark) * {
+    background-color: unset !important;
+    color: unset !important;
+    border-color: unset !important;
+  }
+  
+  html:not(.dark) {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+  
+  html:not(.dark) body {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+  
+  html:not(.dark) input,
+  html:not(.dark) textarea,
+  html:not(.dark) select {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #cccccc !important;
+  }
+  
+  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn) {
+    background-color: #f5f5f5 !important;
+    color: #171717 !important;
+  }
+
+  /* Sort buttons - consistent in browser dark mode */
+  .sort-btn {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #d1d5db !important;
+  }
+
+  .sort-btn.bg-gray-400 {
+    background-color: #9ca3af !important;
+    color: #ffffff !important;
+  }
+
+  /* Preserve colored buttons in browser dark mode + web light mode */
+  html:not(.dark) button.bg-blue-500,
+  html:not(.dark) button.bg-blue-600,
+  html:not(.dark) label.bg-blue-600 {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  html:not(.dark) button.bg-green-500 {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html:not(.dark) button.bg-orange-500 {
+    background-color: #f97316 !important;
+    color: #ffffff !important;
+  }
+
+  html:not(.dark) button.bg-red-500 {
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+  }
+  
+  /* FORCE dark theme when html has .dark class */
+  html.dark {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+  
+  html.dark body {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+  
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+    border-color: #555555 !important;
+  }
+
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn) {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+  }
+
+  /* Preserve colored buttons in browser dark + web dark (first media query) */
+  html.dark button.bg-blue-500,
+  html.dark button.bg-blue-600,
+  html.dark label.bg-blue-600 {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-green-500 {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-orange-500 {
+    background-color: #f97316 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-red-500 {
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+  }
+  
+  /* Force Sort and Showing text to be white in dark mode */
+  html.dark .text-neutral-600 {
+    color: #ffffff !important;
+  }
+}
+
+/* FORCE dark theme when browser is in light mode AND html has .dark class */
+@media (prefers-color-scheme: light) {
+  html.dark {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+  
+  html.dark body {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+  
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+    border-color: #555555 !important;
+  }
+
+  /* Theme toggle button in dark mode - match navbar */
+  html.dark .theme-toggle-btn {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+    border-color: #555555 !important;
+  }
+
+  html.dark .theme-toggle-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn) {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+  }
+  
+  /* Force Sort and Showing text to be white in dark mode */
+  html.dark .text-neutral-600 {
+    color: #ffffff !important;
+  }
+}
+
+/* Force light color scheme globally */
+html {
+  color-scheme: light !important;
+}
+
+html * {
+  -webkit-color-scheme: light !important;
+  color-scheme: light !important;
+}
+
+/* Prevent browsers from forcing dark-mode color swaps */
+html,
+html * {
+  forced-color-adjust: none !important;
+}
+
+/* Override our theme variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -45,15 +252,15 @@ html {
   color-scheme: light;
 }
 
-/* Dark theme - Modern dark mode inspired by GitHub, Discord, and Material Design 3 */
+/* Dark theme - ONLY applies when html has .dark class */
 html.dark {
-  --background: #2a2a2a;      /* Main background - dark gray instead of pure black */
-  --foreground: #e5e5e5;      /* Primary text - slightly softer than pure white */
-  --input-bg: #3a3a3a;        /* Input fields - elevated surface */
-  --input-text: #e5e5e5;      /* Input text */
-  --card-bg: #3a3a3a;         /* Card background - elevated surface */
-  --card-text: #e5e5e5;       /* Card text */
-  color-scheme: dark;
+  --background: #2a2a2a;
+  --foreground: #e5e5e5;
+  --input-bg: #3a3a3a;
+  --input-text: #e5e5e5;
+  --card-bg: #3a3a3a;
+  --card-text: #e5e5e5;
+  color-scheme: light;
 }
 
 body {
@@ -68,6 +275,7 @@ body {
 /* Force dark mode background color */
 html.dark body {
   background-color: #2a2a2a !important;
+  color: #e5e5e5 !important;
 }
 
 /* Input styling */
@@ -97,7 +305,29 @@ article > div {
     color 0.3s ease;
 }
 
-/* Removed problematic global text color overrides that were conflicting with Tailwind's dark: classes */
+/* Force dark:text-white to override inherited colors */
+html.dark .dark\:text-white {
+  color: #ffffff !important;
+}
+
+/* Force selected tag/button text to be visible in dark mode */
+html.dark button.bg-gray-700 {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+/* Custom deal card hover fix for light mode */
+html:not(.dark) .deal-card:hover,
+html:not(.dark) .menu-item-card:hover {
+  background: #f3f3f3 !important;
+  color: #171717 !important;
+}
+
+html.dark .deal-card:hover,
+html.dark .menu-item-card:hover {
+  background: #2d2d2d !important;
+  color: #e5e5e5 !important;
+}
 
 /* Menu category selector button styles */
 .menu-dropdown-item {
@@ -120,6 +350,89 @@ html.dark .menu-dropdown-item:hover {
   color: #ffffff !important;
 }
 
+/* Menu dropdown button border in dark mode */
+html.dark #menu-category-dropdown-btn {
+  border-color: #888888 !important;
+}
+
+/* Menu dropdown items container border in dark mode */
+html.dark #menu-category-dropdown-menu {
+  border-color: #888888 !important;
+}
+
+/* Menu item cards border in dark mode - make border white */
+html.dark .menu-item-card {
+  border-color: #ffffff !important;
+}
+
+/* Filter chips - keep consistent look regardless of browser theme */
+.filter-chip {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #d1d5db !important;
+}
+
+.filter-chip:hover {
+  background-color: #f3f3f6 !important;
+  color: #171717 !important;
+}
+
+.filter-chip--active {
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  border-color: #171717 !important;
+}
+
+html:not(.dark) .filter-chip {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #d1d5db !important;
+}
+
+html:not(.dark) .filter-chip--active {
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  border-color: #171717 !important;
+}
+
+html:not(.dark) .filter-chip:hover {
+  background-color: #f3f3f6 !important;
+  color: #171717 !important;
+}
+
+html.dark .filter-chip {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #d1d5db !important;
+}
+
+html.dark .filter-chip:hover {
+  background-color: #f3f3f6 !important;
+  color: #171717 !important;
+}
+
+html.dark .filter-chip--active {
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  border-color: #171717 !important;
+}
+
+/* Logo badge rendered via background */
+.site-logo {
+  width: 180px !important;
+  height: 180px !important;
+  max-width: none !important;
+  flex-shrink: 0 !important;
+  background-image: url('https://res.cloudinary.com/dcbktxiuw/image/upload/c_scale,w_480,h_480/v1764837933/logo_nobg_a1xei4.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+html.dark .site-logo {
+  background-image: url('https://res.cloudinary.com/dcbktxiuw/image/upload/c_scale,w_480,h_480/v1762069631/logo_okdudg.png');
+}
+
 /* Force logo sizing - override any Tailwind constraints */
 img[alt="FoodBuddy Logo"] {
   width: 180px !important;
@@ -128,3 +441,269 @@ img[alt="FoodBuddy Logo"] {
   display: block !important;
   flex-shrink: 0 !important;
 }
+
+/* ========================================
+   Profile page dark mode in browser light mode
+   Force all dark: Tailwind classes to apply when html.dark exists
+   regardless of browser color-scheme preference
+   ======================================== */
+@media (prefers-color-scheme: light) {
+  /* Theme toggle button in dark mode - match navbar */
+  html.dark .theme-toggle-btn {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+    border-color: #555555 !important;
+  }
+
+  html.dark .theme-toggle-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  /* Dark background classes */
+  html.dark .dark\:bg-gray-800,
+  html.dark .dark\:bg-gray-900 {
+    background-color: #111827 !important;
+  }
+
+  html.dark .dark\:bg-gray-700,
+  html.dark .dark\:bg-gray-600 {
+    background-color: #374151 !important;
+  }
+
+  html.dark .dark\:bg-blue-500,
+  html.dark button.dark\:bg-blue-500,
+  html.dark .dark\:bg-blue-500:not(:disabled) {
+    background-color: #3b82f6 !important;
+  }
+
+  html.dark .dark\:bg-blue-600,
+  html.dark button.dark\:bg-blue-600 {
+    background-color: #2563eb !important;
+  }
+
+  html.dark .dark\:bg-red-600 {
+    background-color: #dc2626 !important;
+  }
+
+  /* Preserve colored buttons in dark mode - must come BEFORE generic button rule */
+  html.dark button.bg-blue-500,
+  html.dark button.bg-blue-600,
+  html.dark label.bg-blue-600,
+  html.dark label.bg-blue-500 {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-green-500 {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-orange-500 {
+    background-color: #f97316 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-red-500 {
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-blue-500:hover,
+  html.dark button.bg-blue-600:hover,
+  html.dark label.bg-blue-600:hover,
+  html.dark label.bg-blue-500:hover {
+    background-color: #1d4ed8 !important;
+  }
+
+  html.dark button.bg-green-500:hover {
+    background-color: #16a34a !important;
+  }
+
+  html.dark button.bg-orange-500:hover {
+    background-color: #ea580c !important;
+  }
+
+  html.dark button.bg-red-500:hover {
+    background-color: #dc2626 !important;
+  }
+
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn),
+  html.dark .dark\:bg-gray-600:not(.filter-chip) {
+    background-color: #4b5563 !important;
+  }
+
+  /* Dark border colors */
+  html.dark .dark\:border-gray-600 {
+    border-color: #4b5563 !important;
+  }
+
+  html.dark .dark\:border-gray-700 {
+    border-color: #374151 !important;
+  }
+
+  /* Dark text colors */
+  html.dark .dark\:text-white {
+    color: #ffffff !important;
+  }
+
+  html.dark .dark\:text-gray-200,
+  html.dark .dark\:text-gray-300 {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .dark\:text-gray-400 {
+    color: #9ca3af !important;
+  }
+
+  html.dark .dark\:text-blue-400 {
+    color: #60a5fa !important;
+  }
+
+  /* Dark form elements */
+  html.dark input.dark\:bg-gray-700,
+  html.dark textarea.dark\:bg-gray-700,
+  html.dark select.dark\:bg-gray-700 {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark input.dark\:text-white,
+  html.dark textarea.dark\:text-white,
+  html.dark select.dark\:text-white {
+    color: #ffffff !important;
+  }
+
+  html.dark input.dark\:border-gray-600,
+  html.dark textarea.dark\:border-gray-600,
+  html.dark select.dark\:border-gray-600 {
+    border-color: #4b5563 !important;
+  }
+
+  /* Dark hover states */
+  html.dark .dark\:hover\:bg-gray-700:hover {
+    background-color: #374151 !important;
+  }
+
+  html.dark .dark\:hover\:bg-blue-700:hover {
+    background-color: #1e40af !important;
+  }
+
+  html.dark .dark\:hover\:bg-red-700:hover {
+    background-color: #b91c1c !important;
+  }
+
+  /* Dark focus states */
+  html.dark .dark\:focus\:ring-offset-gray-800:focus {
+    --tw-ring-offset-color: #1f2937 !important;
+  }
+
+  html.dark .dark\:focus\:ring-blue-500:focus {
+    --tw-ring-color: #3b82f6 !important;
+  }
+
+  /* Dark placeholder colors */
+  html.dark input.dark\:placeholder-gray-400::placeholder,
+  html.dark textarea.dark\:placeholder-gray-400::placeholder {
+    color: #9ca3af !important;
+  }
+
+  /* Profile page specific styles */
+  html.dark .profile-card {
+    background-color: #111827 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .profile-input-group {
+    background-color: #1f2937 !important;
+  }
+
+  /* Ensure Choose Photo button is always blue in all modes */
+  label:has(> input[type="file"][accept="image/*"]) {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  label:has(> input[type="file"][accept="image/*"]):hover {
+    background-color: #1d4ed8 !important;
+  }
+
+  html.dark label:has(> input[type="file"][accept="image/*"]) {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  html.dark label:has(> input[type="file"][accept="image/*"]):hover {
+    background-color: #1d4ed8 !important;
+  }
+
+  /* Profile page container backgrounds */
+  html.dark .dark\:bg-gray-800 {
+    background-color: #1f2937 !important;
+  }
+
+  html.dark .dark\:bg-gray-700 {
+    background-color: #374151 !important;
+  }
+
+  html.dark .dark\:bg-gray-900 {
+    background-color: #111827 !important;
+  }
+
+  /* Profile page input fields */
+  html.dark input.dark\:bg-gray-700,
+  html.dark textarea.dark\:bg-gray-700,
+  html.dark select.dark\:bg-gray-700 {
+    background-color: #374151 !important;
+    border-color: #4b5563 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .dark\:border-gray-600 {
+    border-color: #4b5563 !important;
+  }
+
+  /* Tag buttons - unselected state */
+  html.dark button.bg-gray-200.dark\:bg-gray-700 {
+    background-color: #374151 !important;
+    color: #e5e7eb !important;
+  }
+
+  /* Add buttons - permanent blue color */
+  html.dark button.bg-blue-500,
+  html.dark button[class*="bg-blue-500"] {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-blue-500:hover,
+  html.dark button[class*="bg-blue-500"]:hover {
+    background-color: #2563eb !important;
+  }
+
+  /* Selected tag buttons - colored states */
+  html.dark button.bg-blue-600,
+  html.dark button[class*="bg-blue-600"] {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-green-500,
+  html.dark button[class*="bg-green-500"] {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-orange-500,
+  html.dark button[class*="bg-orange-500"] {
+    background-color: #f97316 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark button.bg-red-500,
+  html.dark button[class*="bg-red-500"] {
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+  }
+}
+

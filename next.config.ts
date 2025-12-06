@@ -11,15 +11,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/logo.png',
-        destination: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764837933/logo_nobg_a1xei4.png',
-        permanent: false,
-      },
-    ];
-  },
 };
 
 export default nextConfig;

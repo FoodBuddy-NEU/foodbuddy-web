@@ -163,7 +163,7 @@ export default async function RestaurantDetailPage({
           restaurant.deals.map((d: any) => {
             const valid = getDealValidString(d);
             return (
-              <Link key={d.id} href={`/restaurants/${restaurant.id}/deals/${d.id}`}>
+              <Link key={d.id} href={`/restaurants/${restaurant.id}/deals/${d.id}`} className="block">
                 <div className="deal-card rounded-xl border p-4 cursor-pointer transition-colors">
                   <div className="font-medium">{d.title}</div>
                   {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
