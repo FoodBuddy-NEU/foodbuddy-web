@@ -1,6 +1,27 @@
 @import 'tailwindcss';
 
 /* ========================================
+   Feedback Button - Blue background, white text
+   ======================================== */
+.feedback-btn {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+.feedback-btn:hover {
+  background-color: #1d4ed8 !important;
+}
+
+/* Feedback Modal - prevent browser color scheme interference */
+.feedback-modal {
+  color-scheme: light !important;
+}
+
+.feedback-input {
+  color-scheme: light !important;
+}
+
+/* ========================================
    Bookmark Button - transparent background
    ======================================== */
 .bookmark-btn {
