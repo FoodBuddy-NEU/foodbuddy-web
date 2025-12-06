@@ -157,9 +157,11 @@ describe('User Profile Functions', () => {
 
       await updateUserProfile(mockUserId, updates);
 
-      expect(updateDoc).toHaveBeenCalledWith(
+      // updateUserProfile now uses setDoc with merge: true
+      expect(setDoc).toHaveBeenCalledWith(
         { id: mockUserId },
-        expect.objectContaining(updates)
+        expect.objectContaining(updates),
+        { merge: true }
       );
     });
   });
@@ -192,11 +194,13 @@ describe('User Profile Functions', () => {
 
       await addToUserArray(mockUserId, 'cravings', 'Pizza');
 
-      expect(updateDoc).toHaveBeenCalledWith(
+      // addToUserArray internally calls updateUserProfile which uses setDoc with merge: true
+      expect(setDoc).toHaveBeenCalledWith(
         { id: mockUserId },
         expect.objectContaining({
           cravings: ['Ramen', 'Pizza'],
-        })
+        }),
+        { merge: true }
       );
     });
 
@@ -259,11 +263,13 @@ describe('User Profile Functions', () => {
 
       await removeFromUserArray(mockUserId, 'cravings', 'Pizza');
 
-      expect(updateDoc).toHaveBeenCalledWith(
+      // removeFromUserArray internally calls updateUserProfile which uses setDoc with merge: true
+      expect(setDoc).toHaveBeenCalledWith(
         { id: mockUserId },
         expect.objectContaining({
           cravings: ['Ramen', 'Sushi'],
-        })
+        }),
+        { merge: true }
       );
     });
   });

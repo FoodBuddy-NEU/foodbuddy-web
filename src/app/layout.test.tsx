@@ -12,11 +12,17 @@ jest.mock('@/lib/ThemeProvider', () => ({
 
 jest.mock('@/lib/AuthProvider', () => ({
   AuthProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="auth">{children}</div>,
+  useAuth: () => ({ user: null, loading: false }),
 }));
 
 jest.mock('@/components/Header', () => ({
   __esModule: true,
   default: () => <div data-testid="header">Header</div>,
+}));
+
+jest.mock('@/components/UsernameChecker', () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <div data-testid="username-checker">{children}</div>,
 }));
 
 describe('RootLayout', () => {
