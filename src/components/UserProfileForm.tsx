@@ -5,6 +5,14 @@ import { UserProfile, COMMON_CRAVINGS, COMMON_CUISINES, COMMON_DIETARY_RESTRICTI
 import { updateUserProfile } from '@/lib/userProfile';
 import { getAuth } from 'firebase/auth';
 
+// Preset avatars
+const PRESET_AVATARS = [
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992987/numb_pizza_mnnls0.jpg', name: 'Lazy Pizza' },
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992986/cute_ramen_juxqqh.jpg', name: 'Cute Ramen' },
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992986/cute_boba_wnfmyv.jpg', name: 'Cute Boba' },
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992986/cool_burger_rg2fkd.jpg', name: 'Cool Burger' },
+];
+
 interface UserProfileFormProps {
   profile: UserProfile;
   onUpdate?: (updatedProfile: UserProfile) => void;
@@ -37,7 +45,13 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
 
   // WHY: Mask email for privacy (show first 3 chars + ***@domain)
   const maskEmail = (email: string) => {
+    if (!email || !email.includes('@')) {
+      return 'No email set';
+    }
     const [localPart, domain] = email.split('@');
+    if (!localPart || !domain) {
+      return 'No email set';
+    }
     if (localPart.length <= 3) {
       return `${localPart[0]}***@${domain}`;
     }
@@ -227,12 +241,19 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
       const data = await response.json();
       
       // Build optimized URL with transformations
-      const baseUrl = data.secure_url;
+      // Add f_auto to auto-convert HEIC and other formats to browser-compatible format
+      let baseUrl = data.secure_url;
+      
+      // Replace .heic extension with .jpg for browser compatibility
+      if (baseUrl.toLowerCase().endsWith('.heic')) {
+        baseUrl = baseUrl.replace(/\.heic$/i, '.jpg');
+      }
+      
       const urlParts = baseUrl.split('/upload/');
-      const optimizedUrl = `${urlParts[0]}/upload/c_fill,g_face,h_400,w_400,q_auto:good/${urlParts[1]}`;
+      const optimizedUrl = `${urlParts[0]}/upload/f_auto,c_fill,g_face,h_400,w_400,q_auto:good/${urlParts[1]}`;
       
       setAvatarUrl(optimizedUrl);
-      setMessage('Avatar uploaded successfully!');
+      setMessage('Photo selected! Click "Save Profile" to save changes.');
     } catch (error) {
       console.error('Error uploading avatar:', error);
       setMessage('Failed to upload avatar. Please try again.');
@@ -243,6 +264,12 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
 
   // WHY: Save all profile changes to Firestore
   const handleSave = async () => {
+    // Validate avatar is selected
+    if (!avatarUrl) {
+      setMessage('Please select a profile picture before saving.');
+      return;
+    }
+
     setSaving(true);
     setMessage('');
     
@@ -287,21 +314,23 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
         
         {/* Avatar Upload */}
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Profile Picture</label>
-          <div className="flex items-center gap-4">
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+            Profile Picture <span className="text-red-500">*</span>
+          </label>
+          <div className="flex items-center gap-4 flex-wrap">
             {avatarUrl && (
               <img 
                 src={avatarUrl} 
                 alt="Avatar preview" 
-                className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+                className="w-20 h-20 rounded-full object-cover border-2 border-blue-500"
               />
             )}
-            <div className="flex-1">
+            <div>
               <label className="cursor-pointer inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {uploading ? 'Uploading...' : 'Choose Photo'}
+                {uploading ? 'Uploading...' : 'Upload Photo'}
                 <input
                   type="file"
                   accept="image/*"
@@ -313,6 +342,36 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
               <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                 JPG, PNG, or GIF (max 5MB)
               </p>
+            </div>
+          </div>
+          
+          {/* Preset Avatars */}
+          <div className="mt-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Or choose a preset avatar:</p>
+            <div className="flex gap-3 flex-wrap">
+              {PRESET_AVATARS.map((preset) => (
+                <button
+                  key={preset.url}
+                  type="button"
+                  onClick={() => {
+                    setAvatarUrl(preset.url);
+                    setMessage(`Selected ${preset.name}! Click "Save Profile" to save.`);
+                  }}
+                  className={`relative group ${
+                    avatarUrl === preset.url ? 'ring-2 ring-blue-500 ring-offset-2' : ''
+                  }`}
+                  title={preset.name}
+                >
+                  <img
+                    src={preset.url}
+                    alt={preset.name}
+                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 transition-colors"
+                  />
+                  <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                    {preset.name}
+                  </span>
+                </button>
+              ))}
             </div>
           </div>
         </div>

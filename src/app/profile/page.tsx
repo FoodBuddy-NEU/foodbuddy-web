@@ -27,7 +27,11 @@ export default function ProfilePage() {
       try {
         const userProfile = await getUserProfile(user.uid);
         if (userProfile) {
-          setProfile(userProfile);
+          // Ensure email is set from Firebase Auth if not in Firestore
+          setProfile({
+            ...userProfile,
+            email: userProfile.email || user.email || '',
+          });
         } else {
           // Profile doesn't exist yet, create a default one
           const defaultProfile: UserProfile = {

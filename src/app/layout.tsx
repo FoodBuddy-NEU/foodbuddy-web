@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { AuthProvider } from '@/lib/AuthProvider';
 import { ThemeProvider } from '@/lib/ThemeProvider';
 import Header from '@/components/Header';
+import UsernameChecker from '@/components/UsernameChecker';
 
 // Skip prerendering for all pages since the app requires Firebase initialization
 export const dynamic = 'force-dynamic';
@@ -47,9 +48,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider>
           <AuthProvider>
-            <Header />
-            {/* Page content */}
-            {children}
+            <UsernameChecker>
+              <Header />
+              {/* Page content */}
+              {children}
+            </UsernameChecker>
           </AuthProvider>
         </ThemeProvider>
       </body>

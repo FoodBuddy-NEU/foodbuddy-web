@@ -76,10 +76,22 @@ html.dark .theme-toggle-btn:hover {
 /* FORCE light theme when browser is in dark mode */
 @media (prefers-color-scheme: dark) {
   html:not(.dark),
-  html:not(.dark) * {
+  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200) {
     background-color: unset !important;
     color: unset !important;
     border-color: unset !important;
+  }
+
+  /* Feedback button must stay blue - override the unset rule above */
+  html:not(.dark) .feedback-btn,
+  .feedback-btn {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  html:not(.dark) .feedback-btn:hover,
+  .feedback-btn:hover {
+    background-color: #1d4ed8 !important;
   }
   
   html:not(.dark) {
@@ -100,9 +112,98 @@ html.dark .theme-toggle-btn:hover {
     border-color: #cccccc !important;
   }
   
-  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn) {
+  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full) {
     background-color: #f5f5f5 !important;
     color: #171717 !important;
+  }
+
+  /* Light theme navigation buttons (Back, Share, Bookmark) - white bg, black border */
+  html:not(.dark) button.rounded-full.border:not(.filter-chip):not(.sort-btn):not(.feedback-btn),
+  html:not(.dark) a.rounded-full.border,
+  html:not(.dark) div.rounded-full.border {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
+  }
+
+  html:not(.dark) button.rounded-full.border:not(.filter-chip):not(.sort-btn):not(.feedback-btn):hover,
+  html:not(.dark) a.rounded-full.border:hover,
+  html:not(.dark) div.rounded-full.border:hover {
+    background-color: #171717 !important;
+    color: #ffffff !important;
+  }
+
+  /* Feedback button - always blue with white text */
+  .feedback-btn {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  .feedback-btn:hover {
+    background-color: #1d4ed8 !important;
+  }
+
+  /* Feedback modal - white background in light theme */
+  html:not(.dark) .feedback-modal {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  /* Feedback inputs - white background in light theme */
+  html:not(.dark) .feedback-input {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #d1d5db !important;
+  }
+
+  /* Profile page light theme in browser dark mode */
+  html:not(.dark) .bg-white {
+    background-color: #ffffff !important;
+  }
+
+  html:not(.dark) .bg-gray-50 {
+    background-color: #f9fafb !important;
+  }
+
+  html:not(.dark) .bg-gray-100 {
+    background-color: #f3f4f6 !important;
+  }
+
+  html:not(.dark) .text-gray-900 {
+    color: #111827 !important;
+  }
+
+  html:not(.dark) .text-gray-800 {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .text-gray-700 {
+    color: #374151 !important;
+  }
+
+  html:not(.dark) .text-gray-600 {
+    color: #4b5563 !important;
+  }
+
+  html:not(.dark) .text-gray-500 {
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .text-gray-400 {
+    color: #9ca3af !important;
+  }
+
+  html:not(.dark) .border-gray-300 {
+    border-color: #d1d5db !important;
+  }
+
+  html:not(.dark) .border-gray-200 {
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .rounded-lg.shadow {
+    background-color: #ffffff !important;
   }
 
   /* Sort buttons - consistent in browser dark mode */
@@ -120,24 +221,34 @@ html.dark .theme-toggle-btn:hover {
   /* Preserve colored buttons in browser dark mode + web light mode */
   html:not(.dark) button.bg-blue-500,
   html:not(.dark) button.bg-blue-600,
-  html:not(.dark) label.bg-blue-600 {
+  html:not(.dark) label.bg-blue-600,
+  html:not(.dark) span.bg-blue-500 {
     background-color: #2563eb !important;
     color: #ffffff !important;
   }
 
-  html:not(.dark) button.bg-green-500 {
+  html:not(.dark) button.bg-green-500,
+  html:not(.dark) span.bg-green-500 {
     background-color: #22c55e !important;
     color: #ffffff !important;
   }
 
-  html:not(.dark) button.bg-orange-500 {
+  html:not(.dark) button.bg-orange-500,
+  html:not(.dark) span.bg-orange-500 {
     background-color: #f97316 !important;
     color: #ffffff !important;
   }
 
-  html:not(.dark) button.bg-red-500 {
+  html:not(.dark) button.bg-red-500,
+  html:not(.dark) span.bg-red-500 {
     background-color: #ef4444 !important;
     color: #ffffff !important;
+  }
+
+  /* Gray buttons (unselected tags) should be light gray */
+  html:not(.dark) button.bg-gray-200 {
+    background-color: #e5e7eb !important;
+    color: #1f2937 !important;
   }
   
   /* FORCE dark theme when html has .dark class */
@@ -159,9 +270,25 @@ html.dark .theme-toggle-btn:hover {
     border-color: #555555 !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn) {
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border) {
     background-color: #3a3a3a !important;
     color: #e5e5e5 !important;
+  }
+
+  /* Navigation buttons with border (Back, Share, etc) - transparent background in dark mode */
+  html.dark button.rounded-full.border:not(.filter-chip):not(.sort-btn):not(.feedback-btn),
+  html.dark a.rounded-full.border,
+  html.dark div.rounded-full.border {
+    background-color: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark button.rounded-full.border:not(.filter-chip):not(.sort-btn):not(.feedback-btn):hover,
+  html.dark a.rounded-full.border:hover,
+  html.dark div.rounded-full.border:hover {
+    background-color: #ffffff !important;
+    color: #171717 !important;
   }
 
   /* Preserve colored buttons in browser dark + web dark (first media query) */
@@ -224,9 +351,43 @@ html.dark .theme-toggle-btn:hover {
     background-color: #3a3a3a !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn) {
+  /* Generic buttons in dark mode - only apply to buttons without border class */
+  html.dark button.bg-gray-200,
+  html.dark button.bg-gray-700 {
     background-color: #3a3a3a !important;
     color: #e5e5e5 !important;
+  }
+
+  /* Navigation buttons (Back, Share, Bookmark container) should be transparent with border */
+  html.dark button.rounded-full.border:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.feedback-btn),
+  html.dark a.rounded-full.border,
+  html.dark div.rounded-full.border {
+    background-color: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark button.rounded-full.border:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.feedback-btn):hover,
+  html.dark a.rounded-full.border:hover,
+  html.dark div.rounded-full.border:hover {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+
+  /* Light theme navigation buttons - white background with border */
+  html:not(.dark) button.rounded-full.border:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.feedback-btn),
+  html:not(.dark) a.rounded-full.border,
+  html:not(.dark) div.rounded-full.border {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
+  }
+
+  html:not(.dark) button.rounded-full.border:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.feedback-btn):hover,
+  html:not(.dark) a.rounded-full.border:hover,
+  html:not(.dark) div.rounded-full.border:hover {
+    background-color: #171717 !important;
+    color: #ffffff !important;
   }
   
   /* Force Sort and Showing text to be white in dark mode */
@@ -379,11 +540,6 @@ html.dark #menu-category-dropdown-btn {
 /* Menu dropdown items container border in dark mode */
 html.dark #menu-category-dropdown-menu {
   border-color: #888888 !important;
-}
-
-/* Menu item cards border in dark mode - make border white */
-html.dark .menu-item-card {
-  border-color: #ffffff !important;
 }
 
 /* Filter chips - keep consistent look regardless of browser theme */

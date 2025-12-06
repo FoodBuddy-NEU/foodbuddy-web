@@ -82,6 +82,7 @@ export async function createUserProfile(
 /**
  * Update user profile
  * WHY: Allow users to modify their preferences and personal information
+ * Uses setDoc with merge to create document if it doesn't exist
  */
 export async function updateUserProfile(
   userId: string,
@@ -89,10 +90,10 @@ export async function updateUserProfile(
 ): Promise<void> {
   try {
     const userDocRef = doc(db, USERS_COLLECTION, userId);
-    await updateDoc(userDocRef, {
+    await setDoc(userDocRef, {
       ...updates,
       updatedAt: serverTimestamp(),
-    });
+    }, { merge: true });
   } catch (error) {
     console.error('Error updating user profile:', error);
     throw error;
@@ -168,12 +169,12 @@ export async function searchUsersByUsername(
   try {
     const usersRef = collection(db, USERS_COLLECTION);
     // Firestore doesn't support case-insensitive queries natively,
-    // so we search for the lowercase version and filter
+    // so we do a prefix search on username field
     const searchLower = searchTerm.toLowerCase();
     const q = query(
       usersRef,
-      where('displayName', '>=', searchLower),
-      where('displayName', '<=', searchLower + '\uf8ff'),
+      where('username', '>=', searchLower),
+      where('username', '<=', searchLower + '\uf8ff'),
       limit(maxResults)
     );
     
@@ -182,7 +183,23 @@ export async function searchUsersByUsername(
     
     snapshot.forEach((docSnap) => {
       if (docSnap.exists()) {
-        results.push(docSnap.data() as UserProfile);
+        const data = docSnap.data();
+        // Additional case-insensitive filter since Firestore comparison is case-sensitive
+        if (data.username && data.username.toLowerCase().startsWith(searchLower)) {
+          results.push({
+            userId: docSnap.id,
+            username: data.username || '',
+            email: data.email || '',
+            avatarUrl: data.avatarUrl,
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+            cravings: data.cravings || [],
+            favoriteCuisines: data.favoriteCuisines || [],
+            favoriteRestaurants: data.favoriteRestaurants || [],
+            dietaryRestrictions: data.dietaryRestrictions || [],
+            allergies: data.allergies || [],
+          });
+        }
       }
     });
     

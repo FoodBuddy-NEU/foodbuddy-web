@@ -2,9 +2,9 @@ name: CI - ESLint, Test & Build (All Must Pass)
 
 on:
   push:
-    branches: [main, develop, Yu, dev-test, color-bug-fix, 'fix-browser-color-mode-issue*', 'feat/**']
+    branches: [main, develop, Yu, dev-test, color-bug-fix, 'fix-browser-color-mode-issue*', 'implement-feedback-icon', 'feat/**']
   pull_request:
-    branches: [main, develop, Yu, dev-test, color-bug-fix, 'fix-browser-color-mode-issue*', 'feat/**']
+    branches: [main, develop, Yu, dev-test, color-bug-fix, 'fix-browser-color-mode-issue*', 'implement-feedback-icon', 'feat/**']
 
 jobs:
   ci:
