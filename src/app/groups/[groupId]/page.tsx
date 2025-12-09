@@ -115,6 +115,28 @@ export default function GroupChatPage() {
     };
   }, [search, memberIds]);
 
+  async function handleExitOrDisband() {
+    try {
+      if (!user?.uid) return;
+      if (user.uid === ownerId) {
+        const ok = confirm('Disband this group? This deletes all messages.');
+        if (!ok) return;
+        metaUnsubRef.current?.();
+        msgsUnsubRef.current?.();
+        await disbandGroup(groupId);
+        router.push('/groups');
+      } else {
+        metaUnsubRef.current?.();
+        msgsUnsubRef.current?.();
+        await removeGroupMember(groupId, user.uid);
+        router.push('/groups');
+      }
+    } catch (e) {
+      console.error('Exit/disband failed', e);
+      alert('Operation failed');
+    }
+  }
+
   return (
     <div className="mx-auto max-w-2xl h-[calc(100vh-80px)] flex flex-col border rounded-lg">
       <header className="px-4 py-3 border-b flex items-center gap-3">
@@ -157,27 +179,7 @@ export default function GroupChatPage() {
               {user && (memberIds.includes(user.uid) || user.uid === ownerId) ? (
                 <button
                   className="text-xs text-red-500 border border-red-500 rounded px-2 py-1 mb-3"
-                  onClick={async () => {
-                    try {
-                      if (user?.uid && user.uid === ownerId) {
-                        const ok = confirm('Disband this group? This deletes all messages.');
-                        if (ok) {
-                          metaUnsubRef.current?.();
-                          msgsUnsubRef.current?.();
-                          await disbandGroup(groupId);
-                          router.push('/groups');
-                        }
-                      } else if (user?.uid) {
-                        metaUnsubRef.current?.();
-                        msgsUnsubRef.current?.();
-                        await removeGroupMember(groupId, user.uid);
-                        router.push('/groups');
-                      }
-                    } catch (e) {
-                      console.error('Exit/disband failed', e);
-                      alert('Operation failed');
-                    }
-                  }}
+                  onClick={handleExitOrDisband}
                 >
                   {user?.uid === ownerId ? 'Disband Group' : 'Exit Group'}
                 </button>
