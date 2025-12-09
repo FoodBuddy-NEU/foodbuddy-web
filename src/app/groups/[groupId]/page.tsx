@@ -69,7 +69,10 @@ export default function GroupChatPage() {
   }, [groupId]);
 
   useEffect(() => {
-    const ids = Array.from(new Set(messages.map((m) => m.senderId))).filter((id) => !profiles[id]);
+    const ids = Array.from(new Set([
+      ...messages.map((m) => m.senderId),
+      ...memberIds,
+    ])).filter((id) => !profiles[id]);
     if (!ids.length) return;
     (async () => {
       const entries = await Promise.all(
@@ -88,7 +91,7 @@ export default function GroupChatPage() {
         return next;
       });
     })();
-  }, [messages, profiles]);
+  }, [messages, memberIds, profiles]);
 
   useEffect(() => {
     let active = true;
@@ -109,29 +112,66 @@ export default function GroupChatPage() {
   return (
     <div className="mx-auto max-w-2xl h-[calc(100vh-80px)] flex flex-col border rounded-lg">
       <header className="px-4 py-3 border-b flex items-center gap-3">
-        <Link href="/groups" className="text-sm text-muted-foreground hover:underline">← Back</Link>
+        <Link href="/groups" className="text-sm text-muted-foreground hover:underline">
+          ← Back
+        </Link>
         <div className="font-semibold">Group chat – {groupName ?? groupId}</div>
-        <button className="ml-auto text-xs border rounded px-2 py-1" onClick={() => setShowManage((v) => !v)}>
+        <button
+          className="ml-auto text-xs border rounded px-2 py-1"
+          onClick={() => setShowManage((v) => !v)}
+        >
           {showManage ? 'Close' : 'Manage members'}
         </button>
       </header>
 
       {showManage && (
         <div className="border-b p-3 text-sm flex flex-col gap-2">
-          <div className="flex gap-2">
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search usernames…"
-              className="flex-1 rounded border px-2 py-1"
-            />
-          </div>
+          {memberIds.length > 0 && (
+            <div>
+              <div className="text-md font-semibold text-muted-foreground">Group Members</div>
+              <ul className="space-y-1 mt-1 mb-3">
+                {memberIds.map((id) => {
+                  const p = profiles[id];
+                  const name = p?.username || id;
+                  const avatar = p?.avatarUrl || '/icon.png';
+                  return (
+                    <li key={id} className="flex items-center gap-2">
+                      <Image
+                        src={avatar}
+                        alt={name}
+                        width={20}
+                        height={20}
+                        className="rounded-full object-cover"
+                      />
+                      <span>{name}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="text-md font-semibold text-muted-foreground mb-2">Search More Members</div>
+              <div className="flex gap-2">
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search usernames…"
+                  className="flex-1 rounded border px-2 py-1"
+                />
+              </div>
+            </div>
+          )}
+
           {results.length > 0 ? (
             <ul className="space-y-2">
               {results.map((u) => (
                 <li key={u.userId} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Image src={u.avatarUrl || '/icon.png'} alt={u.username} width={24} height={24} className="rounded-full object-cover" />
+                    <Image
+                      src={u.avatarUrl || '/icon.png'}
+                      alt={u.username}
+                      width={24}
+                      height={24}
+                      className="rounded-full object-cover"
+                    />
                     <span>{u.username}</span>
                   </div>
                   <button
@@ -160,7 +200,9 @@ export default function GroupChatPage() {
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-muted/40">
         {messages.length === 0 ? (
-          <div className="mt-8 text-center text-sm text-muted-foreground">No messages yet. Say hi 👋</div>
+          <div className="mt-8 text-center text-sm text-muted-foreground">
+            No messages yet. Say hi 👋
+          </div>
         ) : (
           messages.map((m) => (
             <MessageBubble
