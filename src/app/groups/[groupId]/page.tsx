@@ -1,12 +1,12 @@
 // /Users/yachenwang/Desktop/Foodbuddy-Web/foodbuddy-web/src/app/group/[groupId]/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import type { ChatMessage } from '@/types/chatType';
-import { subscribeGroupMessages, subscribeGroupMeta, addGroupMember } from '@/lib/chat';
+import { subscribeGroupMessages, subscribeGroupMeta, addGroupMember, removeGroupMember, disbandGroup } from '@/lib/chat';
 import { getUserProfile, searchUsersByUsername } from '@/lib/userProfile';
 import { useAuth } from '@/lib/AuthProvider';
 import { ChatInput } from '@/app/groups/chatInput';
@@ -21,9 +21,12 @@ export default function GroupChatPage() {
   const [profiles, setProfiles] = useState<Record<string, { username?: string; avatarUrl?: string }>>({});
   const [groupName, setGroupName] = useState<string | null>(null);
   const [memberIds, setMemberIds] = useState<string[]>([]);
+  const [ownerId, setOwnerId] = useState<string | undefined>(undefined);
   const [showManage, setShowManage] = useState(false);
   const [search, setSearch] = useState('');
   const [results, setResults] = useState<Array<{ userId: string; username: string; avatarUrl?: string }>>([]);
+  const metaUnsubRef = useRef<(() => void) | null>(null);
+  const msgsUnsubRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (loading) return;
@@ -58,13 +61,16 @@ export default function GroupChatPage() {
     const unsub = subscribeGroupMeta(groupId, (d) => {
       setGroupName((d.name as string) ?? null);
       setMemberIds(Array.isArray(d.memberIds) ? d.memberIds : []);
+      setOwnerId(typeof d.ownerId === 'string' ? d.ownerId : undefined);
     });
+    metaUnsubRef.current = unsub;
     return () => unsub();
   }, [groupId]);
 
   useEffect(() => {
     if (!groupId) return;
     const unsubscribe = subscribeGroupMessages(groupId, setMessages);
+    msgsUnsubRef.current = unsubscribe;
     return () => unsubscribe();
   }, [groupId]);
 
@@ -148,6 +154,34 @@ export default function GroupChatPage() {
                   );
                 })}
               </ul>
+              {user && (memberIds.includes(user.uid) || user.uid === ownerId) ? (
+                <button
+                  className="text-xs text-red-500 border border-red-500 rounded px-2 py-1 mb-3"
+                  onClick={async () => {
+                    try {
+                      if (user?.uid && user.uid === ownerId) {
+                        const ok = confirm('Disband this group? This deletes all messages.');
+                        if (ok) {
+                          metaUnsubRef.current?.();
+                          msgsUnsubRef.current?.();
+                          await disbandGroup(groupId);
+                          router.push('/groups');
+                        }
+                      } else if (user?.uid) {
+                        metaUnsubRef.current?.();
+                        msgsUnsubRef.current?.();
+                        await removeGroupMember(groupId, user.uid);
+                        router.push('/groups');
+                      }
+                    } catch (e) {
+                      console.error('Exit/disband failed', e);
+                      alert('Operation failed');
+                    }
+                  }}
+                >
+                  {user?.uid === ownerId ? 'Disband Group' : 'Exit Group'}
+                </button>
+              ) : null}
               <div className="text-md font-semibold text-muted-foreground mb-2">Search More Members</div>
               <div className="flex gap-2">
                 <input
