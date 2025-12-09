@@ -117,17 +117,23 @@ export default function GroupChatPage() {
 
   async function handleExitOrDisband() {
     try {
+      // Unsubscribe listeners before changing membership or deleting the group.
+      // Otherwise active snapshots will immediately fail under stricter rules
+      // when the user loses access or the group doc disappears, spamming the console.
+      metaUnsubRef.current?.();
+      msgsUnsubRef.current?.();
+
       if (!user?.uid) return;
       if (user.uid === ownerId) {
+        // Owners disband instead of exit. Confirm first; then delete messages
+        // via server-side helpers and remove the group. This prevents orphaned
+        // subcollection docs and enforces ownership semantics.
         const ok = confirm('Disband this group? This deletes all messages.');
         if (!ok) return;
-        metaUnsubRef.current?.();
-        msgsUnsubRef.current?.();
         await disbandGroup(groupId);
         router.push('/groups');
       } else {
-        metaUnsubRef.current?.();
-        msgsUnsubRef.current?.();
+        // Regular members simply remove themselves from memberIds
         await removeGroupMember(groupId, user.uid);
         router.push('/groups');
       }

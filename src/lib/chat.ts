@@ -60,8 +60,12 @@ export async function removeGroupMember(groupId: string, uid: string): Promise<v
 export async function disbandGroup(groupId: string): Promise<void> {
   const groupRef = doc(db, 'groups', groupId);
   const messagesRef = collection(db, 'groups', groupId, 'messages');
+  // Delete messages first so no subcollection docs remain; many providers
+  // require explicit cleanup of subcollections, and rules often reference
+  // the parent doc for membership checks, which would deny access once deleted.
   const snap = await getDocs(messagesRef);
   await Promise.all(snap.docs.map((d) => deleteDoc(d.ref)));
+  // Finally delete the group document
   await deleteDoc(groupRef);
 }
 
