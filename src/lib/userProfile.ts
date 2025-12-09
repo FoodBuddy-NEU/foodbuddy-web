@@ -8,11 +8,9 @@ import {
   serverTimestamp,
   collection,
   query,
-  orderBy,
-  startAt,
-  endAt,
-  getDocs,
+  where,
   limit,
+  getDocs,
 } from 'firebase/firestore';
 import { UserProfile, UserProfileUpdate } from '@/types/userProfile';
 
@@ -65,7 +63,6 @@ export async function createUserProfile(
     const userDocRef = doc(db, USERS_COLLECTION, userId);
     await setDoc(userDocRef, {
       username,
-      usernameLower: username.toLowerCase(),
       email,
       avatarUrl: avatarUrl || null,
       createdAt: serverTimestamp(),
@@ -85,34 +82,19 @@ export async function createUserProfile(
 /**
  * Update user profile
  * WHY: Allow users to modify their preferences and personal information
+ * Uses setDoc with merge to create document if it doesn't exist
  */
 export async function updateUserProfile(
   userId: string,
   updates: UserProfileUpdate
 ): Promise<void> {
-  const userDocRef = doc(db, USERS_COLLECTION, userId);
   try {
-    await updateDoc(userDocRef, {
+    const userDocRef = doc(db, USERS_COLLECTION, userId);
+    await setDoc(userDocRef, {
       ...updates,
-      ...(updates.username ? { usernameLower: updates.username.toLowerCase() } : {}),
       updatedAt: serverTimestamp(),
-    });
+    }, { merge: true });
   } catch (error) {
-    try {
-      const snap = await getDoc(userDocRef);
-      if (!snap.exists()) {
-        await setDoc(
-          userDocRef,
-          {
-            ...updates,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
-          },
-          { merge: true }
-        );
-        return;
-      }
-    } catch {}
     console.error('Error updating user profile:', error);
     throw error;
   }
@@ -176,14 +158,54 @@ export async function removeFromUserArray(
   }
 }
 
-export async function searchUsersByUsername(term: string, max: number = 10): Promise<Array<{ userId: string; username: string; avatarUrl?: string }>> {
-  const t = term.trim().toLowerCase();
-  if (!t) return [];
-  const colRef = collection(db, USERS_COLLECTION);
-  const q = query(colRef, orderBy('usernameLower'), startAt(t), endAt(t + '\uf8ff'), limit(max));
-  const snap = await getDocs(q);
-  return snap.docs.map((d) => {
-    const data = d.data() as { username?: string; avatarUrl?: string };
-    return { userId: d.id, username: data.username ?? d.id, avatarUrl: data.avatarUrl };
-  });
+/**
+ * Search users by username (case-insensitive prefix search)
+ * WHY: Allow users to find other users to add to groups
+ */
+export async function searchUsersByUsername(
+  searchTerm: string,
+  maxResults: number = 10
+): Promise<UserProfile[]> {
+  try {
+    const usersRef = collection(db, USERS_COLLECTION);
+    // Firestore doesn't support case-insensitive queries natively,
+    // so we do a prefix search on username field
+    const searchLower = searchTerm.toLowerCase();
+    const q = query(
+      usersRef,
+      where('username', '>=', searchLower),
+      where('username', '<=', searchLower + '\uf8ff'),
+      limit(maxResults)
+    );
+    
+    const snapshot = await getDocs(q);
+    const results: UserProfile[] = [];
+    
+    snapshot.forEach((docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        // Additional case-insensitive filter since Firestore comparison is case-sensitive
+        if (data.username && data.username.toLowerCase().startsWith(searchLower)) {
+          results.push({
+            userId: docSnap.id,
+            username: data.username || '',
+            email: data.email || '',
+            avatarUrl: data.avatarUrl,
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+            cravings: data.cravings || [],
+            favoriteCuisines: data.favoriteCuisines || [],
+            favoriteRestaurants: data.favoriteRestaurants || [],
+            dietaryRestrictions: data.dietaryRestrictions || [],
+            allergies: data.allergies || [],
+          });
+        }
+      }
+    });
+    
+    return results;
+  } catch (error) {
+    console.error('Error searching users by username:', error);
+    return [];
+  }
 }

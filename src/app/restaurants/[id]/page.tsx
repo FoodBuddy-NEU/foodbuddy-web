@@ -5,7 +5,7 @@ import data from '@/data/restaurants.json';
 import cloudinary from '@/lib/cloudinary';
 import BookmarkButton from '@/components/BookmarkButton';
 import ShareButton from '@/components/ShareButton';
-import FeedbackButton from '@/components/FeedbackButton';
+import UnifiedFeedbackButton from '@/components/UnifiedFeedbackButton';
 import MenuCategorySelector from '@/components/MenuCategorySelector';
 import { calculateDistance, DEFAULT_USER_ADDRESS } from '@/lib/distance';
 import { formatDistance, getRestaurantSummary, getDealValidString } from '@/lib/restaurantUtils';
@@ -79,17 +79,20 @@ export default async function RestaurantDetailPage({
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <div className="mb-4 flex gap-2">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
-        >
-          ← Back
-        </Link>
-        <ShareButton restaurantId={restaurant.id} restaurantName={restaurant.name} />
-        <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
-          <BookmarkButton restaurantId={String(restaurant.id)} />
+      <div className="mb-4 flex justify-between items-center">
+        <div className="flex gap-2">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+          >
+            ← Back
+          </Link>
+          <ShareButton restaurantId={restaurant.id} restaurantName={restaurant.name} />
+          <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+            <BookmarkButton restaurantId={String(restaurant.id)} />
+          </div>
         </div>
+        <UnifiedFeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} />
       </div>
 
       <h1 className="text-2xl font-bold">{restaurant.name}</h1>
@@ -143,14 +146,11 @@ export default async function RestaurantDetailPage({
         </div>
       ) : null}
 
-      {/* Address + Phone + Distance + Feedback Button */}
+      {/* Address + Phone + Distance */}
       <div className="mt-4 text-sm text-gray-700 dark:text-white space-y-1">
         {distance ? <div>📍 {distance}</div> : null}
         {restaurant.address ? <div>{restaurant.address}</div> : null}
         {restaurant.phone ? <div>☎ {restaurant.phone}</div> : null}
-      </div>
-      <div className="mt-2 flex items-center">
-        <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="contact" />
       </div>
 
       <p className="mt-2 text-sm text-gray-700 dark:text-white">{summary}</p>
@@ -163,7 +163,7 @@ export default async function RestaurantDetailPage({
           restaurant.deals.map((d: any) => {
             const valid = getDealValidString(d);
             return (
-              <Link key={d.id} href={`/restaurants/${restaurant.id}/deals/${d.id}`}>
+              <Link key={d.id} href={`/restaurants/${restaurant.id}/deals/${d.id}`} className="block">
                 <div className="deal-card rounded-xl border p-4 cursor-pointer transition-colors">
                   <div className="font-medium">{d.title}</div>
                   {d.description ? <div className="mt-1 text-sm">{d.description}</div> : null}
@@ -184,10 +184,7 @@ export default async function RestaurantDetailPage({
       </div>
 
       {/* Menus */}
-      <div className="mt-8 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Menu</h2>
-        <FeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} type="menu" />
-      </div>
+      <h2 className="mt-8 text-lg font-semibold">Menu</h2>
       {restaurant.menus && restaurant.menus.length > 0 ? (
         <div className="mt-4">
           <MenuCategorySelector menus={restaurant.menus} />

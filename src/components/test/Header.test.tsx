@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Header from '../Header';
 
 jest.mock('@/components/ThemeToggle', () => ({
@@ -7,13 +7,20 @@ jest.mock('@/components/ThemeToggle', () => ({
 }));
 
 describe('Header', () => {
-  it('renders site name, nav links, and theme toggle', () => {
+  it('renders site name, nav links, and theme toggle', async () => {
     render(<Header />);
+    
+    // Check for site name
     expect(screen.getByText('FoodBuddy')).toBeInTheDocument();
+    
+    // Check for nav links
     expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /bookmarks/i })).toBeInTheDocument();
+    
     // Two ThemeToggle instances: one for desktop, one for mobile
-    expect(screen.getAllByTestId('theme-toggle')).toHaveLength(2);
+    await waitFor(() => {
+      expect(screen.getAllByTestId('theme-toggle')).toHaveLength(2);
+    });
   });
 
   it('toggles mobile menu when hamburger button is clicked', () => {
@@ -34,3 +41,4 @@ describe('Header', () => {
     expect(menuButton).toHaveAttribute('aria-expanded', 'false');
   });
 });
+
