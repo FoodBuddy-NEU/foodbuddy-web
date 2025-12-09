@@ -10,9 +10,9 @@ export default function Header() {
   return (
     <header className="border-b">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-        {/* Left: your logo/site name */}
-        <Link href="/" className="font-semibold">
-          FoodBuddy
+        {/* Left: logo/site name */}
+        <Link href="/" className="flex items-center gap-2 font-semibold">
+          <span>FoodBuddy</span>
         </Link>
 
         {/* Desktop Navigation - hidden on mobile */}
@@ -33,7 +33,7 @@ export default function Header() {
           </div>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+            className="p-2 hover:bg-gray-100 rounded"
             aria-label="Menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -65,32 +65,32 @@ export default function Header() {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-t bg-white dark:bg-gray-900">
+        <div className="sm:hidden border-t bg-white">
           <nav className="flex flex-col">
             <Link
               href="/"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 border-b"
+              className="px-4 py-3 hover:bg-gray-100 border-b"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/bookmarks"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 border-b"
+              className="px-4 py-3 hover:bg-gray-100 border-b"
               onClick={() => setMobileMenuOpen(false)}
             >
               Bookmarks
             </Link>
             <Link
               href="/groups"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 border-b"
+              className="px-4 py-3 hover:bg-gray-100 border-b"
               onClick={() => setMobileMenuOpen(false)}
             >
               Group Chat
             </Link>
             <Link
               href="/profile"
-              className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="px-4 py-3 hover:bg-gray-100"
               onClick={() => setMobileMenuOpen(false)}
             >
               Profile
@@ -101,3 +101,4 @@ export default function Header() {
     </header>
   );
 }
+

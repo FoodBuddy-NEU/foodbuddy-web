@@ -12,6 +12,50 @@ import { useAuth } from '@/lib/AuthProvider';
 import { ChatInput } from '@/app/groups/chatInput';
 import { MessageBubble } from '../../../components/MessageBubble';
 
+// Convert Cloudinary HEIC URLs to JPG format for browser compatibility
+function convertCloudinaryUrl(url: string): string {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  
+  // If URL ends with .heic, replace with .jpg
+  if (url.toLowerCase().endsWith('.heic')) {
+    return url.replace(/\.heic$/i, '.jpg');
+  }
+  
+  // Add f_auto to auto-convert format if not already present
+  if (url.includes('/upload/') && !url.includes('f_auto')) {
+    return url.replace('/upload/', '/upload/f_auto/');
+  }
+  
+  return url;
+}
+
+// Avatar component with error handling
+function UserAvatar({ avatarUrl, username }: { avatarUrl?: string; username: string }) {
+  const [imgError, setImgError] = useState(false);
+  
+  // Convert HEIC to JPG for browser compatibility
+  const processedUrl = avatarUrl ? convertCloudinaryUrl(avatarUrl) : undefined;
+  
+  if (!processedUrl || imgError) {
+    return (
+      <div className="w-6 h-6 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center text-xs text-gray-600 dark:text-gray-300">
+        {username?.charAt(0).toUpperCase() || '?'}
+      </div>
+    );
+  }
+  
+  return (
+    <Image 
+      src={processedUrl} 
+      alt={username} 
+      width={24} 
+      height={24} 
+      className="rounded-full object-cover"
+      onError={() => setImgError(true)}
+    />
+  );
+}
+
 export default function GroupChatPage() {
   const params = useParams<{ groupId: string }>();
   const groupId = params.groupId;
@@ -99,6 +143,7 @@ export default function GroupChatPage() {
         return;
       }
       const r = await searchUsersByUsername(t, 8);
+      console.log('Search results:', JSON.stringify(r, null, 2));
       if (active) setResults(r.filter((u) => !memberIds.includes(u.userId)));
     })();
     return () => {
@@ -131,7 +176,7 @@ export default function GroupChatPage() {
               {results.map((u) => (
                 <li key={u.userId} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Image src={u.avatarUrl || '/icon.png'} alt={u.username} width={24} height={24} className="rounded-full object-cover" />
+                    <UserAvatar avatarUrl={u.avatarUrl} username={u.username} />
                     <span>{u.username}</span>
                   </div>
                   <button
