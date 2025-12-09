@@ -1,12 +1,12 @@
 // /Users/yachenwang/Desktop/Foodbuddy-Web/foodbuddy-web/src/app/group/[groupId]/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import type { ChatMessage } from '@/types/chatType';
-import { subscribeGroupMessages, subscribeGroupMeta, addGroupMember } from '@/lib/chat';
+import { subscribeGroupMessages, subscribeGroupMeta, addGroupMember, removeGroupMember, disbandGroup } from '@/lib/chat';
 import { getUserProfile, searchUsersByUsername } from '@/lib/userProfile';
 import { useAuth } from '@/lib/AuthProvider';
 import { ChatInput } from '@/app/groups/chatInput';
@@ -65,9 +65,12 @@ export default function GroupChatPage() {
   const [profiles, setProfiles] = useState<Record<string, { username?: string; avatarUrl?: string }>>({});
   const [groupName, setGroupName] = useState<string | null>(null);
   const [memberIds, setMemberIds] = useState<string[]>([]);
+  const [ownerId, setOwnerId] = useState<string | undefined>(undefined);
   const [showManage, setShowManage] = useState(false);
   const [search, setSearch] = useState('');
   const [results, setResults] = useState<Array<{ userId: string; username: string; avatarUrl?: string }>>([]);
+  const metaUnsubRef = useRef<(() => void) | null>(null);
+  const msgsUnsubRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (loading) return;
@@ -102,18 +105,24 @@ export default function GroupChatPage() {
     const unsub = subscribeGroupMeta(groupId, (d) => {
       setGroupName((d.name as string) ?? null);
       setMemberIds(Array.isArray(d.memberIds) ? d.memberIds : []);
+      setOwnerId(typeof d.ownerId === 'string' ? d.ownerId : undefined);
     });
+    metaUnsubRef.current = unsub;
     return () => unsub();
   }, [groupId]);
 
   useEffect(() => {
     if (!groupId) return;
     const unsubscribe = subscribeGroupMessages(groupId, setMessages);
+    msgsUnsubRef.current = unsubscribe;
     return () => unsubscribe();
   }, [groupId]);
 
   useEffect(() => {
-    const ids = Array.from(new Set(messages.map((m) => m.senderId))).filter((id) => !profiles[id]);
+    const ids = Array.from(new Set([
+      ...messages.map((m) => m.senderId),
+      ...memberIds,
+    ])).filter((id) => !profiles[id]);
     if (!ids.length) return;
     (async () => {
       const entries = await Promise.all(
@@ -132,7 +141,7 @@ export default function GroupChatPage() {
         return next;
       });
     })();
-  }, [messages, profiles]);
+  }, [messages, memberIds, profiles]);
 
   useEffect(() => {
     let active = true;
@@ -151,31 +160,105 @@ export default function GroupChatPage() {
     };
   }, [search, memberIds]);
 
+  async function handleExitOrDisband() {
+    try {
+      // Unsubscribe listeners before changing membership or deleting the group.
+      // Otherwise active snapshots will immediately fail under stricter rules
+      // when the user loses access or the group doc disappears, spamming the console.
+      metaUnsubRef.current?.();
+      msgsUnsubRef.current?.();
+
+      if (!user?.uid) return;
+      if (user.uid === ownerId) {
+        // Owners disband instead of exit. Confirm first; then delete messages
+        // via server-side helpers and remove the group. This prevents orphaned
+        // subcollection docs and enforces ownership semantics.
+        const ok = confirm('Disband this group? This deletes all messages.');
+        if (!ok) return;
+        await disbandGroup(groupId);
+        router.push('/groups');
+      } else {
+        // Regular members simply remove themselves from memberIds
+        await removeGroupMember(groupId, user.uid);
+        router.push('/groups');
+      }
+    } catch (e) {
+      console.error('Exit/disband failed', e);
+      alert('Operation failed');
+    }
+  }
+
   return (
     <div className="mx-auto max-w-2xl h-[calc(100vh-80px)] flex flex-col border rounded-lg">
       <header className="px-4 py-3 border-b flex items-center gap-3">
-        <Link href="/groups" className="text-sm text-muted-foreground hover:underline">← Back</Link>
+        <Link href="/groups" className="text-sm text-muted-foreground hover:underline">
+          ← Back
+        </Link>
         <div className="font-semibold">Group chat – {groupName ?? groupId}</div>
-        <button className="ml-auto text-xs border rounded px-2 py-1" onClick={() => setShowManage((v) => !v)}>
+        <button
+          className="ml-auto text-xs border rounded px-2 py-1"
+          onClick={() => setShowManage((v) => !v)}
+        >
           {showManage ? 'Close' : 'Manage members'}
         </button>
       </header>
 
       {showManage && (
         <div className="border-b p-3 text-sm flex flex-col gap-2">
-          <div className="flex gap-2">
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search usernames…"
-              className="flex-1 rounded border px-2 py-1"
-            />
-          </div>
+          {memberIds.length > 0 && (
+            <div>
+              <div className="text-md font-semibold text-muted-foreground">Group Members</div>
+              <ul className="space-y-1 mt-1 mb-3">
+                {memberIds.map((id) => {
+                  const p = profiles[id];
+                  const name = p?.username || id;
+                  const avatar = p?.avatarUrl || '/icon.png';
+                  return (
+                    <li key={id} className="flex items-center gap-2">
+                      <Image
+                        src={avatar}
+                        alt={name}
+                        width={20}
+                        height={20}
+                        className="rounded-full object-cover"
+                      />
+                      <span>{name}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              {user && (memberIds.includes(user.uid) || user.uid === ownerId) ? (
+                <button
+                  className="text-xs text-red-500 border border-red-500 rounded px-2 py-1 mb-3"
+                  onClick={handleExitOrDisband}
+                >
+                  {user?.uid === ownerId ? 'Disband Group' : 'Exit Group'}
+                </button>
+              ) : null}
+              <div className="text-md font-semibold text-muted-foreground mb-2">Search More Members</div>
+              <div className="flex gap-2">
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search usernames…"
+                  className="flex-1 rounded border px-2 py-1"
+                />
+              </div>
+            </div>
+          )}
+
           {results.length > 0 ? (
             <ul className="space-y-2">
               {results.map((u) => (
                 <li key={u.userId} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
+                    <Image
+                      src={u.avatarUrl || '/icon.png'}
+                      alt={u.username}
+                      width={24}
+                      height={24}
+                      className="rounded-full object-cover"
+                    />
                     <UserAvatar avatarUrl={u.avatarUrl} username={u.username} />
                     <span>{u.username}</span>
                   </div>
@@ -205,7 +288,9 @@ export default function GroupChatPage() {
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-muted/40">
         {messages.length === 0 ? (
-          <div className="mt-8 text-center text-sm text-muted-foreground">No messages yet. Say hi 👋</div>
+          <div className="mt-8 text-center text-sm text-muted-foreground">
+            No messages yet. Say hi 👋
+          </div>
         ) : (
           messages.map((m) => (
             <MessageBubble
