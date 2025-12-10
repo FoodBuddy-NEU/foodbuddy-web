@@ -1,6 +1,212 @@
 @import 'tailwindcss';
 
 /* ========================================
+   GLOBAL PROTECTION: Disable browser color-scheme interference
+   This prevents browser dark/light mode from affecting our styles
+   Our theme is ONLY controlled by the .dark class on <html>
+   ======================================== */
+
+/* ========================================
+   Group Chat Dining Settings - Custom Classes
+   ======================================== */
+/* Restaurant selected box - light theme */
+.dining-restaurant-selected {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+/* Restaurant selected box - dark theme */
+html.dark .dining-restaurant-selected {
+  background-color: rgba(20, 83, 45, 0.2);
+  border-color: #166534;
+}
+
+/* Restaurant link - light theme */
+.dining-restaurant-link {
+  color: #2563eb;
+}
+
+/* Restaurant link - dark theme */
+html.dark .dining-restaurant-link {
+  color: #60a5fa;
+}
+
+/* Restaurant list - light theme */
+.dining-restaurant-list {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+}
+
+/* Restaurant list - dark theme */
+html.dark .dining-restaurant-list {
+  background-color: #374151;
+  border-color: #4b5563;
+}
+
+/* Restaurant list item hover - light theme */
+.dining-restaurant-item:hover {
+  background-color: #f9fafb;
+}
+
+/* Restaurant list item hover - dark theme */
+html.dark .dining-restaurant-item:hover {
+  background-color: #4b5563;
+}
+
+/* Force color-scheme to always be light - browser won't auto-apply dark styles */
+:root {
+  color-scheme: light only;
+}
+
+/* Even when our app is in dark mode, we control it via .dark class, not browser */
+html.dark {
+  color-scheme: dark only;
+}
+
+/* Nullify any browser dark mode interference */
+@media (prefers-color-scheme: dark) {
+  :root:not(.dark) {
+    color-scheme: light only;
+  }
+}
+
+/* ========================================
+   HIGHEST PRIORITY: Force transparent background for specific buttons
+   These rules override ALL other styles including browser dark mode
+   ======================================== */
+button.upm-close,
+button.upm-close:hover,
+button.upm-close:focus,
+html.dark button.upm-close,
+html.dark button.upm-close:hover,
+html.dark button.upm-close:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+button.username-link,
+button.username-link:hover,
+button.username-link:focus,
+html.dark button.username-link,
+html.dark button.username-link:hover,
+html.dark button.username-link:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Force consistent username link colors across browser modes */
+/* Light theme: black color */
+html:not(.dark) button.username-link,
+html:not(.dark) .username-link {
+  color: #171717 !important;
+}
+
+html:not(.dark) button.username-link:hover,
+html:not(.dark) .username-link:hover {
+  color: #2563eb !important;
+  text-decoration: underline !important;
+}
+
+/* Dark theme: white color */
+html.dark button.username-link,
+html.dark .username-link {
+  color: #ffffff !important;
+}
+
+html.dark button.username-link:hover,
+html.dark .username-link:hover {
+  color: #93c5fd !important;
+  text-decoration: underline !important;
+}
+
+/* Override browser dark mode interference for light theme */
+@media (prefers-color-scheme: dark) {
+  html:not(.dark) button.username-link,
+  html:not(.dark) .username-link {
+    color: #171717 !important;
+  }
+  
+  html:not(.dark) button.username-link:hover,
+  html:not(.dark) .username-link:hover {
+    color: #2563eb !important;
+    text-decoration: underline !important;
+  }
+}
+
+/* Also ensure browser light mode doesn't interfere */
+@media (prefers-color-scheme: light) {
+  html:not(.dark) button.username-link,
+  html:not(.dark) .username-link {
+    color: #171717 !important;
+  }
+  
+  html:not(.dark) button.username-link:hover,
+  html:not(.dark) .username-link:hover {
+    color: #2563eb !important;
+    text-decoration: underline !important;
+  }
+  
+  html.dark button.username-link,
+  html.dark .username-link {
+    color: #ffffff !important;
+  }
+  
+  html.dark button.username-link:hover,
+  html.dark .username-link:hover {
+    color: #93c5fd !important;
+    text-decoration: underline !important;
+  }
+}
+
+button.tab-btn,
+button.tab-btn:hover,
+button.tab-btn:focus,
+html.dark button.tab-btn,
+html.dark button.tab-btn:hover,
+html.dark button.tab-btn:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* ========================================
+   User Profile Modal - Force light theme styles
+   These rules ensure correct display regardless of browser color scheme
+   ======================================== */
+.user-profile-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.user-profile-modal-content {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  color-scheme: light !important;
+}
+
+.profile-tag {
+  color-scheme: light !important;
+}
+
+.profile-tag-blue {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+}
+
+.profile-tag-green {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.profile-tag-orange {
+  background-color: #ffedd5 !important;
+  color: #9a3412 !important;
+}
+
+.profile-tag-red {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+/* ========================================
    Feedback Button - Blue background, white text
    ======================================== */
 .feedback-btn {
@@ -76,10 +282,23 @@ html.dark .theme-toggle-btn:hover {
 /* FORCE light theme when browser is in dark mode */
 @media (prefers-color-scheme: dark) {
   html:not(.dark),
-  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200) {
+  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200):not([class*="upm-"]):not(.username-link) {
     background-color: unset !important;
     color: unset !important;
     border-color: unset !important;
+  }
+  
+  /* Force username-link colors in browser dark mode */
+  html:not(.dark) .username-link,
+  html:not(.dark) button.username-link {
+    color: #171717 !important;
+    background: transparent !important;
+  }
+  
+  html:not(.dark) .username-link:hover,
+  html:not(.dark) button.username-link:hover {
+    color: #2563eb !important;
+    background: transparent !important;
   }
 
   /* Feedback button must stay blue - override the unset rule above */
@@ -112,7 +331,7 @@ html.dark .theme-toggle-btn:hover {
     border-color: #cccccc !important;
   }
   
-  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full) {
+  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn) {
     background-color: #f5f5f5 !important;
     color: #171717 !important;
   }
@@ -250,6 +469,179 @@ html.dark .theme-toggle-btn:hover {
     background-color: #e5e7eb !important;
     color: #1f2937 !important;
   }
+
+  /* ========================================
+     UserProfileModal - Browser dark mode + Light theme fixes
+     ======================================== */
+  /* Modal backdrop - use attribute selector for Tailwind escaped class */
+  html:not(.dark) [class*="bg-black"] {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Modal content box */
+  html:not(.dark) .rounded-lg.p-6 {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+
+  /* Cravings tags - blue */
+  html:not(.dark) .bg-blue-100 {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+  }
+
+  html:not(.dark) span.bg-blue-100 {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+  }
+
+  /* Cuisines tags - green */
+  html:not(.dark) .bg-green-100 {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+  }
+
+  html:not(.dark) span.bg-green-100 {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+  }
+
+  /* Dietary Restrictions tags - orange */
+  html:not(.dark) .bg-orange-100 {
+    background-color: #ffedd5 !important;
+    color: #9a3412 !important;
+  }
+
+  html:not(.dark) span.bg-orange-100 {
+    background-color: #ffedd5 !important;
+    color: #9a3412 !important;
+  }
+
+  /* Allergies tags - red */
+  html:not(.dark) .bg-red-100 {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+  }
+
+  html:not(.dark) span.bg-red-100 {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+  }
+
+  /* Avatar placeholder */
+  html:not(.dark) .bg-gray-300 {
+    background-color: #d1d5db !important;
+  }
+
+  html:not(.dark) [class*="text-gray-600"] {
+    color: #4b5563 !important;
+  }
+
+  /* ========================================
+     Group Chat Dining Settings - Browser dark mode + Light theme fixes
+     ======================================== */
+  /* Dining settings panel border and background */
+  html:not(.dark) .border-b.p-3 {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  /* Date/Time input fields */
+  html:not(.dark) input[type="date"],
+  html:not(.dark) select {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #d1d5db !important;
+  }
+
+  /* Restaurant selected - green background - FORCE light theme colors */
+  html:not(.dark) .bg-green-50,
+  html:not(.dark) [class*="bg-green-50"],
+  html:not(.dark) div[class*="bg-green-50"] {
+    background-color: #f0fdf4 !important;
+  }
+
+  /* Override dark:bg-green-900/20 - this is the key fix */
+  html:not(.dark) [class*="dark\:bg-green-900"],
+  html:not(.dark) div[class*="dark\:bg-green-900"] {
+    background-color: #f0fdf4 !important;
+  }
+
+  html:not(.dark) .border-green-200,
+  html:not(.dark) [class*="border-green-200"] {
+    border-color: #bbf7d0 !important;
+  }
+
+  /* Override dark:border-green-800 */
+  html:not(.dark) [class*="dark\:border-green-800"] {
+    border-color: #bbf7d0 !important;
+  }
+
+  /* Restaurant link - blue text - override dark:text-blue-400 */
+  html:not(.dark) .text-blue-600,
+  html:not(.dark) [class*="text-blue-600"] {
+    color: #2563eb !important;
+  }
+
+  html:not(.dark) [class*="dark\:text-blue-400"] {
+    color: #2563eb !important;
+  }
+
+  /* Restaurant list hover - override dark:hover:bg-gray-800 */
+  html:not(.dark) li.p-2:hover,
+  html:not(.dark) [class*="hover\:bg-gray-50"]:hover {
+    background-color: #f9fafb !important;
+  }
+
+  html:not(.dark) [class*="dark\:hover\:bg-gray-800"]:hover {
+    background-color: #f9fafb !important;
+  }
+
+  /* View-only mode background - override dark:bg-gray-800 */
+  html:not(.dark) [class*="dark\:bg-gray-800"] {
+    background-color: #f9fafb !important;
+  }
+
+  /* Clear/Remove buttons - red text */
+  html:not(.dark) .text-red-500 {
+    color: #ef4444 !important;
+  }
+
+  /* Muted foreground text */
+  html:not(.dark) .text-muted-foreground {
+    color: #6b7280 !important;
+  }
+
+  /* Dividers in restaurant list */
+  html:not(.dark) .divide-y > * {
+    border-color: #e5e7eb !important;
+  }
+
+  /* Restaurant list border */
+  html:not(.dark) ul.border.rounded {
+    border-color: #d1d5db !important;
+    background-color: #ffffff !important;
+  }
+
+  /* Labels should be dark in light theme */
+  html:not(.dark) label {
+    color: #171717 !important;
+  }
+
+  /* Font medium text should be dark */
+  html:not(.dark) .font-medium {
+    color: #171717 !important;
+  }
+
+  /* Text-sm should be readable */
+  html:not(.dark) .text-sm {
+    color: #171717 !important;
+  }
+
+  /* Checkmark and other spans */
+  html:not(.dark) span:not(.text-muted-foreground):not([class*="bg-"]):not([class*="text-red"]):not([class*="text-blue"]):not([class*="text-green"]) {
+    color: #171717 !important;
+  }
   
   /* FORCE dark theme when html has .dark class */
   html.dark {
@@ -270,7 +662,14 @@ html.dark .theme-toggle-btn:hover {
     border-color: #555555 !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border) {
+  /* Ensure transparent buttons stay transparent in dark mode */
+  html.dark button.upm-close,
+  html.dark button.bg-transparent {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn) {
     background-color: #3a3a3a !important;
     color: #e5e5e5 !important;
   }
@@ -705,7 +1104,7 @@ img[alt="FoodBuddy Logo"] {
     background-color: #dc2626 !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn),
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.upm-close):not(.username-link):not(.tab-btn),
   html.dark .dark\:bg-gray-600:not(.filter-chip) {
     background-color: #4b5563 !important;
   }
@@ -881,6 +1280,94 @@ img[alt="FoodBuddy Logo"] {
   html.dark button[class*="bg-red-500"] {
     background-color: #ef4444 !important;
     color: #ffffff !important;
+  }
+
+  /* ========================================
+     Homepage search bar and sort buttons in dark theme
+     when browser is in light mode
+     ======================================== */
+  
+  /* Search input field - dark background */
+  html.dark input[type="text"],
+  html.dark input[type="search"],
+  html.dark input.rounded-lg,
+  html.dark input.rounded-full {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+    border-color: #4b5563 !important;
+  }
+
+  html.dark input[type="text"]::placeholder,
+  html.dark input[type="search"]::placeholder {
+    color: #9ca3af !important;
+  }
+
+  /* Sort buttons - unselected state */
+  html.dark .sort-btn,
+  html.dark button.rounded-full.border {
+    background-color: #374151 !important;
+    color: #e5e5e5 !important;
+    border-color: #4b5563 !important;
+  }
+
+  html.dark .sort-btn:hover,
+  html.dark button.rounded-full.border:hover {
+    background-color: #4b5563 !important;
+  }
+
+  /* Sort buttons - active state */
+  html.dark .sort-btn.filter-chip--active,
+  html.dark button.rounded-full.border.filter-chip--active {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+    border-color: #1f2937 !important;
+  }
+
+  /* Filter chips in dark mode */
+  html.dark .filter-chip {
+    background-color: #374151 !important;
+    color: #e5e5e5 !important;
+    border-color: #4b5563 !important;
+  }
+
+  html.dark .filter-chip:hover {
+    background-color: #4b5563 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .filter-chip--active {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+    border-color: #1f2937 !important;
+  }
+
+  /* Show filters button */
+  html.dark button.bg-gray-700,
+  html.dark button[class*="bg-gray-700"] {
+    background-color: #374151 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark button.bg-gray-700:hover,
+  html.dark button[class*="bg-gray-700"]:hover {
+    background-color: #4b5563 !important;
+  }
+
+  /* General text colors */
+  html.dark h1,
+  html.dark h2,
+  html.dark h3,
+  html.dark h4,
+  html.dark p,
+  html.dark span,
+  html.dark label {
+    color: #e5e5e5 !important;
+  }
+
+  /* Border colors */
+  html.dark .border,
+  html.dark [class*="border-"] {
+    border-color: #4b5563 !important;
   }
 }
 

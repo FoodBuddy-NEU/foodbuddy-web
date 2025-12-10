@@ -71,10 +71,20 @@ export async function disbandGroup(groupId: string): Promise<void> {
 
 export function subscribeGroupMeta(
   groupId: string,
-  cb: (data: { name?: string; ownerId?: string; memberIds?: string[] }) => void
+  cb: (data: { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string }) => void
 ): () => void {
   const ref = doc(db, 'groups', groupId);
   return onSnapshot(ref, (snap) => {
-    cb(snap.exists() ? (snap.data() as { name?: string; ownerId?: string; memberIds?: string[] }) : {});
+    cb(snap.exists() ? (snap.data() as { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string }) : {});
   });
+}
+
+export async function updateGroupDiningTime(groupId: string, diningTime: string): Promise<void> {
+  const groupRef = doc(db, 'groups', groupId);
+  await updateDoc(groupRef, { diningTime, updatedAt: serverTimestamp() });
+}
+
+export async function updateGroupRestaurant(groupId: string, restaurantId: string, restaurantName: string): Promise<void> {
+  const groupRef = doc(db, 'groups', groupId);
+  await updateDoc(groupRef, { restaurantId, restaurantName, updatedAt: serverTimestamp() });
 }

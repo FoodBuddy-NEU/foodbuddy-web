@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { addGroupMember } from '@/lib/chat';
 import type { ChatMessage } from '@/types/chatType';
 import GroupChatPage from '@/app/groups/[groupId]/page';
+import { ThemeProvider } from '@/lib/ThemeProvider';
 
 jest.mock('next/navigation', () => {
   const push = jest.fn();
@@ -59,7 +60,7 @@ beforeEach(() => {
 });
 
 test('renders header, back link, messages, and input', () => {
-  render(<GroupChatPage />);
+  render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
   expect(screen.getByText(/Group chat – g1/)).toBeInTheDocument();
   const backLink = screen.getByText('← Back');
   expect(backLink).toHaveAttribute('href', '/groups');
@@ -69,8 +70,8 @@ test('renders header, back link, messages, and input', () => {
 });
 
 test('manage members toggles, searches, and adds member successfully', async () => {
-  render(<GroupChatPage />);
-  const toggle = screen.getByText('Manage members');
+  render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  const toggle = screen.getByText('Manage');
   fireEvent.click(toggle);
   expect(screen.getByText('Close')).toBeInTheDocument();
   expect(screen.getByText('Type at least 2 characters to search')).toBeInTheDocument();
@@ -95,8 +96,8 @@ test('add member failure shows alert and keeps search text', async () => {
   useAuth.mockReturnValue({ user: { uid: 'u1' }, loading: false });
   __setGroupMeta({ ownerId: 'u1', memberIds: ['u1'] });
 
-  render(<GroupChatPage />);
-  fireEvent.click(screen.getByText('Manage members'));
+  render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText('Manage'));
   const input = screen.getByPlaceholderText('Search usernames…') as HTMLInputElement;
   fireEvent.change(input, { target: { value: 'us' } });
   expect(await screen.findByText('User2')).toBeInTheDocument();
@@ -113,8 +114,8 @@ test('shows members section and exit button for regular member; clicking exits',
   removeGroupMember.mockReset();
   push.mockReset();
 
-  render(<GroupChatPage />);
-  fireEvent.click(screen.getByText('Manage members'));
+  render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText('Manage'));
   expect(screen.getByText('Group Members')).toBeInTheDocument();
   const btn = screen.getByText('Exit Group');
   fireEvent.click(btn);
@@ -132,8 +133,8 @@ test('shows disband button for owner; clicking confirms and disbands', async () 
   const origConfirm = window.confirm;
   window.confirm = jest.fn(() => true);
 
-  render(<GroupChatPage />);
-  fireEvent.click(screen.getByText('Manage members'));
+  render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText('Manage'));
   const btn = screen.getByText('Disband Group');
   fireEvent.click(btn);
   await waitFor(() => {

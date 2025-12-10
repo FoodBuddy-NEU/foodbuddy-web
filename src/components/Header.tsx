@@ -19,6 +19,7 @@ export default function Header() {
         <nav className="hidden sm:flex items-center gap-2 sm:gap-4">
           <Link href="/">Home</Link>
           <Link href="/bookmarks">Bookmarks</Link>
+          <Link href="/friends">Friends</Link>
           <Link href="/groups">Group Chat</Link>
           <Link href="/profile">Profile</Link>
           <div className="relative z-10">
@@ -80,6 +81,13 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Bookmarks
+            </Link>
+            <Link
+              href="/friends"
+              className="px-4 py-3 hover:bg-gray-100 border-b"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Friends
             </Link>
             <Link
               href="/groups"
