@@ -1,4 +1,4 @@
-import { sendTextMessage, subscribeGroupMessages, addGroupMember, removeGroupMember, disbandGroup } from '@/lib/chat';
+import { sendTextMessage, subscribeGroupMessages, addGroupMember, removeGroupMember, disbandGroup, createGroup, subscribeGroupMeta, updateGroupDiningTime, updateGroupRestaurant } from '@/lib/chat';
 import { db } from '@/lib/firebaseClient';
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
@@ -105,5 +105,42 @@ describe('disbandGroup', () => {
     const messageDeletes = calls.filter((ref) => ref.__id.startsWith('messages/'));
     expect(hasGroupDelete).toBe(true);
     expect(messageDeletes).toHaveLength(2);
+  });
+});
+
+describe('group meta and updates', () => {
+  it('createGroup trims name and returns id', async () => {
+    (addDoc as unknown as jest.Mock).mockImplementationOnce(async () => ({ id: 'gNew' }));
+    const id = await createGroup('   ', 'u1');
+    expect(id).toBe('gNew');
+    const payload = (addDoc as unknown as jest.Mock).mock.calls[0][1];
+    expect(payload.name).toBe('Untitled');
+    expect(payload.ownerId).toBe('u1');
+  });
+
+  it('subscribeGroupMeta handles exists true/false', () => {
+    const cb = jest.fn();
+    (onSnapshot as unknown as jest.Mock).mockImplementationOnce((ref, snapCb) => {
+      snapCb({ exists: () => true, data: () => ({ name: 'Group', ownerId: 'u1', memberIds: ['u1'] }) });
+      return () => {};
+    });
+    subscribeGroupMeta('g1', cb);
+    expect(cb).toHaveBeenCalledWith(expect.objectContaining({ name: 'Group' }));
+
+    const cb2 = jest.fn();
+    (onSnapshot as unknown as jest.Mock).mockImplementationOnce((ref, snapCb) => {
+      snapCb({ exists: () => false, data: () => ({}) });
+      return () => {};
+    });
+    subscribeGroupMeta('g1', cb2);
+    expect(cb2).toHaveBeenCalledWith({});
+  });
+
+  it('updateGroupDiningTime and updateGroupRestaurant call updateDoc with fields', async () => {
+    const updateDocMock = updateDoc as unknown as jest.Mock;
+    await updateGroupDiningTime('g1', '7pm');
+    expect(updateDocMock).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ diningTime: '7pm' }));
+    await updateGroupRestaurant('g1', 'r1', 'R Name');
+    expect(updateDocMock).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ restaurantId: 'r1', restaurantName: 'R Name' }));
   });
 });
