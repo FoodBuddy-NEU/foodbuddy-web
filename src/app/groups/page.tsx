@@ -242,7 +242,7 @@ export default function GroupListPage() {
 
           <select
             value={timeFilter}
-            onChange={(e) => setTimeFilter(e.target.value as any)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTimeFilter(e.target.value as 'any' | 'has' | 'no' | 'match')}
             className="border rounded px-2 py-2"
           >
             <option value="any">Any time</option>
