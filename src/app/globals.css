@@ -7,6 +7,454 @@
    ======================================== */
 
 /* ========================================
+   PreOrder Component - Fixed Light Theme Styles
+   These styles are immune to browser dark/light mode interference
+   ======================================== */
+.preorder-modal {
+  /* Modal overlay - semi-transparent black background */
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.preorder-content {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+.preorder-content * {
+  color: inherit;
+}
+
+.preorder-header {
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.preorder-title {
+  color: #171717 !important;
+}
+
+.preorder-subtitle {
+  color: #6b7280 !important;
+}
+
+.preorder-allergy-box {
+  background-color: #fef2f2 !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.preorder-allergy-title {
+  color: #b91c1c !important;
+}
+
+.preorder-allergy-text {
+  color: #dc2626 !important;
+}
+
+.preorder-section {
+  border-right: 1px solid #e5e7eb !important;
+}
+
+.preorder-category-bar {
+  background-color: #f9fafb !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.preorder-category-btn {
+  /* Default state - will be overridden by inline styles for active state */
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.preorder-category-btn-active,
+.preorder-category-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.preorder-menu-item,
+label.preorder-menu-item {
+  border: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-menu-item:hover,
+label.preorder-menu-item:hover {
+  background-color: #f9fafb !important;
+}
+
+.preorder-item-name {
+  color: #171717 !important;
+}
+
+.preorder-item-price {
+  color: #171717 !important;
+}
+
+.preorder-custom-btn {
+  border: 2px dashed #d1d5db !important;
+  color: #6b7280 !important;
+  background-color: transparent !important;
+}
+
+/* PreOrder input fields - light theme base */
+.preorder-custom-input {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  color: #374151 !important;
+}
+
+.preorder-custom-input::placeholder {
+  color: #9ca3af !important;
+}
+
+.preorder-order-header {
+  background-color: #f9fafb !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.preorder-order-title {
+  color: #171717 !important;
+}
+
+.preorder-empty-text {
+  color: #6b7280 !important;
+}
+
+.preorder-order-item {
+  border: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-order-item-name {
+  color: #171717 !important;
+}
+
+.preorder-order-item-custom {
+  background-color: #fef08a !important;
+  color: #713f12 !important;
+}
+
+.preorder-order-item-for {
+  color: #6b7280 !important;
+}
+
+.preorder-remove-btn {
+  color: #ef4444 !important;
+}
+
+.preorder-calc-section {
+  background-color: #f9fafb !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-tip-label {
+  color: #374151 !important;
+}
+
+.preorder-tip-btn {
+  /* Default state - will be overridden by inline styles for active state */
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.preorder-tip-btn-active,
+.preorder-tip-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.preorder-tip-input {
+  border: 1px solid #d1d5db !important;
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+.preorder-calc-row {
+  color: #374151 !important;
+}
+
+.preorder-calc-loading {
+  color: #9ca3af !important;
+}
+
+.preorder-total-row {
+  color: #171717 !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-member-section {
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-member-title {
+  color: #171717 !important;
+}
+
+.preorder-member-item {
+  background-color: #f3f4f6 !important;
+}
+
+.preorder-member-name {
+  color: #374151 !important;
+}
+
+.preorder-member-cost {
+  color: #171717 !important;
+}
+
+.preorder-footer {
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-cancel-btn {
+  border: 1px solid #d1d5db !important;
+  color: #374151 !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-save-btn {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+}
+
+.preorder-save-btn:disabled {
+  opacity: 0.5 !important;
+}
+
+/* Toggle Select All / Deselect All button */
+.preorder-toggle-select-btn {
+  border: 1px solid #3b82f6 !important;
+  color: #3b82f6 !important;
+  background-color: transparent !important;
+}
+
+.preorder-toggle-select-btn:hover {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+/* Modal dialogs inside PreOrder */
+.preorder-dialog {
+  background-color: #ffffff !important;
+}
+
+.preorder-dialog-title {
+  color: #171717 !important;
+}
+
+.preorder-dialog-subtitle {
+  color: #6b7280 !important;
+}
+
+.preorder-dialog-option {
+  border: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-dialog-option-text {
+  color: #171717 !important;
+}
+
+.preorder-dialog-input {
+  border: 1px solid #d1d5db !important;
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+.preorder-dialog-divider {
+  border-top: 1px solid #e5e7eb !important;
+}
+
+/* ========================================
+   PreOrder Component - Dark Theme Styles
+   ======================================== */
+html.dark .preorder-modal {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark .preorder-content {
+  background-color: #2a2a2a !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-allergy-alert {
+  background-color: rgba(127, 29, 29, 0.3) !important;
+  border-color: #991b1b !important;
+}
+
+html.dark .preorder-allergy-title {
+  color: #fca5a5 !important;
+}
+
+html.dark .preorder-allergy-item {
+  color: #fca5a5 !important;
+}
+
+html.dark .preorder-left-panel {
+  border-right-color: #404040 !important;
+}
+
+html.dark .preorder-category-bar {
+  background-color: #3a3a3a !important;
+  border-bottom-color: #404040 !important;
+}
+
+html.dark .preorder-category-btn {
+  background-color: #4a4a4a !important;
+  color: #e5e5e5 !important;
+  border: 1px solid #555555 !important;
+}
+
+html.dark .preorder-category-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+html.dark .preorder-menu-item {
+  background-color: #3a3a3a !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-item-name {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-item-price {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-custom-btn {
+  border-color: #555555 !important;
+  color: #9ca3af !important;
+  background-color: #3a3a3a !important;
+}
+
+html.dark .preorder-order-header {
+  background-color: #3a3a3a !important;
+  border-bottom-color: #404040 !important;
+}
+
+html.dark .preorder-order-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-order-empty {
+  color: #9ca3af !important;
+}
+
+html.dark .preorder-order-item {
+  background-color: #3a3a3a !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-order-item-name {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-order-item-member {
+  color: #9ca3af !important;
+}
+
+html.dark .preorder-order-item-price {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-remove-btn {
+  color: #ef4444 !important;
+}
+
+html.dark .preorder-tax-section {
+  background-color: #3a3a3a !important;
+  border-top-color: #404040 !important;
+}
+
+html.dark .preorder-tax-label,
+html.dark .preorder-label {
+  color: #9ca3af !important;
+}
+
+html.dark .preorder-tip-btn {
+  background-color: #4a4a4a !important;
+  color: #e5e5e5 !important;
+  border: 1px solid #555555 !important;
+}
+
+html.dark .preorder-tip-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+html.dark .preorder-custom-input {
+  background-color: #3a3a3a !important;
+  border-color: #555555 !important;
+  color: #ffffff !important;
+}
+
+html.dark .preorder-subtotal-row,
+html.dark .preorder-total-row {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-breakdown-section {
+  background-color: #3a3a3a !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-breakdown-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-breakdown-item {
+  background-color: #4a4a4a !important;
+  color: #ffffff !important;
+}
+
+html.dark .preorder-breakdown-item span {
+  color: #ffffff !important;
+}
+
+html.dark .preorder-breakdown-amount {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-close-btn,
+html.dark .preorder-dialog-cancel {
+  background-color: #4a4a4a !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-save-btn,
+html.dark .preorder-dialog-add {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+}
+
+/* Dark theme toggle select button */
+html.dark .preorder-toggle-select-btn {
+  border: 1px solid #60a5fa !important;
+  color: #60a5fa !important;
+  background-color: transparent !important;
+}
+
+html.dark .preorder-toggle-select-btn:hover {
+  background-color: #60a5fa !important;
+  color: #1e1e1e !important;
+}
+
+html.dark .preorder-section-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-title {
+  color: #ffffff !important;
+}
+
+html.dark .preorder-subtitle {
+  color: #9ca3af !important;
+}
+
+/* ========================================
    Group Chat Dining Settings - Custom Classes
    ======================================== */
 /* Restaurant selected box - light theme */
@@ -487,7 +935,9 @@ html.dark .chat-send-btn:hover {
 /* Dark theme - Dining Settings Summary Bar */
 html.dark .ds-summary {
   background-color: #1e3a5f !important;
-  border-color: #404040 !important;
+  border-color: #e5e5e5 !important;
+  border-top: 1px solid #e5e5e5 !important;
+  border-bottom: 1px solid #e5e5e5 !important;
 }
 
 html.dark .ds-summary-item {
@@ -496,6 +946,17 @@ html.dark .ds-summary-item {
 
 html.dark .ds-summary-link {
   color: #60a5fa !important;
+}
+
+/* Dark theme - Group Chat Container */
+html.dark .gc-container {
+  border-color: #e5e5e5 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
+html.dark .gc-header {
+  border-bottom-color: #404040 !important;
 }
 
 /* ========================================
@@ -560,8 +1021,14 @@ html.dark .theme-toggle-btn:hover {
 
 /* FORCE light theme when browser is in dark mode */
 @media (prefers-color-scheme: dark) {
+  /* PreOrder component protection - must come BEFORE the unset rule */
+  html:not(.dark) .preorder-modal,
+  html:not(.dark) .preorder-modal * {
+    /* Allow inline styles to work */
+  }
+
   html:not(.dark),
-  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200):not([class*="upm-"]):not(.username-link):not([class*="ds-"]) {
+  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200):not([class*="upm-"]):not(.username-link):not([class*="ds-"]):not(.preorder-modal):not([class*="preorder-"]) {
     background-color: unset !important;
     color: unset !important;
     border-color: unset !important;
@@ -633,15 +1100,15 @@ html.dark .theme-toggle-btn:hover {
     color: #171717 !important;
   }
   
-  html:not(.dark) input,
-  html:not(.dark) textarea,
-  html:not(.dark) select {
+  html:not(.dark) input:not(.preorder-custom-input),
+  html:not(.dark) textarea:not(.preorder-custom-input),
+  html:not(.dark) select:not(.preorder-custom-input) {
     background-color: #ffffff !important;
     color: #171717 !important;
     border-color: #cccccc !important;
   }
   
-  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn) {
+  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn):not([class*="preorder-"]) {
     background-color: #f5f5f5 !important;
     color: #171717 !important;
   }
@@ -979,7 +1446,7 @@ html.dark .theme-toggle-btn:hover {
     background: transparent !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn):not(.gc-header-btn):not(.chat-send-btn) {
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn):not(.gc-header-btn):not(.chat-send-btn):not(.preorder-category-btn):not(.preorder-tip-btn):not(.preorder-custom-btn):not(.preorder-close-btn):not(.preorder-save-btn):not(.preorder-dialog-cancel):not(.preorder-dialog-add):not(.preorder-toggle-select-btn):not(.preorder-remove-btn) {
     background-color: #3a3a3a !important;
     color: #e5e5e5 !important;
   }
@@ -1025,6 +1492,547 @@ html.dark .theme-toggle-btn:hover {
   
   /* Force Sort and Showing text to be white in dark mode */
   html.dark .text-neutral-600 {
+    color: #ffffff !important;
+  }
+
+  /* Dark theme - Dining Settings Summary Bar - force border in browser dark mode */
+  html.dark .ds-summary {
+    background-color: #1e3a5f !important;
+    border-color: #e5e5e5 !important;
+    border-top: 1px solid #e5e5e5 !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+  }
+
+  /* Dark theme - Group Chat Container - force border in browser dark mode */
+  html.dark .gc-container {
+    border-color: #e5e5e5 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+
+  html.dark .gc-header {
+    border-bottom-color: #404040 !important;
+  }
+
+  /* ========================================
+     PreOrder Modal - Dark theme styles in browser dark mode
+     ======================================== */
+  html.dark .preorder-modal {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  html.dark .preorder-content {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-allergy-alert {
+    background-color: rgba(127, 29, 29, 0.3) !important;
+    border-color: #991b1b !important;
+  }
+
+  html.dark .preorder-allergy-title,
+  html.dark .preorder-allergy-item {
+    color: #fca5a5 !important;
+  }
+
+  html.dark .preorder-left-panel {
+    border-right-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-bar {
+    background-color: #3a3a3a !important;
+    border-bottom-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-menu-item,
+  html.dark label.preorder-menu-item {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-menu-item:hover,
+  html.dark label.preorder-menu-item:hover {
+    background-color: #4a4a4a !important;
+    border-color: #555555 !important;
+  }
+
+  html.dark .preorder-item-name,
+  html.dark .preorder-item-price {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-custom-btn {
+    border-color: #555555 !important;
+    color: #9ca3af !important;
+    background-color: #3a3a3a !important;
+  }
+
+  html.dark .preorder-order-header {
+    background-color: #3a3a3a !important;
+    border-bottom-color: #404040 !important;
+  }
+
+  html.dark .preorder-order-title,
+  html.dark .preorder-order-item-name,
+  html.dark .preorder-order-item-price {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-order-empty,
+  html.dark .preorder-order-item-member {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-order-item {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-remove-btn {
+    color: #ef4444 !important;
+  }
+
+  html.dark .preorder-tax-section {
+    background-color: #3a3a3a !important;
+    border-top-color: #404040 !important;
+  }
+
+  html.dark .preorder-tax-label,
+  html.dark .preorder-label {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-tip-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-custom-input {
+    background-color: #3a3a3a !important;
+    border-color: #555555 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-subtotal-row,
+  html.dark .preorder-total-row,
+  html.dark .preorder-breakdown-title,
+  html.dark .preorder-breakdown-amount,
+  html.dark .preorder-section-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-title {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-subtitle {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-breakdown-section {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-breakdown-item {
+    background-color: #4a4a4a !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-breakdown-item span {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-close-btn,
+  html.dark .preorder-dialog-cancel {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-save-btn,
+  html.dark .preorder-dialog-add {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* ========================================
+     PreOrder Modal - FORCE light theme colors in browser dark mode
+     All PreOrder elements must display correctly regardless of browser mode
+     ======================================== */
+  /* Modal overlay - semi-transparent black */
+  html:not(.dark) .preorder-modal {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Modal content - white background */
+  html:not(.dark) .preorder-content {
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
+  }
+
+  /* Allergy alert - red/pink background */
+  html:not(.dark) .preorder-allergy-alert {
+    background-color: #fee2e2 !important;
+    border-color: #fecaca !important;
+    color: #991b1b !important;
+  }
+
+  html:not(.dark) .preorder-allergy-title {
+    color: #dc2626 !important;
+  }
+
+  html:not(.dark) .preorder-allergy-item {
+    color: #991b1b !important;
+  }
+
+  /* Left panel - light gray background */
+  html:not(.dark) .preorder-left-panel {
+    background-color: #f9fafb !important;
+    border-color: #e5e7eb !important;
+  }
+
+  /* Category tabs */
+  html:not(.dark) .preorder-category-tab {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  html:not(.dark) .preorder-category-tab-active {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  /* Menu items */
+  html:not(.dark) .preorder-menu-item {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-menu-item:hover {
+    background-color: #f3f4f6 !important;
+  }
+
+  html:not(.dark) .preorder-item-name {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-item-description {
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-item-price {
+    color: #059669 !important;
+  }
+
+  /* Member selection */
+  html:not(.dark) .preorder-member-select {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-add-btn {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* Right panel - order summary */
+  html:not(.dark) .preorder-right-panel {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-order-title {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-order-empty {
+    color: #9ca3af !important;
+  }
+
+  /* Order items */
+  html:not(.dark) .preorder-order-item {
+    background-color: #f9fafb !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-order-item-name {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-order-item-member {
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-order-item-price {
+    color: #059669 !important;
+  }
+
+  html:not(.dark) .preorder-remove-btn {
+    color: #ef4444 !important;
+    background-color: transparent !important;
+  }
+
+  /* Custom item input */
+  html:not(.dark) .preorder-custom-input {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-custom-input::placeholder {
+    color: #6b7280 !important;
+  }
+
+  /* Tax and tip section */
+  html:not(.dark) .preorder-tax-section {
+    background-color: #f3f4f6 !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-zip-input {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-tax-label {
+    color: #4b5563 !important;
+  }
+
+  html:not(.dark) .preorder-tax-value {
+    color: #1f2937 !important;
+  }
+
+  /* Tip buttons */
+  html:not(.dark) .preorder-tip-btn {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  html:not(.dark) .preorder-tip-btn-active {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  /* Totals */
+  html:not(.dark) .preorder-subtotal-row {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-total-row {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-total-amount {
+    color: #059669 !important;
+  }
+
+  /* Per person breakdown */
+  html:not(.dark) .preorder-breakdown-section {
+    background-color: #eff6ff !important;
+    border-color: #bfdbfe !important;
+  }
+
+  html:not(.dark) .preorder-breakdown-title {
+    color: #1e40af !important;
+  }
+
+  html:not(.dark) .preorder-breakdown-item {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-breakdown-amount {
+    color: #059669 !important;
+  }
+
+  /* Action buttons */
+  html:not(.dark) .preorder-close-btn {
+    background-color: #6b7280 !important;
+    color: #ffffff !important;
+  }
+
+  html:not(.dark) .preorder-submit-btn {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* Labels and headers */
+  html:not(.dark) .preorder-section-title {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-label {
+    color: #4b5563 !important;
+  }
+
+  /* Scrollbar styling for PreOrder */
+  html:not(.dark) .preorder-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  html:not(.dark) .preorder-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  html:not(.dark) .preorder-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+
+  /* ========================================
+     PreOrder - Force correct styles in browser dark mode + app light theme
+     ======================================== */
+  /* Category buttons - default gray */
+  html:not(.dark) .preorder-category-btn {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  /* Category buttons - active blue */
+  html:not(.dark) .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  /* Tip buttons - default gray */
+  html:not(.dark) .preorder-tip-btn {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  /* Tip buttons - active blue */
+  html:not(.dark) .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  /* Menu item prices - black */
+  html:not(.dark) .preorder-item-price {
+    color: #171717 !important;
+  }
+
+  /* Order item prices - black */
+  html:not(.dark) .preorder-order-item-price {
+    color: #171717 !important;
+  }
+
+  /* Modal content - white background */
+  html:not(.dark) .preorder-content {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+
+  /* Modal overlay - semi-transparent black */
+  html:not(.dark) .preorder-modal {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Save Order button - green */
+  html:not(.dark) .preorder-save-btn {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* Category tabs bar - light gray background */
+  html:not(.dark) .preorder-category-bar {
+    background-color: #f9fafb !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  /* Order header - light gray background */
+  html:not(.dark) .preorder-order-header {
+    background-color: #f9fafb !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  /* Tax/tip section - light gray background */
+  html:not(.dark) .preorder-tax-section {
+    background-color: #f9fafb !important;
+    border-top: 1px solid #e5e7eb !important;
+  }
+
+  /* Custom item button - dashed border */
+  html:not(.dark) .preorder-custom-btn {
+    border: 2px dashed #d1d5db !important;
+    color: #6b7280 !important;
+    background-color: transparent !important;
+  }
+
+  /* Menu items - white background with border */
+  html:not(.dark) .preorder-menu-item {
+    background-color: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  /* Order items - white background with border */
+  html:not(.dark) .preorder-order-item {
+    background-color: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  /* Left panel border */
+  html:not(.dark) .preorder-left-panel {
+    border-right: 1px solid #e5e7eb !important;
+  }
+
+  /* Input fields */
+  html:not(.dark) .preorder-custom-input {
+    background-color: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-custom-input::placeholder {
+    color: #6b7280 !important;
+  }
+
+  /* Text colors */
+  html:not(.dark) .preorder-item-name,
+  html:not(.dark) .preorder-order-title,
+  html:not(.dark) .preorder-order-item-name {
+    color: #171717 !important;
+  }
+
+  html:not(.dark) .preorder-order-item-member,
+  html:not(.dark) .preorder-order-empty,
+  html:not(.dark) .preorder-label {
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-tax-label {
+    color: #374151 !important;
+  }
+
+  /* Dialog Cancel button - gray */
+  html:not(.dark) .preorder-dialog-cancel {
+    background-color: #6b7280 !important;
+    color: #ffffff !important;
+  }
+
+  /* Dialog Add button - green */
+  html:not(.dark) .preorder-dialog-add {
+    background-color: #22c55e !important;
     color: #ffffff !important;
   }
 }
@@ -1149,6 +2157,153 @@ html.dark .theme-toggle-btn:hover {
   /* Force Sort and Showing text to be white in dark mode */
   html.dark .text-neutral-600 {
     color: #ffffff !important;
+  }
+
+  /* ========================================
+     PreOrder - FORCE dark theme in browser light mode + app dark theme
+     ======================================== */
+  html.dark .preorder-content {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-title {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-subtitle {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-category-bar,
+  html.dark .preorder-order-header,
+  html.dark .preorder-tax-section {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-left-panel {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-menu-item,
+  html.dark .preorder-order-item,
+  html.dark label.preorder-menu-item {
+    background-color: #3a3a3a !important;
+    border: 1px solid #404040 !important;
+  }
+
+  html.dark .preorder-menu-item:hover,
+  html.dark label.preorder-menu-item:hover {
+    background-color: #4a4a4a !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-item-name,
+  html.dark .preorder-item-price,
+  html.dark .preorder-order-item-name,
+  html.dark .preorder-order-item-price,
+  html.dark .preorder-order-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-order-item-member,
+  html.dark .preorder-order-empty,
+  html.dark .preorder-label {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-tip-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-custom-input {
+    background-color: #3a3a3a !important;
+    border: 1px solid #555555 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-custom-btn {
+    border: 2px dashed #555555 !important;
+    color: #9ca3af !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-tax-label,
+  html.dark .preorder-subtotal-row {
+    color: #d1d5db !important;
+  }
+
+  html.dark .preorder-total-row,
+  html.dark .preorder-total-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-breakdown-section {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-breakdown-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-item {
+    background-color: #4a4a4a !important;
+  }
+
+  html.dark .preorder-breakdown-item span {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-close-btn,
+  html.dark .preorder-dialog-cancel {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-save-btn,
+  html.dark .preorder-dialog-add {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-section-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-toggle-select-btn {
+    border: 1px solid #60a5fa !important;
+    color: #60a5fa !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-toggle-select-btn:hover {
+    background-color: #60a5fa !important;
+    color: #1e1e1e !important;
   }
 }
 
@@ -1462,7 +2617,7 @@ img[alt="FoodBuddy Logo"] {
     background-color: #dc2626 !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.upm-close):not(.username-link):not(.tab-btn):not(.border):not(.gc-header-btn):not(.chat-send-btn):not(.ds-clear-btn):not(.ds-remove-btn),
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.upm-close):not(.username-link):not(.tab-btn):not(.border):not(.gc-header-btn):not(.chat-send-btn):not(.ds-clear-btn):not(.ds-remove-btn):not(.preorder-category-btn):not(.preorder-tip-btn):not(.preorder-custom-btn):not(.preorder-close-btn):not(.preorder-save-btn):not(.preorder-dialog-cancel):not(.preorder-dialog-add):not(.preorder-toggle-select-btn):not(.preorder-remove-btn),
   html.dark .dark\:bg-gray-600:not(.filter-chip) {
     background-color: #4b5563 !important;
   }
@@ -1646,10 +2801,10 @@ img[alt="FoodBuddy Logo"] {
      ======================================== */
   
   /* Search input field - dark background - exclude special classes */
-  html.dark input[type="text"]:not(.ds-input):not(.chat-input),
-  html.dark input[type="search"]:not(.ds-input):not(.chat-input),
-  html.dark input.rounded-lg:not(.ds-input):not(.chat-input),
-  html.dark input.rounded-full:not(.ds-input):not(.chat-input) {
+  html.dark input[type="text"]:not(.ds-input):not(.chat-input):not(.preorder-custom-input),
+  html.dark input[type="search"]:not(.ds-input):not(.chat-input):not(.preorder-custom-input),
+  html.dark input.rounded-lg:not(.ds-input):not(.chat-input):not(.preorder-custom-input),
+  html.dark input.rounded-full:not(.ds-input):not(.chat-input):not(.preorder-custom-input) {
     background-color: #3a3a3a !important;
     color: #e5e5e5 !important;
     border-color: #e5e5e5 !important;
@@ -1663,9 +2818,14 @@ img[alt="FoodBuddy Logo"] {
     border-color: #e5e5e5 !important;
   }
 
-  html.dark input[type="text"]::placeholder,
-  html.dark input[type="search"]::placeholder {
+  html.dark input[type="text"]:not(.preorder-custom-input)::placeholder,
+  html.dark input[type="search"]:not(.preorder-custom-input)::placeholder {
     color: #9ca3af !important;
+  }
+
+  /* PreOrder input placeholder - consistent color */
+  html.dark .preorder-custom-input::placeholder {
+    color: #6b7280 !important;
   }
 
   /* Sort buttons - white background with black text for browser light mode + dark theme */
@@ -1859,4 +3019,233 @@ html.dark button.theme-toggle-btn:hover {
   html.dark button.theme-toggle-btn:hover {
     background-color: #3a3a3a !important;
   }
+
+  /* ========================================
+     PreOrder - FINAL dark theme overrides (browser light mode + app dark theme)
+     ======================================== */
+  html.dark .preorder-content {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-title {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-subtitle {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-category-bar,
+  html.dark .preorder-order-header,
+  html.dark .preorder-tax-section {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-left-panel {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-menu-item,
+  html.dark .preorder-order-item,
+  html.dark label.preorder-menu-item {
+    background-color: #3a3a3a !important;
+    border: 1px solid #404040 !important;
+  }
+
+  html.dark .preorder-menu-item:hover,
+  html.dark label.preorder-menu-item:hover {
+    background-color: #4a4a4a !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-item-name,
+  html.dark .preorder-item-price,
+  html.dark .preorder-order-item-name,
+  html.dark .preorder-order-item-price,
+  html.dark .preorder-order-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-order-item-member,
+  html.dark .preorder-order-empty,
+  html.dark .preorder-label {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-tip-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-custom-input {
+    background-color: #3a3a3a !important;
+    border: 1px solid #555555 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-custom-btn {
+    border: 2px dashed #555555 !important;
+    color: #9ca3af !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-tax-label,
+  html.dark .preorder-subtotal-row {
+    color: #d1d5db !important;
+  }
+
+  html.dark .preorder-total-row,
+  html.dark .preorder-total-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-breakdown-section {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-breakdown-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-item {
+    background-color: #4a4a4a !important;
+  }
+
+  html.dark .preorder-breakdown-item span {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-close-btn,
+  html.dark .preorder-dialog-cancel {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-save-btn,
+  html.dark .preorder-dialog-add {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-section-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-toggle-select-btn {
+    border: 1px solid #60a5fa !important;
+    color: #60a5fa !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-toggle-select-btn:hover {
+    background-color: #60a5fa !important;
+    color: #1e1e1e !important;
+  }
+}
+/* ========================================
+   FINAL OVERRIDES - PreOrder input placeholder consistency
+   ======================================== */
+html.dark input.preorder-custom-input,
+html.dark input.preorder-custom-input[type="text"],
+html.dark input.preorder-custom-input[type="number"] {
+  color: #ffffff !important;
+}
+
+html.dark input.preorder-custom-input::placeholder,
+html.dark input.preorder-custom-input[type="text"]::placeholder,
+html.dark input.preorder-custom-input[type="number"]::placeholder {
+  color: #6b7280 !important;
+}
+
+/* ========================================
+   PreOrder Summary - Light and Dark theme styles
+   ======================================== */
+
+/* Light mode base styles */
+.preorder-summary {
+  background-color: #f0fdf4 !important;
+  border-color: #e5e7eb !important;
+}
+
+.preorder-summary-text {
+  color: #166534 !important;
+  font-weight: 500;
+}
+
+.preorder-summary-btn {
+  color: #166534 !important;
+  border-color: #166534 !important;
+  background-color: transparent !important;
+}
+
+.preorder-summary-btn:hover {
+  background-color: #dcfce7 !important;
+}
+
+.preorder-summary-tag {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+/* Dark mode styles */
+html.dark .preorder-summary {
+  background-color: #14532d !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-summary-text {
+  color: #86efac !important;
+}
+
+html.dark .preorder-summary-btn {
+  color: #86efac !important;
+  border-color: #86efac !important;
+  background-color: transparent !important;
+}
+
+html.dark .preorder-summary-btn:hover {
+  background-color: #166534 !important;
+}
+
+html.dark .preorder-summary-tag {
+  background-color: #166534 !important;
+  color: #86efac !important;
+}
+
+/* ========================================
+   PreOrder Custom Tag - Light and Dark theme styles
+   ======================================== */
+.preorder-custom-tag {
+  background-color: #fef08a !important;
+  color: #713f12 !important;
+}
+
+html.dark .preorder-custom-tag {
+  background-color: #854d0e !important;
+  color: #fef08a !important;
 }

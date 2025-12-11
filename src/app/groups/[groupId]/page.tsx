@@ -6,13 +6,27 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import type { ChatMessage } from '@/types/chatType';
-import { subscribeGroupMessages, subscribeGroupMeta, addGroupMember, removeGroupMember, disbandGroup, updateGroupDiningTime, updateGroupRestaurant } from '@/lib/chat';
+import { subscribeGroupMessages, subscribeGroupMeta, addGroupMember, removeGroupMember, disbandGroup, updateGroupDiningTime, updateGroupRestaurant, saveGroupPreOrder, PreOrderData } from '@/lib/chat';
 import { getUserProfile, searchUsersByUsername } from '@/lib/userProfile';
 import { useAuth } from '@/lib/AuthProvider';
 import { ChatInput } from '@/app/groups/chatInput';
 import { MessageBubble } from '../../../components/MessageBubble';
 import UserProfileModal from '@/components/UserProfileModal';
+import PreOrder from '@/components/PreOrder';
 import restaurantsData from '@/data/restaurants.json';
+
+// Menu item and menu types
+interface MenuItem {
+  id: string;
+  name: string;
+  price: number;
+}
+
+interface Menu {
+  id: string;
+  title: string;
+  items: MenuItem[];
+}
 
 type Restaurant = {
   id: string;
@@ -20,6 +34,7 @@ type Restaurant = {
   address: string;
   rating: number;
   priceRange: string;
+  menus?: Menu[];
 };
 
 // Convert Cloudinary HEIC URLs to JPG format for browser compatibility
@@ -93,6 +108,11 @@ export default function GroupChatPage() {
   const [restaurantName, setRestaurantName] = useState<string>('');
   const [showDiningSettings, setShowDiningSettings] = useState(false);
   const [restaurantSearch, setRestaurantSearch] = useState('');
+  
+  // PreOrder state
+  const [showPreOrder, setShowPreOrder] = useState(false);
+  const [memberProfiles, setMemberProfiles] = useState<Record<string, { username: string; allergies?: string[]; dietaryRestrictions?: string[] }>>({});
+  const [savedPreOrder, setSavedPreOrder] = useState<PreOrderData | null>(null);
   
   // Check if current user is the owner
   const isOwner = user?.uid === ownerId;
@@ -199,6 +219,12 @@ export default function GroupChatPage() {
       }
       if (d.restaurantId) setRestaurantId(d.restaurantId);
       if (d.restaurantName) setRestaurantName(d.restaurantName);
+      // Load saved PreOrder
+      if (d.preOrder) {
+        setSavedPreOrder(d.preOrder);
+      } else {
+        setSavedPreOrder(null);
+      }
     });
     metaUnsubRef.current = unsub;
     return () => unsub();
@@ -235,6 +261,48 @@ export default function GroupChatPage() {
       });
     })();
   }, [messages, memberIds, profiles]);
+
+  // Fetch full member profiles for PreOrder (with allergies)
+  useEffect(() => {
+    if (memberIds.length === 0) return;
+    const fetchMemberProfiles = async () => {
+      const newProfiles: Record<string, { username: string; allergies?: string[]; dietaryRestrictions?: string[] }> = {};
+      await Promise.all(
+        memberIds.map(async (id) => {
+          try {
+            const p = await getUserProfile(id);
+            if (p) {
+              newProfiles[id] = {
+                username: p.username,
+                allergies: p.allergies,
+                dietaryRestrictions: p.dietaryRestrictions,
+              };
+            }
+          } catch {
+            // ignore
+          }
+        })
+      );
+      setMemberProfiles(newProfiles);
+    };
+    fetchMemberProfiles();
+  }, [memberIds]);
+
+  // Get the selected restaurant object with menus
+  const selectedRestaurant = useMemo(() => {
+    if (!restaurantId) return null;
+    return restaurants.find(r => r.id === restaurantId) || null;
+  }, [restaurantId, restaurants]);
+
+  // Members list for PreOrder
+  const preOrderMembers = useMemo(() => {
+    return memberIds.map(id => ({
+      id,
+      username: memberProfiles[id]?.username || profiles[id]?.username || 'Unknown',
+      allergies: memberProfiles[id]?.allergies || [],
+      dietaryRestrictions: memberProfiles[id]?.dietaryRestrictions || [],
+    }));
+  }, [memberIds, memberProfiles, profiles]);
 
   useEffect(() => {
     let active = true;
@@ -282,13 +350,21 @@ export default function GroupChatPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl h-[calc(100vh-80px)] flex flex-col border rounded-lg">
-      <header className="px-4 py-3 border-b flex items-center gap-3">
+    <div className="gc-container mx-auto max-w-2xl h-[calc(100vh-80px)] flex flex-col border rounded-lg">
+      <header className="gc-header px-4 py-3 border-b flex items-center gap-3">
         <Link href="/groups" className="text-sm text-muted-foreground hover:underline">
           ← Back
         </Link>
         <div className="font-semibold">Group chat – {groupName ?? groupId}</div>
         <div className="ml-auto flex gap-2">
+          {selectedRestaurant && (
+            <button
+              className="gc-header-btn text-xs border rounded px-2 py-1 bg-green-500 text-white border-green-500 hover:bg-green-600"
+              onClick={() => setShowPreOrder(true)}
+            >
+              🛒 Pre-Order
+            </button>
+          )}
           <button
             className="gc-header-btn text-xs border rounded px-2 py-1"
             onClick={() => setShowDiningSettings((v) => !v)}
@@ -331,6 +407,37 @@ export default function GroupChatPage() {
               <span>Not set</span>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Saved PreOrder Summary */}
+      {savedPreOrder && savedPreOrder.items.length > 0 && !showPreOrder && (
+        <div className="preorder-summary px-4 py-2 border-b text-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span>🛒</span>
+              <span className="preorder-summary-text">
+                Pre-Order: {savedPreOrder.items.length} item{savedPreOrder.items.length > 1 ? 's' : ''} · ${savedPreOrder.total.toFixed(2)}
+              </span>
+            </div>
+            <button
+              onClick={() => setShowPreOrder(true)}
+              className="preorder-summary-btn text-xs px-2 py-1 rounded border"
+            >
+              View/Edit
+            </button>
+          </div>
+          {/* Per person breakdown */}
+          <div className="mt-2 flex flex-wrap gap-2">
+            {Object.entries(savedPreOrder.memberCosts).map(([memberId, cost]) => (
+              <span 
+                key={memberId} 
+                className="preorder-summary-tag text-xs px-2 py-0.5 rounded"
+              >
+                {memberProfiles[memberId]?.username || profiles[memberId]?.username || 'Unknown'}: ${cost.toFixed(2)}
+              </span>
+            ))}
+          </div>
         </div>
       )}
 
@@ -654,6 +761,30 @@ export default function GroupChatPage() {
           setSelectedUserId(null);
         }}
       />
+
+      {/* PreOrder Modal */}
+      {showPreOrder && selectedRestaurant && (
+        <PreOrder
+          restaurant={selectedRestaurant}
+          members={preOrderMembers}
+          onClose={() => setShowPreOrder(false)}
+          onSave={async (order, tip, taxRate) => {
+            try {
+              await saveGroupPreOrder(groupId, order, tip, taxRate);
+              setShowPreOrder(false);
+              alert('Order saved successfully!');
+            } catch (error) {
+              console.error('Failed to save order:', error);
+              alert('Failed to save order. Please try again.');
+            }
+          }}
+          initialOrder={savedPreOrder ? {
+            items: savedPreOrder.items,
+            tipPercent: savedPreOrder.tipPercent,
+            taxRate: savedPreOrder.taxRate,
+          } : undefined}
+        />
+      )}
     </div>
   );
 }

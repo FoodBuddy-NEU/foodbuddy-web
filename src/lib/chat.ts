@@ -71,11 +71,11 @@ export async function disbandGroup(groupId: string): Promise<void> {
 
 export function subscribeGroupMeta(
   groupId: string,
-  cb: (data: { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string }) => void
+  cb: (data: { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string; preOrder?: PreOrderData }) => void
 ): () => void {
   const ref = doc(db, 'groups', groupId);
   return onSnapshot(ref, (snap) => {
-    cb(snap.exists() ? (snap.data() as { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string }) : {});
+    cb(snap.exists() ? (snap.data() as { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string; preOrder?: PreOrderData }) : {});
   });
 }
 
@@ -87,4 +87,88 @@ export async function updateGroupDiningTime(groupId: string, diningTime: string)
 export async function updateGroupRestaurant(groupId: string, restaurantId: string, restaurantName: string): Promise<void> {
   const groupRef = doc(db, 'groups', groupId);
   await updateDoc(groupRef, { restaurantId, restaurantName, updatedAt: serverTimestamp() });
+}
+
+// PreOrder item type
+export interface PreOrderItem {
+  id: string;
+  name: string;
+  price: number;
+  assignedTo: string[]; // member userIds
+  isCustom: boolean;
+}
+
+// PreOrder data structure
+export interface PreOrderData {
+  items: PreOrderItem[];
+  tipPercent: number;
+  taxRate: number;
+  subtotal: number;
+  tax: number;
+  tip: number;
+  total: number;
+  memberCosts: Record<string, number>; // userId -> their share
+  createdAt: ReturnType<typeof serverTimestamp>;
+  updatedAt: ReturnType<typeof serverTimestamp>;
+}
+
+export async function saveGroupPreOrder(
+  groupId: string, 
+  items: PreOrderItem[], 
+  tipPercent: number, 
+  taxRate: number
+): Promise<void> {
+  const groupRef = doc(db, 'groups', groupId);
+  
+  // Calculate totals
+  const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+  const tax = subtotal * taxRate;
+  const tip = subtotal * (tipPercent / 100);
+  const total = subtotal + tax + tip;
+
+  // Calculate per-member costs
+  const memberCosts: Record<string, number> = {};
+  
+  items.forEach(item => {
+    if (item.assignedTo.length > 0) {
+      const perPersonCost = item.price / item.assignedTo.length;
+      item.assignedTo.forEach(memberId => {
+        memberCosts[memberId] = (memberCosts[memberId] || 0) + perPersonCost;
+      });
+    }
+  });
+
+  // Add proportional tax and tip to each member
+  Object.keys(memberCosts).forEach(memberId => {
+    if (subtotal > 0) {
+      const proportion = memberCosts[memberId] / subtotal;
+      memberCosts[memberId] += (tax + tip) * proportion;
+    }
+  });
+
+  const preOrderData: PreOrderData = {
+    items,
+    tipPercent,
+    taxRate,
+    subtotal,
+    tax,
+    tip,
+    total,
+    memberCosts,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+
+  await updateDoc(groupRef, { 
+    preOrder: preOrderData,
+    updatedAt: serverTimestamp() 
+  });
+}
+
+export async function clearGroupPreOrder(groupId: string): Promise<void> {
+  const groupRef = doc(db, 'groups', groupId);
+  await updateDoc(groupRef, { 
+    preOrder: null,
+    updatedAt: serverTimestamp() 
+  });
 }
