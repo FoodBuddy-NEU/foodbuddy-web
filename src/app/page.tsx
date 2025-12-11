@@ -218,11 +218,12 @@ export default function RestaurantsPage() {
           <button
             key={opt.key}
             onClick={() => handleSortClick(opt.key as typeof sortBy)}
-            className={`sort-btn rounded-full px-4 py-2 text-sm border ${
+            className="sort-btn rounded-full px-4 py-2 text-sm border"
+            style={
               sortBy === opt.key 
-                ? 'bg-gray-400 text-white' 
-                : 'bg-white text-black'
-            }`}
+                ? { backgroundColor: '#9ca3af', color: '#ffffff', borderColor: '#000000' } 
+                : { backgroundColor: '#ffffff', color: '#000000', borderColor: '#000000' }
+            }
           >
             {opt.label} {sortBy === opt.key ? (sortDir === 'asc' ? '↑' : '↓') : ''}
           </button>

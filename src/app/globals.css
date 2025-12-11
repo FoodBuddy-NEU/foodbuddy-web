@@ -1,6 +1,660 @@
 @import 'tailwindcss';
 
 /* ========================================
+   GLOBAL PROTECTION: Disable browser color-scheme interference
+   This prevents browser dark/light mode from affecting our styles
+   Our theme is ONLY controlled by the .dark class on <html>
+   ======================================== */
+
+/* ========================================
+   PreOrder Component - Fixed Light Theme Styles
+   These styles are immune to browser dark/light mode interference
+   ======================================== */
+.preorder-modal {
+  /* Modal overlay - semi-transparent black background */
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.preorder-content {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+.preorder-content * {
+  color: inherit;
+}
+
+.preorder-header {
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.preorder-title {
+  color: #171717 !important;
+}
+
+.preorder-subtitle {
+  color: #6b7280 !important;
+}
+
+.preorder-allergy-box {
+  background-color: #fef2f2 !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.preorder-allergy-title {
+  color: #b91c1c !important;
+}
+
+.preorder-allergy-text {
+  color: #dc2626 !important;
+}
+
+.preorder-section {
+  border-right: 1px solid #e5e7eb !important;
+}
+
+.preorder-category-bar {
+  background-color: #f9fafb !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.preorder-category-btn {
+  /* Default state - will be overridden by inline styles for active state */
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.preorder-category-btn-active,
+.preorder-category-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.preorder-menu-item,
+label.preorder-menu-item {
+  border: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-menu-item:hover,
+label.preorder-menu-item:hover {
+  background-color: #f9fafb !important;
+}
+
+.preorder-item-name {
+  color: #171717 !important;
+}
+
+.preorder-item-price {
+  color: #171717 !important;
+}
+
+.preorder-custom-btn {
+  border: 2px dashed #d1d5db !important;
+  color: #6b7280 !important;
+  background-color: transparent !important;
+}
+
+/* PreOrder input fields - light theme base */
+.preorder-custom-input {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  color: #374151 !important;
+}
+
+.preorder-custom-input::placeholder {
+  color: #9ca3af !important;
+}
+
+.preorder-order-header {
+  background-color: #f9fafb !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.preorder-order-title {
+  color: #171717 !important;
+}
+
+.preorder-empty-text {
+  color: #6b7280 !important;
+}
+
+.preorder-order-item {
+  border: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-order-item-name {
+  color: #171717 !important;
+}
+
+.preorder-order-item-custom {
+  background-color: #fef08a !important;
+  color: #713f12 !important;
+}
+
+.preorder-order-item-for {
+  color: #6b7280 !important;
+}
+
+.preorder-remove-btn {
+  color: #ef4444 !important;
+}
+
+.preorder-calc-section {
+  background-color: #f9fafb !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-tip-label {
+  color: #374151 !important;
+}
+
+.preorder-tip-btn {
+  /* Default state - will be overridden by inline styles for active state */
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.preorder-tip-btn-active,
+.preorder-tip-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.preorder-tip-input {
+  border: 1px solid #d1d5db !important;
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+.preorder-calc-row {
+  color: #374151 !important;
+}
+
+.preorder-calc-loading {
+  color: #9ca3af !important;
+}
+
+.preorder-total-row {
+  color: #171717 !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-member-section {
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-member-title {
+  color: #171717 !important;
+}
+
+.preorder-member-item {
+  background-color: #f3f4f6 !important;
+}
+
+.preorder-member-name {
+  color: #374151 !important;
+}
+
+.preorder-member-cost {
+  color: #171717 !important;
+}
+
+.preorder-footer {
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.preorder-cancel-btn {
+  border: 1px solid #d1d5db !important;
+  color: #374151 !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-save-btn {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+}
+
+.preorder-save-btn:disabled {
+  opacity: 0.5 !important;
+}
+
+/* Toggle Select All / Deselect All button */
+.preorder-toggle-select-btn {
+  border: 1px solid #3b82f6 !important;
+  color: #3b82f6 !important;
+  background-color: transparent !important;
+}
+
+.preorder-toggle-select-btn:hover {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+/* Modal dialogs inside PreOrder */
+.preorder-dialog {
+  background-color: #ffffff !important;
+}
+
+.preorder-dialog-title {
+  color: #171717 !important;
+}
+
+.preorder-dialog-subtitle {
+  color: #6b7280 !important;
+}
+
+.preorder-dialog-option {
+  border: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.preorder-dialog-option-text {
+  color: #171717 !important;
+}
+
+.preorder-dialog-input {
+  border: 1px solid #d1d5db !important;
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+.preorder-dialog-divider {
+  border-top: 1px solid #e5e7eb !important;
+}
+
+/* ========================================
+   PreOrder Component - Dark Theme Styles
+   ======================================== */
+html.dark .preorder-modal {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark .preorder-content {
+  background-color: #2a2a2a !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-allergy-alert {
+  background-color: rgba(127, 29, 29, 0.3) !important;
+  border-color: #991b1b !important;
+}
+
+html.dark .preorder-allergy-title {
+  color: #fca5a5 !important;
+}
+
+html.dark .preorder-allergy-item {
+  color: #fca5a5 !important;
+}
+
+html.dark .preorder-left-panel {
+  border-right-color: #404040 !important;
+}
+
+html.dark .preorder-category-bar {
+  background-color: #3a3a3a !important;
+  border-bottom-color: #404040 !important;
+}
+
+html.dark .preorder-category-btn {
+  background-color: #4a4a4a !important;
+  color: #e5e5e5 !important;
+  border: 1px solid #555555 !important;
+}
+
+html.dark .preorder-category-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+html.dark .preorder-menu-item {
+  background-color: #3a3a3a !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-item-name {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-item-price {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-custom-btn {
+  border-color: #555555 !important;
+  color: #9ca3af !important;
+  background-color: #3a3a3a !important;
+}
+
+html.dark .preorder-order-header {
+  background-color: #3a3a3a !important;
+  border-bottom-color: #404040 !important;
+}
+
+html.dark .preorder-order-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-order-empty {
+  color: #9ca3af !important;
+}
+
+html.dark .preorder-order-item {
+  background-color: #3a3a3a !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-order-item-name {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-order-item-member {
+  color: #9ca3af !important;
+}
+
+html.dark .preorder-order-item-price {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-remove-btn {
+  color: #ef4444 !important;
+}
+
+html.dark .preorder-tax-section {
+  background-color: #3a3a3a !important;
+  border-top-color: #404040 !important;
+}
+
+html.dark .preorder-tax-label,
+html.dark .preorder-label {
+  color: #9ca3af !important;
+}
+
+html.dark .preorder-tip-btn {
+  background-color: #4a4a4a !important;
+  color: #e5e5e5 !important;
+  border: 1px solid #555555 !important;
+}
+
+html.dark .preorder-tip-btn.active {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+html.dark .preorder-custom-input {
+  background-color: #3a3a3a !important;
+  border-color: #555555 !important;
+  color: #ffffff !important;
+}
+
+html.dark .preorder-subtotal-row,
+html.dark .preorder-total-row {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-breakdown-section {
+  background-color: #3a3a3a !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-breakdown-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-breakdown-item {
+  background-color: #4a4a4a !important;
+  color: #ffffff !important;
+}
+
+html.dark .preorder-breakdown-item span {
+  color: #ffffff !important;
+}
+
+html.dark .preorder-breakdown-amount {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-close-btn,
+html.dark .preorder-dialog-cancel {
+  background-color: #4a4a4a !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-save-btn,
+html.dark .preorder-dialog-add {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+}
+
+/* Dark theme toggle select button */
+html.dark .preorder-toggle-select-btn {
+  border: 1px solid #60a5fa !important;
+  color: #60a5fa !important;
+  background-color: transparent !important;
+}
+
+html.dark .preorder-toggle-select-btn:hover {
+  background-color: #60a5fa !important;
+  color: #1e1e1e !important;
+}
+
+html.dark .preorder-section-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .preorder-title {
+  color: #ffffff !important;
+}
+
+html.dark .preorder-subtitle {
+  color: #9ca3af !important;
+}
+
+/* ========================================
+   Group Chat Dining Settings - Custom Classes
+   ======================================== */
+/* Restaurant selected box - light theme */
+.dining-restaurant-selected {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+/* Restaurant selected box - dark theme */
+html.dark .dining-restaurant-selected {
+  background-color: rgba(20, 83, 45, 0.2);
+  border-color: #166534;
+}
+
+/* Restaurant link - light theme */
+.dining-restaurant-link {
+  color: #2563eb;
+}
+
+/* Restaurant link - dark theme */
+html.dark .dining-restaurant-link {
+  color: #60a5fa;
+}
+
+/* Restaurant list - light theme */
+.dining-restaurant-list {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+}
+
+/* Restaurant list - dark theme */
+html.dark .dining-restaurant-list {
+  background-color: #374151;
+  border-color: #4b5563;
+}
+
+/* Restaurant list item hover - light theme */
+.dining-restaurant-item:hover {
+  background-color: #f9fafb;
+}
+
+/* Restaurant list item hover - dark theme */
+html.dark .dining-restaurant-item:hover {
+  background-color: #4b5563;
+}
+
+/* Force color-scheme to always be light - browser won't auto-apply dark styles */
+:root {
+  color-scheme: light only;
+}
+
+/* Even when our app is in dark mode, we control it via .dark class, not browser */
+html.dark {
+  color-scheme: dark only;
+}
+
+/* Nullify any browser dark mode interference */
+@media (prefers-color-scheme: dark) {
+  :root:not(.dark) {
+    color-scheme: light only;
+  }
+}
+
+/* ========================================
+   HIGHEST PRIORITY: Force transparent background for specific buttons
+   These rules override ALL other styles including browser dark mode
+   ======================================== */
+button.upm-close,
+button.upm-close:hover,
+button.upm-close:focus,
+html.dark button.upm-close,
+html.dark button.upm-close:hover,
+html.dark button.upm-close:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+button.username-link,
+button.username-link:hover,
+button.username-link:focus,
+html.dark button.username-link,
+html.dark button.username-link:hover,
+html.dark button.username-link:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Force consistent username link colors across browser modes */
+/* Light theme: black color */
+html:not(.dark) button.username-link,
+html:not(.dark) .username-link {
+  color: #171717 !important;
+}
+
+html:not(.dark) button.username-link:hover,
+html:not(.dark) .username-link:hover {
+  color: #2563eb !important;
+  text-decoration: underline !important;
+}
+
+/* Dark theme: white color */
+html.dark button.username-link,
+html.dark .username-link {
+  color: #ffffff !important;
+}
+
+html.dark button.username-link:hover,
+html.dark .username-link:hover {
+  color: #93c5fd !important;
+  text-decoration: underline !important;
+}
+
+/* Override browser dark mode interference for light theme */
+@media (prefers-color-scheme: dark) {
+  html:not(.dark) button.username-link,
+  html:not(.dark) .username-link {
+    color: #171717 !important;
+  }
+  
+  html:not(.dark) button.username-link:hover,
+  html:not(.dark) .username-link:hover {
+    color: #2563eb !important;
+    text-decoration: underline !important;
+  }
+}
+
+/* Also ensure browser light mode doesn't interfere */
+@media (prefers-color-scheme: light) {
+  html:not(.dark) button.username-link,
+  html:not(.dark) .username-link {
+    color: #171717 !important;
+  }
+  
+  html:not(.dark) button.username-link:hover,
+  html:not(.dark) .username-link:hover {
+    color: #2563eb !important;
+    text-decoration: underline !important;
+  }
+  
+  html.dark button.username-link,
+  html.dark .username-link {
+    color: #ffffff !important;
+  }
+  
+  html.dark button.username-link:hover,
+  html.dark .username-link:hover {
+    color: #93c5fd !important;
+    text-decoration: underline !important;
+  }
+}
+
+button.tab-btn,
+button.tab-btn:hover,
+button.tab-btn:focus,
+html.dark button.tab-btn,
+html.dark button.tab-btn:hover,
+html.dark button.tab-btn:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* ========================================
+   User Profile Modal - Force light theme styles
+   These rules ensure correct display regardless of browser color scheme
+   ======================================== */
+.user-profile-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.user-profile-modal-content {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  color-scheme: light !important;
+}
+
+.profile-tag {
+  color-scheme: light !important;
+}
+
+.profile-tag-blue {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+}
+
+.profile-tag-green {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.profile-tag-orange {
+  background-color: #ffedd5 !important;
+  color: #9a3412 !important;
+}
+
+.profile-tag-red {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+/* ========================================
    Feedback Button - Blue background, white text
    ======================================== */
 .feedback-btn {
@@ -34,12 +688,302 @@
 .sort-btn {
   background-color: #ffffff !important;
   color: #000000 !important;
-  border-color: #d1d5db !important;
+  border-color: #000000 !important;
 }
 
 .sort-btn.bg-gray-400 {
   background-color: #9ca3af !important;
   color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* ========================================
+   Dining Settings Panel - Force light theme styles
+   Uses ds- prefix classes to exclude from global color reset
+   ======================================== */
+.ds-panel {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #e5e7eb !important;
+}
+
+.ds-title {
+  color: #171717 !important;
+}
+
+.ds-subtitle {
+  color: #6b7280 !important;
+}
+
+.ds-label {
+  color: #171717 !important;
+}
+
+.ds-sublabel {
+  color: #6b7280 !important;
+}
+
+.ds-input,
+.ds-select {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #d1d5db !important;
+}
+
+.ds-clear-btn,
+.ds-remove-btn {
+  color: #ef4444 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.ds-selected {
+  background-color: #f0fdf4 !important;
+  border-color: #bbf7d0 !important;
+}
+
+.ds-checkmark {
+  color: #166534 !important;
+}
+
+.ds-link {
+  color: #166534 !important;
+}
+
+.ds-link:hover {
+  text-decoration: underline;
+}
+
+.ds-readonly {
+  background-color: #f9fafb !important;
+  border-color: #d1d5db !important;
+  color: #171717 !important;
+}
+
+.ds-list {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+}
+
+.ds-list-item {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #e5e7eb !important;
+}
+
+.ds-list-item:hover {
+  background-color: #f9fafb !important;
+}
+
+.ds-item-name {
+  color: #171717 !important;
+}
+
+.ds-item-address,
+.ds-item-info {
+  color: #6b7280 !important;
+}
+
+.ds-noresult,
+.ds-hint,
+.ds-empty {
+  color: #6b7280 !important;
+}
+
+/* Dining Settings Summary Bar - Light theme */
+.ds-summary {
+  background-color: #eff6ff !important;
+  border-color: #e5e7eb !important;
+}
+
+.ds-summary-item {
+  color: #171717 !important;
+}
+
+.ds-summary-link {
+  color: #2563eb !important;
+}
+
+/* Dark theme - Dining Settings Panel */
+html.dark .ds-panel {
+  background-color: #2a2a2a !important;
+  color: #e5e5e5 !important;
+  border-color: #404040 !important;
+}
+
+html.dark .ds-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-subtitle {
+  color: #9ca3af !important;
+}
+
+html.dark .ds-label {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-sublabel {
+  color: #9ca3af !important;
+}
+
+html.dark .ds-input,
+html.dark .ds-select {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
+}
+
+html.dark .ds-clear-btn,
+html.dark .ds-remove-btn {
+  color: #ef4444 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html.dark .ds-selected {
+  background-color: #064e3b !important;
+  border-color: #059669 !important;
+}
+
+html.dark .ds-checkmark {
+  color: #34d399 !important;
+}
+
+html.dark .ds-link {
+  color: #34d399 !important;
+}
+
+html.dark .ds-readonly {
+  background-color: #3a3a3a !important;
+  border-color: #555555 !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-list {
+  background-color: #2a2a2a !important;
+  border-color: #555555 !important;
+}
+
+html.dark .ds-list-item {
+  background-color: #2a2a2a !important;
+  color: #e5e5e5 !important;
+  border-color: #404040 !important;
+}
+
+html.dark .ds-list-item:hover {
+  background-color: #3a3a3a !important;
+}
+
+html.dark .ds-item-name {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-item-address,
+html.dark .ds-item-info {
+  color: #9ca3af !important;
+}
+
+html.dark .ds-noresult,
+html.dark .ds-hint,
+html.dark .ds-empty {
+  color: #9ca3af !important;
+}
+
+/* Dark theme - Group Chat container border - white for consistency */
+html.dark .border {
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .border-b {
+  border-bottom-color: #e5e5e5 !important;
+}
+
+html.dark .border-t {
+  border-top-color: #e5e5e5 !important;
+}
+
+/* Dark theme - Group Chat header buttons (Close, Manage, Dining) */
+html.dark .gc-header-btn {
+  background-color: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .gc-header-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Dark theme - Chat input and send button */
+html.dark .chat-input {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
+}
+
+html.dark .chat-send-btn {
+  background-color: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .chat-send-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Dark theme - Dining Settings Summary Bar */
+html.dark .ds-summary {
+  background-color: #1e3a5f !important;
+  border-color: #e5e5e5 !important;
+  border-top: 1px solid #e5e5e5 !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+
+html.dark .ds-summary-item {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-summary-link {
+  color: #60a5fa !important;
+}
+
+/* Dark theme - Group Chat Container */
+html.dark .gc-container {
+  border-color: #e5e5e5 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
+html.dark .gc-header {
+  border-bottom-color: #404040 !important;
+}
+
+/* ========================================
+   Chat Input - consistent style across themes
+   ======================================== */
+.chat-input {
+  background-color: #ffffff;
+  color: #171717;
+  border-color: #d1d5db;
+}
+
+html.dark .chat-input {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
+}
+
+.chat-send-btn {
+  background-color: #f5f5f5;
+  color: #171717;
+  border-color: #d1d5db;
+}
+
+html.dark .chat-send-btn {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
 }
 
 /* ========================================
@@ -57,11 +1001,13 @@
   background-color: #f5f5f5 !important;
 }
 
-/* Dark mode: match navbar background */
+/* Dark mode: transparent with white border */
 html.dark .theme-toggle-btn {
-  background-color: #2a2a2a !important;
+  background-color: transparent !important;
+  background: transparent !important;
   color: #e5e5e5 !important;
-  border-color: #555555 !important;
+  border: 1px solid #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
 }
 
 html.dark .theme-toggle-btn:hover {
@@ -75,11 +1021,61 @@ html.dark .theme-toggle-btn:hover {
 
 /* FORCE light theme when browser is in dark mode */
 @media (prefers-color-scheme: dark) {
+  /* PreOrder component protection - must come BEFORE the unset rule */
+  html:not(.dark) .preorder-modal,
+  html:not(.dark) .preorder-modal * {
+    /* Allow inline styles to work */
+  }
+
   html:not(.dark),
-  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200) {
+  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200):not([class*="upm-"]):not(.username-link):not([class*="ds-"]):not(.preorder-modal):not([class*="preorder-"]) {
     background-color: unset !important;
     color: unset !important;
     border-color: unset !important;
+  }
+  
+  /* Force username-link colors in browser dark mode */
+  html:not(.dark) .username-link,
+  html:not(.dark) button.username-link {
+    color: #171717 !important;
+    background: transparent !important;
+  }
+  
+  html:not(.dark) .username-link:hover,
+  html:not(.dark) button.username-link:hover {
+    color: #2563eb !important;
+    background: transparent !important;
+  }
+
+  /* Dining Settings - force colors in browser dark mode */
+  html:not(.dark) .ds-link,
+  html:not(.dark) a.ds-link {
+    color: #166534 !important;
+  }
+
+  html:not(.dark) .ds-checkmark {
+    color: #166534 !important;
+  }
+
+  html:not(.dark) .ds-clear-btn,
+  html:not(.dark) .ds-remove-btn {
+    color: #ef4444 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Dining Settings Summary Bar */
+  html:not(.dark) .ds-summary {
+    background-color: #eff6ff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .ds-summary-item {
+    color: #171717 !important;
+  }
+
+  html:not(.dark) .ds-summary-link {
+    color: #2563eb !important;
   }
 
   /* Feedback button must stay blue - override the unset rule above */
@@ -104,15 +1100,15 @@ html.dark .theme-toggle-btn:hover {
     color: #171717 !important;
   }
   
-  html:not(.dark) input,
-  html:not(.dark) textarea,
-  html:not(.dark) select {
+  html:not(.dark) input:not(.preorder-custom-input),
+  html:not(.dark) textarea:not(.preorder-custom-input),
+  html:not(.dark) select:not(.preorder-custom-input) {
     background-color: #ffffff !important;
     color: #171717 !important;
     border-color: #cccccc !important;
   }
   
-  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full) {
+  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn):not([class*="preorder-"]) {
     background-color: #f5f5f5 !important;
     color: #171717 !important;
   }
@@ -250,6 +1246,179 @@ html.dark .theme-toggle-btn:hover {
     background-color: #e5e7eb !important;
     color: #1f2937 !important;
   }
+
+  /* ========================================
+     UserProfileModal - Browser dark mode + Light theme fixes
+     ======================================== */
+  /* Modal backdrop - use attribute selector for Tailwind escaped class */
+  html:not(.dark) [class*="bg-black"] {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Modal content box */
+  html:not(.dark) .rounded-lg.p-6 {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+
+  /* Cravings tags - blue */
+  html:not(.dark) .bg-blue-100 {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+  }
+
+  html:not(.dark) span.bg-blue-100 {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+  }
+
+  /* Cuisines tags - green */
+  html:not(.dark) .bg-green-100 {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+  }
+
+  html:not(.dark) span.bg-green-100 {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+  }
+
+  /* Dietary Restrictions tags - orange */
+  html:not(.dark) .bg-orange-100 {
+    background-color: #ffedd5 !important;
+    color: #9a3412 !important;
+  }
+
+  html:not(.dark) span.bg-orange-100 {
+    background-color: #ffedd5 !important;
+    color: #9a3412 !important;
+  }
+
+  /* Allergies tags - red */
+  html:not(.dark) .bg-red-100 {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+  }
+
+  html:not(.dark) span.bg-red-100 {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+  }
+
+  /* Avatar placeholder */
+  html:not(.dark) .bg-gray-300 {
+    background-color: #d1d5db !important;
+  }
+
+  html:not(.dark) [class*="text-gray-600"] {
+    color: #4b5563 !important;
+  }
+
+  /* ========================================
+     Group Chat Dining Settings - Browser dark mode + Light theme fixes
+     ======================================== */
+  /* Dining settings panel border and background */
+  html:not(.dark) .border-b.p-3 {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  /* Date/Time input fields */
+  html:not(.dark) input[type="date"],
+  html:not(.dark) select {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #d1d5db !important;
+  }
+
+  /* Restaurant selected - green background - FORCE light theme colors */
+  html:not(.dark) .bg-green-50,
+  html:not(.dark) [class*="bg-green-50"],
+  html:not(.dark) div[class*="bg-green-50"] {
+    background-color: #f0fdf4 !important;
+  }
+
+  /* Override dark:bg-green-900/20 - this is the key fix */
+  html:not(.dark) [class*="dark\:bg-green-900"],
+  html:not(.dark) div[class*="dark\:bg-green-900"] {
+    background-color: #f0fdf4 !important;
+  }
+
+  html:not(.dark) .border-green-200,
+  html:not(.dark) [class*="border-green-200"] {
+    border-color: #bbf7d0 !important;
+  }
+
+  /* Override dark:border-green-800 */
+  html:not(.dark) [class*="dark\:border-green-800"] {
+    border-color: #bbf7d0 !important;
+  }
+
+  /* Restaurant link - blue text - override dark:text-blue-400 */
+  html:not(.dark) .text-blue-600,
+  html:not(.dark) [class*="text-blue-600"] {
+    color: #2563eb !important;
+  }
+
+  html:not(.dark) [class*="dark\:text-blue-400"] {
+    color: #2563eb !important;
+  }
+
+  /* Restaurant list hover - override dark:hover:bg-gray-800 */
+  html:not(.dark) li.p-2:hover,
+  html:not(.dark) [class*="hover\:bg-gray-50"]:hover {
+    background-color: #f9fafb !important;
+  }
+
+  html:not(.dark) [class*="dark\:hover\:bg-gray-800"]:hover {
+    background-color: #f9fafb !important;
+  }
+
+  /* View-only mode background - override dark:bg-gray-800 */
+  html:not(.dark) [class*="dark\:bg-gray-800"] {
+    background-color: #f9fafb !important;
+  }
+
+  /* Clear/Remove buttons - red text */
+  html:not(.dark) .text-red-500 {
+    color: #ef4444 !important;
+  }
+
+  /* Muted foreground text */
+  html:not(.dark) .text-muted-foreground {
+    color: #6b7280 !important;
+  }
+
+  /* Dividers in restaurant list */
+  html:not(.dark) .divide-y > * {
+    border-color: #e5e7eb !important;
+  }
+
+  /* Restaurant list border */
+  html:not(.dark) ul.border.rounded {
+    border-color: #d1d5db !important;
+    background-color: #ffffff !important;
+  }
+
+  /* Labels should be dark in light theme */
+  html:not(.dark) label {
+    color: #171717 !important;
+  }
+
+  /* Font medium text should be dark */
+  html:not(.dark) .font-medium {
+    color: #171717 !important;
+  }
+
+  /* Text-sm should be readable */
+  html:not(.dark) .text-sm {
+    color: #171717 !important;
+  }
+
+  /* Checkmark and other spans */
+  html:not(.dark) span:not(.text-muted-foreground):not([class*="bg-"]):not([class*="text-red"]):not([class*="text-blue"]):not([class*="text-green"]) {
+    color: #171717 !important;
+  }
   
   /* FORCE dark theme when html has .dark class */
   html.dark {
@@ -270,7 +1439,14 @@ html.dark .theme-toggle-btn:hover {
     border-color: #555555 !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border) {
+  /* Ensure transparent buttons stay transparent in dark mode */
+  html.dark button.upm-close,
+  html.dark button.bg-transparent {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn):not(.gc-header-btn):not(.chat-send-btn):not(.preorder-category-btn):not(.preorder-tip-btn):not(.preorder-custom-btn):not(.preorder-close-btn):not(.preorder-save-btn):not(.preorder-dialog-cancel):not(.preorder-dialog-add):not(.preorder-toggle-select-btn):not(.preorder-remove-btn) {
     background-color: #3a3a3a !important;
     color: #e5e5e5 !important;
   }
@@ -318,6 +1494,547 @@ html.dark .theme-toggle-btn:hover {
   html.dark .text-neutral-600 {
     color: #ffffff !important;
   }
+
+  /* Dark theme - Dining Settings Summary Bar - force border in browser dark mode */
+  html.dark .ds-summary {
+    background-color: #1e3a5f !important;
+    border-color: #e5e5e5 !important;
+    border-top: 1px solid #e5e5e5 !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+  }
+
+  /* Dark theme - Group Chat Container - force border in browser dark mode */
+  html.dark .gc-container {
+    border-color: #e5e5e5 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+
+  html.dark .gc-header {
+    border-bottom-color: #404040 !important;
+  }
+
+  /* ========================================
+     PreOrder Modal - Dark theme styles in browser dark mode
+     ======================================== */
+  html.dark .preorder-modal {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  html.dark .preorder-content {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-allergy-alert {
+    background-color: rgba(127, 29, 29, 0.3) !important;
+    border-color: #991b1b !important;
+  }
+
+  html.dark .preorder-allergy-title,
+  html.dark .preorder-allergy-item {
+    color: #fca5a5 !important;
+  }
+
+  html.dark .preorder-left-panel {
+    border-right-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-bar {
+    background-color: #3a3a3a !important;
+    border-bottom-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-menu-item,
+  html.dark label.preorder-menu-item {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-menu-item:hover,
+  html.dark label.preorder-menu-item:hover {
+    background-color: #4a4a4a !important;
+    border-color: #555555 !important;
+  }
+
+  html.dark .preorder-item-name,
+  html.dark .preorder-item-price {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-custom-btn {
+    border-color: #555555 !important;
+    color: #9ca3af !important;
+    background-color: #3a3a3a !important;
+  }
+
+  html.dark .preorder-order-header {
+    background-color: #3a3a3a !important;
+    border-bottom-color: #404040 !important;
+  }
+
+  html.dark .preorder-order-title,
+  html.dark .preorder-order-item-name,
+  html.dark .preorder-order-item-price {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-order-empty,
+  html.dark .preorder-order-item-member {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-order-item {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-remove-btn {
+    color: #ef4444 !important;
+  }
+
+  html.dark .preorder-tax-section {
+    background-color: #3a3a3a !important;
+    border-top-color: #404040 !important;
+  }
+
+  html.dark .preorder-tax-label,
+  html.dark .preorder-label {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-tip-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-custom-input {
+    background-color: #3a3a3a !important;
+    border-color: #555555 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-subtotal-row,
+  html.dark .preorder-total-row,
+  html.dark .preorder-breakdown-title,
+  html.dark .preorder-breakdown-amount,
+  html.dark .preorder-section-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-title {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-subtitle {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-breakdown-section {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-breakdown-item {
+    background-color: #4a4a4a !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-breakdown-item span {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-close-btn,
+  html.dark .preorder-dialog-cancel {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-save-btn,
+  html.dark .preorder-dialog-add {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* ========================================
+     PreOrder Modal - FORCE light theme colors in browser dark mode
+     All PreOrder elements must display correctly regardless of browser mode
+     ======================================== */
+  /* Modal overlay - semi-transparent black */
+  html:not(.dark) .preorder-modal {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Modal content - white background */
+  html:not(.dark) .preorder-content {
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
+  }
+
+  /* Allergy alert - red/pink background */
+  html:not(.dark) .preorder-allergy-alert {
+    background-color: #fee2e2 !important;
+    border-color: #fecaca !important;
+    color: #991b1b !important;
+  }
+
+  html:not(.dark) .preorder-allergy-title {
+    color: #dc2626 !important;
+  }
+
+  html:not(.dark) .preorder-allergy-item {
+    color: #991b1b !important;
+  }
+
+  /* Left panel - light gray background */
+  html:not(.dark) .preorder-left-panel {
+    background-color: #f9fafb !important;
+    border-color: #e5e7eb !important;
+  }
+
+  /* Category tabs */
+  html:not(.dark) .preorder-category-tab {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  html:not(.dark) .preorder-category-tab-active {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  /* Menu items */
+  html:not(.dark) .preorder-menu-item {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-menu-item:hover {
+    background-color: #f3f4f6 !important;
+  }
+
+  html:not(.dark) .preorder-item-name {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-item-description {
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-item-price {
+    color: #059669 !important;
+  }
+
+  /* Member selection */
+  html:not(.dark) .preorder-member-select {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-add-btn {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* Right panel - order summary */
+  html:not(.dark) .preorder-right-panel {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-order-title {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-order-empty {
+    color: #9ca3af !important;
+  }
+
+  /* Order items */
+  html:not(.dark) .preorder-order-item {
+    background-color: #f9fafb !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-order-item-name {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-order-item-member {
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-order-item-price {
+    color: #059669 !important;
+  }
+
+  html:not(.dark) .preorder-remove-btn {
+    color: #ef4444 !important;
+    background-color: transparent !important;
+  }
+
+  /* Custom item input */
+  html:not(.dark) .preorder-custom-input {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-custom-input::placeholder {
+    color: #6b7280 !important;
+  }
+
+  /* Tax and tip section */
+  html:not(.dark) .preorder-tax-section {
+    background-color: #f3f4f6 !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .preorder-zip-input {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-tax-label {
+    color: #4b5563 !important;
+  }
+
+  html:not(.dark) .preorder-tax-value {
+    color: #1f2937 !important;
+  }
+
+  /* Tip buttons */
+  html:not(.dark) .preorder-tip-btn {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  html:not(.dark) .preorder-tip-btn-active {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  /* Totals */
+  html:not(.dark) .preorder-subtotal-row {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-total-row {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-total-amount {
+    color: #059669 !important;
+  }
+
+  /* Per person breakdown */
+  html:not(.dark) .preorder-breakdown-section {
+    background-color: #eff6ff !important;
+    border-color: #bfdbfe !important;
+  }
+
+  html:not(.dark) .preorder-breakdown-title {
+    color: #1e40af !important;
+  }
+
+  html:not(.dark) .preorder-breakdown-item {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-breakdown-amount {
+    color: #059669 !important;
+  }
+
+  /* Action buttons */
+  html:not(.dark) .preorder-close-btn {
+    background-color: #6b7280 !important;
+    color: #ffffff !important;
+  }
+
+  html:not(.dark) .preorder-submit-btn {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* Labels and headers */
+  html:not(.dark) .preorder-section-title {
+    color: #1f2937 !important;
+  }
+
+  html:not(.dark) .preorder-label {
+    color: #4b5563 !important;
+  }
+
+  /* Scrollbar styling for PreOrder */
+  html:not(.dark) .preorder-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  html:not(.dark) .preorder-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  html:not(.dark) .preorder-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+
+  /* ========================================
+     PreOrder - Force correct styles in browser dark mode + app light theme
+     ======================================== */
+  /* Category buttons - default gray */
+  html:not(.dark) .preorder-category-btn {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  /* Category buttons - active blue */
+  html:not(.dark) .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  /* Tip buttons - default gray */
+  html:not(.dark) .preorder-tip-btn {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+  }
+
+  /* Tip buttons - active blue */
+  html:not(.dark) .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  /* Menu item prices - black */
+  html:not(.dark) .preorder-item-price {
+    color: #171717 !important;
+  }
+
+  /* Order item prices - black */
+  html:not(.dark) .preorder-order-item-price {
+    color: #171717 !important;
+  }
+
+  /* Modal content - white background */
+  html:not(.dark) .preorder-content {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+
+  /* Modal overlay - semi-transparent black */
+  html:not(.dark) .preorder-modal {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Save Order button - green */
+  html:not(.dark) .preorder-save-btn {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  /* Category tabs bar - light gray background */
+  html:not(.dark) .preorder-category-bar {
+    background-color: #f9fafb !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  /* Order header - light gray background */
+  html:not(.dark) .preorder-order-header {
+    background-color: #f9fafb !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  /* Tax/tip section - light gray background */
+  html:not(.dark) .preorder-tax-section {
+    background-color: #f9fafb !important;
+    border-top: 1px solid #e5e7eb !important;
+  }
+
+  /* Custom item button - dashed border */
+  html:not(.dark) .preorder-custom-btn {
+    border: 2px dashed #d1d5db !important;
+    color: #6b7280 !important;
+    background-color: transparent !important;
+  }
+
+  /* Menu items - white background with border */
+  html:not(.dark) .preorder-menu-item {
+    background-color: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  /* Order items - white background with border */
+  html:not(.dark) .preorder-order-item {
+    background-color: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  /* Left panel border */
+  html:not(.dark) .preorder-left-panel {
+    border-right: 1px solid #e5e7eb !important;
+  }
+
+  /* Input fields */
+  html:not(.dark) .preorder-custom-input {
+    background-color: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-custom-input::placeholder {
+    color: #6b7280 !important;
+  }
+
+  /* Text colors */
+  html:not(.dark) .preorder-item-name,
+  html:not(.dark) .preorder-order-title,
+  html:not(.dark) .preorder-order-item-name {
+    color: #171717 !important;
+  }
+
+  html:not(.dark) .preorder-order-item-member,
+  html:not(.dark) .preorder-order-empty,
+  html:not(.dark) .preorder-label {
+    color: #6b7280 !important;
+  }
+
+  html:not(.dark) .preorder-tax-label {
+    color: #374151 !important;
+  }
+
+  /* Dialog Cancel button - gray */
+  html:not(.dark) .preorder-dialog-cancel {
+    background-color: #6b7280 !important;
+    color: #ffffff !important;
+  }
+
+  /* Dialog Add button - green */
+  html:not(.dark) .preorder-dialog-add {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
 }
 
 /* FORCE dark theme when browser is in light mode AND html has .dark class */
@@ -340,15 +2057,48 @@ html.dark .theme-toggle-btn:hover {
     border-color: #555555 !important;
   }
 
-  /* Theme toggle button in dark mode - match navbar */
+  /* Theme toggle button in dark mode - transparent with white border */
   html.dark .theme-toggle-btn {
-    background-color: #2a2a2a !important;
+    background-color: transparent !important;
+    background: transparent !important;
     color: #e5e5e5 !important;
-    border-color: #555555 !important;
+    border: 1px solid #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
   }
 
   html.dark .theme-toggle-btn:hover {
     background-color: #3a3a3a !important;
+  }
+
+  /* Group Chat header buttons (Close, Manage, Dining) - transparent with border */
+  html.dark .gc-header-btn {
+    background-color: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .gc-header-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  /* Chat send button - transparent with border */
+  html.dark .chat-send-btn {
+    background-color: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .chat-send-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  /* Clear and Remove buttons - transparent with red text */
+  html.dark .ds-clear-btn,
+  html.dark .ds-remove-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #ef4444 !important;
+    border: none !important;
   }
 
   /* Generic buttons in dark mode - only apply to buttons without border class */
@@ -389,10 +2139,171 @@ html.dark .theme-toggle-btn:hover {
     background-color: #171717 !important;
     color: #ffffff !important;
   }
+
+  /* Dark theme Clear and Remove buttons - transparent background, red text */
+  html.dark .ds-clear-btn,
+  html.dark .ds-remove-btn {
+    color: #ef4444 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  /* Dark theme border-b should be lighter */
+  html.dark .border-b {
+    border-color: #555555 !important;
+  }
   
   /* Force Sort and Showing text to be white in dark mode */
   html.dark .text-neutral-600 {
     color: #ffffff !important;
+  }
+
+  /* ========================================
+     PreOrder - FORCE dark theme in browser light mode + app dark theme
+     ======================================== */
+  html.dark .preorder-content {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-title {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-subtitle {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-category-bar,
+  html.dark .preorder-order-header,
+  html.dark .preorder-tax-section {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-left-panel {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-menu-item,
+  html.dark .preorder-order-item,
+  html.dark label.preorder-menu-item {
+    background-color: #3a3a3a !important;
+    border: 1px solid #404040 !important;
+  }
+
+  html.dark .preorder-menu-item:hover,
+  html.dark label.preorder-menu-item:hover {
+    background-color: #4a4a4a !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-item-name,
+  html.dark .preorder-item-price,
+  html.dark .preorder-order-item-name,
+  html.dark .preorder-order-item-price,
+  html.dark .preorder-order-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-order-item-member,
+  html.dark .preorder-order-empty,
+  html.dark .preorder-label {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-tip-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-custom-input {
+    background-color: #3a3a3a !important;
+    border: 1px solid #555555 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-custom-btn {
+    border: 2px dashed #555555 !important;
+    color: #9ca3af !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-tax-label,
+  html.dark .preorder-subtotal-row {
+    color: #d1d5db !important;
+  }
+
+  html.dark .preorder-total-row,
+  html.dark .preorder-total-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-breakdown-section {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-breakdown-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-item {
+    background-color: #4a4a4a !important;
+  }
+
+  html.dark .preorder-breakdown-item span {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-close-btn,
+  html.dark .preorder-dialog-cancel {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-save-btn,
+  html.dark .preorder-dialog-add {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-section-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-toggle-select-btn {
+    border: 1px solid #60a5fa !important;
+    color: #60a5fa !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-toggle-select-btn:hover {
+    background-color: #60a5fa !important;
+    color: #1e1e1e !important;
   }
 }
 
@@ -625,11 +2536,13 @@ img[alt="FoodBuddy Logo"] {
    regardless of browser color-scheme preference
    ======================================== */
 @media (prefers-color-scheme: light) {
-  /* Theme toggle button in dark mode - match navbar */
+  /* Theme toggle button in dark mode - transparent with white border */
   html.dark .theme-toggle-btn {
-    background-color: #2a2a2a !important;
+    background-color: transparent !important;
+    background: transparent !important;
     color: #e5e5e5 !important;
-    border-color: #555555 !important;
+    border: 1px solid #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
   }
 
   html.dark .theme-toggle-btn:hover {
@@ -641,7 +2554,6 @@ img[alt="FoodBuddy Logo"] {
   html.dark .dark\:bg-gray-900 {
     background-color: #111827 !important;
   }
-
   html.dark .dark\:bg-gray-700,
   html.dark .dark\:bg-gray-600 {
     background-color: #374151 !important;
@@ -705,7 +2617,7 @@ img[alt="FoodBuddy Logo"] {
     background-color: #dc2626 !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn),
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.upm-close):not(.username-link):not(.tab-btn):not(.border):not(.gc-header-btn):not(.chat-send-btn):not(.ds-clear-btn):not(.ds-remove-btn):not(.preorder-category-btn):not(.preorder-tip-btn):not(.preorder-custom-btn):not(.preorder-close-btn):not(.preorder-save-btn):not(.preorder-dialog-cancel):not(.preorder-dialog-add):not(.preorder-toggle-select-btn):not(.preorder-remove-btn),
   html.dark .dark\:bg-gray-600:not(.filter-chip) {
     background-color: #4b5563 !important;
   }
@@ -882,5 +2794,458 @@ img[alt="FoodBuddy Logo"] {
     background-color: #ef4444 !important;
     color: #ffffff !important;
   }
+
+  /* ========================================
+     Homepage search bar and sort buttons in dark theme
+     when browser is in light mode
+     ======================================== */
+  
+  /* Search input field - dark background - exclude special classes */
+  html.dark input[type="text"]:not(.ds-input):not(.chat-input):not(.preorder-custom-input),
+  html.dark input[type="search"]:not(.ds-input):not(.chat-input):not(.preorder-custom-input),
+  html.dark input.rounded-lg:not(.ds-input):not(.chat-input):not(.preorder-custom-input),
+  html.dark input.rounded-full:not(.ds-input):not(.chat-input):not(.preorder-custom-input) {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  /* Special input classes - consistent dark background */
+  html.dark .ds-input,
+  html.dark .chat-input {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark input[type="text"]:not(.preorder-custom-input)::placeholder,
+  html.dark input[type="search"]:not(.preorder-custom-input)::placeholder {
+    color: #9ca3af !important;
+  }
+
+  /* PreOrder input placeholder - consistent color */
+  html.dark .preorder-custom-input::placeholder {
+    color: #6b7280 !important;
+  }
+
+  /* Sort buttons - white background with black text for browser light mode + dark theme */
+  html.dark .sort-btn {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
+  }
+  
+  html.dark button.rounded-full.border:not(.filter-chip):not(.sort-btn):not(.feedback-btn):not(.theme-toggle-btn):not(.gc-header-btn) {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
+  }
+
+  html.dark .sort-btn:hover,
+  html.dark button.rounded-full.border:hover {
+    background-color: #e5e5e5 !important;
+    color: #171717 !important;
+  }
+
+  /* Sort buttons - active state (bg-gray-400) - keep white background */
+  html.dark .sort-btn.filter-chip--active,
+  html.dark button.rounded-full.border.filter-chip--active,
+  html.dark .sort-btn.bg-gray-400,
+  html.dark button.sort-btn.bg-gray-400 {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
+  }
+
+  /* Filter chips in dark mode */
+  html.dark .filter-chip {
+    background-color: #374151 !important;
+    color: #e5e5e5 !important;
+    border-color: #4b5563 !important;
+  }
+
+  html.dark .filter-chip:hover {
+    background-color: #4b5563 !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .filter-chip--active {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+    border-color: #1f2937 !important;
+  }
+
+  /* Show filters button */
+  html.dark button.bg-gray-700,
+  html.dark button[class*="bg-gray-700"] {
+    background-color: #374151 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark button.bg-gray-700:hover,
+  html.dark button[class*="bg-gray-700"]:hover {
+    background-color: #4b5563 !important;
+  }
+
+  /* General text colors */
+  html.dark h1,
+  html.dark h2,
+  html.dark h3,
+  html.dark h4,
+  html.dark p,
+  html.dark span,
+  html.dark label {
+    color: #e5e5e5 !important;
+  }
+
+  /* Border colors - white for dark theme consistency */
+  html.dark .border:not(.theme-toggle-btn):not(.gc-header-btn):not(.chat-send-btn):not(.ds-input):not(.chat-input),
+  html.dark [class*="border-"]:not(.theme-toggle-btn):not(.gc-header-btn):not(.chat-send-btn):not(.ds-input):not(.chat-input) {
+    border-color: #e5e5e5 !important;
+  }
 }
 
+/* ========================================
+   FINAL OVERRIDES - Group Chat buttons
+   Must be at the end to have highest priority
+   These rules work regardless of browser color scheme
+   ======================================== */
+html.dark .gc-header-btn,
+html.dark button.gc-header-btn,
+html.dark .gc-header-btn.border,
+html.dark button.gc-header-btn.border {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .gc-header-btn:hover,
+html.dark button.gc-header-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+html.dark .chat-send-btn,
+html.dark button.chat-send-btn {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .chat-send-btn:hover,
+html.dark button.chat-send-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+html.dark .ds-clear-btn,
+html.dark button.ds-clear-btn,
+html.dark .ds-remove-btn,
+html.dark button.ds-remove-btn {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #ef4444 !important;
+  border: none !important;
+}
+
+/* Dark theme toggle button - transparent with white border */
+html.dark .theme-toggle-btn,
+html.dark button.theme-toggle-btn {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #e5e5e5 !important;
+  border: 1px solid #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .theme-toggle-btn:hover,
+html.dark button.theme-toggle-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* ========================================
+   FINAL OVERRIDES - For browser light mode + app dark theme
+   These ensure the same styles apply in both browser modes
+   ======================================== */
+@media (prefers-color-scheme: light) {
+  html.dark .gc-header-btn,
+  html.dark button.gc-header-btn,
+  html.dark .gc-header-btn.border,
+  html.dark button.gc-header-btn.border {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .gc-header-btn:hover,
+  html.dark button.gc-header-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  html.dark .chat-send-btn,
+  html.dark button.chat-send-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .chat-send-btn:hover,
+  html.dark button.chat-send-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  html.dark .ds-clear-btn,
+  html.dark button.ds-clear-btn,
+  html.dark .ds-remove-btn,
+  html.dark button.ds-remove-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #ef4444 !important;
+    border: none !important;
+  }
+
+  html.dark .theme-toggle-btn,
+  html.dark button.theme-toggle-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .theme-toggle-btn:hover,
+  html.dark button.theme-toggle-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  /* ========================================
+     PreOrder - FINAL dark theme overrides (browser light mode + app dark theme)
+     ======================================== */
+  html.dark .preorder-content {
+    background-color: #2a2a2a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-title {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-subtitle {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-category-bar,
+  html.dark .preorder-order-header,
+  html.dark .preorder-tax-section {
+    background-color: #3a3a3a !important;
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-left-panel {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-category-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-category-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-menu-item,
+  html.dark .preorder-order-item,
+  html.dark label.preorder-menu-item {
+    background-color: #3a3a3a !important;
+    border: 1px solid #404040 !important;
+  }
+
+  html.dark .preorder-menu-item:hover,
+  html.dark label.preorder-menu-item:hover {
+    background-color: #4a4a4a !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-item-name,
+  html.dark .preorder-item-price,
+  html.dark .preorder-order-item-name,
+  html.dark .preorder-order-item-price,
+  html.dark .preorder-order-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-order-item-member,
+  html.dark .preorder-order-empty,
+  html.dark .preorder-label {
+    color: #9ca3af !important;
+  }
+
+  html.dark .preorder-tip-btn {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #555555 !important;
+  }
+
+  html.dark .preorder-tip-btn.active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  html.dark .preorder-custom-input {
+    background-color: #3a3a3a !important;
+    border: 1px solid #555555 !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-custom-btn {
+    border: 2px dashed #555555 !important;
+    color: #9ca3af !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-tax-label,
+  html.dark .preorder-subtotal-row {
+    color: #d1d5db !important;
+  }
+
+  html.dark .preorder-total-row,
+  html.dark .preorder-total-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-breakdown-section {
+    border-color: #404040 !important;
+  }
+
+  html.dark .preorder-breakdown-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-item {
+    background-color: #4a4a4a !important;
+  }
+
+  html.dark .preorder-breakdown-item span {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-breakdown-amount {
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-close-btn,
+  html.dark .preorder-dialog-cancel {
+    background-color: #4a4a4a !important;
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-save-btn,
+  html.dark .preorder-dialog-add {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+  }
+
+  html.dark .preorder-section-title {
+    color: #e5e5e5 !important;
+  }
+
+  html.dark .preorder-toggle-select-btn {
+    border: 1px solid #60a5fa !important;
+    color: #60a5fa !important;
+    background-color: transparent !important;
+  }
+
+  html.dark .preorder-toggle-select-btn:hover {
+    background-color: #60a5fa !important;
+    color: #1e1e1e !important;
+  }
+}
+/* ========================================
+   FINAL OVERRIDES - PreOrder input placeholder consistency
+   ======================================== */
+html.dark input.preorder-custom-input,
+html.dark input.preorder-custom-input[type="text"],
+html.dark input.preorder-custom-input[type="number"] {
+  color: #ffffff !important;
+}
+
+html.dark input.preorder-custom-input::placeholder,
+html.dark input.preorder-custom-input[type="text"]::placeholder,
+html.dark input.preorder-custom-input[type="number"]::placeholder {
+  color: #6b7280 !important;
+}
+
+/* ========================================
+   PreOrder Summary - Light and Dark theme styles
+   ======================================== */
+
+/* Light mode base styles */
+.preorder-summary {
+  background-color: #f0fdf4 !important;
+  border-color: #e5e7eb !important;
+}
+
+.preorder-summary-text {
+  color: #166534 !important;
+  font-weight: 500;
+}
+
+.preorder-summary-btn {
+  color: #166534 !important;
+  border-color: #166534 !important;
+  background-color: transparent !important;
+}
+
+.preorder-summary-btn:hover {
+  background-color: #dcfce7 !important;
+}
+
+.preorder-summary-tag {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+/* Dark mode styles */
+html.dark .preorder-summary {
+  background-color: #14532d !important;
+  border-color: #404040 !important;
+}
+
+html.dark .preorder-summary-text {
+  color: #86efac !important;
+}
+
+html.dark .preorder-summary-btn {
+  color: #86efac !important;
+  border-color: #86efac !important;
+  background-color: transparent !important;
+}
+
+html.dark .preorder-summary-btn:hover {
+  background-color: #166534 !important;
+}
+
+html.dark .preorder-summary-tag {
+  background-color: #166534 !important;
+  color: #86efac !important;
+}
+
+/* ========================================
+   PreOrder Custom Tag - Light and Dark theme styles
+   ======================================== */
+.preorder-custom-tag {
+  background-color: #fef08a !important;
+  color: #713f12 !important;
+}
+
+html.dark .preorder-custom-tag {
+  background-color: #854d0e !important;
+  color: #fef08a !important;
+}
