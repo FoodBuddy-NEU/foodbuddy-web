@@ -5,14 +5,10 @@ import {
 } from '@/lib/chat';
 
 import {
-  collection,
-  query,
-  where,
   getDocs,
   addDoc,
   updateDoc,
   deleteDoc,
-  doc,
 } from 'firebase/firestore';
 
 // Mock Firestore client

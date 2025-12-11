@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { UserProfile } from '@/types/userProfile';
 
 // Types for restaurant menu
 interface MenuItem {

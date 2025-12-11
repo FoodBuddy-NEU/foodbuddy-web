@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef, useMemo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import type { ChatMessage } from '@/types/chatType';
 import {
@@ -28,37 +27,6 @@ type Restaurant = {
   rating: number;
   priceRange: string;
 };
-
-function UserAvatar({ avatarUrl, username }: { avatarUrl?: string; username: string }) {
-  const [imgError, setImgError] = useState(false);
-  
-  const processedUrl = avatarUrl ? (
-    avatarUrl.toLowerCase().endsWith('.heic') 
-      ? avatarUrl.replace(/\.heic$/i, '.jpg')
-      : avatarUrl.includes('/upload/') && !avatarUrl.includes('f_auto')
-        ? avatarUrl.replace('/upload/', '/upload/f_auto/')
-        : avatarUrl
-  ) : undefined;
-  
-  if (!processedUrl || imgError) {
-    return (
-      <div className="w-6 h-6 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center text-xs text-gray-600 dark:text-gray-300">
-        {username?.charAt(0).toUpperCase() || '?'}
-      </div>
-    );
-  }
-  
-  return (
-    <Image 
-      src={processedUrl} 
-      alt={username} 
-      width={24} 
-      height={24} 
-      className="rounded-full object-cover"
-      onError={() => setImgError(true)}
-    />
-  );
-}
 
 export default function PublicChatPage() {
   const params = useParams<{ channelName: string }>();

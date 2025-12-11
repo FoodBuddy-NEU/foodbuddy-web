@@ -42,7 +42,7 @@ describe('Tax Rate API', () => {
     const request = {
       url: url.toString(),
       nextUrl: url,
-    } as any;
+    } as unknown as Request & { nextUrl: URL };
     
     const response = await GET(request);
     const data = await response.json();
@@ -60,7 +60,7 @@ describe('Tax Rate API', () => {
     const request = {
       url: url.toString(),
       nextUrl: url,
-    } as any;
+    } as unknown as Request & { nextUrl: URL };
     
     const response = await GET(request);
     const data = await response.json();
@@ -80,7 +80,7 @@ describe('Tax Rate API', () => {
     const request = {
       url: url.toString(),
       nextUrl: url,
-    } as any;
+    } as unknown as Request & { nextUrl: URL };
     
     const response = await GET(request);
     const data = await response.json();
@@ -97,7 +97,7 @@ describe('Tax Rate API', () => {
     const request = {
       url: url.toString(),
       nextUrl: url,
-    } as any;
+    } as unknown as Request & { nextUrl: URL };
     
     const response = await GET(request);
     const data = await response.json();

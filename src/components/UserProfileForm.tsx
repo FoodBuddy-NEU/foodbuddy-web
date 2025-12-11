@@ -319,6 +319,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
           </label>
           <div className="flex items-center gap-4 flex-wrap">
             {avatarUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img 
                 src={avatarUrl} 
                 alt="Avatar preview" 
@@ -362,6 +363,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
                   }`}
                   title={preset.name}
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={preset.url}
                     alt={preset.name}
