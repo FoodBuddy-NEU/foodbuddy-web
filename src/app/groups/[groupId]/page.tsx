@@ -290,13 +290,13 @@ export default function GroupChatPage() {
         <div className="font-semibold">Group chat – {groupName ?? groupId}</div>
         <div className="ml-auto flex gap-2">
           <button
-            className="text-xs border rounded px-2 py-1"
+            className="gc-header-btn text-xs border rounded px-2 py-1"
             onClick={() => setShowDiningSettings((v) => !v)}
           >
             {showDiningSettings ? 'Close' : '🍽️ Dining'}
           </button>
           <button
-            className="text-xs border rounded px-2 py-1"
+            className="gc-header-btn text-xs border rounded px-2 py-1"
             onClick={() => setShowManage((v) => !v)}
           >
             {showManage ? 'Close' : 'Manage'}
@@ -306,20 +306,27 @@ export default function GroupChatPage() {
 
       {/* Current Dining Settings Display */}
       {(diningDate || restaurantName) && !showDiningSettings && (
-        <div className="px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border-b text-sm flex items-center gap-4">
-          <div className="flex items-center gap-1">
+        <div 
+          className="ds-summary px-4 py-2 border-b text-sm flex items-center gap-4"
+          style={{ backgroundColor: '#eff6ff', borderColor: '#e5e7eb' }}
+        >
+          <div className="ds-summary-item flex items-center gap-1" style={{ color: '#171717' }}>
             <span>🕐</span>
             <span>{formattedDiningDateTime || 'Not set'}</span>
           </div>
           {restaurantName ? (
-            <div className="flex items-center gap-1">
+            <div className="ds-summary-item flex items-center gap-1">
               <span>📍</span>
-              <Link href={`/restaurants/${restaurantId}`} className="text-blue-600 dark:text-blue-400 hover:underline">
+              <Link 
+                href={`/restaurants/${restaurantId}`} 
+                className="ds-summary-link hover:underline"
+                style={{ color: '#2563eb' }}
+              >
                 {restaurantName}
               </Link>
             </div>
           ) : (
-            <div className="flex items-center gap-1 text-muted-foreground">
+            <div className="ds-summary-item flex items-center gap-1" style={{ color: '#6b7280' }}>
               <span>📍</span>
               <span>Not set</span>
             </div>
@@ -329,21 +336,24 @@ export default function GroupChatPage() {
 
       {/* Dining Settings Panel */}
       {showDiningSettings && (
-        <div className="border-b p-3 text-sm flex flex-col gap-4">
-          <div className="text-md font-semibold text-muted-foreground">
+        <div 
+          className="ds-panel border-b p-3 text-sm flex flex-col gap-4"
+          style={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb' }}
+        >
+          <div className="ds-title text-md font-semibold" style={{ color: '#171717' }}>
             🍽️ Dining Settings
-            {!isOwner && <span className="text-xs font-normal ml-2">(View only)</span>}
+            {!isOwner && <span className="ds-subtitle text-xs font-normal ml-2" style={{ color: '#6b7280' }}>(View only)</span>}
           </div>
           
           {/* Dining Date & Time */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Dining Date & Time</label>
+          <div className="ds-section">
+            <label className="ds-label block text-sm font-medium mb-2" style={{ color: '#171717' }}>Dining Date & Time</label>
             
             {isOwner ? (
               <div className="flex gap-3">
                 {/* Date Picker */}
                 <div className="flex-1">
-                  <label className="block text-xs text-muted-foreground mb-1">Date</label>
+                  <label className="ds-sublabel block text-xs mb-1" style={{ color: '#6b7280' }}>Date</label>
                   <input
                     type="date"
                     lang="en-US"
@@ -369,13 +379,14 @@ export default function GroupChatPage() {
                         }
                       }
                     }}
-                    className="w-full rounded border px-2 py-1.5"
+                    className="ds-input w-full rounded border px-2 py-1.5"
+                    style={{ backgroundColor: '#ffffff', color: '#171717', borderColor: '#d1d5db' }}
                   />
                 </div>
                 
                 {/* Time Picker */}
                 <div className="flex-1">
-                  <label className="block text-xs text-muted-foreground mb-1">Time</label>
+                  <label className="ds-sublabel block text-xs mb-1" style={{ color: '#6b7280' }}>Time</label>
                   <select
                     value={diningTimeSlot}
                     onChange={async (e) => {
@@ -390,7 +401,8 @@ export default function GroupChatPage() {
                         }
                       }
                     }}
-                    className="w-full rounded border px-2 py-1.5"
+                    className="ds-select w-full rounded border px-2 py-1.5"
+                    style={{ backgroundColor: '#ffffff', color: '#171717', borderColor: '#d1d5db' }}
                   >
                     <option value="">Select time...</option>
                     {timeSlotOptions.map((opt) => (
@@ -404,7 +416,8 @@ export default function GroupChatPage() {
                 {/* Clear Button */}
                 {(diningDate || diningTimeSlot) && (
                   <button
-                    className="self-end text-xs text-red-500 hover:underline px-2 py-1.5"
+                    className="ds-clear-btn self-end text-xs hover:underline px-2 py-1.5"
+                    style={{ color: '#ef4444' }}
                     onClick={async () => {
                       setDiningDate('');
                       setDiningTimeSlot('');
@@ -421,28 +434,39 @@ export default function GroupChatPage() {
               </div>
             ) : (
               /* View-only mode for non-owners */
-              <div className="p-2 bg-gray-50 dark:bg-gray-800 rounded border">
-                {formattedDiningDateTime || <span className="text-muted-foreground">Not specified</span>}
+              <div 
+                className="ds-readonly p-2 rounded border"
+                style={{ backgroundColor: '#f9fafb', borderColor: '#d1d5db', color: '#171717' }}
+              >
+                {formattedDiningDateTime || <span style={{ color: '#6b7280' }}>Not specified</span>}
               </div>
             )}
           </div>
           
           {/* Restaurant */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Restaurant</label>
+          <div className="ds-section">
+            <label className="ds-label block text-sm font-medium mb-2" style={{ color: '#171717' }}>Restaurant</label>
             
             {isOwner ? (
               <>
                 {restaurantName && (
-                  <div className="dining-restaurant-selected mb-2 p-2 rounded border flex items-center justify-between">
+                  <div 
+                    className="ds-selected mb-2 p-2 rounded border flex items-center justify-between"
+                    style={{ backgroundColor: '#f0fdf4', borderColor: '#bbf7d0' }}
+                  >
                     <div className="flex items-center gap-2">
-                      <span>✓</span>
-                      <Link href={`/restaurants/${restaurantId}`} className="dining-restaurant-link hover:underline font-medium">
+                      <span className="ds-checkmark" style={{ color: '#166534' }}>✓</span>
+                      <Link 
+                        href={`/restaurants/${restaurantId}`} 
+                        className="ds-link hover:underline font-medium"
+                        style={{ color: '#166534' }}
+                      >
                         {restaurantName}
                       </Link>
                     </div>
                     <button
-                      className="text-xs text-red-500 hover:underline"
+                      className="ds-remove-btn text-xs hover:underline"
+                      style={{ color: '#ef4444' }}
                       onClick={async () => {
                         try {
                           await updateGroupRestaurant(groupId, '', '');
@@ -462,14 +486,16 @@ export default function GroupChatPage() {
                   value={restaurantSearch}
                   onChange={(e) => setRestaurantSearch(e.target.value)}
                   placeholder="Search restaurants by name..."
-                  className="w-full rounded border px-2 py-1.5"
+                  className="ds-input w-full rounded border px-2 py-1.5"
                 />
                 {filteredRestaurants.length > 0 && (
-                  <ul className="mt-2 border rounded divide-y max-h-48 overflow-y-auto dining-restaurant-list">
+                  <ul 
+                    className="ds-list mt-2 border rounded divide-y max-h-48 overflow-y-auto"
+                  >
                     {filteredRestaurants.map((r) => (
                       <li
                         key={r.id}
-                        className="dining-restaurant-item p-2 cursor-pointer flex items-center justify-between"
+                        className="ds-list-item p-2 cursor-pointer flex items-center justify-between"
                         onClick={async () => {
                           try {
                             await updateGroupRestaurant(groupId, r.id, r.name);
@@ -483,10 +509,10 @@ export default function GroupChatPage() {
                         }}
                       >
                         <div>
-                          <div className="font-medium">{r.name}</div>
-                          <div className="text-xs text-muted-foreground">{r.address}</div>
+                          <div className="ds-item-name font-medium">{r.name}</div>
+                          <div className="ds-item-address text-xs">{r.address}</div>
                         </div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="ds-item-info text-xs">
                           ⭐ {r.rating} · {r.priceRange}
                         </div>
                       </li>
@@ -494,21 +520,28 @@ export default function GroupChatPage() {
                   </ul>
                 )}
                 {restaurantSearch.length >= 2 && filteredRestaurants.length === 0 && (
-                  <div className="mt-2 text-muted-foreground text-sm">No restaurants found</div>
+                  <div className="ds-noresult mt-2 text-muted-foreground text-sm" style={{ color: '#6b7280' }}>No restaurants found</div>
                 )}
                 {restaurantSearch.length > 0 && restaurantSearch.length < 2 && (
-                  <div className="mt-2 text-muted-foreground text-sm">Type at least 2 characters to search</div>
+                  <div className="ds-hint mt-2 text-muted-foreground text-sm" style={{ color: '#6b7280' }}>Type at least 2 characters to search</div>
                 )}
               </>
             ) : (
               /* View-only mode for non-owners */
-              <div className="p-2 bg-gray-50 dark:bg-gray-800 rounded border">
+              <div 
+                className="ds-readonly p-2 rounded border"
+                style={{ backgroundColor: '#f9fafb', borderColor: '#d1d5db' }}
+              >
                 {restaurantName ? (
-                  <Link href={`/restaurants/${restaurantId}`} className="text-blue-600 dark:text-blue-400 hover:underline">
+                  <Link 
+                    href={`/restaurants/${restaurantId}`} 
+                    className="ds-link hover:underline"
+                    style={{ color: '#2563eb' }}
+                  >
                     {restaurantName}
                   </Link>
                 ) : (
-                  <span className="text-muted-foreground">Not specified</span>
+                  <span className="ds-empty" style={{ color: '#6b7280' }}>Not specified</span>
                 )}
               </div>
             )}

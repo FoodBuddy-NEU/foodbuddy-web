@@ -26,7 +26,7 @@ export function ChatInput({ groupId, currentUserId }: ChatInputProps) {
     <div className="border-t p-3 bg-background">
       <div className="flex gap-2">
         <input
-          className="flex-1 border rounded-full px-3 py-2 text-sm"
+          className="chat-input flex-1 border rounded-full px-3 py-2 text-sm"
           placeholder="Please write your message..."
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -39,7 +39,7 @@ export function ChatInput({ groupId, currentUserId }: ChatInputProps) {
         />
         <button
           onClick={handleSend}
-          className="px-4 py-2 rounded-full border text-sm"
+          className="chat-send-btn px-4 py-2 rounded-full border text-sm"
         >
           Send
         </button>

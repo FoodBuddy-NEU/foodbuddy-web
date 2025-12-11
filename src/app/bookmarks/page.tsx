@@ -264,11 +264,12 @@ export default function BookmarkedRestaurantsPage() {
           <button
             key={opt.key}
             onClick={() => handleSortClick(opt.key as typeof sortBy)}
-            className={`sort-btn rounded-full px-4 py-2 text-sm border ${
-              sortBy === opt.key 
-                ? 'bg-gray-400 text-white' 
-                : 'bg-white text-black'
-            }`}
+            className="sort-btn rounded-full px-4 py-2 text-sm border"
+            style={{
+              backgroundColor: '#ffffff',
+              color: '#171717',
+              borderColor: '#000000'
+            }}
           >
             {opt.label} {sortBy === opt.key ? (sortDir === 'asc' ? '↑' : '↓') : ''}
           </button>

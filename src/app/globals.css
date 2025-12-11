@@ -240,12 +240,289 @@ html.dark button.tab-btn:focus {
 .sort-btn {
   background-color: #ffffff !important;
   color: #000000 !important;
-  border-color: #d1d5db !important;
+  border-color: #000000 !important;
 }
 
 .sort-btn.bg-gray-400 {
   background-color: #9ca3af !important;
   color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* ========================================
+   Dining Settings Panel - Force light theme styles
+   Uses ds- prefix classes to exclude from global color reset
+   ======================================== */
+.ds-panel {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #e5e7eb !important;
+}
+
+.ds-title {
+  color: #171717 !important;
+}
+
+.ds-subtitle {
+  color: #6b7280 !important;
+}
+
+.ds-label {
+  color: #171717 !important;
+}
+
+.ds-sublabel {
+  color: #6b7280 !important;
+}
+
+.ds-input,
+.ds-select {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #d1d5db !important;
+}
+
+.ds-clear-btn,
+.ds-remove-btn {
+  color: #ef4444 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.ds-selected {
+  background-color: #f0fdf4 !important;
+  border-color: #bbf7d0 !important;
+}
+
+.ds-checkmark {
+  color: #166534 !important;
+}
+
+.ds-link {
+  color: #166534 !important;
+}
+
+.ds-link:hover {
+  text-decoration: underline;
+}
+
+.ds-readonly {
+  background-color: #f9fafb !important;
+  border-color: #d1d5db !important;
+  color: #171717 !important;
+}
+
+.ds-list {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+}
+
+.ds-list-item {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #e5e7eb !important;
+}
+
+.ds-list-item:hover {
+  background-color: #f9fafb !important;
+}
+
+.ds-item-name {
+  color: #171717 !important;
+}
+
+.ds-item-address,
+.ds-item-info {
+  color: #6b7280 !important;
+}
+
+.ds-noresult,
+.ds-hint,
+.ds-empty {
+  color: #6b7280 !important;
+}
+
+/* Dining Settings Summary Bar - Light theme */
+.ds-summary {
+  background-color: #eff6ff !important;
+  border-color: #e5e7eb !important;
+}
+
+.ds-summary-item {
+  color: #171717 !important;
+}
+
+.ds-summary-link {
+  color: #2563eb !important;
+}
+
+/* Dark theme - Dining Settings Panel */
+html.dark .ds-panel {
+  background-color: #2a2a2a !important;
+  color: #e5e5e5 !important;
+  border-color: #404040 !important;
+}
+
+html.dark .ds-title {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-subtitle {
+  color: #9ca3af !important;
+}
+
+html.dark .ds-label {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-sublabel {
+  color: #9ca3af !important;
+}
+
+html.dark .ds-input,
+html.dark .ds-select {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
+}
+
+html.dark .ds-clear-btn,
+html.dark .ds-remove-btn {
+  color: #ef4444 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html.dark .ds-selected {
+  background-color: #064e3b !important;
+  border-color: #059669 !important;
+}
+
+html.dark .ds-checkmark {
+  color: #34d399 !important;
+}
+
+html.dark .ds-link {
+  color: #34d399 !important;
+}
+
+html.dark .ds-readonly {
+  background-color: #3a3a3a !important;
+  border-color: #555555 !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-list {
+  background-color: #2a2a2a !important;
+  border-color: #555555 !important;
+}
+
+html.dark .ds-list-item {
+  background-color: #2a2a2a !important;
+  color: #e5e5e5 !important;
+  border-color: #404040 !important;
+}
+
+html.dark .ds-list-item:hover {
+  background-color: #3a3a3a !important;
+}
+
+html.dark .ds-item-name {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-item-address,
+html.dark .ds-item-info {
+  color: #9ca3af !important;
+}
+
+html.dark .ds-noresult,
+html.dark .ds-hint,
+html.dark .ds-empty {
+  color: #9ca3af !important;
+}
+
+/* Dark theme - Group Chat container border - white for consistency */
+html.dark .border {
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .border-b {
+  border-bottom-color: #e5e5e5 !important;
+}
+
+html.dark .border-t {
+  border-top-color: #e5e5e5 !important;
+}
+
+/* Dark theme - Group Chat header buttons (Close, Manage, Dining) */
+html.dark .gc-header-btn {
+  background-color: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .gc-header-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Dark theme - Chat input and send button */
+html.dark .chat-input {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
+}
+
+html.dark .chat-send-btn {
+  background-color: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .chat-send-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Dark theme - Dining Settings Summary Bar */
+html.dark .ds-summary {
+  background-color: #1e3a5f !important;
+  border-color: #404040 !important;
+}
+
+html.dark .ds-summary-item {
+  color: #e5e5e5 !important;
+}
+
+html.dark .ds-summary-link {
+  color: #60a5fa !important;
+}
+
+/* ========================================
+   Chat Input - consistent style across themes
+   ======================================== */
+.chat-input {
+  background-color: #ffffff;
+  color: #171717;
+  border-color: #d1d5db;
+}
+
+html.dark .chat-input {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
+}
+
+.chat-send-btn {
+  background-color: #f5f5f5;
+  color: #171717;
+  border-color: #d1d5db;
+}
+
+html.dark .chat-send-btn {
+  background-color: #3a3a3a !important;
+  color: #e5e5e5 !important;
+  border-color: #555555 !important;
 }
 
 /* ========================================
@@ -263,11 +540,13 @@ html.dark button.tab-btn:focus {
   background-color: #f5f5f5 !important;
 }
 
-/* Dark mode: match navbar background */
+/* Dark mode: transparent with white border */
 html.dark .theme-toggle-btn {
-  background-color: #2a2a2a !important;
+  background-color: transparent !important;
+  background: transparent !important;
   color: #e5e5e5 !important;
-  border-color: #555555 !important;
+  border: 1px solid #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
 }
 
 html.dark .theme-toggle-btn:hover {
@@ -282,7 +561,7 @@ html.dark .theme-toggle-btn:hover {
 /* FORCE light theme when browser is in dark mode */
 @media (prefers-color-scheme: dark) {
   html:not(.dark),
-  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200):not([class*="upm-"]):not(.username-link) {
+  html:not(.dark) *:not(.feedback-btn):not(.feedback-modal):not(.feedback-input):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.bg-gray-200):not(.bg-white):not(.bg-gray-50):not(.bg-gray-100):not(.text-gray-900):not(.text-gray-800):not(.text-gray-700):not(.text-gray-600):not(.text-gray-500):not(.text-gray-400):not(.border-gray-300):not(.border-gray-200):not([class*="upm-"]):not(.username-link):not([class*="ds-"]) {
     background-color: unset !important;
     color: unset !important;
     border-color: unset !important;
@@ -299,6 +578,37 @@ html.dark .theme-toggle-btn:hover {
   html:not(.dark) button.username-link:hover {
     color: #2563eb !important;
     background: transparent !important;
+  }
+
+  /* Dining Settings - force colors in browser dark mode */
+  html:not(.dark) .ds-link,
+  html:not(.dark) a.ds-link {
+    color: #166534 !important;
+  }
+
+  html:not(.dark) .ds-checkmark {
+    color: #166534 !important;
+  }
+
+  html:not(.dark) .ds-clear-btn,
+  html:not(.dark) .ds-remove-btn {
+    color: #ef4444 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Dining Settings Summary Bar */
+  html:not(.dark) .ds-summary {
+    background-color: #eff6ff !important;
+    border-color: #e5e7eb !important;
+  }
+
+  html:not(.dark) .ds-summary-item {
+    color: #171717 !important;
+  }
+
+  html:not(.dark) .ds-summary-link {
+    color: #2563eb !important;
   }
 
   /* Feedback button must stay blue - override the unset rule above */
@@ -331,7 +641,7 @@ html.dark .theme-toggle-btn:hover {
     border-color: #cccccc !important;
   }
   
-  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn) {
+  html:not(.dark) button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.sort-btn):not(.bookmark-btn):not(.feedback-btn):not(.rounded-full):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn) {
     background-color: #f5f5f5 !important;
     color: #171717 !important;
   }
@@ -669,7 +979,7 @@ html.dark .theme-toggle-btn:hover {
     background: transparent !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn) {
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.border):not(.upm-close):not(.bg-transparent):not(.username-link):not(.tab-btn):not(.ds-clear-btn):not(.ds-remove-btn):not(.gc-header-btn):not(.chat-send-btn) {
     background-color: #3a3a3a !important;
     color: #e5e5e5 !important;
   }
@@ -739,15 +1049,48 @@ html.dark .theme-toggle-btn:hover {
     border-color: #555555 !important;
   }
 
-  /* Theme toggle button in dark mode - match navbar */
+  /* Theme toggle button in dark mode - transparent with white border */
   html.dark .theme-toggle-btn {
-    background-color: #2a2a2a !important;
+    background-color: transparent !important;
+    background: transparent !important;
     color: #e5e5e5 !important;
-    border-color: #555555 !important;
+    border: 1px solid #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
   }
 
   html.dark .theme-toggle-btn:hover {
     background-color: #3a3a3a !important;
+  }
+
+  /* Group Chat header buttons (Close, Manage, Dining) - transparent with border */
+  html.dark .gc-header-btn {
+    background-color: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .gc-header-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  /* Chat send button - transparent with border */
+  html.dark .chat-send-btn {
+    background-color: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .chat-send-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  /* Clear and Remove buttons - transparent with red text */
+  html.dark .ds-clear-btn,
+  html.dark .ds-remove-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #ef4444 !important;
+    border: none !important;
   }
 
   /* Generic buttons in dark mode - only apply to buttons without border class */
@@ -787,6 +1130,20 @@ html.dark .theme-toggle-btn:hover {
   html:not(.dark) div.rounded-full.border:hover {
     background-color: #171717 !important;
     color: #ffffff !important;
+  }
+
+  /* Dark theme Clear and Remove buttons - transparent background, red text */
+  html.dark .ds-clear-btn,
+  html.dark .ds-remove-btn {
+    color: #ef4444 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  /* Dark theme border-b should be lighter */
+  html.dark .border-b {
+    border-color: #555555 !important;
   }
   
   /* Force Sort and Showing text to be white in dark mode */
@@ -1024,11 +1381,13 @@ img[alt="FoodBuddy Logo"] {
    regardless of browser color-scheme preference
    ======================================== */
 @media (prefers-color-scheme: light) {
-  /* Theme toggle button in dark mode - match navbar */
+  /* Theme toggle button in dark mode - transparent with white border */
   html.dark .theme-toggle-btn {
-    background-color: #2a2a2a !important;
+    background-color: transparent !important;
+    background: transparent !important;
     color: #e5e5e5 !important;
-    border-color: #555555 !important;
+    border: 1px solid #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
   }
 
   html.dark .theme-toggle-btn:hover {
@@ -1040,7 +1399,6 @@ img[alt="FoodBuddy Logo"] {
   html.dark .dark\:bg-gray-900 {
     background-color: #111827 !important;
   }
-
   html.dark .dark\:bg-gray-700,
   html.dark .dark\:bg-gray-600 {
     background-color: #374151 !important;
@@ -1104,7 +1462,7 @@ img[alt="FoodBuddy Logo"] {
     background-color: #dc2626 !important;
   }
 
-  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.upm-close):not(.username-link):not(.tab-btn),
+  html.dark button:not(.filter-chip):not(.bg-blue-500):not(.bg-blue-600):not(.bg-green-500):not(.bg-orange-500):not(.bg-red-500):not(.theme-toggle-btn):not(.bookmark-btn):not(.upm-close):not(.username-link):not(.tab-btn):not(.border):not(.gc-header-btn):not(.chat-send-btn):not(.ds-clear-btn):not(.ds-remove-btn),
   html.dark .dark\:bg-gray-600:not(.filter-chip) {
     background-color: #4b5563 !important;
   }
@@ -1287,14 +1645,22 @@ img[alt="FoodBuddy Logo"] {
      when browser is in light mode
      ======================================== */
   
-  /* Search input field - dark background */
-  html.dark input[type="text"],
-  html.dark input[type="search"],
-  html.dark input.rounded-lg,
-  html.dark input.rounded-full {
-    background-color: #374151 !important;
-    color: #ffffff !important;
-    border-color: #4b5563 !important;
+  /* Search input field - dark background - exclude special classes */
+  html.dark input[type="text"]:not(.ds-input):not(.chat-input),
+  html.dark input[type="search"]:not(.ds-input):not(.chat-input),
+  html.dark input.rounded-lg:not(.ds-input):not(.chat-input),
+  html.dark input.rounded-full:not(.ds-input):not(.chat-input) {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  /* Special input classes - consistent dark background */
+  html.dark .ds-input,
+  html.dark .chat-input {
+    background-color: #3a3a3a !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
   }
 
   html.dark input[type="text"]::placeholder,
@@ -1302,25 +1668,33 @@ img[alt="FoodBuddy Logo"] {
     color: #9ca3af !important;
   }
 
-  /* Sort buttons - unselected state */
-  html.dark .sort-btn,
-  html.dark button.rounded-full.border {
-    background-color: #374151 !important;
-    color: #e5e5e5 !important;
-    border-color: #4b5563 !important;
+  /* Sort buttons - white background with black text for browser light mode + dark theme */
+  html.dark .sort-btn {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
+  }
+  
+  html.dark button.rounded-full.border:not(.filter-chip):not(.sort-btn):not(.feedback-btn):not(.theme-toggle-btn):not(.gc-header-btn) {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
   }
 
   html.dark .sort-btn:hover,
   html.dark button.rounded-full.border:hover {
-    background-color: #4b5563 !important;
+    background-color: #e5e5e5 !important;
+    color: #171717 !important;
   }
 
-  /* Sort buttons - active state */
+  /* Sort buttons - active state (bg-gray-400) - keep white background */
   html.dark .sort-btn.filter-chip--active,
-  html.dark button.rounded-full.border.filter-chip--active {
-    background-color: #1f2937 !important;
-    color: #ffffff !important;
-    border-color: #1f2937 !important;
+  html.dark button.rounded-full.border.filter-chip--active,
+  html.dark .sort-btn.bg-gray-400,
+  html.dark button.sort-btn.bg-gray-400 {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border-color: #171717 !important;
   }
 
   /* Filter chips in dark mode */
@@ -1364,10 +1738,125 @@ img[alt="FoodBuddy Logo"] {
     color: #e5e5e5 !important;
   }
 
-  /* Border colors */
-  html.dark .border,
-  html.dark [class*="border-"] {
-    border-color: #4b5563 !important;
+  /* Border colors - white for dark theme consistency */
+  html.dark .border:not(.theme-toggle-btn):not(.gc-header-btn):not(.chat-send-btn):not(.ds-input):not(.chat-input),
+  html.dark [class*="border-"]:not(.theme-toggle-btn):not(.gc-header-btn):not(.chat-send-btn):not(.ds-input):not(.chat-input) {
+    border-color: #e5e5e5 !important;
   }
 }
 
+/* ========================================
+   FINAL OVERRIDES - Group Chat buttons
+   Must be at the end to have highest priority
+   These rules work regardless of browser color scheme
+   ======================================== */
+html.dark .gc-header-btn,
+html.dark button.gc-header-btn,
+html.dark .gc-header-btn.border,
+html.dark button.gc-header-btn.border {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .gc-header-btn:hover,
+html.dark button.gc-header-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+html.dark .chat-send-btn,
+html.dark button.chat-send-btn {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .chat-send-btn:hover,
+html.dark button.chat-send-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+html.dark .ds-clear-btn,
+html.dark button.ds-clear-btn,
+html.dark .ds-remove-btn,
+html.dark button.ds-remove-btn {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #ef4444 !important;
+  border: none !important;
+}
+
+/* Dark theme toggle button - transparent with white border */
+html.dark .theme-toggle-btn,
+html.dark button.theme-toggle-btn {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #e5e5e5 !important;
+  border: 1px solid #e5e5e5 !important;
+  border-color: #e5e5e5 !important;
+}
+
+html.dark .theme-toggle-btn:hover,
+html.dark button.theme-toggle-btn:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* ========================================
+   FINAL OVERRIDES - For browser light mode + app dark theme
+   These ensure the same styles apply in both browser modes
+   ======================================== */
+@media (prefers-color-scheme: light) {
+  html.dark .gc-header-btn,
+  html.dark button.gc-header-btn,
+  html.dark .gc-header-btn.border,
+  html.dark button.gc-header-btn.border {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .gc-header-btn:hover,
+  html.dark button.gc-header-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  html.dark .chat-send-btn,
+  html.dark button.chat-send-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .chat-send-btn:hover,
+  html.dark button.chat-send-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+
+  html.dark .ds-clear-btn,
+  html.dark button.ds-clear-btn,
+  html.dark .ds-remove-btn,
+  html.dark button.ds-remove-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #ef4444 !important;
+    border: none !important;
+  }
+
+  html.dark .theme-toggle-btn,
+  html.dark button.theme-toggle-btn {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+  }
+
+  html.dark .theme-toggle-btn:hover,
+  html.dark button.theme-toggle-btn:hover {
+    background-color: #3a3a3a !important;
+  }
+}
