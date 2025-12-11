@@ -23,8 +23,10 @@ export default function GroupListPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [restaurantFilter, setRestaurantFilter] = useState('Any Restaurant');
   const [timeFilter, setTimeFilter] = useState<'any' | 'has' | 'no' | 'match'>('any');
-  const [filterDate, setFilterDate] = useState<string>('');
-  const [filterTime, setFilterTime] = useState<string>('12:00');
+  const [filterDateStart, setFilterDateStart] = useState<string>('');
+  const [filterDateEnd, setFilterDateEnd] = useState<string>('');
+  const [filterTimeStart, setFilterTimeStart] = useState<string>('00:00');
+  const [filterTimeEnd, setFilterTimeEnd] = useState<string>('23:30');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -94,17 +96,21 @@ export default function GroupListPage() {
 
     if (timeFilter === 'has' && !g.diningTime) return false;
     if (timeFilter === 'no' && g.diningTime) return false;
-    if (timeFilter === 'match' && filterDate) {
-      // Parse the group's dining time
+    if (timeFilter === 'match' && (filterDateStart || filterDateEnd || (filterTimeStart !== '00:00') || (filterTimeEnd !== '23:30'))) {
       if (!g.diningTime) return false;
-      const groupDate = g.diningTime.split('T')[0];
-      // If both date and time are set, match both
-      if (filterTime && filterTime !== '12:00') {
-        const groupTime = g.diningTime.split('T')[1]?.substring(0, 5);
-        return groupDate === filterDate && groupTime === filterTime;
+      const dt = new Date(g.diningTime);
+      const groupDate = dt.toISOString().split('T')[0];
+      const groupTime = dt.toISOString().split('T')[1]?.substring(0, 5);
+      
+      // Date range check
+      if (filterDateStart && groupDate < filterDateStart) return false;
+      if (filterDateEnd && groupDate > filterDateEnd) return false;
+      
+      // Time range check
+      if (groupTime) {
+        if (filterTimeStart && groupTime < filterTimeStart) return false;
+        if (filterTimeEnd && groupTime > filterTimeEnd) return false;
       }
-      // Otherwise, match date only
-      return groupDate === filterDate;
     }
 
     return true;
@@ -185,31 +191,60 @@ export default function GroupListPage() {
         </div>
 
         {timeFilter === 'match' && (
-          <div className="flex gap-2">
-            <div className="flex-1">
-              <label className="block text-xs text-muted-foreground mb-1">Date</label>
-              <input
-                type="date"
-                lang="en-US"
-                value={filterDate}
-                min={todayStr}
-                onChange={(e) => setFilterDate(e.target.value)}
-                className="w-full border rounded px-3 py-2"
-              />
+          <div className="space-y-3">
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <label className="block text-xs text-muted-foreground mb-1">From Date</label>
+                <input
+                  type="date"
+                  lang="en-US"
+                  value={filterDateStart}
+                  min={todayStr}
+                  onChange={(e) => setFilterDateStart(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                />
+              </div>
+              <div className="flex-1">
+                <label className="block text-xs text-muted-foreground mb-1">To Date</label>
+                <input
+                  type="date"
+                  lang="en-US"
+                  value={filterDateEnd}
+                  min={filterDateStart || todayStr}
+                  onChange={(e) => setFilterDateEnd(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                />
+              </div>
             </div>
-            <div className="flex-1">
-              <label className="block text-xs text-muted-foreground mb-1">Time</label>
-              <select
-                value={filterTime}
-                onChange={(e) => setFilterTime(e.target.value)}
-                className="w-full border rounded px-2 py-2"
-              >
-                {timeSlotOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <label className="block text-xs text-muted-foreground mb-1">From Time</label>
+                <select
+                  value={filterTimeStart}
+                  onChange={(e) => setFilterTimeStart(e.target.value)}
+                  className="w-full border rounded px-2 py-2"
+                >
+                  {timeSlotOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex-1">
+                <label className="block text-xs text-muted-foreground mb-1">To Time</label>
+                <select
+                  value={filterTimeEnd}
+                  onChange={(e) => setFilterTimeEnd(e.target.value)}
+                  className="w-full border rounded px-2 py-2"
+                >
+                  {timeSlotOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         )}
