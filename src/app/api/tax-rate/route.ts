@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Only initialize OpenAI if API key is available
+const openai = process.env.OPENAI_API_KEY 
+  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  : null;
 
 // Cache tax rates to avoid repeated API calls
 const taxRateCache: Record<string, { rate: number; timestamp: number }> = {};
@@ -21,6 +22,12 @@ export async function GET(request: NextRequest) {
   const cached = taxRateCache[zipCode];
   if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
     return NextResponse.json({ taxRate: cached.rate, zipCode, cached: true });
+  }
+
+  // If no OpenAI API key, return default rate
+  if (!openai) {
+    const defaultRate = 0.0875;
+    return NextResponse.json({ taxRate: defaultRate, zipCode, default: true });
   }
 
   try {
