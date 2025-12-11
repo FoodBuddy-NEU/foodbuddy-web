@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import { useAuth } from '@/lib/AuthProvider';
-import { createGroup } from '@/lib/chat';
+import { createGroup, createPublicChannel } from '@/lib/chat';
 import { getUserProfile } from '@/lib/userProfile';
 import restaurants from '@/data/restaurants.json';
 
@@ -19,6 +19,7 @@ type Group = {
   restaurantName?: string;
   diningTime?: string;
   memberIds: string[];
+  isPublicChannel?: boolean;
 };
 
 export default function GroupListPage() {
@@ -46,10 +47,10 @@ export default function GroupListPage() {
       setLoading(true);
       try {
         const groupsRef = collection(db, 'groups');
-        const q = query(groupsRef, where('memberIds', 'array-contains', uid));
-        const snap = await getDocs(q);
+        const qGroups = query(groupsRef, where('memberIds', 'array-contains', uid));
+        const snapGroups = await getDocs(qGroups);
 
-        const data: Group[] = snap.docs.map((doc) => {
+        const userGroups: Group[] = snapGroups.docs.map((doc) => {
           const d = doc.data() as {
             name?: string;
             memberIds?: string[];
@@ -62,10 +63,26 @@ export default function GroupListPage() {
             restaurantName: d.restaurantName,
             diningTime: d.diningTime,
             memberIds: Array.isArray(d.memberIds) ? d.memberIds : [],
+            isPublicChannel: false,
           };
         });
 
-        setGroups(data);
+        // Also load public channels where the user has participated
+        const publicRef = collection(db, 'publicChannels');
+        const qPublic = query(publicRef, where('participantIds', 'array-contains', uid));
+        const snapPublic = await getDocs(qPublic);
+
+        const publicChannels: Group[] = snapPublic.docs.map((doc) => {
+          const d = doc.data() as { name?: string; participantIds?: string[] };
+          return {
+            id: doc.id,
+            name: d.name ?? doc.id,
+            memberIds: Array.isArray(d.participantIds) ? d.participantIds : [],
+            isPublicChannel: true,
+          };
+        });
+
+        setGroups([...userGroups, ...publicChannels]);
       } finally {
         setLoading(false);
       }
@@ -199,18 +216,50 @@ export default function GroupListPage() {
           <button
             className="text-xs border rounded px-2 py-1 hover:bg-muted"
             onClick={async () => {
-              const name = prompt('Group name');
-              if (!name || !user) return;
+              if (!user) return;
+              const name = prompt('Chat name');
+              if (!name) return;
+              const trimmed = name.trim();
+              if (!trimmed) {
+                alert('Chat name cannot be empty.');
+                return;
+              }
+
+              const makePublic = confirm(
+                'Make this a public channel visible to everyone?\nClick "Cancel" for a private group.'
+              );
               try {
-                const id = await createGroup(name, user.uid);
-                location.href = `/groups/${id}`;
+                if (makePublic) {
+                  // Prevent duplicate public channel names
+                  const channelsRef = collection(db, 'publicChannels');
+                  const q = query(channelsRef, where('name', '==', trimmed));
+                  const snap = await getDocs(q);
+                  if (!snap.empty) {
+                    alert('A public chat with this name already exists. Please choose another name.');
+                    return;
+                  }
+
+                  await createPublicChannel(trimmed, user.uid);
+                  location.href = `/public-chat/${encodeURIComponent(trimmed)}`;
+                } else {
+                  const id = await createGroup(trimmed, user.uid);
+                  location.href = `/groups/${id}`;
+                }
               } catch (e) {
-                console.error('Create group failed', e);
-                alert('Could not create group');
+                console.error('Create chat failed', e);
+                alert('Could not create chat');
               }
             }}
           >
             + Create
+          </button>
+          <button
+            className="text-xs border rounded px-2 py-1 hover:bg-muted"
+            onClick={() => {
+              location.href = '/public-chat';
+            }}
+          >
+            🌐 Public Chat
           </button>
         </div>
       </header>
@@ -319,15 +368,21 @@ export default function GroupListPage() {
           {filteredGroups.map((group) => (
             <li key={group.id}>
               <Link
-                href={`/groups/${group.id}`}
+                href={group.isPublicChannel ? `/public-chat/${encodeURIComponent(group.name)}` : `/groups/${group.id}`}
                 className="flex items-center justify-between border rounded-lg px-3 py-2 hover:bg-muted text-sm"
               >
                 <div className="flex flex-col">
                   <span className="font-medium">{group.name}</span>
-                  <span className="text-xs text-muted-foreground">
-                    🍴 {group.restaurantName || 'Not chosen yet'} · 🕙 {formatDiningTime(group.diningTime)} · 🧑‍🤝‍🧑{' '}
-                    {group.memberIds.length}
-                  </span>
+                  {group.isPublicChannel ? (
+                    <span className="text-xs text-muted-foreground">
+                      🌐 Public Channel · 🧑‍🤝‍🧑 {group.memberIds.length}
+                    </span>
+                  ) : (
+                    <span className="text-xs text-muted-foreground">
+                      🍴 {group.restaurantName || 'Not chosen yet'} · 🕙 {formatDiningTime(group.diningTime)} · 🧑‍🤝‍🧑{' '}
+                      {group.memberIds.length}
+                    </span>
+                  )}
                   {group.restaurantName ? (
                     <div className="mt-1 flex gap-1 flex-wrap">
                       {(tagsByGroup[group.id] || []).length ? (
@@ -361,6 +416,8 @@ export default function GroupListPage() {
           ))}
         </ul>
       )}
+
     </div>
   );
 }
+
