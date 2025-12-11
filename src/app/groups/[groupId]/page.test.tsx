@@ -24,7 +24,7 @@ jest.mock('@/lib/chat', () => {
     ]);
     return () => {};
   });
-  const groupMeta: { name?: string; ownerId?: string; memberIds?: string[] } = { name: 'g1', ownerId: 'u1', memberIds: ['u1'] };
+  const groupMeta: { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string } = { name: 'g1', ownerId: 'u1', memberIds: ['u1'] };
   const subscribeGroupMeta = jest.fn((_groupId: string, cb: (d: { name?: string; ownerId?: string; memberIds?: string[] }) => void) => {
     cb({ ...groupMeta });
     return () => {};
@@ -35,7 +35,9 @@ jest.mock('@/lib/chat', () => {
   const addGroupMember = jest.fn();
   const removeGroupMember = jest.fn(async () => {});
   const disbandGroup = jest.fn(async () => {});
-  return { subscribeGroupMessages, subscribeGroupMeta, addGroupMember, removeGroupMember, disbandGroup, __setGroupMeta };
+  const updateGroupDiningTime = jest.fn(async () => {});
+  const updateGroupRestaurant = jest.fn(async () => {});
+  return { subscribeGroupMessages, subscribeGroupMeta, addGroupMember, removeGroupMember, disbandGroup, updateGroupDiningTime, updateGroupRestaurant, __setGroupMeta };
 });
 jest.mock('../../../components/MessageBubble', () => ({ MessageBubble: ({ message }: { message: ChatMessage }) => <div>{message.text}</div> }));
 jest.mock('@/app/groups/chatInput', () => ({ ChatInput: () => <div data-testid="chat-input" /> }));
@@ -45,13 +47,15 @@ jest.mock('@/lib/userProfile', () => ({
 }));
 
 const { useAuth } = jest.requireMock('@/lib/AuthProvider') as { useAuth: jest.Mock };
-type GroupMeta = { name?: string; ownerId?: string; memberIds?: string[] };
+type GroupMeta = { name?: string; ownerId?: string; memberIds?: string[]; diningTime?: string; restaurantId?: string; restaurantName?: string };
 const chatMock = jest.requireMock('@/lib/chat') as {
   __setGroupMeta: (next: Partial<GroupMeta>) => void;
   removeGroupMember: jest.Mock;
   disbandGroup: jest.Mock;
+  updateGroupDiningTime: jest.Mock;
+  updateGroupRestaurant: jest.Mock;
 };
-const { __setGroupMeta, removeGroupMember, disbandGroup } = chatMock;
+const { __setGroupMeta, removeGroupMember, disbandGroup, updateGroupDiningTime, updateGroupRestaurant } = chatMock;
 const navMock = jest.requireMock('next/navigation') as { push: jest.Mock; replace: jest.Mock };
 const { push } = navMock;
 
@@ -142,4 +146,78 @@ test('shows disband button for owner; clicking confirms and disbands', async () 
     expect(push).toHaveBeenCalledWith('/groups');
   });
   window.confirm = origConfirm;
+});
+
+test('dining settings view-only for non-owner', () => {
+  useAuth.mockReturnValue({ user: { uid: 'u1' }, loading: false });
+  __setGroupMeta({ ownerId: 'u2', diningTime: '2025-01-01T07:30:00.000Z', restaurantId: 'r1', restaurantName: 'R1' });
+  const { container } = render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText(/Dining/));
+  expect(container.querySelector('.ds-readonly')).toBeInTheDocument();
+});
+
+test('owner sets date saves default time', async () => {
+  useAuth.mockReturnValue({ user: { uid: 'u1' }, loading: false });
+  __setGroupMeta({ ownerId: 'u1' });
+  const { container } = render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText(/Dining/));
+  const dateInput = container.querySelector('input[type="date"]') as HTMLInputElement;
+  const today = new Date().toISOString().split('T')[0];
+  fireEvent.change(dateInput, { target: { value: today } });
+  await waitFor(() => {
+    expect(updateGroupDiningTime).toHaveBeenCalled();
+  });
+});
+
+test('owner sets time after date', async () => {
+  useAuth.mockReturnValue({ user: { uid: 'u1' }, loading: false });
+  __setGroupMeta({ ownerId: 'u1' });
+  const { container } = render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText(/Dining/));
+  const dateInput = container.querySelector('input[type="date"]') as HTMLInputElement;
+  const timeSelect = container.querySelector('.ds-select') as HTMLSelectElement;
+  const today = new Date().toISOString().split('T')[0];
+  fireEvent.change(dateInput, { target: { value: today } });
+  fireEvent.change(timeSelect, { target: { value: '07:30' } });
+  await waitFor(() => {
+    expect(updateGroupDiningTime).toHaveBeenCalled();
+  });
+});
+
+test('clear dining time resets', async () => {
+  useAuth.mockReturnValue({ user: { uid: 'u1' }, loading: false });
+  __setGroupMeta({ ownerId: 'u1' });
+  const { container } = render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText(/Dining/));
+  const dateInput = container.querySelector('input[type="date"]') as HTMLInputElement;
+  const today = new Date().toISOString().split('T')[0];
+  fireEvent.change(dateInput, { target: { value: today } });
+  const clearBtn = screen.getByText('Clear');
+  fireEvent.click(clearBtn);
+  await waitFor(() => {
+    expect(updateGroupDiningTime).toHaveBeenCalledWith('g1', '');
+  });
+});
+
+test('remove restaurant clears selection', async () => {
+  useAuth.mockReturnValue({ user: { uid: 'u1' }, loading: false });
+  __setGroupMeta({ ownerId: 'u1', restaurantName: 'R1', restaurantId: 'r1' });
+  render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText(/Dining/));
+  fireEvent.click(screen.getByText('Remove'));
+  await waitFor(() => {
+    expect(updateGroupRestaurant).toHaveBeenCalledWith('g1', '', '');
+  });
+});
+
+test('restaurant search hints and no results', async () => {
+  useAuth.mockReturnValue({ user: { uid: 'u1' }, loading: false });
+  __setGroupMeta({ ownerId: 'u1' });
+  render(<ThemeProvider><GroupChatPage /></ThemeProvider>);
+  fireEvent.click(screen.getByText(/Dining/));
+  const input = screen.getByPlaceholderText(/Search restaurants/i);
+  fireEvent.change(input, { target: { value: 'a' } });
+  expect(screen.getByText(/Type at least 2 characters to search/i)).toBeInTheDocument();
+  fireEvent.change(input, { target: { value: 'zzzz' } });
+  expect(await screen.findByText(/No restaurants found/i)).toBeInTheDocument();
 });

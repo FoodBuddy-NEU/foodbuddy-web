@@ -109,13 +109,20 @@ describe('disbandGroup', () => {
 });
 
 describe('group meta and updates', () => {
-  it('createGroup trims name and returns id', async () => {
+  it('createGroup handles blank and non-blank names', async () => {
     (addDoc as unknown as jest.Mock).mockImplementationOnce(async () => ({ id: 'gNew' }));
-    const id = await createGroup('   ', 'u1');
-    expect(id).toBe('gNew');
-    const payload = (addDoc as unknown as jest.Mock).mock.calls[0][1];
-    expect(payload.name).toBe('Untitled');
-    expect(payload.ownerId).toBe('u1');
+    const id1 = await createGroup('   ', 'u1');
+    expect(id1).toBe('gNew');
+    const payload1 = (addDoc as unknown as jest.Mock).mock.calls[0][1];
+    expect(payload1.name).toBe('Untitled');
+    expect(payload1.ownerId).toBe('u1');
+
+    (addDoc as unknown as jest.Mock).mockImplementationOnce(async () => ({ id: 'gNamed' }));
+    const id2 = await createGroup(' MyGroup ', 'u1');
+    expect(id2).toBe('gNamed');
+    const payload2 = (addDoc as unknown as jest.Mock).mock.calls[1][1];
+    expect(payload2.name).toBe('MyGroup');
+    expect(payload2.ownerId).toBe('u1');
   });
 
   it('subscribeGroupMeta handles exists true/false', () => {
