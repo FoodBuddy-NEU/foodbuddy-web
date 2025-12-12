@@ -1,4 +1,4 @@
-# 🍽️ FoodBuddy MVP — v3.0.0
+# 🍽️ FoodBuddy MVP — v2.0.0
 
 ### A student-first restaurant discovery app built with Next.js + React
 
@@ -10,43 +10,53 @@ This MVP demonstrates the foundation of the app’s core experience: **search, e
 ## 🚀 MVP Overview
 
 ### Version
-
-**v3.0.0** — [GitHub Release → v3.0.0](#)
+**v2.0.0** — [GitHub Release → v2.0.0](#)
 
 ### Features Included
-
 The **FoodBuddy MVP** now goes beyond core restaurant discovery to deliver a polished, user-friendly experience with branding, interactivity, and accessibility improvements implemented during Sprint 2 (Oct 27 – Nov 9).
 
-- **Implement email verification (#55)**  
-  Adds an email verification workflow to ensure that newly registered users provide a valid email address before gaining full acces.
+- **🏠 Homepage Branding (#30)**  
+  Added the FoodBuddy logo and a short brand description to establish visual identity and provide clear context for new users. 
 
-- **Implement user profile (#50)**  
-  Introduces a user profile system that allows users to store and manage their personal preferences, identity information, and app-specific settings.
+- **🔐 Login & Authentication (#28)**  
+  Integrated Firebase Authentication supporting both email/password login and Google account sign-in.
 
-- **Fix light mode tag selection display bug (#46)**
-  In light mode, selecting the tags for search remains white (same as dark mode).
+- **⭐ Bookmark Restaurants (#35)**
+  Introduced a bookmark feature allowing logged-in users to save their favorite restaurants for quick access later.
   
-- **Implement API for tags using LLM (#13)**  
-  LLM based tag system for restrants.
+- **💬 Contact & Feedback Forms (#32, #33)**  
+  Built fully functional contact and feedback forms connected to **Firebase**. Users can now submit feedback on menus and overall dining experience directly through the platform.
 
-- **Implement group creation and invitation (#14)**  
-   Implements the group creation and invitation feature, enabling users to create dining groups and invite other NEU students to join them for meals.
+- **📍 Distance Display (#26)**  
+  Integrated **Google Maps API** (browser geolocation + Distance Matrix) to compute and display each restaurant’s distance from the user.
 
-- **Tag deals with "Solo-Meal / Implement restaurant search by "healthy" and "low-cost" tags (#15 #16)**  
+- **🌙 Dark/Light Mode (#34)**  
+  Implemented a theme toggle that allows users to switch between light and dark mode.
 
 ---
 
 ## 📦 Backlog Items Included
 
-| ID  | Title                                                                 | Status  |
-| --- | --------------------------------------------------------------------- | ------- |
-| #13 | Implement API for tags using LLM                                      | ✅ Done |
-| #14 | Implement group creation and invitation                               | ✅ Done |
-| #15 | Tag deals with "Solo-Meal"                                            | ✅ Done |
-| #16 | Implement restaurant search by "healthy" and "low-cost" tags          | ✅ Done |
-| #46 | Fix light mode tag selection display bug                              | ✅ Done |
-| #50 | Implement user profile                                                | ✅ Done |
-| #55 | Implement email verification                                          | ✅ Done |
+| ID | Title | Status |
+|----|--------|--------|
+| #1 | Implement restaurant search by tag “solo-friendly” | ✅ Done |
+| #3 | Implement search by food type | ✅ Done |
+| #4 | Display restaurant details (price range, reviews, discounts) | ✅ Done |
+| #6 | Store and display full restaurant menu | ✅ Done |
+| #18 | Implement restaurant search by tag “popular” | ✅ Done |
+| #19 | Display full information about deals (fine prints and items included) | ✅ Done |
+| #23 | Implement search by restaurant name | ✅ Done |
+| #24 | Display restaurants pictures | ✅ Done |
+| #25 | Implement menu detail page | ✅ Done |
+| #26 | Implement distance calculation | ✅ Done |
+| #27 | Code of Sprint 1 refactoring | ✅ Done |
+| #28 | Implement user account creation and login functionality | ✅ Done |
+| #29 | Add credit for Yelp reviews | ✅ Done |
+| #30 | Add logo and short description in homepage | ✅ Done |
+| #31 | Set up code review process on Github | ✅ Done |
+| #32 | Add feedback of contact info | ✅ Done |
+| #33 | Add feedback of menu | ✅ Done |
+| #34 | Implement switch of light/dark mode | ✅ Done |
 
 ---
 
@@ -76,21 +86,20 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 ## 🧩 Tech Stack
 
-- **Frontend:** Next.js, React, Tailwind CSS
-- **Deployment:** Vercel
-- **Data:** Static JSON dataset (real restaurant and deal data)
-- **Version Control:** GitHub Issues & Projects (Agile workflow)
+- **Frontend:** Next.js, React, Tailwind CSS  
+- **Deployment:** Vercel  
+- **Data:** Static JSON dataset (real restaurant and deal data)  
+- **Version Control:** GitHub Issues & Projects (Agile workflow)  
 - **Testing Framework:** Jest & Playwright
 
 ---
 
 ## 🧾 Version History
 
-| Version | Date        | Description                                                                                                                                            |
-| ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| v3.0.0  | Nov 23 2025 | User profile, group creation and invitation, email verification. Improve tags and restaurant searcah detail. Sprint 2 refactor on test, bug, etc.      |
-| v2.0.0  | Nov 9 2025  | User accounts & login, menu details, distance calculation, light dark mode, homepage branding, Yelp credits, GitHub review process, Sprint 1 refactor. |
-| v1.0.0  | Oct 26 2025 | Initial MVP release — core restaurant search, detail, and deal display features implemented.                                                           |
+| Version | Date | Description |
+|----------|------|-------------|
+| v2.0.0 | Nov 9 2025 | User accounts & login, menu details, distance calculation, light dark mode, homepage branding, Yelp credits, GitHub review process, Sprint 1 refactor. |
+| v1.0.0 | Oct 26 2025 | Initial MVP release — core restaurant search, detail, and deal display features implemented. |
 
 ---
 
@@ -101,20 +110,16 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 - **Yu Chen** – Integration & Testing
 
 ---
-
 ## 📸 Live Demo
-
-**🚀 Live Demo:** [[https://foodbuddy-web-neu.vercel.app/](https://foodbuddy-web-neuoak.vercel.app/)](#)  
-**🚀 Demo Video:** [[https://youtu.be/PQMQOy0DSn0/](https://northeastern.zoom.us/rec/share/GikL5M0IgU4_2uVFtoek4C7Y3qSjBqkcwasCvEbP16fKXJaBbFli6ajEU03V0gkw.-euzKdvCE3lZ9YMB)](#)  
-**🚀 Demo Video Password: y@n!1gam**
-**📦 GitHub Release:** [v3.0.0](#)
+**🚀 Live Demo:** [https://foodbuddy-web-neu.vercel.app/](#)  
+**🚀 Demo Video:** [https://youtu.be/PQMQOy0DSn0/](#)  
+**📦 GitHub Release:** [v2.0.0](#)  
 
 Please click on the above link to access the live demo.
 
 ---
 
 ## 📃 Docs
-
 Please visit the wiki page and search for "#Sprint 2" for all the essential documents of our 2nd sprint.
 
 ---

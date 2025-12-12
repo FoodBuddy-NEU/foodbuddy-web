@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
 import RestaurantCard from '@/components/RestaurantCard';
 import data from '@/data/restaurants.json';
 import type { Restaurant } from '@/types/restaurant';
@@ -20,10 +19,20 @@ export default function RestaurantsPage() {
   const [sortBy, setSortBy] = useState<'distance' | 'price' | 'discount' | 'name'>('distance');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
   const [distances, setDistances] = useState<Record<string, number | null>>({});
-  const [loadingDistances, setLoadingDistances] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [, setLoadingDistances] = useState(false);
+  const [, setMounted] = useState(false);
+  const chipBaseClass = 'filter-chip rounded-full px-3 py-1 transition-colors border';
 
-  // Only fetch distances after component mounts (client-side only)
+  // Handle sort button click - toggle direction if same key, otherwise set new key
+  function handleSortClick(key: typeof sortBy) {
+    if (key === sortBy) {
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortBy(key);
+      setSortDir('asc');
+    }
+  }
+
   useEffect(() => {
     setMounted(true);
     const fetchDistances = async () => {
@@ -35,11 +44,9 @@ export default function RestaurantsPage() {
         if (response.ok) {
           const distancesData = await response.json();
           setDistances(distancesData);
-        } else {
-          console.error('Failed to fetch distances');
         }
       } catch (error) {
-        console.error('Error fetching distances:', error);
+        console.error('Error:', error);
       } finally {
         setLoadingDistances(false);
       }
@@ -48,7 +55,6 @@ export default function RestaurantsPage() {
     fetchDistances();
   }, []);
 
-  // derive facets from data
   const allFoodTypes = useMemo(
     () =>
       Array.from(
@@ -57,30 +63,25 @@ export default function RestaurantsPage() {
     []
   );
   const allTags = useMemo(
-    () =>
-      Array.from(new Set((data as Restaurant[]).flatMap((r: Restaurant) => r.tags ?? []))).sort(),
+    () => Array.from(new Set((data as Restaurant[]).flatMap((r) => r.tags ?? []))).sort(),
     []
   );
 
   const results = useMemo(() => {
     const name = normalize(search);
 
-    // 1) filter by name + facets
-    let list = (data as Restaurant[]).filter((r: Restaurant) => {
-      const nameOk = name ? normalize(r.name).includes(name) : true;
-
-      const foodOk =
+    const filtered = (data as Restaurant[]).filter((r) => {
+      const matchName = name ? normalize(r.name).includes(name) : true;
+      const matchFood =
         activeFoodTypes.length === 0 ||
-        (r.foodTypes ?? []).some((t: string) => activeFoodTypes.includes(t));
+        (r.foodTypes ?? []).some((t) => activeFoodTypes.includes(t));
+      const matchTags =
+        activeTags.length === 0 || (r.tags ?? []).some((t) => activeTags.includes(t));
 
-      const tagOk =
-        activeTags.length === 0 || (r.tags ?? []).some((t: string) => activeTags.includes(t));
-
-      return nameOk && foodOk && tagOk;
+      return matchName && matchFood && matchTags;
     });
 
-    // 2) sort
-    list = [...list].sort((a, b) => {
+    const sorted = filtered.sort((a, b) => {
       const dir = sortDir === 'asc' ? 1 : -1;
       switch (sortBy) {
         case 'price':
@@ -89,46 +90,26 @@ export default function RestaurantsPage() {
           return (extractBestDiscountPercent(a) - extractBestDiscountPercent(b)) * dir;
         case 'name':
           return normalize(a.name).localeCompare(normalize(b.name)) * dir;
-        case 'distance':
         default:
-          // Use calculated distances from API
-          const da =
-            distances[a.id] ??
-            (a as Restaurant & { distance: number }).distance ??
-            Number.POSITIVE_INFINITY;
-          const db =
-            distances[b.id] ??
-            (b as Restaurant & { distance: number }).distance ??
-            Number.POSITIVE_INFINITY;
+          const da = distances[a.id] ?? Number.POSITIVE_INFINITY;
+          const db = distances[b.id] ?? Number.POSITIVE_INFINITY;
           return (da - db) * dir;
       }
     });
 
-    return list;
+    return sorted;
   }, [search, activeFoodTypes, activeTags, sortBy, sortDir, distances]);
-
-  function handleSortClick(key: typeof sortBy) {
-    if (key === sortBy) {
-      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
-    } else {
-      setSortBy(key);
-      setSortDir('asc');
-    }
-  }
 
   const { user, loading } = useAuth();
 
   async function handleSignOut() {
     try {
       await signOut(auth);
-    } catch {
-      // noop: you can add a toast/error UI later if needed
-    }
+    } catch {}
   }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      {/* Auth status header */}
       <div className="mb-4 flex items-center justify-between text-sm">
         {loading ? (
           <span>Checking auth…</span>
@@ -151,20 +132,12 @@ export default function RestaurantsPage() {
           </div>
         )}
       </div>
-      {/* Logo and heading */}
+
       <div className="flex flex-col items-center mb-8">
-        <Image
-          src="/logo.png"
-          alt="FoodBuddy Logo"
-          width={120}
-          height={120}
-          priority
-          className="mb-4"
-        />
-        <p className="text-lg font-semibold text-center">Find restaurants near NEU-Oak</p>
+        <div className="site-logo" role="img" aria-label="FoodBuddy Logo" />
       </div>
 
-      <h1 className="text-2xl font-bold mb-4">Find restaurants</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Find restaurants near NEU-Oak</h1>
 
       <div className="mb-4 flex gap-2">
         <input
@@ -172,11 +145,10 @@ export default function RestaurantsPage() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by name..."
           className="w-full rounded-2xl border px-4 py-3 text-sm"
-          aria-label="Search by name"
         />
         <button
           onClick={() => setShowFilters((v) => !v)}
-          className="rounded-2xl border px-4 py-2 text-sm"
+          className="rounded-2xl border px-4 py-2 text-sm bg-gray-200 dark:bg-gray-700"
           aria-expanded={showFilters}
           aria-controls="filters"
         >
@@ -200,11 +172,7 @@ export default function RestaurantsPage() {
                           on ? prev.filter((x) => x !== t) : [...prev, t]
                         )
                       }
-                      className={`rounded-full border px-3 py-1 transition-colors ${
-                        on
-                          ? 'bg-black text-white border-black dark:bg-gray-700 dark:text-black dark:border-gray-600'
-                          : 'bg-white text-black border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-black dark:border-gray-600 dark:hover:bg-gray-700'
-                      }`}
+                      className={`${chipBaseClass} ${on ? 'filter-chip--active' : ''}`}
                     >
                       {t}
                     </button>
@@ -212,6 +180,7 @@ export default function RestaurantsPage() {
                 })}
               </div>
             </div>
+
             <div>
               <div className="font-medium mb-2">Tags</div>
               <div className="flex flex-wrap gap-2">
@@ -223,11 +192,7 @@ export default function RestaurantsPage() {
                       onClick={() =>
                         setActiveTags((prev) => (on ? prev.filter((x) => x !== t) : [...prev, t]))
                       }
-                      className={`rounded-full border px-3 py-1 transition-colors ${
-                        on
-                          ? 'bg-black text-white border-black dark:bg-gray-700 dark:text-black dark:border-gray-600'
-                          : 'bg-white text-black border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-black dark:border-gray-600 dark:hover:bg-gray-700'
-                      }`}
+                      className={`${chipBaseClass} ${on ? 'filter-chip--active' : ''}`}
                     >
                       {t}
                     </button>
@@ -239,50 +204,39 @@ export default function RestaurantsPage() {
         </div>
       )}
 
-      <div className="mt-6 mb-2 text-sm font-medium text-neutral-600">Sort</div>
+      <div className="mt-6 mb-2 text-sm font-medium">Sort</div>
+
       <div className="mb-4 flex flex-wrap gap-2">
         {[
-          {
-            key: 'distance',
-            label: `Distance ${sortBy === 'distance' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
-          },
-          {
-            key: 'price',
-            label: `Price ${sortBy === 'price' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
-          },
-          {
-            key: 'discount',
-            label: `Discount ${sortBy === 'discount' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
-          },
-          {
-            key: 'name',
-            label: `Name ${sortBy === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
-          },
+          { key: 'distance', label: 'Distance' },
+          { key: 'price', label: 'Price' },
+          { key: 'discount', label: 'Discount' },
+          { key: 'name', label: 'Name' },
         ].map((opt) => (
           <button
             key={opt.key}
             onClick={() => handleSortClick(opt.key as typeof sortBy)}
-            className={`rounded-full px-4 py-2 text-sm border ${
-              sortBy === opt.key ? 'bg-black text-white dark:bg-white dark:text-black' : ''
-            }`}
+            className="sort-btn rounded-full px-4 py-2 text-sm border"
+            style={
+              sortBy === opt.key 
+                ? { backgroundColor: '#9ca3af', color: '#ffffff', borderColor: '#000000' } 
+                : { backgroundColor: '#ffffff', color: '#000000', borderColor: '#000000' }
+            }
           >
-            {opt.label}
+            {opt.label} {sortBy === opt.key ? (sortDir === 'asc' ? '↑' : '↓') : ''}
           </button>
         ))}
       </div>
 
-      <div className="mb-2 text-sm text-neutral-600">
-        {mounted && loadingDistances && 'Loading distances...'}
-        {mounted && !loadingDistances && `Showing ${results.length} results`}
-        {!mounted && `Showing ${results.length} results`}
+      <div className="mb-2 text-sm text-neutral-600 dark:text-white">
+        Showing {results.length} results
       </div>
 
       <div className="flex flex-col gap-3">
-        {results.map((r: Restaurant) => {
-          const distance = distances[r.id];
-          const distanceStr =
-            distance !== null && distance !== undefined ? `${distance.toFixed(1)} mi` : undefined;
-          return <RestaurantCard key={r.id} restaurant={r} distance={distanceStr} />;
+        {results.map((r) => {
+          const d = distances[r.id];
+          const str = d !== undefined && d !== null ? `${d.toFixed(1)} mi` : undefined;
+          return <RestaurantCard key={r.id} restaurant={r} distance={str} />;
         })}
       </div>
     </div>

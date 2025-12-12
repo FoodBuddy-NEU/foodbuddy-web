@@ -60,7 +60,6 @@ Cuisines: [..., "Vietnamese", "Korean"]
 ## Example 3: API Usage
 
 ### Fetching Profile
-
 ```typescript
 // GET /api/profile?userId=abc123xyz
 const response = await fetch('/api/profile?userId=abc123xyz');
@@ -77,29 +76,25 @@ const profile = await response.json();
 ```
 
 ### Updating Profile
-
 ```typescript
 // PUT /api/profile
 const response = await fetch('/api/profile', {
   method: 'PUT',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    userId: 'abc123xyz',
-    username: 'John Doe',
-    cravings: ['Ramen', 'Sushi', 'Tacos'],
-  }),
+    userId: "abc123xyz",
+    username: "John Doe",
+    cravings: ["Ramen", "Sushi", "Tacos"]
+  })
 });
 
 // Response:
-{
-  success: true;
-}
+{ success: true }
 ```
 
 ## Example 4: Using Profile Library Functions
 
 ### Get Profile
-
 ```typescript
 import { getUserProfile } from '@/lib/userProfile';
 
@@ -111,7 +106,6 @@ if (profile) {
 ```
 
 ### Create Profile
-
 ```typescript
 import { createUserProfile } from '@/lib/userProfile';
 
@@ -124,19 +118,17 @@ await createUserProfile(
 ```
 
 ### Update Profile
-
 ```typescript
 import { updateUserProfile } from '@/lib/userProfile';
 
 await updateUserProfile('abc123xyz', {
   username: 'John Doe',
   cravings: ['Ramen', 'Pizza', 'Tacos'],
-  dietaryRestrictions: ['Vegetarian', 'Gluten-Free'],
+  dietaryRestrictions: ['Vegetarian', 'Gluten-Free']
 });
 ```
 
 ### Add to Array
-
 ```typescript
 import { addToUserArray } from '@/lib/userProfile';
 
@@ -148,7 +140,6 @@ await addToUserArray('abc123xyz', 'cravings', 'Ramen'); // No-op if already exis
 ```
 
 ### Remove from Array
-
 ```typescript
 import { removeFromUserArray } from '@/lib/userProfile';
 
@@ -159,81 +150,37 @@ await removeFromUserArray('abc123xyz', 'cravings', 'Pizza');
 ## Example 5: Common Options Available
 
 ### Cravings (15 options)
-
 ```typescript
 const options = [
-  'Ramen',
-  'Bubble Tea',
-  'Pizza',
-  'Sushi',
-  'Burgers',
-  'Tacos',
-  'Pasta',
-  'Fried Chicken',
-  'BBQ',
-  'Salad',
-  'Sandwich',
-  'Noodles',
-  'Curry',
-  'Dumplings',
-  'Seafood',
+  'Ramen', 'Bubble Tea', 'Pizza', 'Sushi', 'Burgers',
+  'Tacos', 'Pasta', 'Fried Chicken', 'BBQ', 'Salad',
+  'Sandwich', 'Noodles', 'Curry', 'Dumplings', 'Seafood'
 ];
 ```
 
 ### Cuisines (15 options)
-
 ```typescript
 const options = [
-  'Chinese',
-  'Japanese',
-  'Korean',
-  'Thai',
-  'Vietnamese',
-  'Italian',
-  'Mexican',
-  'American',
-  'French',
-  'Indian',
-  'Mediterranean',
-  'Middle Eastern',
-  'Spanish',
-  'Greek',
-  'Brazilian',
+  'Chinese', 'Japanese', 'Korean', 'Thai', 'Vietnamese',
+  'Italian', 'Mexican', 'American', 'French', 'Indian',
+  'Mediterranean', 'Middle Eastern', 'Spanish', 'Greek', 'Brazilian'
 ];
 ```
 
 ### Dietary Restrictions (11 options)
-
 ```typescript
 const options = [
-  'Vegetarian',
-  'Vegan',
-  'Halal',
-  'Kosher',
-  'Gluten-Free',
-  'Dairy-Free',
-  'Nut-Free',
-  'Low-Carb',
-  'Keto',
-  'Paleo',
-  'Pescatarian',
+  'Vegetarian', 'Vegan', 'Halal', 'Kosher', 'Gluten-Free',
+  'Dairy-Free', 'Nut-Free', 'Low-Carb', 'Keto', 'Paleo',
+  'Pescatarian'
 ];
 ```
 
 ### Allergies (10 options)
-
 ```typescript
 const options = [
-  'Peanuts',
-  'Tree Nuts',
-  'Shellfish',
-  'Fish',
-  'Eggs',
-  'Milk',
-  'Soy',
-  'Wheat',
-  'Sesame',
-  'Gluten',
+  'Peanuts', 'Tree Nuts', 'Shellfish', 'Fish', 'Eggs',
+  'Milk', 'Soy', 'Wheat', 'Sesame', 'Gluten'
 ];
 ```
 
@@ -258,8 +205,8 @@ function MyProfilePage() {
   if (!profile) return <div>Loading...</div>;
 
   return (
-    <UserProfileForm
-      profile={profile}
+    <UserProfileForm 
+      profile={profile} 
       onUpdate={(updated) => {
         console.log('Profile updated:', updated);
         setProfile(updated);
@@ -277,27 +224,27 @@ import { getUserProfile } from '@/lib/userProfile';
 
 async function getRecommendedRestaurants(userId: string) {
   const profile = await getUserProfile(userId);
-
+  
   if (!profile) return [];
 
   // Filter by dietary restrictions
   const restaurants = await getRestaurants();
-  return restaurants.filter((restaurant) => {
+  return restaurants.filter(restaurant => {
     // Check if restaurant matches dietary needs
     if (profile.dietaryRestrictions.includes('Vegetarian')) {
       return restaurant.hasVegetarianOptions;
     }
-
+    
     // Check allergens
-    if (profile.allergies.some((a) => restaurant.commonAllergens.includes(a))) {
+    if (profile.allergies.some(a => restaurant.commonAllergens.includes(a))) {
       return false; // Skip restaurants with user's allergens
     }
-
+    
     // Match cuisines
     if (profile.favoriteCuisines.includes(restaurant.cuisine)) {
       return true;
     }
-
+    
     return true;
   });
 }
@@ -335,7 +282,7 @@ const [customCraving, setCustomCraving] = useState('');
 // Toggle common option
 const toggleSelection = (item: string) => {
   if (selectedCravings.includes(item)) {
-    setSelectedCravings(selectedCravings.filter((i) => i !== item));
+    setSelectedCravings(selectedCravings.filter(i => i !== item));
   } else {
     setSelectedCravings([...selectedCravings, item]);
   }

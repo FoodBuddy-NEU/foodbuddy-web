@@ -12,10 +12,10 @@ async function sendEmailWithCode(email: string, code: string): Promise<boolean> 
   try {
     // Initialize Resend at runtime to ensure env vars are loaded
     const resend = new Resend(process.env.RESEND_API_KEY);
-
+    
     // Use verified domain email or fallback to resend.dev in development
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'FoodBuddy <onboarding@resend.dev>';
-
+    
     const result = await resend.emails.send({
       from: fromEmail,
       to: email,
@@ -46,7 +46,7 @@ async function sendEmailWithCode(email: string, code: string): Promise<boolean> 
         </div>
       `,
     });
-
+    
     console.log(`✅ Verification code sent to ${email}`, result);
     return true;
   } catch (error) {
@@ -65,12 +65,15 @@ export async function POST(request: NextRequest) {
     const { email } = await request.json();
 
     if (!email || !email.includes('@')) {
-      return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid email address' },
+        { status: 400 }
+      );
     }
 
     // Generate 6-digit code
     const code = generateCode();
-
+    
     // Store code with 10-minute expiration
     verificationCodes.set(email, {
       code,
@@ -81,7 +84,10 @@ export async function POST(request: NextRequest) {
     const sent = await sendEmailWithCode(email, code);
 
     if (!sent) {
-      return NextResponse.json({ error: 'Failed to send verification code' }, { status: 500 });
+      return NextResponse.json(
+        { error: 'Failed to send verification code' },
+        { status: 500 }
+      );
     }
 
     // Clean up expired codes (older than 10 minutes)
@@ -92,14 +98,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({
+    return NextResponse.json({ 
       success: true,
       message: 'Verification code sent',
       // Show code in development for testing
-      ...(process.env.NODE_ENV === 'development' && { code }),
+      ...(process.env.NODE_ENV === 'development' && { code })
     });
   } catch (error) {
     console.error('Error sending verification code:', error);
-    return NextResponse.json({ error: 'Failed to send verification code' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to send verification code' },
+      { status: 500 }
+    );
   }
 }

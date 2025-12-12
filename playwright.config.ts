@@ -14,19 +14,15 @@ import { defineConfig, devices } from '@playwright/test';
 // Ensure webServer.env is a Record<string, string> without undefined values
 const webServerEnv: Record<string, string> = {
   NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || 'test-key',
-  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN:
-    process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || 'test.firebaseapp.com',
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || 'test.firebaseapp.com',
   NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'test-project',
   NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || 'test-app-id',
-  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET:
-    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'test.appspot.com',
-  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID:
-    process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || 'test-sender-id',
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'test.appspot.com',
+  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || 'test-sender-id',
 };
 // Only include the maps key if it’s defined; avoid undefined in env record
 if (process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
-  webServerEnv.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = process.env
-    .NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
+  webServerEnv.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 }
 
 export default defineConfig({
@@ -47,7 +43,10 @@ export default defineConfig({
   workers: 10,
 
   /* Reporter configuration */
-  reporter: [['html'], ['json', { outputFile: 'playwright-report/results.json' }]],
+  reporter: [
+    ['html'],
+    ['json', { outputFile: 'playwright-report/results.json' }],
+  ],
 
   /* Shared settings for all the projects below */
   use: {

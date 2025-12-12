@@ -13,10 +13,7 @@ jest.mock('firebase/firestore', () => {
   const deleteDoc = jest.fn(async () => {});
   const collection = jest.fn(() => ({ id: 'col' }));
   const onSnapshot = jest.fn(
-    (
-      _colRef: unknown,
-      cb: (snap: { forEach: (fn: (d: { id: string }) => void) => void }) => void
-    ) => {
+    (_colRef: unknown, cb: (snap: { forEach: (fn: (d: { id: string }) => void) => void }) => void) => {
       const snap = {
         forEach: (fn: (d: { id: string }) => void) => {
           fn({ id: 'r1' });

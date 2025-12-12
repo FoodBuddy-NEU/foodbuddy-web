@@ -22,15 +22,10 @@ describe('API /api/distances', () => {
 
   it('POST returns distances object', async () => {
     const mod = await import('./route');
-    const req = new MockNextRequest(
-      'POST',
-      'http://localhost/api/distances',
-      {},
-      {
-        addresses: ['a', 'b'],
-        userAddress: 'Some Address',
-      }
-    );
+    const req = new MockNextRequest('POST', 'http://localhost/api/distances', {}, {
+      addresses: ['a', 'b'],
+      userAddress: 'Some Address',
+    });
     const res = await mod.POST(req as unknown as import('next/server').NextRequest);
     const body = await res.json();
     expect(res.status).toBe(200);
@@ -39,14 +34,9 @@ describe('API /api/distances', () => {
 
   it('POST validates addresses array', async () => {
     const mod = await import('./route');
-    const req = new MockNextRequest(
-      'POST',
-      'http://localhost/api/distances',
-      {},
-      {
-        addresses: 'not-an-array',
-      }
-    );
+    const req = new MockNextRequest('POST', 'http://localhost/api/distances', {}, {
+      addresses: 'not-an-array',
+    });
     const res = await mod.POST(req as unknown as import('next/server').NextRequest);
     expect(res.status).toBe(400);
     const body = await res.json();

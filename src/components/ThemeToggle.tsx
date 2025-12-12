@@ -17,7 +17,7 @@ export default function ThemeToggle() {
     return (
       <button
         disabled
-        className="rounded-full border px-3 py-2 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-900"
+        className="theme-toggle-btn rounded-full border px-3 py-2 text-sm transition-colors"
         aria-label="Toggle theme"
         title="Toggle theme"
       >
@@ -29,7 +29,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="rounded-full border px-3 py-2 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-900"
+      className="theme-toggle-btn rounded-full border px-3 py-2 text-sm transition-colors"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
       title={`Current theme: ${theme}`}
     >

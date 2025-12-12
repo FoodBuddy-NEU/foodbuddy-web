@@ -1,10 +1,7 @@
 // path: src/app/api/auth/verify-and-update-email/route.test.ts
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: (body: unknown, init?: { status?: number }) => ({
-      status: init?.status ?? 200,
-      json: async () => body,
-    }),
+    json: (body: unknown, init?: { status?: number }) => ({ status: init?.status ?? 200, json: async () => body }),
   },
 }));
 import type { NextRequest } from 'next/server';
@@ -32,10 +29,7 @@ describe('POST /api/auth/verify-and-update-email', () => {
   test('rejects invalid or expired code', async () => {
     const { POST } = await import('./route');
 
-    verificationCodes.set('bad@example.com', {
-      code: '123456',
-      timestamp: Date.now() - 11 * 60 * 1000,
-    });
+    verificationCodes.set('bad@example.com', { code: '123456', timestamp: Date.now() - 11 * 60 * 1000 });
     let req = {
       json: async () => ({ userId: 'u1', newEmail: 'bad@example.com', verificationCode: '123456' }),
     } as unknown as NextRequest;
@@ -65,7 +59,7 @@ describe('POST /api/auth/verify-and-update-email', () => {
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.success).toBe(true);
-    expect(auth.updateUser as jest.Mock).toHaveBeenCalledWith('u1', { email: 'ok@example.com' });
+    expect((auth.updateUser as jest.Mock)).toHaveBeenCalledWith('u1', { email: 'ok@example.com' });
     expect(verificationCodes.has('ok@example.com')).toBe(false);
   });
 });

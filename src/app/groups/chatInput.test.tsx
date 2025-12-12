@@ -8,9 +8,7 @@ jest.mock('@/lib/chat', () => {
 });
 import { sendTextMessage } from '@/lib/chat';
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
+beforeEach(() => { jest.clearAllMocks(); });
 
 test('sends message on button click and clears input', async () => {
   render(<ChatInput groupId="g1" currentUserId="u1" />);
