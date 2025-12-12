@@ -274,7 +274,7 @@ describe('friends library', () => {
       const callback = jest.fn();
       const mockUnsubscribe = jest.fn();
       
-      firestore.onSnapshot.mockImplementation((query, cb) => {
+      firestore.onSnapshot.mockImplementation((_query: unknown, cb: (snap: unknown) => void) => {
         cb({
           docs: [
             { id: 'req1', data: () => ({ fromUserId: 'user2', toUserId: 'user1', status: 'pending', createdAt: { toDate: () => new Date() } }) },
@@ -296,7 +296,7 @@ describe('friends library', () => {
       const callback = jest.fn();
       const mockUnsubscribe = jest.fn();
       
-      firestore.onSnapshot.mockImplementation((ref, successCb) => {
+      firestore.onSnapshot.mockImplementation((_ref: unknown, successCb: (snap: unknown) => void) => {
         successCb({
           exists: () => true,
           data: () => ({ friends: ['user2', 'user3'] }),
@@ -313,7 +313,7 @@ describe('friends library', () => {
     test('calls callback with empty array when user does not exist', () => {
       const callback = jest.fn();
       
-      firestore.onSnapshot.mockImplementation((ref, successCb) => {
+      firestore.onSnapshot.mockImplementation((_ref: unknown, successCb: (snap: unknown) => void) => {
         successCb({
           exists: () => false,
         });

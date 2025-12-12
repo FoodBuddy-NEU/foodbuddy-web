@@ -2,6 +2,8 @@
  * @jest-environment node
  */
 
+import { NextRequest } from 'next/server';
+
 // Mock OpenAI before any imports
 jest.mock('openai', () => {
   return jest.fn().mockImplementation(() => ({
@@ -39,10 +41,7 @@ describe('Tax Rate API', () => {
     const { GET } = await import('./route');
     
     const url = new URL('http://localhost:3000/api/tax-rate');
-    const request = {
-      url: url.toString(),
-      nextUrl: url,
-    } as unknown as Request & { nextUrl: URL };
+    const request = new NextRequest(url);
     
     const response = await GET(request);
     const data = await response.json();
@@ -57,10 +56,7 @@ describe('Tax Rate API', () => {
     const { GET } = await import('./route');
     
     const url = new URL('http://localhost:3000/api/tax-rate?zipCode=94704');
-    const request = {
-      url: url.toString(),
-      nextUrl: url,
-    } as unknown as Request & { nextUrl: URL };
+    const request = new NextRequest(url);
     
     const response = await GET(request);
     const data = await response.json();
@@ -77,10 +73,7 @@ describe('Tax Rate API', () => {
     const { GET } = await import('./route');
     
     const url = new URL('http://localhost:3000/api/tax-rate?zipCode=02115');
-    const request = {
-      url: url.toString(),
-      nextUrl: url,
-    } as unknown as Request & { nextUrl: URL };
+    const request = new NextRequest(url);
     
     const response = await GET(request);
     const data = await response.json();
@@ -94,10 +87,7 @@ describe('Tax Rate API', () => {
     const { GET } = await import('./route');
     
     const url = new URL('http://localhost:3000/api/tax-rate?zipCode=10001');
-    const request = {
-      url: url.toString(),
-      nextUrl: url,
-    } as unknown as Request & { nextUrl: URL };
+    const request = new NextRequest(url);
     
     const response = await GET(request);
     const data = await response.json();
