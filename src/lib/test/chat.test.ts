@@ -12,13 +12,19 @@ jest.mock('firebase/firestore', () => {
   const serverTimestamp = jest.fn(() => 'SERVER_TS');
   const orderBy = jest.fn(() => ({ field: 'createdAt', dir: 'asc' }));
   const query = jest.fn(() => ({ __q: true }));
-  const onSnapshot = jest.fn((q: unknown, cb: (snapshot: { docs: Array<{ id: string; data: () => unknown }> }) => void) => {
-    cb({
+  // Support both callback styles: onSnapshot(q, callback) and onSnapshot(q, { next, error })
+  const onSnapshot = jest.fn((q: unknown, cbOrOptions: ((snapshot: unknown) => void) | { next?: (snapshot: unknown) => void }) => {
+    const snapshot = {
       docs: [
         { id: 'm1', data: () => ({ groupId: 'g1', senderId: 'u1', type: 'text', text: 'Hello', createdAt: null }) },
         { id: 'm2', data: () => ({ groupId: 'g1', senderId: 'u2', type: 'text', text: 'Hi', createdAt: null }) },
       ],
-    });
+    };
+    if (typeof cbOrOptions === 'function') {
+      cbOrOptions(snapshot);
+    } else if (cbOrOptions && typeof cbOrOptions.next === 'function') {
+      cbOrOptions.next(snapshot);
+    }
     return () => {};
   });
   const doc = jest.fn((dbArg: unknown, col: string, id: string) => ({ __id: `${col}/${id}` }));
@@ -127,16 +133,20 @@ describe('group meta and updates', () => {
 
   it('subscribeGroupMeta handles exists true/false', () => {
     const cb = jest.fn();
-    (onSnapshot as unknown as jest.Mock).mockImplementationOnce((ref, snapCb) => {
-      snapCb({ exists: () => true, data: () => ({ name: 'Group', ownerId: 'u1', memberIds: ['u1'] }) });
+    (onSnapshot as unknown as jest.Mock).mockImplementationOnce((ref, options: { next?: (snap: unknown) => void }) => {
+      if (options && typeof options.next === 'function') {
+        options.next({ exists: () => true, data: () => ({ name: 'Group', ownerId: 'u1', memberIds: ['u1'] }) });
+      }
       return () => {};
     });
     subscribeGroupMeta('g1', cb);
     expect(cb).toHaveBeenCalledWith(expect.objectContaining({ name: 'Group' }));
 
     const cb2 = jest.fn();
-    (onSnapshot as unknown as jest.Mock).mockImplementationOnce((ref, snapCb) => {
-      snapCb({ exists: () => false, data: () => ({}) });
+    (onSnapshot as unknown as jest.Mock).mockImplementationOnce((ref, options: { next?: (snap: unknown) => void }) => {
+      if (options && typeof options.next === 'function') {
+        options.next({ exists: () => false, data: () => ({}) });
+      }
       return () => {};
     });
     subscribeGroupMeta('g1', cb2);
