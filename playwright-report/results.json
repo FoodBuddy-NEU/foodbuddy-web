@@ -75,7 +75,7 @@
     ],
     "shard": null,
     "updateSnapshots": "missing",
-    "updateSourceMethod": "patch",
+    "updateSourceMethod": "3way",
     "version": "1.56.1",
     "workers": 10,
     "webServer": {
