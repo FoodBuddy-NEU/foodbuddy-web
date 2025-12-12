@@ -1,4 +1,4 @@
-# 🍽️ FoodBuddy MVP — v3.0.0
+# 🍽️ FoodBuddy MVP — v4.0.0 (final)
 
 ### A student-first restaurant discovery app built with Next.js + React
 
@@ -11,49 +11,55 @@ This MVP demonstrates the foundation of the app’s core experience: **search, e
 
 ### Version
 
-**v3.0.0** — [GitHub Release → v3.0.0](#)
+**v4.0.0** — [GitHub Release → v4.0.0](#)
 
 ### Features Included
 
 The **FoodBuddy MVP** now goes beyond core restaurant discovery to deliver a polished, user-friendly experience with branding, interactivity, and accessibility improvements implemented during Sprint 2 (Oct 27 – Nov 9).
 
-- **Implement email verification (#55)**  
-  Adds an email verification workflow to ensure that newly registered users provide a valid email address before gaining full acces.
+- **Enable Public & Private Group Access and Display (#71)**  
 
-- **Implement user profile (#50)**  
-  Introduces a user profile system that allows users to store and manage their personal preferences, identity information, and app-specific settings.
+- **Implement profile display from friend list (#69)**  
 
-- **Fix light mode tag selection display bug (#46)**
-  In light mode, selecting the tags for search remains white (same as dark mode).
+- **Add Dining Time & Restaurant Selection in Group Page + Time-Based Restaurant Filter (#65)**
   
-- **Implement API for tags using LLM (#13)**  
-  LLM based tag system for restrants.
+- **Improve Theme Adaptation & UI Consistency Across Dark / Light Modes (#63)**  
 
-- **Implement group creation and invitation (#14)**  
-   Implements the group creation and invitation feature, enabling users to create dining groups and invite other NEU students to join them for meals.
+- **Fix bug of navigation bar display on mobile phone (#59)**  
 
-- **Tag deals with "Solo-Meal / Implement restaurant search by "healthy" and "low-cost" tags (#15 #16)**  
+- **Fix filter color issue under browse's dark mode (#58)**
+
+- **Implement group search by filtering by date and group name (#48)**
+
+- **Implement group search by username and restaurant name (#47)**
+
+- **Enable pre-ordering function (#18)**
+
+- **Bill-splitting tool with tax/tip calculation (#21)**
 
 ---
 
 ## 📦 Backlog Items Included
 
-| ID  | Title                                                                 | Status  |
-| --- | --------------------------------------------------------------------- | ------- |
-| #13 | Implement API for tags using LLM                                      | ✅ Done |
-| #14 | Implement group creation and invitation                               | ✅ Done |
-| #15 | Tag deals with "Solo-Meal"                                            | ✅ Done |
-| #16 | Implement restaurant search by "healthy" and "low-cost" tags          | ✅ Done |
-| #46 | Fix light mode tag selection display bug                              | ✅ Done |
-| #50 | Implement user profile                                                | ✅ Done |
-| #55 | Implement email verification                                          | ✅ Done |
+| ID  | Title                                                                               | Status  |
+| --- | ----------------------------------------------------------------------------------- | ------- |
+| #71 | Enable Public & Private Group Access and Display                                    | ✅ Done |
+| #69 | Implement profile display from friend list                                          | ✅ Done |
+| #65 | Add Dining Time & Restaurant Selection in Group Page + Time-Based Restaurant Filter | ✅ Done |
+| #63 | Improve Theme Adaptation & UI Consistency Across Dark / Light Modes                 | ✅ Done |
+| #59 | Fix bug of navigation bar display on mobile phone                                   | ✅ Done |
+| #58 | Fix filter color issue under browse's dark mode                                     | ✅ Done |
+| #48 | Implement group search by filtering by date and group name                          | ✅ Done |
+| #47 | Implement group search by username and restaurant name                              | ✅ Done |
+| #18 | Enable pre-ordering function                                                        | ✅ Done |
+| #21 | Bill-splitting tool with tax/tip calculation                                        | ✅ Done |
 
 ---
 
 ## 💡 User Problem Being Solved
 
-University students often struggle to find **affordable and relevant restaurants** that suit their preferences or dining styles.  
-Existing platforms like Yelp or Google Maps show generic listings, but they lack **verified student deals**, **price transparency**, and **personalized filters** — making dining decisions time-consuming and uncertain.
+University students often struggle to find **groups** that suit their preferences or dining styles.  
+Existing platforms like Yelp or Google Maps show generic listings, but they lack  **community based experience**
 
 ---
 
@@ -88,6 +94,7 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 | Version | Date        | Description                                                                                                                                            |
 | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| v4.0.0  | Dec 11 2025 | User group experience update/redo. bug fix etc                                                                                                         |
 | v3.0.0  | Nov 23 2025 | User profile, group creation and invitation, email verification. Improve tags and restaurant searcah detail. Sprint 2 refactor on test, bug, etc.      |
 | v2.0.0  | Nov 9 2025  | User accounts & login, menu details, distance calculation, light dark mode, homepage branding, Yelp credits, GitHub review process, Sprint 1 refactor. |
 | v1.0.0  | Oct 26 2025 | Initial MVP release — core restaurant search, detail, and deal display features implemented.                                                           |
@@ -105,9 +112,7 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 ## 📸 Live Demo
 
 **🚀 Live Demo:** [[https://foodbuddy-web-neu.vercel.app/](https://foodbuddy-web-neuoak.vercel.app/)](#)  
-**🚀 Demo Video:** [[https://youtu.be/PQMQOy0DSn0/](https://northeastern.zoom.us/rec/share/GikL5M0IgU4_2uVFtoek4C7Y3qSjBqkcwasCvEbP16fKXJaBbFli6ajEU03V0gkw.-euzKdvCE3lZ9YMB)](#)  
-**🚀 Demo Video Password: y@n!1gam**
-**📦 GitHub Release:** [v3.0.0](#)
+**📦 GitHub Release:** [v4.0.0](#)
 
 Please click on the above link to access the live demo.
 
@@ -115,7 +120,7 @@ Please click on the above link to access the live demo.
 
 ## 📃 Docs
 
-Please visit the wiki page and search for "#Sprint 2" for all the essential documents of our 2nd sprint.
+Please visit the wiki page and search for "#Sprint 4" for all the essential documents of our 4th sprint.
 
 ---
 
