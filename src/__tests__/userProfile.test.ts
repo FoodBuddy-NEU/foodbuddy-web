@@ -4,12 +4,14 @@ import {
   updateUserProfile,
   addToUserArray,
   removeFromUserArray,
+  searchUsersByUsername,
 } from '@/lib/userProfile';
 import {
   doc,
   getDoc,
   setDoc,
   updateDoc,
+  getDocs,
 } from 'firebase/firestore';
 
 // Mock Firestore
@@ -22,8 +24,12 @@ jest.mock('firebase/firestore', () => ({
   getDoc: jest.fn(),
   setDoc: jest.fn(),
   updateDoc: jest.fn(),
+  getDocs: jest.fn(),
   serverTimestamp: jest.fn(() => ({ _seconds: Date.now() / 1000 })),
   collection: jest.fn(),
+  query: jest.fn(),
+  where: jest.fn(),
+  limit: jest.fn(),
 }));
 
 describe('User Profile Functions', () => {
@@ -271,6 +277,92 @@ describe('User Profile Functions', () => {
         }),
         { merge: true }
       );
+    });
+  });
+
+  describe('searchUsersByUsername', () => {
+    it('should return matching users', async () => {
+      const mockDocs = [
+        {
+          id: 'user1',
+          exists: () => true,
+          data: () => ({
+            username: 'testuser',
+            email: 'test@example.com',
+            avatarUrl: '/avatar.jpg',
+            createdAt: { toDate: () => new Date() },
+            updatedAt: { toDate: () => new Date() },
+            cravings: [],
+            favoriteCuisines: [],
+            favoriteRestaurants: [],
+            dietaryRestrictions: [],
+            allergies: [],
+          }),
+        },
+      ];
+
+      (getDocs as jest.Mock).mockResolvedValue({
+        forEach: (cb: (doc: unknown) => void) => mockDocs.forEach(cb),
+      });
+
+      const result = await searchUsersByUsername('test', 10);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].username).toBe('testuser');
+      expect(result[0].userId).toBe('user1');
+    });
+
+    it('should return empty array when no matches', async () => {
+      (getDocs as jest.Mock).mockResolvedValue({
+        forEach: () => {},
+      });
+
+      const result = await searchUsersByUsername('nonexistent', 10);
+
+      expect(result).toEqual([]);
+    });
+
+    it('should filter out users whose username does not start with search term', async () => {
+      const mockDocs = [
+        {
+          id: 'user1',
+          exists: () => true,
+          data: () => ({
+            username: 'TESTUSER',  // Uppercase - should still match due to case-insensitive
+            email: 'test@example.com',
+            createdAt: { toDate: () => new Date() },
+            updatedAt: { toDate: () => new Date() },
+          }),
+        },
+        {
+          id: 'user2',
+          exists: () => true,
+          data: () => ({
+            username: 'anotheruser',  // Doesn't start with 'test'
+            email: 'another@example.com',
+            createdAt: { toDate: () => new Date() },
+            updatedAt: { toDate: () => new Date() },
+          }),
+        },
+      ];
+
+      (getDocs as jest.Mock).mockResolvedValue({
+        forEach: (cb: (doc: unknown) => void) => mockDocs.forEach(cb),
+      });
+
+      const result = await searchUsersByUsername('test', 10);
+
+      // Only TESTUSER should match (case-insensitive)
+      expect(result).toHaveLength(1);
+      expect(result[0].username).toBe('TESTUSER');
+    });
+
+    it('should return empty array on error', async () => {
+      (getDocs as jest.Mock).mockRejectedValue(new Error('Firestore error'));
+
+      const result = await searchUsersByUsername('test', 10);
+
+      expect(result).toEqual([]);
     });
   });
 });

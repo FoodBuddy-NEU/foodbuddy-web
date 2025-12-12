@@ -1,10 +1,11 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import UserProfileModal from '../UserProfileModal';
 
 jest.mock('@/lib/userProfile', () => ({ getUserProfile: jest.fn() }));
 jest.mock('@/lib/ThemeProvider', () => ({ useTheme: jest.fn(() => ({ theme: 'light' })) }));
 jest.mock('next/image', () => ({
   __esModule: true,
+  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
   default: (props: Record<string, unknown>) => <img {...props} />,
 }));
 

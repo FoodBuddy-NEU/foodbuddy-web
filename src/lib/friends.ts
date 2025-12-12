@@ -16,7 +16,7 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
-import type { FriendRequest, FriendRequestStatus } from '@/types/friendType';
+import type { FriendRequest } from '@/types/friendType';
 
 const FRIEND_REQUESTS_COLLECTION = 'friendRequests';
 

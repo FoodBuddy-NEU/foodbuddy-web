@@ -152,6 +152,9 @@ export default async function RestaurantDetailPage({
         {restaurant.address ? <div>{restaurant.address}</div> : null}
         {restaurant.phone ? <div>☎ {restaurant.phone}</div> : null}
       </div>
+      <div className="mt-2 flex items-center">
+        <UnifiedFeedbackButton restaurant={{ id: restaurant.id, name: restaurant.name }} />
+      </div>
 
       <p className="mt-2 text-sm text-gray-700 dark:text-white">{summary}</p>
 

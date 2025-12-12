@@ -81,6 +81,43 @@ service cloud.firestore {
       }
     }
 
+    // ===============================
+    // 🌐 PUBLIC CHANNELS COLLECTION
+    // ===============================
+    // Public channels are readable by all authenticated users.
+    // Any authenticated user can create/update channels and post messages.
+    // Only the creator of a channel can delete it.
+    match /publicChannels/{channelId} {
+      // Allow authenticated users to read channel metadata.
+      allow read: if request.auth != null;
+
+      // Allow authenticated users to create and update channel documents.
+      allow create: if request.auth != null;
+      allow update: if request.auth != null;
+
+      // Only the creator can delete a public channel.
+      allow delete: if request.auth != null && request.auth.uid == resource.data.createdBy;
+
+      // Subcollection: messages within a public channel.
+      match /messages/{messageId} {
+        // Any authenticated user can read and write messages.
+        allow read, write: if request.auth != null;
+      }
+
+      // Subcollection: dining events within a public channel.
+      match /events/{eventId} {
+        // Any authenticated user can read events.
+        allow read: if request.auth != null;
+
+        // Any authenticated user can create a new event.
+        allow create: if request.auth != null;
+
+        // Only the creator of the event can update or delete it.
+        allow update, delete: if request.auth != null && request.auth.uid == resource.data.creatorId;
+      }
+    }
+
     // All other collections not matched above remain blocked by default.
   }
 }
+

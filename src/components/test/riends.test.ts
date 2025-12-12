@@ -66,7 +66,8 @@ jest.mock('firebase/firestore', () => {
     }
   });
 
-  const setDoc = jest.fn(async (ref: { __id: string }, data: { friends?: { op?: 'union'; v: string } }, _opts?: { merge?: boolean }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const setDoc = jest.fn(async (ref: { __id: string }, data: { friends?: { op?: 'union'; v: string } }, opts?: { merge?: boolean }) => {
     const userId = ref.__id.split('/')[1];
     if (!state.friends.has(userId)) state.friends.set(userId, new Set());
     const set = state.friends.get(userId)!;
