@@ -4,7 +4,6 @@
 export const dynamic = 'force-dynamic';
 
 import { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
 import RestaurantCard from '@/components/RestaurantCard';
 import data from '@/data/restaurants.json';
 import type { Deal, Restaurant } from '@/types/restaurant';
@@ -168,17 +167,10 @@ export default function BookmarkedRestaurantsPage() {
         )}
       </div>
 
-      {/* Logo and heading (unchanged) */}
-      <div className="flex flex-col items-center mb-8">
-        <Image
-          src="/logo.png"
-          alt="FoodBuddy Logo"
-          width={120}
-          height={120}
-          priority
-          className="mb-4"
-        />
-        <p className="text-lg font-semibold text-center">Find restaurants near NEU-Oak</p>
+      {/* Logo and heading */}
+      <div style={{ marginBottom: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="site-logo" role="img" aria-label="FoodBuddy Logo" />
+        <p className="text-lg font-semibold text-center mt-4">Find restaurants near NEU-Oak</p>
       </div>
 
       <h1 className="text-2xl font-bold mb-4">Bookmarks</h1>
@@ -194,7 +186,7 @@ export default function BookmarkedRestaurantsPage() {
         />
         <button
           onClick={() => setShowFilters((v) => !v)}
-          className="rounded-2xl border px-4 py-2 text-sm"
+          className="rounded-2xl border px-4 py-2 text-sm bg-gray-200 dark:bg-gray-700"
           aria-expanded={showFilters}
           aria-controls="filters"
         >
@@ -249,40 +241,43 @@ export default function BookmarkedRestaurantsPage() {
         </div>
       )}
 
-      <div className="mt-6 mb-2 text-sm font-medium text-neutral-600">Sort</div>
+      <div className="mt-6 mb-2 text-sm font-medium text-neutral-600 dark:text-white">Sort</div>
       <div className="mb-4 flex flex-wrap gap-2">
         {[
           {
             key: 'distance',
-            label: `Distance ${sortBy === 'distance' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Distance',
           },
           {
             key: 'price',
-            label: `Price ${sortBy === 'price' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Price',
           },
           {
             key: 'discount',
-            label: `Discount ${sortBy === 'discount' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Discount',
           },
           {
             key: 'name',
-            label: `Name ${sortBy === 'name' ? (sortDir === 'asc' ? '↑' : '↓') : ''}`,
+            label: 'Name',
           },
         ].map((opt) => (
           <button
             key={opt.key}
             onClick={() => handleSortClick(opt.key as typeof sortBy)}
-            className={`rounded-full px-4 py-2 text-sm border ${
-              sortBy === opt.key ? 'bg-black text-white dark:bg-white dark:text-black' : ''
-            }`}
+            className="sort-btn rounded-full px-4 py-2 text-sm border"
+            style={{
+              backgroundColor: '#ffffff',
+              color: '#171717',
+              borderColor: '#000000'
+            }}
           >
-            {opt.label}
+            {opt.label} {sortBy === opt.key ? (sortDir === 'asc' ? '↑' : '↓') : ''}
           </button>
         ))}
       </div>
 
       {/* Use bookmarkedOnly for counts and rendering */}
-      <div className="mb-2 text-sm text-neutral-600">Showing {bookmarkedOnly.length} results</div>
+      <div className="mb-2 text-sm text-neutral-600 dark:text-white">Showing {bookmarkedOnly.length} results</div>
 
       <div className="flex flex-col gap-3">
         {bookmarkedOnly.map((r) => (

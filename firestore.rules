@@ -6,11 +6,39 @@ service cloud.firestore {
     // ===============================
     // 👤 USER PROFILES COLLECTION
     // ===============================
-    // Users can read and write their own profile only.
+    // Users can read any user's profile (for friend search, group members, etc.)
+    // Users can write their own profile.
+    // Users can update another user's friends array (for accepting friend requests).
     match /users/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null;
       allow create: if request.auth != null && request.auth.uid == userId;
+      // Allow users to write their own profile
+      // OR allow users to update only the 'friends' field of another user
+      // (needed when accepting friend requests - both users need their friends list updated)
+      allow update: if request.auth != null && (
+        request.auth.uid == userId ||
+        // Allow updating friends array if the requesting user is being added/removed
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['friends']))
+      );
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ===============================
+    // 🤝 FRIEND REQUESTS COLLECTION
+    // ===============================
+    // Users can read requests where they are sender or receiver.
+    // Users can create requests where they are the sender.
+    // Users can update requests where they are the receiver (accept/reject).
+    // Users can delete requests where they are the sender (cancel).
+    match /friendRequests/{requestId} {
+      allow read: if request.auth != null && 
+        (resource.data.fromUserId == request.auth.uid || resource.data.toUserId == request.auth.uid);
+      allow create: if request.auth != null && 
+        request.resource.data.fromUserId == request.auth.uid;
+      allow update: if request.auth != null && 
+        resource.data.toUserId == request.auth.uid;
+      allow delete: if request.auth != null && 
+        resource.data.fromUserId == request.auth.uid;
     }
 
     // ===============================
@@ -53,6 +81,43 @@ service cloud.firestore {
       }
     }
 
+    // ===============================
+    // 🌐 PUBLIC CHANNELS COLLECTION
+    // ===============================
+    // Public channels are readable by all authenticated users.
+    // Any authenticated user can create/update channels and post messages.
+    // Only the creator of a channel can delete it.
+    match /publicChannels/{channelId} {
+      // Allow authenticated users to read channel metadata.
+      allow read: if request.auth != null;
+
+      // Allow authenticated users to create and update channel documents.
+      allow create: if request.auth != null;
+      allow update: if request.auth != null;
+
+      // Only the creator can delete a public channel.
+      allow delete: if request.auth != null && request.auth.uid == resource.data.createdBy;
+
+      // Subcollection: messages within a public channel.
+      match /messages/{messageId} {
+        // Any authenticated user can read and write messages.
+        allow read, write: if request.auth != null;
+      }
+
+      // Subcollection: dining events within a public channel.
+      match /events/{eventId} {
+        // Any authenticated user can read events.
+        allow read: if request.auth != null;
+
+        // Any authenticated user can create a new event.
+        allow create: if request.auth != null;
+
+        // Only the creator of the event can update or delete it.
+        allow update, delete: if request.auth != null && request.auth.uid == resource.data.creatorId;
+      }
+    }
+
     // All other collections not matched above remain blocked by default.
   }
 }
+

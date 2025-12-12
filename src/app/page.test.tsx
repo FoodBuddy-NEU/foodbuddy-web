@@ -1,15 +1,11 @@
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import RestaurantsPage from './page';
 
-jest.mock('next/navigation', () => ({
-  useRouter: () => ({ push: jest.fn(), replace: jest.fn() }),
-}));
+jest.mock('next/navigation', () => ({ useRouter: () => ({ push: jest.fn(), replace: jest.fn() }) }));
 jest.mock('next/link', () => ({
   __esModule: true,
   default: ({ href, children, ...props }: { href: string; children: React.ReactNode }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
+    <a href={href} {...props}>{children}</a>
   ),
 }));
 jest.mock('next/image', () => ({
@@ -77,9 +73,7 @@ describe('Home RestaurantsPage', () => {
     fireEvent.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
     const panel = document.getElementById('filters');
-    const facetBtns = panel
-      ? panel.querySelectorAll('button')
-      : ([] as unknown as NodeListOf<HTMLButtonElement>);
+    const facetBtns = panel ? panel.querySelectorAll('button') : ([] as unknown as NodeListOf<HTMLButtonElement>);
     if (facetBtns[0]) fireEvent.click(facetBtns[0]);
     if (facetBtns[1]) fireEvent.click(facetBtns[1]);
     fireEvent.click(toggle);

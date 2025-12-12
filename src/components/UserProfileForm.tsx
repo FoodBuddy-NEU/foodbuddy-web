@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  UserProfile,
-  COMMON_CRAVINGS,
-  COMMON_CUISINES,
-  COMMON_DIETARY_RESTRICTIONS,
-  COMMON_ALLERGIES,
-} from '@/types/userProfile';
+import { UserProfile, COMMON_CRAVINGS, COMMON_CUISINES, COMMON_DIETARY_RESTRICTIONS, COMMON_ALLERGIES } from '@/types/userProfile';
 import { updateUserProfile } from '@/lib/userProfile';
 import { getAuth } from 'firebase/auth';
-import Image from 'next/image';
+
+// Preset avatars
+const PRESET_AVATARS = [
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992987/numb_pizza_mnnls0.jpg', name: 'Lazy Pizza' },
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992986/cute_ramen_juxqqh.jpg', name: 'Cute Ramen' },
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992986/cute_boba_wnfmyv.jpg', name: 'Cute Boba' },
+  { url: 'https://res.cloudinary.com/dcbktxiuw/image/upload/v1764992986/cool_burger_rg2fkd.jpg', name: 'Cool Burger' },
+];
 
 interface UserProfileFormProps {
   profile: UserProfile;
@@ -22,33 +23,35 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
   const [avatarUrl, setAvatarUrl] = useState(profile.avatarUrl || '');
   const [selectedCravings, setSelectedCravings] = useState<string[]>(profile.cravings);
   const [selectedCuisines, setSelectedCuisines] = useState<string[]>(profile.favoriteCuisines);
-  const [selectedRestrictions, setSelectedRestrictions] = useState<string[]>(
-    profile.dietaryRestrictions
-  );
+  const [selectedRestrictions, setSelectedRestrictions] = useState<string[]>(profile.dietaryRestrictions);
   const [selectedAllergies, setSelectedAllergies] = useState<string[]>(profile.allergies);
-
+  
   const [customCraving, setCustomCraving] = useState('');
   const [customCuisine, setCustomCuisine] = useState('');
   const [customRestriction, setCustomRestriction] = useState('');
   const [customAllergy, setCustomAllergy] = useState('');
-
+  
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
-
+  
   // Email change states
   const [showEmailChange, setShowEmailChange] = useState(false);
   const [currentEmailInput, setCurrentEmailInput] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
-  const [emailStep, setEmailStep] = useState<'verify-current' | 'enter-new' | 'verify-new'>(
-    'verify-current'
-  );
+  const [emailStep, setEmailStep] = useState<'verify-current' | 'enter-new' | 'verify-new'>('verify-current');
   const [sendingCode, setSendingCode] = useState(false);
 
   // WHY: Mask email for privacy (show first 3 chars + ***@domain)
   const maskEmail = (email: string) => {
+    if (!email || !email.includes('@')) {
+      return 'No email set';
+    }
     const [localPart, domain] = email.split('@');
+    if (!localPart || !domain) {
+      return 'No email set';
+    }
     if (localPart.length <= 3) {
       return `${localPart[0]}***@${domain}`;
     }
@@ -59,7 +62,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
   const sendVerificationCode = async (email: string) => {
     setSendingCode(true);
     setMessage('');
-
+    
     try {
       const response = await fetch('/api/auth/send-verification', {
         method: 'POST',
@@ -72,14 +75,14 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
       }
 
       const data = await response.json();
-
+      
       // Show code in development mode
       if (data.code) {
         setMessage(`✅ Code sent! [DEV MODE: ${data.code}]`);
       } else {
         setMessage(`Verification code sent to ${email}`);
       }
-
+      
       return true;
     } catch (error) {
       console.error('Error sending verification code:', error);
@@ -174,11 +177,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
   };
 
   // WHY: Toggle selection for multi-select fields
-  const toggleSelection = (
-    item: string,
-    currentList: string[],
-    setList: (list: string[]) => void
-  ) => {
+  const toggleSelection = (item: string, currentList: string[], setList: (list: string[]) => void) => {
     if (currentList.includes(item)) {
       setList(currentList.filter((i) => i !== item));
     } else {
@@ -187,12 +186,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
   };
 
   // WHY: Add custom item to list
-  const addCustomItem = (
-    customValue: string,
-    setCustom: (val: string) => void,
-    currentList: string[],
-    setList: (list: string[]) => void
-  ) => {
+  const addCustomItem = (customValue: string, setCustom: (val: string) => void, currentList: string[], setList: (list: string[]) => void) => {
     const trimmed = customValue.trim();
     if (trimmed && !currentList.includes(trimmed)) {
       setList([...currentList, trimmed]);
@@ -224,16 +218,19 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
       const formData = new FormData();
       formData.append('file', file);
       formData.append('upload_preset', 'user_avatars');
-
+      
       const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
       if (!cloudName) {
         throw new Error('Cloudinary not configured');
       }
 
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -242,14 +239,21 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
       }
 
       const data = await response.json();
-
+      
       // Build optimized URL with transformations
-      const baseUrl = data.secure_url;
+      // Add f_auto to auto-convert HEIC and other formats to browser-compatible format
+      let baseUrl = data.secure_url;
+      
+      // Replace .heic extension with .jpg for browser compatibility
+      if (baseUrl.toLowerCase().endsWith('.heic')) {
+        baseUrl = baseUrl.replace(/\.heic$/i, '.jpg');
+      }
+      
       const urlParts = baseUrl.split('/upload/');
-      const optimizedUrl = `${urlParts[0]}/upload/c_fill,g_face,h_400,w_400,q_auto:good/${urlParts[1]}`;
-
+      const optimizedUrl = `${urlParts[0]}/upload/f_auto,c_fill,g_face,h_400,w_400,q_auto:good/${urlParts[1]}`;
+      
       setAvatarUrl(optimizedUrl);
-      setMessage('Avatar uploaded successfully!');
+      setMessage('Photo selected! Click "Save Profile" to save changes.');
     } catch (error) {
       console.error('Error uploading avatar:', error);
       setMessage('Failed to upload avatar. Please try again.');
@@ -260,9 +264,15 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
 
   // WHY: Save all profile changes to Firestore
   const handleSave = async () => {
+    // Validate avatar is selected
+    if (!avatarUrl) {
+      setMessage('Please select a profile picture before saving.');
+      return;
+    }
+
     setSaving(true);
     setMessage('');
-
+    
     try {
       await updateUserProfile(profile.userId, {
         username,
@@ -272,7 +282,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
         dietaryRestrictions: selectedRestrictions,
         allergies: selectedAllergies,
       });
-
+      
       setMessage('Profile updated successfully!');
       if (onUpdate) {
         onUpdate({
@@ -300,37 +310,28 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
 
       {/* Basic Information */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-          Basic Information
-        </h3>
-
+        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">Basic Information</h3>
+        
         {/* Avatar Upload */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-            Profile Picture
+            Profile Picture <span className="text-red-500">*</span>
           </label>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             {avatarUrl && (
-              <Image
-                src={avatarUrl}
-                alt="Avatar preview"
-                width={80}
-                height={80}
-                unoptimized
-                className="rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+              // eslint-disable-next-line @next/next/no-img-element
+              <img 
+                src={avatarUrl} 
+                alt="Avatar preview" 
+                className="w-20 h-20 rounded-full object-cover border-2 border-blue-500"
               />
             )}
-            <div className="flex-1">
+            <div>
               <label className="cursor-pointer inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {uploading ? 'Uploading...' : 'Choose Photo'}
+                {uploading ? 'Uploading...' : 'Upload Photo'}
                 <input
                   type="file"
                   accept="image/*"
@@ -344,12 +345,41 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
               </p>
             </div>
           </div>
+          
+          {/* Preset Avatars */}
+          <div className="mt-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Or choose a preset avatar:</p>
+            <div className="flex gap-3 flex-wrap">
+              {PRESET_AVATARS.map((preset) => (
+                <button
+                  key={preset.url}
+                  type="button"
+                  onClick={() => {
+                    setAvatarUrl(preset.url);
+                    setMessage(`Selected ${preset.name}! Click "Save Profile" to save.`);
+                  }}
+                  className={`relative group ${
+                    avatarUrl === preset.url ? 'ring-2 ring-blue-500 ring-offset-2' : ''
+                  }`}
+                  title={preset.name}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={preset.url}
+                    alt={preset.name}
+                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 transition-colors"
+                  />
+                  <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                    {preset.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-            Username
-          </label>
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Username</label>
           <input
             type="text"
             value={username}
@@ -359,9 +389,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-            Email
-          </label>
+          <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Email</label>
           {!showEmailChange ? (
             <div className="flex items-center gap-2">
               <input
@@ -482,9 +510,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
 
       {/* Cravings */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-          What I&apos;m Craving
-        </h3>
+        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">What I&apos;m Craving</h3>
         <div className="flex flex-wrap gap-2 mb-3">
           {COMMON_CRAVINGS.map((craving) => (
             <button
@@ -505,53 +531,40 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
             type="text"
             value={customCraving}
             onChange={(e) => setCustomCraving(e.target.value)}
-            onKeyPress={(e) =>
-              e.key === 'Enter' &&
-              addCustomItem(customCraving, setCustomCraving, selectedCravings, setSelectedCravings)
-            }
+            onKeyPress={(e) => e.key === 'Enter' && addCustomItem(customCraving, setCustomCraving, selectedCravings, setSelectedCravings)}
             placeholder="Add custom craving..."
             className="flex-1 px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
           <button
-            onClick={() =>
-              addCustomItem(customCraving, setCustomCraving, selectedCravings, setSelectedCravings)
-            }
+            onClick={() => addCustomItem(customCraving, setCustomCraving, selectedCravings, setSelectedCravings)}
             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
             Add
           </button>
         </div>
-        {selectedCravings.filter(
-          (c) => !COMMON_CRAVINGS.includes(c as (typeof COMMON_CRAVINGS)[number])
-        ).length > 0 && (
+        {selectedCravings.filter(c => !COMMON_CRAVINGS.includes(c as typeof COMMON_CRAVINGS[number])).length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
-            {selectedCravings
-              .filter((c) => !COMMON_CRAVINGS.includes(c as (typeof COMMON_CRAVINGS)[number]))
-              .map((craving) => (
-                <span
-                  key={craving}
-                  className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm flex items-center gap-1"
+            {selectedCravings.filter(c => !COMMON_CRAVINGS.includes(c as typeof COMMON_CRAVINGS[number])).map((craving) => (
+              <span
+                key={craving}
+                className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm flex items-center gap-1"
+              >
+                {craving}
+                <button
+                  onClick={() => setSelectedCravings(selectedCravings.filter(c => c !== craving))}
+                  className="ml-1 text-xs"
                 >
-                  {craving}
-                  <button
-                    onClick={() =>
-                      setSelectedCravings(selectedCravings.filter((c) => c !== craving))
-                    }
-                    className="ml-1 text-xs"
-                  >
-                    ✕
-                  </button>
-                </span>
-              ))}
+                  ✕
+                </button>
+              </span>
+            ))}
           </div>
         )}
       </div>
 
       {/* Favorite Cuisines */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-          Favorite Cuisines
-        </h3>
+        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">Favorite Cuisines</h3>
         <div className="flex flex-wrap gap-2 mb-3">
           {COMMON_CUISINES.map((cuisine) => (
             <button
@@ -572,60 +585,45 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
             type="text"
             value={customCuisine}
             onChange={(e) => setCustomCuisine(e.target.value)}
-            onKeyPress={(e) =>
-              e.key === 'Enter' &&
-              addCustomItem(customCuisine, setCustomCuisine, selectedCuisines, setSelectedCuisines)
-            }
+            onKeyPress={(e) => e.key === 'Enter' && addCustomItem(customCuisine, setCustomCuisine, selectedCuisines, setSelectedCuisines)}
             placeholder="Add custom cuisine..."
             className="flex-1 px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
           <button
-            onClick={() =>
-              addCustomItem(customCuisine, setCustomCuisine, selectedCuisines, setSelectedCuisines)
-            }
+            onClick={() => addCustomItem(customCuisine, setCustomCuisine, selectedCuisines, setSelectedCuisines)}
             className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
           >
             Add
           </button>
         </div>
-        {selectedCuisines.filter(
-          (c) => !COMMON_CUISINES.includes(c as (typeof COMMON_CUISINES)[number])
-        ).length > 0 && (
+        {selectedCuisines.filter(c => !COMMON_CUISINES.includes(c as typeof COMMON_CUISINES[number])).length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
-            {selectedCuisines
-              .filter((c) => !COMMON_CUISINES.includes(c as (typeof COMMON_CUISINES)[number]))
-              .map((cuisine) => (
-                <span
-                  key={cuisine}
-                  className="px-3 py-1 bg-green-500 text-white rounded-full text-sm flex items-center gap-1"
+            {selectedCuisines.filter(c => !COMMON_CUISINES.includes(c as typeof COMMON_CUISINES[number])).map((cuisine) => (
+              <span
+                key={cuisine}
+                className="px-3 py-1 bg-green-500 text-white rounded-full text-sm flex items-center gap-1"
+              >
+                {cuisine}
+                <button
+                  onClick={() => setSelectedCuisines(selectedCuisines.filter(c => c !== cuisine))}
+                  className="ml-1 text-xs"
                 >
-                  {cuisine}
-                  <button
-                    onClick={() =>
-                      setSelectedCuisines(selectedCuisines.filter((c) => c !== cuisine))
-                    }
-                    className="ml-1 text-xs"
-                  >
-                    ✕
-                  </button>
-                </span>
-              ))}
+                  ✕
+                </button>
+              </span>
+            ))}
           </div>
         )}
       </div>
 
       {/* Dietary Restrictions */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-          Dietary Restrictions
-        </h3>
+        <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">Dietary Restrictions</h3>
         <div className="flex flex-wrap gap-2 mb-3">
           {COMMON_DIETARY_RESTRICTIONS.map((restriction) => (
             <button
               key={restriction}
-              onClick={() =>
-                toggleSelection(restriction, selectedRestrictions, setSelectedRestrictions)
-              }
+              onClick={() => toggleSelection(restriction, selectedRestrictions, setSelectedRestrictions)}
               className={`px-3 py-1 rounded-full text-sm ${
                 selectedRestrictions.includes(restriction)
                   ? 'bg-orange-500 text-white'
@@ -641,60 +639,33 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
             type="text"
             value={customRestriction}
             onChange={(e) => setCustomRestriction(e.target.value)}
-            onKeyPress={(e) =>
-              e.key === 'Enter' &&
-              addCustomItem(
-                customRestriction,
-                setCustomRestriction,
-                selectedRestrictions,
-                setSelectedRestrictions
-              )
-            }
+            onKeyPress={(e) => e.key === 'Enter' && addCustomItem(customRestriction, setCustomRestriction, selectedRestrictions, setSelectedRestrictions)}
             placeholder="Add custom restriction..."
             className="flex-1 px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
           <button
-            onClick={() =>
-              addCustomItem(
-                customRestriction,
-                setCustomRestriction,
-                selectedRestrictions,
-                setSelectedRestrictions
-              )
-            }
+            onClick={() => addCustomItem(customRestriction, setCustomRestriction, selectedRestrictions, setSelectedRestrictions)}
             className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
           >
             Add
           </button>
         </div>
-        {selectedRestrictions.filter(
-          (r) =>
-            !COMMON_DIETARY_RESTRICTIONS.includes(r as (typeof COMMON_DIETARY_RESTRICTIONS)[number])
-        ).length > 0 && (
+        {selectedRestrictions.filter(r => !COMMON_DIETARY_RESTRICTIONS.includes(r as typeof COMMON_DIETARY_RESTRICTIONS[number])).length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
-            {selectedRestrictions
-              .filter(
-                (r) =>
-                  !COMMON_DIETARY_RESTRICTIONS.includes(
-                    r as (typeof COMMON_DIETARY_RESTRICTIONS)[number]
-                  )
-              )
-              .map((restriction) => (
-                <span
-                  key={restriction}
-                  className="px-3 py-1 bg-orange-500 text-white rounded-full text-sm flex items-center gap-1"
+            {selectedRestrictions.filter(r => !COMMON_DIETARY_RESTRICTIONS.includes(r as typeof COMMON_DIETARY_RESTRICTIONS[number])).map((restriction) => (
+              <span
+                key={restriction}
+                className="px-3 py-1 bg-orange-500 text-white rounded-full text-sm flex items-center gap-1"
+              >
+                {restriction}
+                <button
+                  onClick={() => setSelectedRestrictions(selectedRestrictions.filter(r => r !== restriction))}
+                  className="ml-1 text-xs"
                 >
-                  {restriction}
-                  <button
-                    onClick={() =>
-                      setSelectedRestrictions(selectedRestrictions.filter((r) => r !== restriction))
-                    }
-                    className="ml-1 text-xs"
-                  >
-                    ✕
-                  </button>
-                </span>
-              ))}
+                  ✕
+                </button>
+              </span>
+            ))}
           </div>
         )}
       </div>
@@ -722,54 +693,33 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
             type="text"
             value={customAllergy}
             onChange={(e) => setCustomAllergy(e.target.value)}
-            onKeyPress={(e) =>
-              e.key === 'Enter' &&
-              addCustomItem(
-                customAllergy,
-                setCustomAllergy,
-                selectedAllergies,
-                setSelectedAllergies
-              )
-            }
+            onKeyPress={(e) => e.key === 'Enter' && addCustomItem(customAllergy, setCustomAllergy, selectedAllergies, setSelectedAllergies)}
             placeholder="Add custom allergy..."
             className="flex-1 px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
           <button
-            onClick={() =>
-              addCustomItem(
-                customAllergy,
-                setCustomAllergy,
-                selectedAllergies,
-                setSelectedAllergies
-              )
-            }
+            onClick={() => addCustomItem(customAllergy, setCustomAllergy, selectedAllergies, setSelectedAllergies)}
             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
           >
             Add
           </button>
         </div>
-        {selectedAllergies.filter(
-          (a) => !COMMON_ALLERGIES.includes(a as (typeof COMMON_ALLERGIES)[number])
-        ).length > 0 && (
+        {selectedAllergies.filter(a => !COMMON_ALLERGIES.includes(a as typeof COMMON_ALLERGIES[number])).length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
-            {selectedAllergies
-              .filter((a) => !COMMON_ALLERGIES.includes(a as (typeof COMMON_ALLERGIES)[number]))
-              .map((allergy) => (
-                <span
-                  key={allergy}
-                  className="px-3 py-1 bg-red-500 text-white rounded-full text-sm flex items-center gap-1"
+            {selectedAllergies.filter(a => !COMMON_ALLERGIES.includes(a as typeof COMMON_ALLERGIES[number])).map((allergy) => (
+              <span
+                key={allergy}
+                className="px-3 py-1 bg-red-500 text-white rounded-full text-sm flex items-center gap-1"
+              >
+                {allergy}
+                <button
+                  onClick={() => setSelectedAllergies(selectedAllergies.filter(a => a !== allergy))}
+                  className="ml-1 text-xs"
                 >
-                  {allergy}
-                  <button
-                    onClick={() =>
-                      setSelectedAllergies(selectedAllergies.filter((a) => a !== allergy))
-                    }
-                    className="ml-1 text-xs"
-                  >
-                    ✕
-                  </button>
-                </span>
-              ))}
+                  ✕
+                </button>
+              </span>
+            ))}
           </div>
         )}
       </div>
@@ -784,9 +734,7 @@ export default function UserProfileForm({ profile, onUpdate }: UserProfileFormPr
           {saving ? 'Saving...' : 'Save Profile'}
         </button>
         {message && (
-          <span
-            className={`text-sm ${message.includes('success') ? 'text-green-600' : 'text-red-600'}`}
-          >
+          <span className={`text-sm ${message.includes('success') ? 'text-green-600' : 'text-red-600'}`}>
             {message}
           </span>
         )}

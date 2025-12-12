@@ -170,11 +170,11 @@ export default function MenuCategorySelector({ menus }: MenuCategorySelectorProp
       {/* Menu Items */}
       <div>
         <h3 className="font-semibold text-lg mb-3">{selectedMenu.title}</h3>
-        <div className="space-y-2">
+        <div className="space-y-3">
           {selectedMenu.items.map((item) => (
             <div
               key={item.id}
-              className="menu-item-card flex items-center justify-between rounded-lg border border-neutral-200 p-3 dark:border-neutral-800 cursor-pointer transition-colors"
+              className="menu-item-card flex items-center justify-between rounded-xl border p-4 cursor-pointer transition-colors"
             >
               <span className="text-sm font-medium">{item.name}</span>
               <span className="text-sm font-semibold text-gray-700 dark:text-white">

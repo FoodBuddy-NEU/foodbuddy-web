@@ -62,7 +62,7 @@ test('signs up with email/password and redirects to profile', async () => {
     'new@example.com',
     'newsecret'
   );
-
+  
   await waitFor(() => {
     expect(mockCreateUserProfile).toHaveBeenCalledWith('newuid', 'new@example.com', 'new');
     expect(mockPush).toHaveBeenCalledWith('/profile');
