@@ -162,7 +162,7 @@ export default function RestaurantsPage() {
             <div>
               <div className="font-medium mb-2">Food types</div>
               <div className="flex flex-wrap gap-2">
-                {allFoodTypes.map((t) => {
+                {allFoodTypes.map((t: string) => {
                   const on = activeFoodTypes.includes(t);
                   return (
                     <button
@@ -184,15 +184,13 @@ export default function RestaurantsPage() {
             <div>
               <div className="font-medium mb-2">Tags</div>
               <div className="flex flex-wrap gap-2">
-                {allTags.map((t) => {
+                {allTags.map((t: string) => {
                   const on = activeTags.includes(t);
                   return (
                     <button
                       key={t}
                       onClick={() =>
-                        setActiveTags((prev) =>
-                          on ? prev.filter((x) => x !== t) : [...prev, t]
-                        )
+                        setActiveTags((prev) => (on ? prev.filter((x) => x !== t) : [...prev, t]))
                       }
                       className={`${chipBaseClass} ${on ? 'filter-chip--active' : ''}`}
                     >

@@ -79,7 +79,7 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 ## 👥 Target Users
 
-- **Primary:** University students seeking affordable, trustworthy, and relevant dining options.  
+- **Primary:** University students seeking affordable, trustworthy, and relevant dining options.
 - **Secondary:** Small groups or solo diners looking for convenience, verified deals, and personalized recommendations.
 
 ---
@@ -105,9 +105,9 @@ By combining **verified deal data**, **smart filtering**, and **a clean UI**, Fo
 
 ## 🧑‍💻 Team
 
-- **Yangcheng Luo** – Backend & Data Model  
-- **Yachen Wang** – Frontend & UI Development  
-- **Yu Chen** – Integration & Testing  
+- **Yangcheng Luo** – Backend & Data Model
+- **Yachen Wang** – Frontend & UI Development
+- **Yu Chen** – Integration & Testing
 
 ---
 ## 📸 Live Demo
